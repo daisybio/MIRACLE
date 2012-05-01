@@ -24,13 +24,13 @@
 				<thead>
 					<tr>
 					
+						<th><g:message code="slide.antibody.label" default="Antibody" /></th>
+					
 						<g:sortableColumn property="dateOfStaining" title="${message(code: 'slide.dateOfStaining.label', default: 'Date Of Staining')}" />
 					
 						<th><g:message code="slide.experimenter.label" default="Experimenter" /></th>
 					
 						<g:sortableColumn property="laserWavelength" title="${message(code: 'slide.laserWavelength.label', default: 'Laser Wavelength')}" />
-					
-						<th><g:message code="slide.primaryAntibody.label" default="Primary Antibody" /></th>
 					
 						<th><g:message code="slide.resultFile.label" default="Result File" /></th>
 					
@@ -42,13 +42,13 @@
 				<g:each in="${slideInstanceList}" status="i" var="slideInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${slideInstance.id}">${fieldValue(bean: slideInstance, field: "dateOfStaining")}</g:link></td>
+						<td><g:link action="show" id="${slideInstance.id}">${fieldValue(bean: slideInstance, field: "antibody")}</g:link></td>
+					
+						<td><g:formatDate date="${slideInstance.dateOfStaining}" /></td>
 					
 						<td>${fieldValue(bean: slideInstance, field: "experimenter")}</td>
 					
 						<td>${fieldValue(bean: slideInstance, field: "laserWavelength")}</td>
-					
-						<td>${fieldValue(bean: slideInstance, field: "primaryAntibody")}</td>
 					
 						<td>${fieldValue(bean: slideInstance, field: "resultFile")}</td>
 					

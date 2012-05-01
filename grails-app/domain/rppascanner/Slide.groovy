@@ -8,10 +8,9 @@ class Slide {
     ResultFile resultFile
     ResultFile resultImage
 
-    static hasMany = [spots: Spot]
+    static hasMany = [spots: Spot, blockShifts: BlockShift]
 
-    PrimaryAntibody primaryAntibody
-    SecondaryAntibody secondaryAntibody
+    Antibody antibody
 
     static constraints = {
     }

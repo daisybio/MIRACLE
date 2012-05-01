@@ -8,6 +8,15 @@
     </head>
     <body>
 
+    <div class="nav" role="navigation">
+        <ul>
+            <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+            <li><g:link class="list" action="show" id="${slideInstance.id}">Back to slide (without saving changes)</g:link></li>
+        </ul>
+    </div>
+
+    <h1>Add Spots</h1><hr/><br/>
+
         <g:form action="processResultFile">
 
             <g:hiddenField name="id" value="${slideInstance.id}"></g:hiddenField>
