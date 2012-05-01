@@ -25,12 +25,12 @@
 	<g:field type="number" name="laserWavelength" required="" value="${fieldValue(bean: slideInstance, field: 'laserWavelength')}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'primaryAntibody', 'error')} required">
-	<label for="primaryAntibody">
-		<g:message code="slide.primaryAntibody.label" default="Primary Antibody" />
+<div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'antibody', 'error')} required">
+	<label for="antibody">
+		<g:message code="slide.antibody.label" default="Antibody" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="primaryAntibody" name="primaryAntibody.id" from="${rppascanner.PrimaryAntibody.list()}" optionKey="id" required="" value="${slideInstance?.primaryAntibody?.id}" class="many-to-one"/>
+	<g:select id="antibody" name="antibody.id" from="${rppascanner.Antibody.list()}" optionKey="id" required="" value="${slideInstance?.antibody?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'resultFile', 'error')} required">
@@ -49,19 +49,4 @@
     <input type="file" id="resultImage.input" name="resultImage.input"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'secondaryAntibody', 'error')} required">
-	<label for="secondaryAntibody">
-		<g:message code="slide.secondaryAntibody.label" default="Secondary Antibody" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="secondaryAntibody" name="secondaryAntibody.id" from="${rppascanner.SecondaryAntibody.list()}" optionKey="id" required="" value="${slideInstance?.secondaryAntibody?.id}" class="many-to-one"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'spots', 'error')} ">
-	<label for="spots">
-		<g:message code="slide.spots.label" default="Spots" />
-		
-	</label>
-	<g:select name="spots" from="${rppascanner.Spot.list()}" multiple="multiple" optionKey="id" size="5" value="${slideInstance?.spots*.id}" class="many-to-many"/>
-</div>
 

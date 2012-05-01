@@ -6,6 +6,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 class SlideController {
 
+    static navigation = true
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def slideService
@@ -127,6 +129,58 @@ class SlideController {
         def slideInstance = Slide.get(params.id)
 
         [slideInstance: slideInstance, configs: ResultFileConfig.list(), sheets: slideService.getSheets(slideInstance)]
+    }
+
+    def addBlockShifts = {
+        def slideInstance = Slide.get(params.id)
+
+        def hblockShifts = slideInstance.blockShifts.sort{ it.blockNumber }.collect{ it.horizontalShift }
+        def vblockShifts = slideInstance.blockShifts.sort{ it.blockNumber }.collect{ it.verticalShift }
+
+        [slideInstance: slideInstance, hblockShifts: hblockShifts, vblockShifts: vblockShifts]
+    }
+
+    def saveBlockShiftPattern = {
+        println params
+        def slideInstance = Slide.get(params.id)
+
+        def vshift = params.findAll{it.toString().startsWith("vshift")}
+        def hshift = params.findAll{it.toString().startsWith("hshift")}
+
+        for (int block in 1..48)
+        {
+            slideInstance.addToBlockShifts(new BlockShift(blockNumber: block, horizontalShift: hshift["hshift_${block}"],
+            verticalShift: vshift["vshift_${block}"]))
+        }
+
+        if(slideInstance.save(flush: true))
+        {
+            flash.message = "Block shift pattern changed"
+        }
+
+        else flash.message = "Block shift pattern could NOT be changed!"
+
+        redirect(action: "show", id: params.id)
+    }
+
+    def deleteSpots = {
+
+        def slideInstance = Slide.get(params.id)
+        def error = false
+
+        for (def spot in slideInstance.spots) {
+            slideInstance.removeFromSpots(spot)
+            if (!spot.delete())
+            {
+                error = true
+                slideInstance.addToSpots(spot)
+                break
+            }
+        }
+        if (!error) flash.message = "All spots successfully deleted"
+        else flash.message = "Could not delete spots!"
+        redirect(action: "show", id: params.id)
+
     }
 
     def processResultFile = {

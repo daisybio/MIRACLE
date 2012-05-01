@@ -14,6 +14,9 @@
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+                <g:if test="${slideInstance.spots.size() == 0}"><li><g:link class="create" action="addSpots" id="${slideInstance?.id}">Add Spots</g:link></li></g:if>
+                <g:else><li><g:link class="delete" action="deleteSpots" id="${slideInstance?.id}">Delete Spots</g:link></li></g:else>
+                <li><g:link class="create" action="addBlockShifts" id="${slideInstance?.id}">Modify Block Shifts</g:link></li>
 			</ul>
 		</div>
 		<div id="show-slide" class="content scaffold-show" role="main">
@@ -22,6 +25,15 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list slide">
+			
+				<g:if test="${slideInstance?.antibody}">
+				<li class="fieldcontain">
+					<span id="antibody-label" class="property-label"><g:message code="slide.antibody.label" default="Antibody" /></span>
+					
+						<span class="property-value" aria-labelledby="antibody-label"><g:link controller="antibody" action="show" id="${slideInstance?.antibody?.id}">${slideInstance?.antibody?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
 			
 				<g:if test="${slideInstance?.dateOfStaining}">
 				<li class="fieldcontain">
@@ -50,15 +62,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${slideInstance?.primaryAntibody}">
-				<li class="fieldcontain">
-					<span id="primaryAntibody-label" class="property-label"><g:message code="slide.primaryAntibody.label" default="Primary Antibody" /></span>
-					
-						<span class="property-value" aria-labelledby="primaryAntibody-label"><g:link controller="primaryAntibody" action="show" id="${slideInstance?.primaryAntibody?.id}">${slideInstance?.primaryAntibody?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${slideInstance?.resultFile}">
 				<li class="fieldcontain">
 					<span id="resultFile-label" class="property-label"><g:message code="slide.resultFile.label" default="Result File" /></span>
@@ -72,20 +75,11 @@
 				<li class="fieldcontain">
 					<span id="resultImage-label" class="property-label"><g:message code="slide.resultImage.label" default="Result Image" /></span>
 					
-						<span class="property-value" aria-labelledby="resultImage-label"><g:link controller="resultImage" action="show" id="${slideInstance?.resultImage?.id}">${slideInstance?.resultImage?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="resultImage-label"><g:link controller="resultFile" action="show" id="${slideInstance?.resultImage?.id}">${slideInstance?.resultImage?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${slideInstance?.secondaryAntibody}">
-				<li class="fieldcontain">
-					<span id="secondaryAntibody-label" class="property-label"><g:message code="slide.secondaryAntibody.label" default="Secondary Antibody" /></span>
-					
-						<span class="property-value" aria-labelledby="secondaryAntibody-label"><g:link controller="secondaryAntibody" action="show" id="${slideInstance?.secondaryAntibody?.id}">${slideInstance?.secondaryAntibody?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
+
 				<g:if test="${slideInstance?.spots}">
 				<li class="fieldcontain">
 					<span id="spots-label" class="property-label"><g:message code="slide.spots.label" default="Spots" /></span>
@@ -105,6 +99,13 @@
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
+
+            <imagezoom:openzoom imageurl="${resource(absolute: slideInstance?.resultImage.filePath)}"
+                                height="50%"
+                                width="50%"
+                                divid="slideZoom"/>
+            <div id="slideZoom"/>
+
 		</div>
 	</body>
 </html>
