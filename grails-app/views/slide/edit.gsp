@@ -1,4 +1,4 @@
-<%@ page import="rppascanner.Slide" %>
+<%@ page import="org.nanocan.rppa.scanner.Slide" %>
 <!doctype html>
 <html>
 	<head>

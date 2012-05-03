@@ -11,7 +11,7 @@
 // }
 
 
-grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
+grails.project.groupId = RPPAscanner // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
 grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
@@ -34,6 +34,22 @@ grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
+// override jquery ui theme
+grails.resources.modules = {
+    overrides {
+        'jquery-theme' {
+            resource id:'theme',
+                    url:[dir: 'jquery-ui/themes/smoothness',
+                            file:'jquery-ui-1.8.20.custom.css'],
+                    attrs:[media:'screen, projection']
+        }
+
+        'jquery-ui' {
+            resource id:'js', url:[dir:'jquery-ui/js', file:"jquery-ui-1.8.20.custom.min.js"],
+                    nominify: true, disposition: 'head'
+        }
+    }
+}
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
@@ -90,7 +106,8 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
-    warn    'rppascanner'
+    warn    'scanner'
 }
 
-upload.location = "upload/"
+//upload.location = "upload/"
+grails.views.javascript.library="jquery"
