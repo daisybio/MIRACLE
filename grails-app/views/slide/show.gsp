@@ -1,5 +1,5 @@
 
-<%@ page import="rppascanner.Slide" %>
+<%@ page import="org.nanocan.rppa.scanner.Slide" %>
 <!doctype html>
 <html>
 	<head>
@@ -34,6 +34,15 @@
 					
 				</li>
 				</g:if>
+
+                <g:if test="${slideInstance?.layout}">
+                    <li class="fieldcontain">
+                        <span id="layout-label" class="property-label"><g:message code="slide.layout.label" default="Layout" /></span>
+
+                        <span class="property-value" aria-labelledby="layout-label"><g:link controller="slideLayout" action="show" id="${slideInstance?.layout?.id}">${slideInstance?.layout?.encodeAsHTML()}</g:link></span>
+
+                    </li>
+                </g:if>
 			
 				<g:if test="${slideInstance?.dateOfStaining}">
 				<li class="fieldcontain">
@@ -100,7 +109,7 @@
 				</fieldset>
 			</g:form>
 
-            <imagezoom:openzoom imageurl="${resource(absolute: slideInstance?.resultImage.filePath)}"
+            <imagezoom:openzoom imageurl="${resource(dir: imagezoomFolder, file:'ImageProperties.xml')}"
                                 height="50%"
                                 width="50%"
                                 divid="slideZoom"/>

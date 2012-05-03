@@ -1,4 +1,4 @@
-<%@ page import="rppascanner.Slide" %>
+<%@ page import="rppa.org.nanocan.rppa.layout.SlideLayout; org.nanocan.rppa.scanner.Slide" %>
 
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'dateOfStaining', 'error')} required">
@@ -14,7 +14,7 @@
 		<g:message code="slide.experimenter.label" default="Experimenter" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="experimenter" name="experimenter.id" from="${rppascanner.Experimenter.list()}" optionKey="id" required="" value="${slideInstance?.experimenter?.id}" class="many-to-one"/>
+	<g:select id="experimenter" name="experimenter.id" from="${scanner.Experimenter.list()}" optionKey="id" required="" value="${slideInstance?.experimenter?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'laserWavelength', 'error')} required">
@@ -30,7 +30,16 @@
 		<g:message code="slide.antibody.label" default="Antibody" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="antibody" name="antibody.id" from="${rppascanner.Antibody.list()}" optionKey="id" required="" value="${slideInstance?.antibody?.id}" class="many-to-one"/>
+	<g:select id="antibody" name="antibody.id" from="${scanner.Antibody.list()}" optionKey="id" required="" value="${slideInstance?.antibody?.id}" class="many-to-one"/>
+</div>
+
+
+<div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'layout', 'error')} required">
+    <label for="layout">
+        <g:message code="slide.layout.label" default="SlideLayout" />
+        <span class="required-indicator">*</span>
+    </label>
+    <g:select id="layout" name="layout.id" from="${SlideLayout.list()}" optionKey="id" required="" value="${slideInstance?.layout?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'resultFile', 'error')} required">
