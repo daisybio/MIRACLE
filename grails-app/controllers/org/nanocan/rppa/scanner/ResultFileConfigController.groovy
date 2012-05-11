@@ -4,5 +4,8 @@ class ResultFileConfigController {
 
     def scaffold = true
 
-    static navigation = true
+    static navigation = [
+            group: 'scanner',
+            title: 'Result File Config'
+    ]
 }

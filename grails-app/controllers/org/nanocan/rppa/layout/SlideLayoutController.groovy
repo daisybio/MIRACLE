@@ -1,10 +1,14 @@
 package org.nanocan.rppa.layout
 
 import org.springframework.dao.DataIntegrityViolationException
+import org.nanocan.rppa.scanner.Spot
 
 class SlideLayoutController {
 
-    static navigation = true
+    static navigation = [
+            group: 'main',
+            title: 'Slide Layout'
+    ]
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -23,16 +27,72 @@ class SlideLayoutController {
         [slideLayoutInstance: new SlideLayout(params)]
     }
 
-    def showSampleSpots(){
-        def slideLayoutInstance = SlideLayout.get(params.id)
-
-        [slideLayout: slideLayoutInstance, spots: slideLayoutInstance.sampleSpots]
-    }
-
     def sampleSpotTable(){
         def slideLayoutInstance = SlideLayout.get(params.id)
 
         [slideLayout:  slideLayoutInstance, spots: slideLayoutInstance.sampleSpots, sampleProperty: params.sampleProperty]
+    }
+
+    def cellLineUpdate() {
+        params.remove("action")
+        params.remove("controller")
+
+        if(params.size() == 0) render "Nothing to do"
+
+        params.each{ key, value ->
+            if(value != "")
+            {
+                def spot = LayoutSpot.get(key as Long)
+
+                if (value as Long == -1) spot.cellLine = null
+                else spot.cellLine = CellLine.get(value as Long)
+
+                spot.save()
+            }
+        }
+        render "Save successful"
+    }
+
+    def lysisBufferUpdate(){
+        params.remove("action")
+        params.remove("controller")
+
+        if(params.size() == 0) render "Nothing to do"
+
+        params.each{ key, value ->
+            if(value != "")
+            {
+                def spot = LayoutSpot.get(key as Long)
+
+                if (value as Long == -1) spot.lysisBuffer = null
+                else spot.lysisBuffer = LysisBuffer.get(value as Long)
+
+                spot.save()
+            }
+        }
+        render "Save successful"
+
+    }
+
+    def dilutionFactorUpdate(){
+        params.remove("action")
+        params.remove("controller")
+
+        if(params.size() == 0) render "Nothing to do"
+
+        params.each{ key, value ->
+            if(value != "")
+            {
+                def spot = LayoutSpot.get(key as Long)
+
+                if (value as Long == -1) spot.dilutionFactor = null
+                else spot.dilutionFactor = Dilution.get(value as Long)
+
+                spot.save()
+            }
+        }
+        render "Save successful"
+
     }
 
     def save() {

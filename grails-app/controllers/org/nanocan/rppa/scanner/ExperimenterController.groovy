@@ -4,5 +4,8 @@ class ExperimenterController {
 
     def scaffold = true
 
-    static navigation = true
+    static navigation = [
+            group: 'scanner',
+            title: 'Experimenter'
+    ]
 }

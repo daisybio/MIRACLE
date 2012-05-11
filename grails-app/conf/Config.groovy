@@ -109,5 +109,5 @@ log4j = {
     warn    'scanner'
 }
 
-//upload.location = "upload/"
 grails.views.javascript.library="jquery"
+

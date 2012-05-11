@@ -1,5 +1,5 @@
 
-<%@ page import="rppa.org.nanocan.rppa.layout.SlideLayout" %>
+<%@ page import="org.nanocan.rppa.layout.SlideLayout" %>
 <!doctype html>
 <html>
 	<head>
@@ -15,6 +15,8 @@
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
+
+
 		<div id="list-slideLayout" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">

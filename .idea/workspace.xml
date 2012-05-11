@@ -2,175 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff76e78a-24e9-4a09-a6b2-f99514bc63a9" name="Default" comment="changes in project structure, layout can be edited in gui, but changes are not reflected in database yet. .gitignore added">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/flash/Zoomify Converter.exe" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/flash/ZoomifyViewer.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/blank.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_hex.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_hsb_b.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_hsb_h.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_hsb_s.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_indic.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_overlay.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_rgb_b.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_rgb_g.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_rgb_r.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_select.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/colorpicker_submit.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/custom_background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/custom_hex.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/custom_hsb_b.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/custom_hsb_h.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/custom_hsb_s.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/custom_indic.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/custom_rgb_b.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/custom_rgb_g.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/custom_rgb_r.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/custom_submit.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/rppascanner_logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/rppascanner_logo.xcf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/rppascanner_logo_small.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/select.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/select2.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/images/slider.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/ant.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/BlockShiftController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ExperimenterController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ResultFileConfigController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ResultFileController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SpotController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/CellLine.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LysisBuffer.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/rnai/SiRNA.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Antibody.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/BlockShift.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Slide.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Spot.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/layout/SlideLayoutService.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/resultFileConfig/_form.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/resultFileConfig/create.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/resultFileConfig/edit.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/resultFileConfig/list.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/resultFileConfig/show.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/_form.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/create.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/edit.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/list.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/showSampleSpots.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/scanner/ResultFileImporter.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/Controller.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/DomainClass.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/Filters.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/ScaffoldingController.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/Script.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/Service.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/TagLib.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/Tests.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/WebTest.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/artifacts/hibernate.cfg.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/Controller.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/Test.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/_form.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/create.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/edit.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/list.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/renderEditor.template" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/scaffolding/show.gsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/Controller.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/Filters.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/Generic.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/Service.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/TagLib.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/testing/UnitTest.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/templates/war/web.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/css/colorpicker.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/css/jquery-ui-1.8.20.custom.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web-app/js/colorpicker.js" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\grails-app\controllers\scanner\ExperimenterController.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\grails-app\controllers\scanner\ResultFileController.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\grails-app\controllers\scanner\SlideController.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\grails-app\domain\rppascanner\Antibody.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\grails-app\domain\rppascanner\Spot.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\grails-app\domain\scanner\Slide.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\src\groovy\scanner\ResultFileImporter.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\target\stacktrace.log" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\AntibodyControllerTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\AntibodyTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\ExperimenterControllerTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\ExperimenterTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\ResultFileConfigTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\ResultFileControllerTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\ResultImageTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\SecondaryAntibodyControllerTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\SecondaryAntibodyTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\SlideControllerTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\SlideServiceTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\SlideTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\scanner\SpotTests.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335618785703_org.springframework.web.multipart.commons.CommonsMultipartFile@1adea85" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335618786203_org.springframework.web.multipart.commons.CommonsMultipartFile@adaaca" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335618851312_org.springframework.web.multipart.commons.CommonsMultipartFile@1353ee5" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335618851406_org.springframework.web.multipart.commons.CommonsMultipartFile@a6bf46" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335619189921_org.springframework.web.multipart.commons.CommonsMultipartFile@bd36bd" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335619190000_org.springframework.web.multipart.commons.CommonsMultipartFile@9ec190" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335619561015_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335619736703_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335619828687_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335619828781_Assessment report no.1 05 2012.odt" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335620059687_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335620280046_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335620651375_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335620797312_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335620925031_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335621108609_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335621238812_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335621266078_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335621403687_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335621634093_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335622058140_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335623009593_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335623118625_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335623356609_Assessment report no.1 05 2012.doc" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335623356703_Assessment report no.1 05 2012.odt" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335634934953_2012-03-28 b-tubulin abcam abnova original.xls" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\upload\1335634935031_slide1.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RPPAscanner-grailsPlugins.iml" afterPath="$PROJECT_DIR$/RPPAscanner-grailsPlugins.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RPPAscanner.iml" afterPath="$PROJECT_DIR$/RPPAscanner.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application.properties" afterPath="$PROJECT_DIR$/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/ApplicationResources.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/ApplicationResources.groovy" />
+      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\grails-app\views\slideLayout\showSampleSpots.gsp" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/Config.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/Config.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/AntibodyController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/AntibodyController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/BlockShiftController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/BlockShiftController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ExperimenterController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ExperimenterController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ResultFileConfigController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ResultFileConfigController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/CellLine.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/CellLine.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LysisBuffer.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LysisBuffer.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Slide.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Slide.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/index.gsp" afterPath="$PROJECT_DIR$/grails-app/views/index.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/layouts/main.gsp" afterPath="$PROJECT_DIR$/grails-app/views/layouts/main.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/resultFileConfig/create.gsp" afterPath="$PROJECT_DIR$/grails-app/views/resultFileConfig/create.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/resultFileConfig/edit.gsp" afterPath="$PROJECT_DIR$/grails-app/views/resultFileConfig/edit.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/resultFileConfig/show.gsp" afterPath="$PROJECT_DIR$/grails-app/views/resultFileConfig/show.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/_form.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/_form.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/create.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/create.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/edit.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/edit.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/list.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/list.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slide/_form.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slide/_form.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slide/create.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slide/create.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slide/edit.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slide/edit.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slide/list.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slide/list.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slide/show.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slide/show.gsp" />
-      <change type="MOVED" beforePath="D:\Projects\RPPAscanner\grails-app\controllers\rppascanner\AntibodyController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/AntibodyController.groovy" />
-      <change type="MOVED" beforePath="D:\Projects\RPPAscanner\grails-app\domain\rppascanner\Experimenter.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Experimenter.groovy" />
-      <change type="MOVED" beforePath="D:\Projects\RPPAscanner\grails-app\domain\rppascanner\ResultFile.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/ResultFile.groovy" />
-      <change type="MOVED" beforePath="D:\Projects\RPPAscanner\grails-app\domain\rppascanner\ResultFileConfig.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/ResultFileConfig.groovy" />
-      <change type="MOVED" beforePath="D:\Projects\RPPAscanner\grails-app\services\rppascanner\SlideService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SlideService.groovy" />
-      <change type="MOVED" beforePath="D:\Projects\RPPAscanner\test\unit\rppascanner\ResultFileTests.groovy" afterPath="$PROJECT_DIR$/src/templates/testing/DomainClass.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/scaffolding/renderEditor.template" afterPath="$PROJECT_DIR$/src/templates/scaffolding/renderEditor.template" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/css/main.css" afterPath="$PROJECT_DIR$/web-app/css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/css/navigation.css" afterPath="$PROJECT_DIR$/web-app/css/navigation.css" />
     </list>
     <ignored path="RPPAscanner.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -229,91 +90,111 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Antibody.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Antibody.groovy">
+      <file leaf-file-name="SlideController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="5" selection-start="323" selection-end="323" vertical-scroll-proportion="0.0">
+            <state line="11" column="31" selection-start="389" selection-end="389" vertical-scroll-proportion="-5.9130435">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BlockShift.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/BlockShift.groovy">
+      <file leaf-file-name="main.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/main.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="6" selection-start="40" selection-end="40" vertical-scroll-proportion="0.0">
+            <state line="29" column="100" selection-start="2006" selection-end="2006" vertical-scroll-proportion="-17.384615">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Slide.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Slide.groovy">
+      <file leaf-file-name="sampleSpotTable.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="12" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0">
+            <state line="26" column="43" selection-start="953" selection-end="953" vertical-scroll-proportion="27.591837">
+              <folding>
+                <marker date="1336747434966" expanded="true" signature="3207:3534" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="3569:3759" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="3602:3753" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="3794:4089" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="4121:5553" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="4147:4214" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="4229:5547" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="4648:4735" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="4867:4954" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="5008:5509" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="5067:5495" placeholder="{...}" />
+                <marker date="1336747434966" expanded="true" signature="5159:5477" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="show.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="75" column="141" selection-start="3787" selection-end="3787" vertical-scroll-proportion="-9.938775">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SlideLayoutController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy">
+      <file leaf-file-name="_colorLegend.gsp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="8" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0">
+            <state line="20" column="104" selection-start="970" selection-end="970" vertical-scroll-proportion="0.35849056">
+              <folding>
+                <marker date="1336752437299" expanded="true" signature="481:540" placeholder="{...}" />
+                <marker date="1336752437299" expanded="true" signature="1885:2425" placeholder="{&quot;color&quot;: ' fpwmx8th2p8v2 '...}" />
+                <marker date="1336752437299" expanded="true" signature="1975:2083" placeholder="{...}" />
+                <marker date="1336752437299" expanded="true" signature="2131:2240" placeholder="{...}" />
+                <marker date="1336752437299" expanded="true" signature="2297:2407" placeholder="{...}" />
+                <marker date="1336752437299" expanded="true" signature="2563:2637" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slide/list.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="37" selection-start="889" selection-end="889" vertical-scroll-proportion="-6.591837">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CellLine.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/CellLine.groovy">
+      <file leaf-file-name="list.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/list.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="13" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
+            <state line="52" column="101" selection-start="2416" selection-end="2416" vertical-scroll-proportion="-9.714286">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LayoutSpot.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy">
+      <file leaf-file-name="main.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-app/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="20" selection-start="20" selection-end="20" vertical-scroll-proportion="0.0">
+            <state line="187" column="37" selection-start="3373" selection-end="3373" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LysisBuffer.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LysisBuffer.groovy">
+      <file leaf-file-name="navigation.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-app/css/navigation.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="17" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0">
+            <state line="79" column="77" selection-start="2941" selection-end="2941" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SlideLayout.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy">
+      <file leaf-file-name="SpotController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SpotController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="20" selection-start="20" selection-end="20" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SlideLayoutService.groovy" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/layout/SlideLayoutService.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="28" selection-start="450" selection-end="450" vertical-scroll-proportion="0.2820513">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SlideService.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SlideService.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="78" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0">
+            <state line="2" column="6" selection-start="40" selection-end="40" vertical-scroll-proportion="-1.4782609">
               <folding />
             </state>
           </provider>
@@ -335,22 +216,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/slide/_form.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/slide/show.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/domain/rppascanner/Antibody.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/domain/rppascanner/Slide.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/domain/rppa/layout/CellLine.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/domain/rppa/layout/LysisBuffer.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/domain/rppa/rnai/Rnai.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/layout/SlideLayoutController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/rppa/layout/SlideLayoutController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/layout/SlideLayoutService.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/CellLine.groovy" />
         <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LysisBuffer.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/conf/Config.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/CellLineController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/DilutionController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/LysisBufferController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/AntibodyController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ExperimenterController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ResultFileConfigController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" />
+        <option value="$PROJECT_DIR$/web-app/css/navigation.css" />
+        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/list.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/layouts/main.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp" />
       </list>
     </option>
   </component>
@@ -408,10 +289,6 @@
               <option name="myItemId" value="RPPAscanner" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -433,7 +310,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="web-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -447,29 +324,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="web-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="groovy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rppa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPPAscanner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPPAscanner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -487,11 +346,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rppa" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -509,15 +364,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="rppa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
+              <option name="myItemId" value="slideLayout" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -533,90 +384,11 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="grails-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="domain" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rppa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPPAscanner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPPAscanner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rppa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPPAscanner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPPAscanner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rppa" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPPAscanner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPPAscanner-grailsPlugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPPAscanner" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPPAscanner-grailsPlugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -642,14 +414,14 @@
       <recent name="D:\Projects\RPPAscanner\web-app\css" />
       <recent name="D:\Projects\RPPAscanner\grails-app\views\slide" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Projects\RPPAscanner\grails-app\views\slideLayout" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="org.nanocan.rppa.layout" />
       <recent name="rppa" />
       <recent name="org.nanocan" />
       <recent name="rppa.layout" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\RPPAscanner\grails-app\views\slideLayout" />
     </key>
   </component>
   <component name="RunManager" selected="Grails.Grails:RPPAscanner">
@@ -885,7 +657,7 @@
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.0" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959402" sideWeight="0.6714015" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -894,7 +666,8 @@
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276515" sideWeight="0.49839744" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Grails View" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32959402" sideWeight="0.67045456" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3285985" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Grails View" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32959402" sideWeight="0.6723485" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -902,9 +675,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24679486" sideWeight="0.67045456" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276515" sideWeight="0.49786323" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3285985" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24679486" sideWeight="0.6723485" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3276515" sideWeight="0.49786323" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -973,114 +745,137 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="32" selection-start="250" selection-end="250" vertical-scroll-proportion="-6.652174">
+          <folding>
+            <element signature="e#33#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/AntibodyController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="28" selection-start="146" selection-end="146" vertical-scroll-proportion="-4.4347825">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/BlockShiftController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="6" selection-start="40" selection-end="40" vertical-scroll-proportion="-1.4782609">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ExperimenterController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="32" selection-start="179" selection-end="179" vertical-scroll-proportion="-5.9130435">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ResultFileConfigController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="38" selection-start="189" selection-end="189" vertical-scroll-proportion="-5.9130435">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/ResultFileController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="6" selection-start="104" selection-end="104" vertical-scroll-proportion="-2.9565217">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SpotController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="6" selection-start="40" selection-end="40" vertical-scroll-proportion="-1.4782609">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="31" selection-start="389" selection-end="389" vertical-scroll-proportion="-5.9130435">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/list.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="37" selection-start="889" selection-end="889" vertical-scroll-proportion="-6.591837">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="187" column="37" selection-start="3373" selection-end="3373" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/css/navigation.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="77" selection-start="2941" selection-end="2941" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/list.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="101" selection-start="2416" selection-end="2416" vertical-scroll-proportion="-9.714286">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/main.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="100" selection-start="2006" selection-end="2006" vertical-scroll-proportion="-17.384615">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="135" column="41" selection-start="4261" selection-end="4261" vertical-scroll-proportion="-14.73913" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPPAscanner.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="63" selection-start="1320" selection-end="1320" vertical-scroll-proportion="-0.088263825" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/create.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="37" selection-start="821" selection-end="821" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/_form.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="49" selection-start="1547" selection-end="1547" vertical-scroll-proportion="0.0" />
+        <state line="26" column="43" selection-start="953" selection-end="953" vertical-scroll-proportion="27.591837">
+          <folding>
+            <marker date="1336747434966" expanded="true" signature="3207:3534" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="3569:3759" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="3602:3753" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="3794:4089" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="4121:5553" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="4147:4214" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="4229:5547" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="4648:4735" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="4867:4954" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="5008:5509" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="5067:5495" placeholder="{...}" />
+            <marker date="1336747434966" expanded="true" signature="5159:5477" placeholder="{...}" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/show.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="25" selection-start="2475" selection-end="2475" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Antibody.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="5" selection-start="323" selection-end="323" vertical-scroll-proportion="0.0">
+        <state line="75" column="141" selection-start="3787" selection-end="3787" vertical-scroll-proportion="-9.938775">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/BlockShift.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="6" selection-start="40" selection-end="40" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Slide.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="12" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="8" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/CellLine.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="20" selection-start="20" selection-end="20" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LysisBuffer.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="17" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="20" selection-start="20" selection-end="20" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SlideService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="78" selection-start="949" selection-end="949" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/layout/SlideLayoutService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="28" selection-start="450" selection-end="450" vertical-scroll-proportion="0.2820513">
-          <folding />
+        <state line="20" column="104" selection-start="970" selection-end="970" vertical-scroll-proportion="0.35849056">
+          <folding>
+            <marker date="1336752437299" expanded="true" signature="481:540" placeholder="{...}" />
+            <marker date="1336752437299" expanded="true" signature="1885:2425" placeholder="{&quot;color&quot;: ' fpwmx8th2p8v2 '...}" />
+            <marker date="1336752437299" expanded="true" signature="1975:2083" placeholder="{...}" />
+            <marker date="1336752437299" expanded="true" signature="2131:2240" placeholder="{...}" />
+            <marker date="1336752437299" expanded="true" signature="2297:2407" placeholder="{...}" />
+            <marker date="1336752437299" expanded="true" signature="2563:2637" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

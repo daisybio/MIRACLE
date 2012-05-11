@@ -1,4 +1,4 @@
-package scanner
+package org.nanocan.rppa.scanner
 
 class BlockShiftController {
 

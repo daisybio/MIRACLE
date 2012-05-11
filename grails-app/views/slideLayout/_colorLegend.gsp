@@ -1,14 +1,31 @@
-<%@ page import="rppa.org.nanocan.rppa.layout.Lorg.nanocan.rppa.layouorg.nanocan.layout.layout.CellLine" %>
+<%@ page import="org.nanocan.rppa.layout.Dilution; org.nanocan.rppa.layout.LysisBuffer; org.nanocan.rppa.layout.CellLine" %>
 <head>
     <r:require module="colorPicker"/>
+    <style>
+        #draggableLegend { width:250px; padding: 0.5em; background-color: #ffffff; position: fixed;
+            z-index: 10000; opacity: 0.95; top: 135px; left: 190px;
+            border-color: #e6e6e6; border-bottom-width: 1px; border-style: solid;}
+    </style>
+    <r:script>
+        $(function(){
+            $( "#draggableLegend").draggable();
+        });
+    </r:script>
 </head>
 <body>
-    <table width="100">
+    <div id="draggableLegend">
+
+    <table>
     <g:if test="${sampleProperty == 'cellLine'}"><g:set var="samplePropertyList" value="${CellLine.list()}"/></g:if>
     <g:elseif test="${sampleProperty == 'lysisBuffer'}"><g:set var="samplePropertyList" value="${LysisBuffer.list()}"/></g:elseif>
+    <g:elseif test="${sampleProperty == 'dilutionFactor'}"><g:set var="samplePropertyList" value="${Dilution.list()}"/></g:elseif>
+
+    <thead>
+    <tr><th>${sampleProperty.toString().capitalize()}</th><th>Color</th></tr>
+    </thead>
 
     <tr>
-        <td><input type="radio" onchange="changeColor('#ffffff', '')" name="radioSampleTypes" value="none"/> None
+        <td><input type="radio" onchange="changeColor('#ffffff', '', '-1')" name="radioSampleTypes" value="none"/> None
         </td>
         <td>
             <div id="colorPickNull" style="background-color: '#ffffff'; border: 1px solid; width:25px; height:25px;"></div>
@@ -18,7 +35,7 @@
     <g:each in="${samplePropertyList}">
         <tr>
             <td>
-                <input type="radio" onchange="changeColor('${it.color}', '${it}')" name="radioSampleTypes" value="${it.id}"/>     ${it}
+                <input type="radio" onchange="changeColor('${it.color}', '${it}', ${it.id})" name="radioSampleTypes" value="${it.id}"/>     ${it}
             </td>
             <td>
                 <div id="colorPick${it.id}" style="background-color: ${it.color}; border: 1px solid; width:25px; height:25px;"></div>
@@ -43,12 +60,14 @@
         </tr>
     </g:each>
     </table>
+    </div>
 
     <r:script>
 
-    function changeColor(color, name){
+    function changeColor(color, name, id){
         selColor = color
         selName = name
+        selId = id
     }
     </r:script>
 

@@ -1,4 +1,4 @@
-<%@ page import="scanner.ResultFileConfig" %>
+<%@ page import="org.nanocan.rppa.scanner.ResultFileConfig" %>
 <!doctype html>
 <html>
 <head>

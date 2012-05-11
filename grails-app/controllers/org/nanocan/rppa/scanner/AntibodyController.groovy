@@ -1,8 +1,11 @@
-package scanner
+package org.nanocan.rppa.scanner
 
 class AntibodyController {
 
-    static navigation = true
+    static navigation = [
+            group: 'scanner',
+            title: 'Antibody'
+    ]
 
     def scaffold = true
 }

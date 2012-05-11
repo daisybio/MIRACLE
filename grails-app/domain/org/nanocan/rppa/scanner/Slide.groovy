@@ -1,13 +1,13 @@
 package org.nanocan.rppa.scanner
 
-import rppa.layout.SlideLayout
+import org.nanocan.rppa.layout.SlideLayout
 
 class Slide {
 
     Date dateOfStaining
     Experimenter experimenter
     int laserWavelength
-    int PhotoMultiplierTube
+    int photoMultiplierTube
     ResultFile resultFile
     ResultFile resultImage
     ResultFile protocol
@@ -18,5 +18,6 @@ class Slide {
     Antibody antibody
 
     static constraints = {
+         protocol nullable: true
     }
 }

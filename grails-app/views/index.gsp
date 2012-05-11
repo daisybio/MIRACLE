@@ -90,8 +90,8 @@
 				<li>Groovy version: ${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</li>
 				<li>JVM version: ${System.getProperty('java.version')}</li>
 				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>   <br/>
-				<li>Slides in the database: ${scanner.Slide.count()}</li>
-                <li>Spots in the database: ${scanner.Spot.count()}</li>
+				<li>Slides in the database: ${org.nanocan.rppa.scanner.Slide.count()}</li>
+                <li>Spots in the database: ${org.nanocan.rppa.scanner.Spot.count()}</li>
 			</ul>
 		</div>
 		<div id="page-body" role="main">

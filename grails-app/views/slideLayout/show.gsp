@@ -1,5 +1,5 @@
 
-<%@ page import="rppa.org.nanocan.rppa.layout.SlideLayout" %>
+<%@ page import="org.nanocan.rppa.layout.SlideLayout" %>
 <!doctype html>
 <html>
 	<head>
@@ -14,7 +14,6 @@
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-                <li><g:link class="list" action="showSampleSpots" id="${slideLayoutInstance?.id}">Show LayoutSpots</g:link></li>
 			</ul>
 		</div>
 		<div id="show-slideLayout" class="content scaffold-show" role="main">
@@ -68,8 +67,14 @@
 					
 				</li>
 				</g:if>
-			
 			</ol>
+
+            <h1>Change Spot Properties</h1>
+            <ul style="padding:20px;padding-left:100px;">
+                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'cellLine']}"> Cellline </g:link></li>
+                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'lysisBuffer']}"> Lysis Buffer </g:link></li>
+                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'dilutionFactor']}"> Dilution </g:link></li>
+            </ul>
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${slideLayoutInstance?.id}" />
