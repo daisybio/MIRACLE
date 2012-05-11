@@ -6,9 +6,10 @@ import org.nanocan.rppa.scanner.Slide
 import org.nanocan.rppa.scanner.ResultFile
 import sebastian.hohns.imagezoom.imageops.ImagemagickOperations
 import org.im4java.core.Info
-import rppa.layout.SlideLayout
-import rppa.layout.CellLine
-import rppa.layout.LysisBuffer
+import org.nanocan.rppa.layout.SlideLayout
+import org.nanocan.rppa.layout.CellLine
+import org.nanocan.rppa.layout.LysisBuffer
+import org.nanocan.rppa.layout.Dilution
 
 class BootStrap {
 
@@ -19,8 +20,13 @@ class BootStrap {
         /* slide staining */
         def experimenter = new Experimenter(firstName: "Markus", lastName: "List").save()
 
-        def primaryAB = new Antibody(name: "p53").save()
-        def primaryAB2 = new Antibody(name: "GAPDH").save()
+        def primaryAB = new Antibody(name: "p53", concentration: 5, concentrationUnit: "mM").save()
+        def primaryAB2 = new Antibody(name: "GAPDH", concentration: 5, concentrationUnit: "mM").save()
+
+        def dilution = new Dilution(dilutionFactor:  1.0, color: "#e0e0e0").save(flush:true)
+        def dilutionA = new Dilution(dilutionFactor:  0.5, color: "#aa0000").save(flush:true)
+        def dilutionB = new Dilution(dilutionFactor:  0.25, color: "#00bb00").save(flush:true)
+        def dilutionC = new Dilution(dilutionFactor:  0.125, color: "#0000aa").save(flush:true)
 
         def resultFileConfig = new ResultFileConfig(
                 name : "Default Config",
@@ -54,7 +60,7 @@ class BootStrap {
 
         def slide = new Slide(experimenter: experimenter, antibody: primaryAB,
                 dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: resultImage,
-                layout: slideLayout).save()
+                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save()
 
         //ResultFileImporter importer = new ResultFileImporter()
 
@@ -72,6 +78,7 @@ class BootStrap {
         def lysisBuffer10 = new LysisBuffer(name: "LB", concentration: 10, concentrationUnit: "mM", color: "#0000bb").save()
 
         slideLayoutService.createSampleSpots(slideLayout)
+
     }
     def destroy = {
     }

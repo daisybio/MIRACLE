@@ -20,6 +20,19 @@
     });
 </script>
 
+<div class="nav" role="navigation">
+    <ul>
+        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+        <li><g:link class="list" action="show" id="${slideLayout?.id}">Back to Layout</g:link></li>
+    </ul>
+</div>
+
+<h1 style="padding-left:20px;">Modify ${sampleProperty.toString().capitalize()} for layout "${slideLayout}" </h1>
+
+<div class="message" id="message" role="status">${flash.message?:"Select cells to change the layout"}</div>
+
+<g:formRemote name="${sampleProperty}form" update="message" url="[controller: 'slideLayout', action: sampleProperty + 'Update']">
+
 <div id = "blockTabs">
  <ul>
  <g:each var="i" in="${1..tabsNeeded}">
@@ -57,7 +70,7 @@
                 <td>${row}</td>
                 <g:each in="${tab..tab+11}">
                     <g:each in="${1..(slideLayout.columnsPerBlock)}">
-                        <td><input name="${spotList.get(spot).id}" type="hidden" value="${spotList.get(spot).properties[sampleProperty]?:""}"></td>
+                        <td style="background-color:${spotList.get(spot)?.properties[sampleProperty]?.color?:''};"><input name="${spotList.get(spot).id}" type="hidden" value="${spotList.get(spot).properties[sampleProperty]?.id?:""}"></td>
                         <g:set var="spot" value="${++spot}"/>
                     </g:each>
                 </g:each>
@@ -68,12 +81,15 @@
     </div>
  </g:each>
 </div>
+<input type="submit" value="Save changes"/>
+</g:formRemote>
 
 <r:script>
 
     var allTDs
     var selColor
     var selName
+    var selId
     var buttondown = -1
     var cellstartr, cellstartc, cellendr, cellendc
     var tableName
@@ -134,10 +150,13 @@
             }
             for (var i = rowstart; i <= rowend; i++) {
                 for (var j = colstart; j <= colend; j++) {
-                    var cell = document.getElementById(tableName).rows[i].cells[j];
-                    //cell.innerHTML = "<input type='hidden' name='"+ i + j + "' value='"+ selName +"'/>"
-                    cell.style.backgroundColor = selColor;
-                    //cell.child.attribute("value") = selName;
+                    if(j != 0) //protect row names from color changes
+                    {
+                        var cell = document.getElementById(tableName).rows[i].cells[j];
+                        cell.style.backgroundColor = selColor;
+                        cell.firstChild.setAttribute("value", selId);
+                        $('#message').html("Please save your changes!") ;
+                    }
                 }
             }
             buttondown = -1

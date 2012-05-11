@@ -9,8 +9,8 @@ class LysisBuffer {
 
     static constraints = {
         concentrationUnit inList: ["mM", "nM", "pM" ,"µM"]
-        color unique: true
-        name unique: true
+        color unique:  true, validator:  {val, obj -> val != "#ffffff"}, nullable: false, blank: false
+        name unique: true, blank: false, nullable:  false
     }
 
     String toString()

@@ -1,4 +1,4 @@
-<%@ page import="rppa.org.nanocan.rppa.layout.SlideLayout; org.nanocan.rppa.scanner.Slide" %>
+<%@ page import="org.nanocan.rppa.layout.SlideLayout; org.nanocan.rppa.scanner.Slide" %>
 
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'dateOfStaining', 'error')} required">

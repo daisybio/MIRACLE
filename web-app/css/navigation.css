@@ -32,13 +32,18 @@ Just change the color-values to apply your own color-scheme.
 .navigation {
     list-style-type: none;
     clear: both;
-    margin: 1em 0;
+    margin: 0;
     font-size: 16px;
     overflow: hidden; /* Clearing floats */
+    float: right;
+
 }
 
 .navigation li {
     float: left;
+    border: 0px none;
+    background-color: #ffffff;
+    padding: 0.5em 0.75em;
     /* border: 1px solid #888; */
     /* border-left-color: #bbb; */
 }
@@ -52,6 +57,8 @@ Just change the color-values to apply your own color-scheme.
     padding: 0.5em 1em;
     display: block;
     text-decoration: none;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
     /* background-color: #aaa; */
     /* color: #fff; */
 }

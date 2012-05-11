@@ -98,6 +98,16 @@ img {
 	margin: 1em;
 }
 
+#logo img {
+-moz-box-shadow: 0 0 5px 2px #aaaaaa;
+-webkit-box-shadow: 0 0 5px 2px #aaaaaa;
+box-shadow: 0 0 5px 2px #aaaaaa;
+}
+
+#logo {
+    padding-bottom: 20px;
+}
+
 .content {
 }
 

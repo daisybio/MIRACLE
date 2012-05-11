@@ -7,7 +7,10 @@ import org.apache.commons.io.FilenameUtils
 
 class SlideController {
 
-    static navigation = true
+    static navigation = [
+            group: 'main',
+            title: 'Slide Scanner Results'
+    ]
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
