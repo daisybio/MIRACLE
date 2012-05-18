@@ -6,17 +6,48 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'slide.label', default: 'Slide')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
+
+        <g:set var="spotsDetected" value="${slideInstance.spots.size()}"/>
+
+
+        <g:if test="${spotsDetected == 0}">
+            <r:script>
+                $(function() {
+                     $( "#dialog-confirm" ).dialog({
+                        resizable: false,
+                        height:140,
+                        modal: true,
+                        buttons: {
+                            "Yes, add spots": function() {
+                            <g:remoteFunction controller="slide" action="addSpots" id="${slideInstance.id}"></g:remoteFunction>
+                            },
+                            "No, thanks": function() {
+                            $( this ).dialog( "close" );
+                            }
+                        }
+                    });
+                });
+            </r:script>
+        </g:if>
+
 	</head>
 	<body>
 		<a href="#show-slide" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
+
+    <g:if test="${spotsDetected == 0}">
+        <div id="dialog-confirm" title="Would you like to add spots?">
+            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>The result file for this slide has not yet been processed. Proceed now?</p>
+        </div>
+    </g:if>
+
+        <div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-                <g:if test="${slideInstance.spots.size() == 0}"><li><g:link class="create" action="addSpots" id="${slideInstance?.id}">Add Spots</g:link></li></g:if>
-                <g:else><li><g:link class="delete" action="deleteSpots" id="${slideInstance?.id}">Delete Spots</g:link></li></g:else>
+
                 <li><g:link class="create" action="addBlockShifts" id="${slideInstance?.id}">Modify Block Shifts</g:link></li>
+                <li><g:link class="list" action="exportAsCSV" id="${slideInstance?.id}">Export as CSV</g:link></li>
 			</ul>
 		</div>
 		<div id="show-slide" class="content scaffold-show" role="main">
@@ -64,12 +95,21 @@
 			
 				<g:if test="${slideInstance?.laserWavelength}">
 				<li class="fieldcontain">
-					<span id="laserWavelength-label" class="property-label"><g:message code="slide.laserWavelength.label" default="Laser Wavelength" /></span>
+					<span id="laserWavelength-label" class="property-label"><g:message code="slide.laserWavelength.label" default="Laser Wavelength (nm)" /></span>
 					
 						<span class="property-value" aria-labelledby="laserWavelength-label"><g:fieldValue bean="${slideInstance}" field="laserWavelength"/></span>
 					
 				</li>
 				</g:if>
+
+                <g:if test="${slideInstance?.photoMultiplierTube}">
+                    <li class="fieldcontain">
+                        <span id="photoMultiplierTube-label" class="property-label"><g:message code="slide.photoMultiplierTube.label" default="Laser Wavelength" /></span>
+
+                        <span class="property-value" aria-labelledby="photoMultiplierTube-label"><g:fieldValue bean="${slideInstance}" field="photoMultiplierTube"/></span>
+
+                    </li>
+                </g:if>
 			
 				<g:if test="${slideInstance?.resultFile}">
 				<li class="fieldcontain">
@@ -89,18 +129,28 @@
 				</li>
 				</g:if>
 
-				<g:if test="${slideInstance?.spots}">
-				<li class="fieldcontain">
-					<span id="spots-label" class="property-label"><g:message code="slide.spots.label" default="Spots" /></span>
-					
-						<g:each in="${slideInstance.spots}" var="s">
-						<span class="property-value" aria-labelledby="spots-label"><g:link controller="spot" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
+                <g:if test="${slideInstance?.protocol}">
+                    <li class="fieldcontain">
+                        <span id="protocol-label" class="property-label"><g:message code="slide.protocol.label" default="Protocol" /></span>
+
+                        <span class="property-value" aria-labelledby="protocol-label"><g:link controller="resultFile" action="show" id="${slideInstance?.protocol?.id}">${slideInstance?.protocol?.encodeAsHTML()}</g:link></span>
+
+                    </li>
+                </g:if>
+
+                <li class="fieldcontain">
+                <span id="spots-counter" class="property-label">Spots read in from file:</span>
+                <span class="property-value">
+                <g:if test="${spotsDetected > 0}">
+                    ${spotsDetected}
+                        <g:link action="deleteSpots" id="${slideInstance?.id}">Delete Spots</g:link>
+                </g:if>
+                <g:else><g:link action="addSpots" id="${slideInstance?.id}">Add Spots</g:link></g:else>
+                </span>
+                </li>
+
 			</ol>
+
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${slideInstance?.id}" />

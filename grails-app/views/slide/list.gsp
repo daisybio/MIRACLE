@@ -30,11 +30,15 @@
 					
 						<th><g:message code="slide.experimenter.label" default="Experimenter" /></th>
 					
-						<g:sortableColumn property="laserWavelength" title="${message(code: 'slide.laserWavelength.label', default: 'Laser Wavelength')}" />
+						<g:sortableColumn property="laserWavelength" title="${message(code: 'slide.laserWavelength.label', default: '~')}" />
+
+                        <g:sortableColumn property="photoMultiplierTube" title="${message(code: 'slide.photoMultiplierTube.label', default: 'PMT')}" />
 					
 						<th><g:message code="slide.resultFile.label" default="Result File" /></th>
 					
 						<th><g:message code="slide.resultImage.label" default="Result Image" /></th>
+
+                        <th><g:message code="slide.protocol.label" default="Protocol" /></th>
 					
 					</tr>
 				</thead>
@@ -49,10 +53,14 @@
 						<td>${fieldValue(bean: slideInstance, field: "experimenter")}</td>
 					
 						<td>${fieldValue(bean: slideInstance, field: "laserWavelength")}</td>
+
+                        <td>${fieldValue(bean: slideInstance, field: "photoMultiplierTube")}</td>
 					
 						<td>${fieldValue(bean: slideInstance, field: "resultFile")}</td>
 					
 						<td>${fieldValue(bean: slideInstance, field: "resultImage")}</td>
+
+                        <td>${fieldValue(bean: slideInstance, field: "protocol")}</td>
 					
 					</tr>
 				</g:each>

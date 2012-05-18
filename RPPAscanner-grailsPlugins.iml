@@ -10,6 +10,8 @@
           <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/navigation-1.3.2/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/imagezoom-0.3.5/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/jquery-ui-1.8.15/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/jprogress-0.2/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/jprogress-0.2/grails-app/views" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -29,6 +31,9 @@
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/excel-import-1.0.0/grails-app/i18n" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/excel-import-1.0.0/grails-app/services" isTestSource="false" />
     </content>
+    <content url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/grails-melody-1.14">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/grails-melody-1.14/src/groovy" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/hibernate-2.0.3">
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/hibernate-2.0.3/grails-app/i18n" isTestSource="false" />
     </content>
@@ -40,6 +45,11 @@
     <content url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/joda-time-1.4">
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/joda-time-1.4/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/joda-time-1.4/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/jprogress-0.2">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/jprogress-0.2/grails-app/controllers" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/jprogress-0.2/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/jprogress-0.2/grails-app/taglib" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/jquery-1.7.1">
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/jquery-1.7.1/src/groovy" isTestSource="false" />
@@ -68,18 +78,22 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="grails-2.0.3" level="application" />
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (RPPAscanner-grailsPlugins)">
         <CLASSES>
+          <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/excel-import-1.0.0/lib" />
+          <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/joda-time-1.4/lib" />
+          <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/imagezoom-0.3.5/lib" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi/jars/poi-3.7.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.geronimo.specs/geronimo-stax-api_1.0_spec/jars/geronimo-stax-api_1.0_spec-1.0.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/stax/stax-api/jars/stax-api-1.0.1.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.xmlbeans/xmlbeans/jars/xmlbeans-2.3.0.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi-ooxml-schemas/jars/poi-ooxml-schemas-3.7.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi-ooxml/jars/poi-ooxml-3.7.jar!/" />
-          <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/excel-import-1.0.0/lib" />
-          <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/joda-time-1.4/lib" />
-          <root url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/imagezoom-0.3.5/lib" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/com.lowagie/itext/jars/itext-2.1.7.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.jrobin/jrobin/jars/jrobin-1.5.9.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/net.bull.javamelody/javamelody-core/jars/javamelody-core-1.37.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -88,7 +102,6 @@
         <jarDirectory url="file://$USER_HOME$/.grails/2.0.3/projects/RPPAscanner/plugins/joda-time-1.4/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="grails-2.0.3" level="application" />
   </component>
 </module>
 

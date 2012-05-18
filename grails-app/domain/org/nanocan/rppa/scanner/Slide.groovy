@@ -19,5 +19,11 @@ class Slide {
 
     static constraints = {
          protocol nullable: true
+         resultImage nullable: true
+    }
+
+    static mapping = {
+        spots cascade: "all-delete-orphan"
+        blockShifts cascade:  "all-delete-orphan"
     }
 }

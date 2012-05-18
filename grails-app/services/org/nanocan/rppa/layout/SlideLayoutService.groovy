@@ -1,39 +1,54 @@
 package org.nanocan.rppa.layout
 
+import org.apache.commons.lang.ArrayUtils
+
 class SlideLayoutService {
 
     def createSampleSpots(SlideLayout slideLayout) {
 
-        def depositions = getDepositionIntArray(slideLayout.depositionPattern)
+        //def depositions = getDepositionIntArray(slideLayout.depositionPattern)
 
         for (int block = 1; block <= slideLayout.numberOfBlocks; block++) {
             for (int col = 1; col <= slideLayout.columnsPerBlock; col++) {
                 for (int row = 1; row <= slideLayout.rowsPerBlock; row++) {
-                    slideLayout.addToSampleSpots(new LayoutSpot(block: block, column: col, row: row))
+                    slideLayout.addToSampleSpots(new LayoutSpot(block: block, col: col, row: row))
                 }
             }
         }
 
-        println slideLayout.save(flush: true, failOnError: true)
+        slideLayout.save(flush: true, failOnError: true)
     }
 
-    def getDepositionIntArray(String depositionPattern)
+    def parseDepositions(String depositionPattern)
     {
         //remove brackets and split by ,
-        String[] depositionPatternArray = depositionPattern.substring(1, depositionPattern.size()-1).split(",")
-        def intArray = new int[depositionPatternArray.length]
-
-        println depositionPatternArray
-
-
-        for (int i = 0; i < depositionPatternArray.length; i++)
-        {
-            intArray[i] = Integer.parseInt(depositionPatternArray[i])
+        def cut = depositionPattern.substring(1, depositionPattern.length()-1)
+        def depositions = cut.split(",").collect{
+            Integer.parseInt(it)
         }
 
-        println intArray
+        return depositions
+    }
 
-        return intArray
+    def getDepositionArray(SlideLayout layout)
+    {
+        //get deposition pattern as int array
+        def intArray = parseDepositions(layout.depositionPattern)
+
+        //we need an array to store deposition information in
+        def neededLength = layout.columnsPerBlock * intArray.size()
+        def depositionArray = new ArrayList(neededLength)
+
+        //for each layout column we need to iterate over all depositions
+        //this yields an array that allows for each real column to be assigned with the correct deposition number
+
+        for (int layoutColumn = 1; layoutColumn <= layout.columnsPerBlock; layoutColumn++)
+        {
+            for(int d = 0; d < intArray.size(); d++)
+                depositionArray[(intArray.size()) * (layoutColumn-1) + d] = intArray[d]
+        }
+
+        return depositionArray
     }
 }
 

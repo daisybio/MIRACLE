@@ -31,26 +31,12 @@ class SlideController {
 
     def save() {
 
-        if(request instanceof MultipartHttpServletRequest)
-        {
-            MultipartHttpServletRequest mpr = (MultipartHttpServletRequest)request;
-
-            CommonsMultipartFile resultFile = (CommonsMultipartFile) mpr.getFile("resultFile.input");
-            CommonsMultipartFile resultImage = (CommonsMultipartFile) mpr.getFile("resultImage.input");
-
-            params["resultFile.id"] = slideService.createResultFile(resultFile, false).id
-            params["resultImage.id"] = slideService.createResultFile(resultImage, true).id
-        }
-        else
-        {
-            flash.message = 'request is not of type MultipartHttpServletRequest'
-            redirect(action: "create", params: params)
-        }
+        slideService.dealWithFileUploads(request, params)
 
         def slideInstance = new Slide(params)
+
         if (!slideInstance.save(flush: true)) {
             render(view: "create", model: [slideInstance: slideInstance])
-            return
         }
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'slide.label', default: 'Slide'), slideInstance.id])
@@ -65,7 +51,10 @@ class SlideController {
             return
         }
 
-        def imagezoomFolder = FilenameUtils.removeExtension(slideInstance?.resultImage?.filePath.replace("upload", "imagezoom"))
+        def imagezoomFolder
+
+        if(slideInstance?.resultImage)
+            imagezoomFolder = FilenameUtils.removeExtension(slideInstance?.resultImage?.filePath.replace("upload", "imagezoom"))
 
         [slideInstance: slideInstance, imagezoomFolder: imagezoomFolder]
     }
@@ -82,6 +71,7 @@ class SlideController {
     }
 
     def update() {
+
         def slideInstance = Slide.get(params.id)
         if (!slideInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'slide.label', default: 'Slide'), params.id])
@@ -96,6 +86,20 @@ class SlideController {
                           [message(code: 'slide.label', default: 'Slide')] as Object[],
                           "Another user has updated this Slide while you were editing")
                 render(view: "edit", model: [slideInstance: slideInstance])
+                return
+            }
+        }
+
+        //deal with file uploads
+        slideService.dealWithFileUploads(request, params)
+
+        //if result file or layout file have changed all spots and block shifts need to be deleted first
+        if (slideInstance.spots.size() > 0 || slideInstance.blockShifts.size() > 0)
+        {
+            if (slideInstance.resultFile != params.resultFile || slideInstance.layout != params.layout)
+            {
+                flash.message = "You can't change the result file or slide layout without deleting spots and block shift patterns first. This is necessary to keep the data consistent."
+                render(view: "edit", model: [slideInstance: new Slide(params)])
                 return
             }
         }
@@ -172,59 +176,100 @@ class SlideController {
     def deleteSpots = {
 
         def slideInstance = Slide.get(params.id)
-        def error = false
 
-        for (def spot in slideInstance.spots) {
-            slideInstance.removeFromSpots(spot)
-            if (!spot.delete())
-            {
-                error = true
-                slideInstance.addToSpots(spot)
-                break
-            }
-        }
-        if (!error) flash.message = "All spots successfully deleted"
+        slideInstance.spots.clear()
+
+        if (slideInstance.save()) flash.message = "All spots successfully deleted"
         else flash.message = "Could not delete spots!"
+
+        slideService.cleanGorm()
+
         redirect(action: "show", id: params.id)
 
     }
+
+    def exportAsCSV = {
+
+        def slideInstance = Slide.get(params.id)
+        def separatorMap = ["\t":"tab", ";":"semicolon", ",": "comma"]
+
+        [slideInstance: slideInstance, separatorMap: separatorMap]
+    }
+
+    def csvHeader = ["Block","Column","Row","FG","BG","x","y","diameter","flag","CellLine",
+            "LysisBuffer", "DilutionFactor", "Inducer", "SpotType", "Sample"]
+
+    def processExport = {
+
+        def slideInstance = Slide.get(params.id)
+
+        def results = slideService.exportToCSV(slideInstance, params.separator, true, true)
+
+        response.setHeader("Content-disposition", "filename=${slideInstance}.csv")
+        response.contentType = "application/vnd.ms-excel"
+
+        def outs = response.outputStream
+
+        def cols = [:]
+
+        outs << csvHeader.join(params.separator)
+        outs << "\n"
+
+        results.each() {
+
+            outs << it.join(params.separator)
+            outs << "\n"
+        }
+        outs.flush()
+        outs.close()
+        return
+    }
+
+    def progressService
 
     def processResultFile = {
 
         def slideInstance = Slide.get(params.id)
 
-        if(!slideInstance.resultFile)
+        if (progressService.retrieveProgressBarValue("excelimport") != 0)
         {
-            flash.message = "no result file found for ${slideInstance}"
-            redirect(action:  "show", params:  params)
+            render "an import process is already running. please try again later!"
+        }
+
+        else if (slideInstance.spots.size() > 0)
+        {
+            render "this slide already contains spots. please delete them first!"
+        }
+
+        else if(!slideInstance.resultFile)
+        {
+            render ("no result file found for ${slideInstance}")
         }
 
         else if (!params.sheet)
         {
-            flash.message = "please select a sheet."
-            redirect(action: "addSpots", params: params)
+            render "please select a sheet."
         }
 
         else if (!params.config)
         {
-            flash.message = "please select a column map config to assign property columns correctly."
-            redirect(action: "addSpots", params: params)
+            render "please select a column map config to assign property columns correctly."
         }
 
         else
         {
-            slideService.processResultFile(slideInstance, params.sheet, ResultFileConfig.get(params.config))
+            def result = slideService.processResultFile(slideInstance, params.sheet, ResultFileConfig.get(params.config))
 
             if(slideInstance.save() )
             {
-                flash.message = "spots have been added successfully"
-                redirect(action: "show", id: slideInstance.id)
+                slideService.cleanGorm()
+                progressService.setProgressBarValue("excelimport", 100)
+                render result?:"${slideInstance.spots.size()} spots have been added to the database and linked to the layout."
             }
 
             else
             {
-                flash.message = "spots could not be added"
-                redirect(action: "addSpots", id: slideInstance.id)
+                render "spots could not be added"
             }
         }
     }
