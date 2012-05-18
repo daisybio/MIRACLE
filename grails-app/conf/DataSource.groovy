@@ -1,8 +1,17 @@
-dataSource {
+/*dataSource {
     pooled = true
     driverClassName = "org.h2.Driver"
     username = "sa"
     password = ""
+}*/
+
+dataSource {
+    pooled = true
+    driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
+    url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScannerTest'
+    username = 'rppa'
+    password = 'password55555'
+    dbCreate = 'update'
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -13,8 +22,8 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:h2:mem:devDb;MVCC=TRUE"
+            //dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            //url = "jdbc:h2:mem:devDb;MVCC=TRUE"
         }
     }
     test {

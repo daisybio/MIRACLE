@@ -5,6 +5,7 @@ class ResultFile {
     String fileName
     String filePath
     Date dateUploaded
+    String fileType
 
     String toString()
     {
@@ -12,5 +13,10 @@ class ResultFile {
     }
 
     static constraints = {
+
+        fileName()
+        filePath()
+        dateUploaded()
+        fileType inList: ["Result", "Image", "Protocol"]
     }
 }

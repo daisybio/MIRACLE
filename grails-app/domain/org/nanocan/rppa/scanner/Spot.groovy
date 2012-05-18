@@ -1,5 +1,7 @@
 package org.nanocan.rppa.scanner
 
+import org.nanocan.rppa.layout.LayoutSpot
+
 class Spot implements Comparable {
 
     double FG
@@ -10,14 +12,16 @@ class Spot implements Comparable {
     int flag
     int block
     int row
-    int column
+    int col
 
     static constraints = {
     }
 
+    static belongsTo = [slide: Slide, layoutSpot: LayoutSpot]
+
     String toString()
     {
-        "B/C/R: ${block}/${column}/${row}, FG/BG: ${FG}/${BG}, flag: ${flag}"
+        "B/C/R: ${block}/${col}/${row}, FG/BG: ${FG}/${BG}, flag: ${flag}"
     }
 
     //makes samples sortable in order row -> block -> column
@@ -28,8 +32,8 @@ class Spot implements Comparable {
             if(block < other.block) return -1
             else if(block > other.block) return 1
             else{
-                if(column < other.column) return -1
-                else if(column > other.column) return 1
+                if(column < other.col) return -1
+                else if(column > other.col) return 1
                 else return 0
             }
         }

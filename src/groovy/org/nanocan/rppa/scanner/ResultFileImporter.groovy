@@ -65,7 +65,7 @@ class ResultFileImporter extends AbstractExcelImporter{
                 columnMap:  [
                         (rfc.bgCol) : 'BG',
                         (rfc.blockCol): 'block',
-                        (rfc.columnCol):'column',
+                        (rfc.columnCol):'col',
                         (rfc.diameterCol): 'diameter',
                         (rfc.fgCol): 'FG',
                         (rfc.flagCol): 'flag',

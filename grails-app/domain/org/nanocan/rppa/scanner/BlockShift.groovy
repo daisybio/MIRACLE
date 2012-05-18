@@ -8,4 +8,6 @@ class BlockShift {
 
     static constraints = {
     }
+
+    static belongsTo = [slide: Slide]
 }

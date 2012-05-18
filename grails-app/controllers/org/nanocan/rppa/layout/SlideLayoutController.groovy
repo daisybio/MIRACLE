@@ -33,9 +33,13 @@ class SlideLayoutController {
         [slideLayout:  slideLayoutInstance, spots: slideLayoutInstance.sampleSpots, sampleProperty: params.sampleProperty]
     }
 
-    def cellLineUpdate() {
+    def updateSpotProperty()
+    {
+        def spotProp = params.spotProperty
+
         params.remove("action")
         params.remove("controller")
+        params.remove("spotProperty")
 
         if(params.size() == 0) render "Nothing to do"
 
@@ -44,55 +48,14 @@ class SlideLayoutController {
             {
                 def spot = LayoutSpot.get(key as Long)
 
-                if (value as Long == -1) spot.cellLine = null
-                else spot.cellLine = CellLine.get(value as Long)
+                if (value as Long == -1) spot.properties[spotProp] = null
+                else spot.properties[spotProp] = grailsApplication.getArtefactByLogicalPropertyName("Domain", spotProp).clazz.get(value as Long)
 
                 spot.save()
             }
         }
+
         render "Save successful"
-    }
-
-    def lysisBufferUpdate(){
-        params.remove("action")
-        params.remove("controller")
-
-        if(params.size() == 0) render "Nothing to do"
-
-        params.each{ key, value ->
-            if(value != "")
-            {
-                def spot = LayoutSpot.get(key as Long)
-
-                if (value as Long == -1) spot.lysisBuffer = null
-                else spot.lysisBuffer = LysisBuffer.get(value as Long)
-
-                spot.save()
-            }
-        }
-        render "Save successful"
-
-    }
-
-    def dilutionFactorUpdate(){
-        params.remove("action")
-        params.remove("controller")
-
-        if(params.size() == 0) render "Nothing to do"
-
-        params.each{ key, value ->
-            if(value != "")
-            {
-                def spot = LayoutSpot.get(key as Long)
-
-                if (value as Long == -1) spot.dilutionFactor = null
-                else spot.dilutionFactor = Dilution.get(value as Long)
-
-                spot.save()
-            }
-        }
-        render "Save successful"
-
     }
 
     def save() {

@@ -16,9 +16,7 @@
 		</div>
 		<div id="create-slideLayout" class="content scaffold-create" role="main">
 			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
+			<div class="message" role="status">${flash.message?:"Important: Column means \"deposition blocks\" here, e.g. 6 different depositions spotted twice result in 2 columns."}</div>
 			<g:hasErrors bean="${slideLayoutInstance}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="${slideLayoutInstance}" var="error">

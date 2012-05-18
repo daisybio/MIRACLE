@@ -4,7 +4,12 @@
     <meta name="layout" content="main">
 </head>
 <body>
-<g:render template="colorLegend" model="${[sampleProperty: sampleProperty]}"></g:render>
+<g:if test="${sampleProperty != 'sample'}">
+    <g:render template="colorLegend" model="${[sampleProperty: sampleProperty]}"></g:render>
+</g:if>
+<g:else>
+    <g:render template="sampleLegend"></g:render>
+</g:else>
 
 <g:set var="spot" value="${0}"/>
 <g:set var="spotList" value="${spots.toList()}"/>
@@ -31,9 +36,14 @@
 
 <div class="message" id="message" role="status">${flash.message?:"Select cells to change the layout"}</div>
 
-<g:formRemote name="${sampleProperty}form" update="message" url="[controller: 'slideLayout', action: sampleProperty + 'Update']">
+<g:if test="${sampleProperty == 'sample'}" >
+    <div class="errors">Warning: Colors are not unique for samples! Make sure you know what you are doing!</div>
+</g:if>
 
-<div id = "blockTabs">
+<g:formRemote onSuccess="window.onbeforeunload = null;" name="${sampleProperty}form" update="message" url="[controller: 'slideLayout', action: 'updateSpotProperty']">
+    <input name="spotProperty" type="hidden" value="${sampleProperty}">
+
+<div id = "blockTabs" style="overflow: auto; height:700px;">
  <ul>
  <g:each var="i" in="${1..tabsNeeded}">
   <g:set var="tab" value="${((i-1) * 12)+1}"/>
@@ -45,7 +55,7 @@
     <g:set var="tab" value="${((i-1) * 12)+1}"/>
 
     <div id="blockTabs-${i}">
-    <table id="blockTable${i}">
+    <table id="blockTable${i}" style="border: 1px solid;">
         <thead>
         <tr>
             <th>Block</th>
@@ -58,7 +68,7 @@
             <th>Column</th>
             <g:each in="${tab..(tab+11)}">
                 <g:each in="${1..(slideLayout.columnsPerBlock)}" var="col">
-                    <th>${col}</th>
+                    <th style="width:25px;">${col}</th>
                 </g:each>
             </g:each>
         </tr>
@@ -70,7 +80,7 @@
                 <td>${row}</td>
                 <g:each in="${tab..tab+11}">
                     <g:each in="${1..(slideLayout.columnsPerBlock)}">
-                        <td style="background-color:${spotList.get(spot)?.properties[sampleProperty]?.color?:''};"><input name="${spotList.get(spot).id}" type="hidden" value="${spotList.get(spot).properties[sampleProperty]?.id?:""}"></td>
+                        <td style="border: 1px solid; background-color:${spotList.get(spot)?.properties[sampleProperty]?spotList.get(spot).properties[sampleProperty].color?:'#e0e0e0':''};"><input name="${spotList.get(spot).id}" type="hidden" value="${spotList.get(spot).properties[sampleProperty]?.id?:""}"></td>
                         <g:set var="spot" value="${++spot}"/>
                     </g:each>
                 </g:each>
@@ -124,7 +134,7 @@
     function mouseUpHandler(e) {
 
         if (!selColor) {
-            alert('Please select a sample type first!')
+            alert('Please select a ${sampleProperty.toString().capitalize()} first!')
         }
 
         else {
@@ -156,11 +166,17 @@
                         cell.style.backgroundColor = selColor;
                         cell.firstChild.setAttribute("value", selId);
                         $('#message').html("Please save your changes!") ;
+
+                        window.onbeforeunload = unloadPage;
                     }
                 }
             }
             buttondown = -1
         }
+    }
+
+    function unloadPage(){
+        return "If you leave without saving, your changes will be discarded! Are you sure?";
     }
 
 </r:script>

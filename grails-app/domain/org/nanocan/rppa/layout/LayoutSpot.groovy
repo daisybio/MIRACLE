@@ -1,22 +1,32 @@
 package org.nanocan.rppa.layout
 
+import org.nanocan.rppa.rnai.Sample
+import org.nanocan.rppa.scanner.Spot
+
 class LayoutSpot implements Comparable{
 
     CellLine cellLine
     LysisBuffer lysisBuffer
     Dilution dilutionFactor
+    Inducer inducer
+    SpotType spotType
+    Sample sample
 
     int block
-    int column
+    int col
     int row
 
     static belongsTo = SlideLayout
+    static hasMany = [spots: Spot]
     SlideLayout layout
 
     static constraints = {
         cellLine nullable:  true
         lysisBuffer nullable: true
         dilutionFactor nullable: true
+        inducer nullable: true
+        sample nullable:  true
+        spotType nullable:  true
     }
 
     //makes samples sortable in order block -> column -> row
@@ -35,8 +45,8 @@ class LayoutSpot implements Comparable{
                 if(block < other.block) return -1
                 else if(block > other.block) return 1
                 else{
-                    if(column < other.column) return -1
-                    else if(column > other.column) return 1
+                    if(col < other.col) return -1
+                    else if(col > other.col) return 1
                     else return 0
                 }
             }
@@ -45,6 +55,6 @@ class LayoutSpot implements Comparable{
 
     String toString()
     {
-        "B/C/R: ${block}/${column}/${row}"
+        "B/C/R: ${block}/${col}/${row}"
     }
 }
