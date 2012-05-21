@@ -260,17 +260,9 @@ class SlideController {
         {
             def result = slideService.processResultFile(slideInstance, params.sheet, ResultFileConfig.get(params.config))
 
-            if(slideInstance.save() )
-            {
-                slideService.cleanGorm()
-                progressService.setProgressBarValue("excelimport", 100)
-                render result?:"${slideInstance.spots.size()} spots have been added to the database and linked to the layout."
-            }
+            progressService.setProgressBarValue("excelimport", 100)
+            render result?:"${slideInstance.spots.size()} spots have been added to the database and linked to the layout."
 
-            else
-            {
-                render "spots could not be added"
-            }
         }
     }
 }

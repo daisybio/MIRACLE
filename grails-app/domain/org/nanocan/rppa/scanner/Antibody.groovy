@@ -7,6 +7,8 @@ class Antibody {
     String concentrationUnit
 
     static constraints = {
+        name()
+        concentration()
         concentrationUnit inList: ["nM", "mM", "pM", "µm"]
     }
 

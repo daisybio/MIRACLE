@@ -29,6 +29,13 @@ class LayoutSpot implements Comparable{
         spotType nullable:  true
     }
 
+    static mapping = {
+        layout index: 'lspot_idx'
+        block index: 'lspot_idx'
+        col index: 'lspot_idx'
+        row index: 'lspot_idx'
+    }
+
     //makes samples sortable in order block -> column -> row
     public int compareTo(def other) {
         //first compare in which 12er this spot is

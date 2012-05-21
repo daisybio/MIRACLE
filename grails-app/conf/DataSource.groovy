@@ -8,7 +8,7 @@
 dataSource {
     pooled = true
     driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
-    url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScannerTest'
+    url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner'
     username = 'rppa'
     password = 'password55555'
     dbCreate = 'update'
@@ -33,7 +33,7 @@ environments {
         }
     }
     production {
-        dataSource {
+        /*dataSource {
             dbCreate = "update"
             url = "jdbc:h2:prodDb;MVCC=TRUE"
             pooled = true
@@ -47,6 +47,6 @@ environments {
                testOnReturn=true
                validationQuery="SELECT 1"
             }
-        }
+        }  */
     }
 }

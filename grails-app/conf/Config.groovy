@@ -82,7 +82,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://10.149.64.8:8080/RPPAscanner"
     }
 }
 
@@ -106,7 +106,7 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
-    warn    'scanner'
+    warn   'scanner'
 }
 
 grails.views.javascript.library="jquery"

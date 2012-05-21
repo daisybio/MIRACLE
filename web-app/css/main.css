@@ -136,14 +136,16 @@ box-shadow: 0 0 5px 2px #aaaaaa;
 }
 
 .spinner {
-	background: url(../images/spinner.gif) 50% 50% no-repeat transparent;
-	height: 16px;
-	width: 16px;
-    padding: 0.5em;
+	background: url(../images/rppa_spinner_ripple.gif) 50% 50% no-repeat transparent;
+    width: 200px;
+    height: 75px;
     position: absolute;
-    right: 0;
-	top: 0;
+    right: 50%;
+	top: 50%;
 	text-indent: -9999px;
+    -moz-box-shadow: 0 0 3px 1px #aaaaaa;
+    -webkit-box-shadow: 0 0 3px 1px #aaaaaa;
+    box-shadow: 0 0 3px 1px #aaaaaa;
 }
 
 /* NAVIGATION MENU */

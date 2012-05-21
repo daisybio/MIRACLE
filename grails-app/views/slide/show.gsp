@@ -14,12 +14,14 @@
             <r:script>
                 $(function() {
                      $( "#dialog-confirm" ).dialog({
+                        position: 'top',
+                        modal: true,
                         resizable: false,
                         height:140,
                         modal: true,
                         buttons: {
                             "Yes, add spots": function() {
-                            <g:remoteFunction controller="slide" action="addSpots" id="${slideInstance.id}"></g:remoteFunction>
+                            window.location = "<g:createLink controller="slide" action="addSpots" id="${slideInstance.id}"></g:createLink>";
                             },
                             "No, thanks": function() {
                             $( this ).dialog( "close" );
