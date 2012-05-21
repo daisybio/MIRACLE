@@ -91,7 +91,7 @@
 	</label>
     <div style="float:right; padding-right: 120px;"><table><tr><td>Choose existing file: </td>
         <td> <input type="text" id="resultFileAjax"></td></tr>
-        <input type="hidden" id="resultFile.id" name="resultFile.id" value="${slideInstance.resultFile.id}">
+        <input type="hidden" id="resultFile.id" name="resultFile.id" value="${slideInstance?.resultFile?.id}">
 	<tr><td>...or upload new file: </td><td><input type="file" id="resultFile.input" name="resultFileInput"/></td></tr></table></div>
 </div><br/><br/><br/><br/>
 
@@ -102,7 +102,7 @@
 	</label>
     <div style="float:right; padding-right: 120px;"><table><tr><td>Choose existing file: </td>
         <td> <input type="text" id="resultImageAjax"></td></tr>
-        <input type="hidden" id="resultImage.id" name="resultImage.id" value="${slideInstance.resultImage.id}">
+        <input type="hidden" id="resultImage.id" name="resultImage.id" value="${slideInstance?.resultImage?.id}">
      <tr><td>...or upload new file: </td><td><input type="file" id="resultImage.input" name="resultImageInput"/></td></tr></table></div>
 </div> <br/><br/><br/><br/>
 
@@ -113,7 +113,7 @@
     </label>
     <div style="float:right; padding-right: 120px;"><table><tr><td>Choose existing file: </td>
         <td> <input type="text" id="protocolAjax"></td></tr>
-        <input type="hidden" id="protocol.id" name="protocol.id" value="${slideInstance.protocol.id}">
+        <input type="hidden" id="protocol.id" name="protocol.id" value="${slideInstance?.protocol?.id}">
         <tr><td>...or upload new file: </td><td><input type="file" id="protocol.input" name="protocolInput"/></td></tr></table></div>
 </div>
 

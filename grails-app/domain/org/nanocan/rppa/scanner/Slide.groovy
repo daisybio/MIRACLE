@@ -26,4 +26,9 @@ class Slide {
         spots cascade: "all-delete-orphan"
         blockShifts cascade:  "all-delete-orphan"
     }
+
+    String toString()
+    {
+        (dateOfStaining.toGMTString() + "_" + experimenter.toString() + "_" + antibody.toString())
+    }
 }

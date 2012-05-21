@@ -21,8 +21,8 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        /* slide staining */
-        /*def experimenter = new Experimenter(firstName: "Markus", lastName: "List").save()
+        /* slide staining
+        def experimenter = new Experimenter(firstName: "Markus", lastName: "List").save()
 
         def primaryAB = new Antibody(name: "p53", concentration: 5, concentrationUnit: "mM").save()
         def primaryAB2 = new Antibody(name: "GAPDH", concentration: 5, concentrationUnit: "mM").save()
@@ -72,7 +72,7 @@ class BootStrap {
         def resultImage = new ResultFile(fileType: "Image", fileName: "slide1.png", filePath:  fileNamePicture, dateUploaded:  new Date()).save()
         def resultProtocol = new ResultFile(fileType: "Protocol", fileName: "protocol.doc", filePath:  fileNamePicture, dateUploaded:  new Date()).save()
 
-        def slideLayout = new SlideLayout(columnsPerBlock: 2, rowsPerBlock: 18, numberOfBlocks: 48,
+        def slideLayout = new SlideLayout(columnsPerBlock: 1, rowsPerBlock: 72, numberOfBlocks: 12,
                 title: "Default Layout", depositionPattern: "[4,4,2,2,1,1]").save()
 
         def slide = new Slide(experimenter: experimenter, antibody: primaryAB,
@@ -94,7 +94,7 @@ class BootStrap {
         def lysisBuffer = new LysisBuffer(name: "LB", concentration: 5, concentrationUnit: "mM", color: "#00aaaa").save()
         def lysisBuffer10 = new LysisBuffer(name: "LB", concentration: 10, concentrationUnit: "mM", color: "#0000bb").save()
 
-        slideLayoutService.createSampleSpots(slideLayout)      */
+        slideLayoutService.createSampleSpots(slideLayout)    */
 
     }
     def destroy = {

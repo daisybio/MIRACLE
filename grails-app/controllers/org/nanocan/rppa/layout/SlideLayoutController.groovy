@@ -33,28 +33,46 @@ class SlideLayoutController {
         [slideLayout:  slideLayoutInstance, spots: slideLayoutInstance.sampleSpots, sampleProperty: params.sampleProperty]
     }
 
+    def progressService
+
     def updateSpotProperty()
     {
         def spotProp = params.spotProperty
+        def className
+
+        //dilution != dilutionFactor
+        if (spotProp == "dilutionFactor") className = "dilution"
+        else className = spotProp
+
+        def slideLayout = params.slideLayout
 
         params.remove("action")
         params.remove("controller")
         params.remove("spotProperty")
+        params.remove("slideLayout")
 
         if(params.size() == 0) render "Nothing to do"
 
-        params.each{ key, value ->
+        //to calculate percentage for progress bar
+        def numberOfSpots = params.keySet().size()
+        def currentSpot = 0
+
+        params.each{key, value ->
             if(value != "")
             {
                 def spot = LayoutSpot.get(key as Long)
 
                 if (value as Long == -1) spot.properties[spotProp] = null
-                else spot.properties[spotProp] = grailsApplication.getArtefactByLogicalPropertyName("Domain", spotProp).clazz.get(value as Long)
+                else spot.properties[spotProp] = grailsApplication.getArtefactByLogicalPropertyName("Domain", className).clazz.get(value as Long)
 
                 spot.save()
             }
+
+            progressService.setProgressBarValue("update${slideLayout}", (currentSpot / numberOfSpots * 100))
+            currentSpot++
         }
 
+        progressService.setProgressBarValue("update${slideLayout}", 100)
         render "Save successful"
     }
 

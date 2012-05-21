@@ -102,38 +102,75 @@ class SlideService {
 
         fis.close()
 
-        //distribute the remaining 20% of the progress bar (80% used by excelimportservice)
+        progressService.setProgressBarValue("excelimport", 0)
         def numberOfSpots = spots.size()
-        def onePercent = (int) (numberOfSpots / 20)
+        def onePercent = (int) (numberOfSpots / 100)
         def nextStep = onePercent
-        def currentPercent = 80
+        def currentPercent = 0
 
         def depositionList = slideLayoutService.parseDepositions(slideInstance.layout.depositionPattern)
         int deposLength = depositionList.size()
 
+        int layId = slideInstance.layout.id
+
+        /*we want to keep track of the last layout spot to reduce the database load */
+        def lastBlock = -1
+        def lastRow = -1
+        def lastCol = -1
+
+        def lastLayoutSpot
+
         spots.eachWithIndex{ obj, i ->
 
-            def newSpot = new Spot(obj)
-            slideInstance.addToSpots(newSpot).save()
+            //inserting many elements is very slow, we need to clean up hibernate cache regularly
+            if(i % 50 == 0) cleanGorm()
 
+            def newSpot = new Spot(obj)
+
+            //match layout column to actual column
             int layoutColumn = (((obj.col as Integer)-1) / deposLength)
             //we don't want to start with zero
             layoutColumn++
 
-            int layId = slideInstance.layout.id
+            def layoutSpot
 
-            def layoutSpots = LayoutSpot.where() {
-                ( layout.id == (layId as Long)
-                && block == (obj.block as Integer)
-                && row == (obj.row as Integer)
-                && col == layoutColumn )
+            if(lastBlock == obj.block && lastRow == obj.row && lastCol == layoutColumn){
+                layoutSpot = lastLayoutSpot
             }
 
-            if(layoutSpots.list().size() == 0){
-                progressService.setProgressBarValue("excelimport", 100)
-                return "Error: No layout information for spot ${newSpot}"
+            else
+            {
+                lastBlock = obj.block
+                lastRow = obj.row
+                lastCol = layoutColumn
+
+                layoutSpot = LayoutSpot.find {
+                    ( layout.id == (layId as Long)
+                            && block == (obj.block as Integer)
+                            && row == (obj.row as Integer)
+                            && col == layoutColumn )
+                }
+
+                if(layoutSpot == null){
+                    progressService.setProgressBarValue("excelimport", 100)
+                    return "Error: No layout information for spot ${newSpot}"
+
+                }
+
+                else{
+                    lastLayoutSpot = layoutSpot
+                }
             }
-            layoutSpots.list().first().addToSpots(newSpot).save()
+
+           layoutSpot.addToSpots(newSpot)
+           slideInstance.addToSpots(newSpot)
+
+
+            if(!newSpot.save())
+            {
+                log.error newSpot.errors
+                printnl newSpot.errors
+            }
 
             if(i == nextStep)
             {
@@ -146,16 +183,14 @@ class SlideService {
     }
 
     def cleanGorm = {
-        sessionFactory.currentSession.flush()
-        sessionFactory.currentSession.clear()
+        def session = sessionFactory.currentSession
+        session.flush()
+        session.clear()
         org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP.get().clear()
-        System.gc()
     }
 
     def exportToCSV(def slideInstance, def separator, def withBlockShifts, def withLayout) {
 
-        println separator
-        println slideInstance
         def layId = slideInstance.layout.id
 
         def spotCriteria = Spot.createCriteria().list{

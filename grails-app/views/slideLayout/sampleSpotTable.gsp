@@ -32,6 +32,8 @@
     </ul>
 </div>
 
+<g:jprogressDialog message="Updating layout information..." progressId="update${slideLayout.id}" trigger="layoutUpdateButton"/>
+
 <h1 style="padding-left:20px;">Modify ${sampleProperty.toString().capitalize()} for layout "${slideLayout}" </h1>
 
 <div class="message" id="message" role="status">${flash.message?:"Select cells to change the layout"}</div>
@@ -41,7 +43,8 @@
 </g:if>
 
 <g:formRemote onSuccess="window.onbeforeunload = null;" name="${sampleProperty}form" update="message" url="[controller: 'slideLayout', action: 'updateSpotProperty']">
-    <input name="spotProperty" type="hidden" value="${sampleProperty}">
+    <input name="spotProperty" type="hidden" value="${sampleProperty}"/>
+    <input name="slideLayout" type="hidden" value="${slideLayout.id}"/>
 
 <div id = "blockTabs" style="overflow: auto; height:700px;">
  <ul>
@@ -80,7 +83,7 @@
                 <td>${row}</td>
                 <g:each in="${tab..tab+11}">
                     <g:each in="${1..(slideLayout.columnsPerBlock)}">
-                        <td style="border: 1px solid; background-color:${spotList.get(spot)?.properties[sampleProperty]?spotList.get(spot).properties[sampleProperty].color?:'#e0e0e0':''};"><input name="${spotList.get(spot).id}" type="hidden" value="${spotList.get(spot).properties[sampleProperty]?.id?:""}"></td>
+                        <td style="border: 1px solid; background-color:${spotList.get(spot)?.properties[sampleProperty]?spotList.get(spot).properties[sampleProperty].color?:'#e0e0e0':''};"><input name="${spotList.get(spot).id}" type="hidden" value=""></td>
                         <g:set var="spot" value="${++spot}"/>
                     </g:each>
                 </g:each>
@@ -91,7 +94,7 @@
     </div>
  </g:each>
 </div>
-<input type="submit" value="Save changes"/>
+<input type="submit" value="Save changes" name="layoutUpdateButton"/>
 </g:formRemote>
 
 <r:script>
