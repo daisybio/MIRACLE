@@ -110,4 +110,5 @@ log4j = {
 }
 
 grails.views.javascript.library="jquery"
+rppa.upload.directory ="/upload/"
 

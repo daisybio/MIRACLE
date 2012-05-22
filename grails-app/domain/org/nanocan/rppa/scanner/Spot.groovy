@@ -6,6 +6,7 @@ class Spot {
 
     double FG
     double BG
+    double signal
     int x
     int y
     int diameter
@@ -29,5 +30,14 @@ class Spot {
     String toString()
     {
         "B/C/R: ${block}/${col}/${row}, FG/BG: ${FG}/${BG}, flag: ${flag}"
+    }
+
+    def beforeInsert(){
+        signal = FG - BG
+    }
+
+    def beforeUpdate()
+    {
+        signal = FG - BG
     }
 }
