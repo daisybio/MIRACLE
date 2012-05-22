@@ -17,10 +17,17 @@
         </ul>
     </div>
 
-    <h1>Block shift correction: </h1><hr/><br/>
-    <p>Please enter shift correction values for each block (1 to 48).<br/>A block can be shifted horizontally
+
+    <div class="content">
+
+    <h1>Block shift correction: </h1>
+
+    <div style="padding: 20px;">
+    <p>Please enter shift correction values for each block.<br/>A block can be shifted horizontally
     (- : left, + : right) or vertically (- : up, + : down)</p><br/>
 
+    <g:set var="blockCount" value="${slideInstance?.layout?.numberOfBlocks?:48}"/>
+    <g:set var="blockCountHalf" value="${(int) (blockCount / 2)}"/>
     <g:hiddenField name="id" value="${slideInstance.id}"></g:hiddenField>
 
     <table style="width:200px;">
@@ -32,15 +39,15 @@
 
         <tbody>
 
-        <g:each in="${1..24}" var="block">
+        <g:each in="${1..blockCountHalf}" var="block">
             <tr>
                 <td>${block}</td>
                 <td><g:select name="hshift_${block}" from="${-3..3}" value="${hblockShifts[block-1]?:0}"/></td>
                 <td><g:select name="vshift_${block}" from="${-3..3}" value="${vblockShifts[block-1]?:0}"/></td>
 
-                <td>${block+24}</td>
-                <td><g:select name="hshift_${block+24}" from="${-3..3}" value="${hblockShifts[block+23]?:0}"/></td>
-                <td><g:select name="vshift_${block+24}" from="${-3..3}" value="${vblockShifts[block+23]?:0}"/></td>
+                <td>${block+blockCountHalf}</td>
+                <td><g:select name="hshift_${block+blockCountHalf}" from="${-3..3}" value="${hblockShifts[block+blockCountHalf-1]?:0}"/></td>
+                <td><g:select name="vshift_${block+blockCountHalf}" from="${-3..3}" value="${vblockShifts[block+blockCountHalf-1]?:0}"/></td>
             </tr>
             </g:each>
         </tbody>
@@ -49,5 +56,6 @@
 
     <g:submitButton name="Update block shifts"/>
 </g:form>
+</div> </div>
 </body>
 </html>

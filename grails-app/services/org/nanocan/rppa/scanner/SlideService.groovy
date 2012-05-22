@@ -5,6 +5,8 @@ import org.nanocan.rppa.layout.SlideLayout
 import org.hibernate.FetchMode
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
+import java.text.DecimalFormatSymbols
+import java.text.DecimalFormat
 
 class SlideService {
 
@@ -39,13 +41,15 @@ class SlideService {
         return params
     }
 
+    def grailsApplication
+
     def createResultFile(def resultFile, String type)
     {
         if(!resultFile.empty) {
 
             def currentDate = new java.util.Date()
             long timestamp = currentDate.getTime()
-            def filePath = "upload/" + timestamp.toString() + "_" + resultFile.originalFilename
+            def filePath = grailsApplication.config.rppa.upload.directory + timestamp.toString() + "_" + resultFile.originalFilename
 
             resultFile.transferTo( new File(filePath) )
 
@@ -189,33 +193,80 @@ class SlideService {
         org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP.get().clear()
     }
 
-    def exportToCSV(def slideInstance, def separator, def withBlockShifts, def withLayout) {
+    def exportToCSV(def slideInstance, def params) {
 
-        def layId = slideInstance.layout.id
+        def slideId = slideInstance.id
+
+        def props = params.selectedProperties
 
         def spotCriteria = Spot.createCriteria().list{
 
             createAlias('layoutSpot', 'lspot')
-            createAlias('lspot.layout', 'lout')
+            createAlias('slide', 'sl')
+            createAlias('lspot.spotType', 'spotTp')
+            createAlias('lspot.sample', 'spotSmple')
+            createAlias('lspot.dilutionFactor', 'df')
 
-            eq("lout.id", layId )
+            eq("sl.id", slideId )
+            if(params.excludeBadFlags == "on") eq("flag", 0)
+            if(params.excludeBadDiameter == "on") lt("diameter", 250)
+            if(params.excludeBadSignal == "on") gt("signal", (0 as Double))
 
             projections {
-                property("block")
-                property("col")
-                property("row")
-                property("FG")
-                property("BG")
-                property("x")
-                property("y")
-                property("diameter")
-                property("flag")
-                property("lspot.cellLine")
-                property("lspot.lysisBuffer")
-                property("lspot.dilutionFactor")
-                property("lspot.inducer")
-                property("lspot.spotType")
-                property("lspot.sample")
+                if("Block" in props) property("block")
+                if("Column" in props) property("col")
+                if("Row" in props) property("row")
+                if("FG" in props) property("FG")
+                if("BG" in props) property("BG")
+                if("Signal" in props) property("signal")
+                if("x" in props) property("x")
+                if("y" in props) property("y")
+                if("Diameter" in props) property("diameter")
+                if("Flag" in props) property("flag")
+                if("CellLine" in props) property("lspot.cellLine")
+                if("LysisBuffer" in props) property("lspot.lysisBuffer")
+                if("DilutionFactor" in props) property("df.dilutionFactor")
+                if("Inducer" in props) property("lspot.inducer")
+                if("SpotType" in props) property("spotTp.name")
+                if("SpotClass" in props) property("spotTp.type")
+                if("SampleName" in props) property("spotSmple.name")
+                if("SampleType" in props) property("spotSmple.type")
+                if("TargetGene" in props) property("spotSmple.targetGene")
+            }
+        }
+
+        return fixDecimalSeparator(spotCriteria, params.decimalSeparator, params.decimalPrecision)
+    }
+
+    def includeBlockShifts(def spotCriteria, def slideInstance)
+    {
+        //get blockshiftMap
+        def blockShiftMap = [:]
+
+        BlockShift.findAllBySlide(slideInstance).each{
+            blockShiftMap[it.blockNumber] = [it.horizontalShift, it.verticalShift]
+        }
+
+        spotCriteria.collect{ spot ->
+
+           def array = []
+           array.addAll(blockShiftMap[spot[0]]?:[0,0])
+           array.addAll(spot)
+           return(array)
+        }
+    }
+
+    def fixDecimalSeparator(def spotCriteria, def decimalSeparator, def numberOfDecimals)
+    {
+        DecimalFormat df = new DecimalFormat();
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(decimalSeparator as char);
+        df.setDecimalFormatSymbols(symbols);
+        df.setGroupingUsed(false)
+
+        spotCriteria.each {
+            it.eachWithIndex{field, i ->
+                if(field.toString().isDouble() && !field.toString().isInteger()) it[i] = df.format(field.round(Integer.parseInt(numberOfDecimals)))
             }
         }
 

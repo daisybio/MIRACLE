@@ -151,16 +151,23 @@ class SlideController {
     }
 
     def saveBlockShiftPattern = {
-        println params
         def slideInstance = Slide.get(params.id)
 
         def vshift = params.findAll{it.toString().startsWith("vshift")}
         def hshift = params.findAll{it.toString().startsWith("hshift")}
 
-        for (int block in 1..48)
+        for (int block in 1..(slideInstance.layout?.numberOfBlocks?:48))
         {
-            slideInstance.addToBlockShifts(new BlockShift(blockNumber: block, horizontalShift: hshift["hshift_${block}"],
-            verticalShift: vshift["vshift_${block}"]))
+            def existingBlock = BlockShift.findBySlideAndBlockNumber(slideInstance, block)
+            if (existingBlock){
+                existingBlock.horizontalShift = Integer.parseInt(hshift["hshift_${block}"])
+                existingBlock.verticalShift = Integer.parseInt(vshift["vshift_${block}"])
+                existingBlock.save(flush:true)
+            }
+            else {
+                slideInstance.addToBlockShifts(new BlockShift(blockNumber: block, horizontalShift: hshift["hshift_${block}"],
+                verticalShift: vshift["vshift_${block}"]))
+            }
         }
 
         if(slideInstance.save(flush: true))
@@ -193,26 +200,32 @@ class SlideController {
         def slideInstance = Slide.get(params.id)
         def separatorMap = ["\t":"tab", ";":"semicolon", ",": "comma"]
 
-        [slideInstance: slideInstance, separatorMap: separatorMap]
+        [slideInstance: slideInstance, separatorMap: separatorMap, slideProperties: csvHeader]
     }
 
-    def csvHeader = ["Block","Column","Row","FG","BG","x","y","diameter","flag","CellLine",
-            "LysisBuffer", "DilutionFactor", "Inducer", "SpotType", "Sample"]
+    def csvHeader = ["Block","Column","Row","FG","BG","Signal", "x","y","Diameter","Flag","CellLine",
+            "LysisBuffer", "DilutionFactor", "Inducer", "SpotType", "SpotClass", "SampleName", "SampleType", "TargetGene"]
 
     def processExport = {
 
         def slideInstance = Slide.get(params.id)
 
-        def results = slideService.exportToCSV(slideInstance, params.separator, true, true)
+        def results = slideService.exportToCSV(slideInstance, params)
 
         response.setHeader("Content-disposition", "filename=${slideInstance}.csv")
         response.contentType = "application/vnd.ms-excel"
 
         def outs = response.outputStream
 
-        def cols = [:]
+        def header = params.selectedProperties.join(params.separator)
 
-        outs << csvHeader.join(params.separator)
+        if(params.includeBlockShifts == "on")
+        {
+            results = slideService.includeBlockShifts(results, slideInstance)
+            header = "hshift;vshift;" + header
+        }
+
+        outs << header
         outs << "\n"
 
         results.each() {
