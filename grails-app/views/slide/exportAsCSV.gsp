@@ -18,8 +18,9 @@
 <div class="content">
     <h1>Export Spots to CSV</h1>
 
+
     <div id="formDiv">
-        <g:form action="processExport">
+        <g:form name="exportToCSVform" action ="processExport">
             <g:hiddenField name="id" value="${slideInstance.id}"></g:hiddenField>
 
             <ol class="property-list">
@@ -62,7 +63,7 @@
             </ol>
 
 
-            <fieldset class="buttons"><g:submitButton name="Export"/></fieldset>
+            <fieldset class="buttons"><g:submitButton onclick="outsideFunction();" name="Export"/></fieldset>
         </g:form>
     </div>
 </div>

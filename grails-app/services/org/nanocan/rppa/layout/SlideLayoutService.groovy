@@ -1,6 +1,7 @@
 package org.nanocan.rppa.layout
 
 import org.apache.commons.lang.ArrayUtils
+import org.nanocan.rppa.scanner.Spot
 
 class SlideLayoutService {
 
@@ -49,6 +50,13 @@ class SlideLayoutService {
         }
 
         return depositionArray
+    }
+
+    def getDeposition(Spot spot, def depositionArray)
+    {
+        if(spot.layoutSpot == null) return null
+
+        depositionArray[spot.col-1]
     }
 }
 
