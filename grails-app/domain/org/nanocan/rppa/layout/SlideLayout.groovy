@@ -1,6 +1,6 @@
 package org.nanocan.rppa.layout
 
-class SlideLayout {
+class SlideLayout{
     
     String title
     int columnsPerBlock
@@ -22,5 +22,4 @@ class SlideLayout {
     String toString(){
         title
     }
-
 }

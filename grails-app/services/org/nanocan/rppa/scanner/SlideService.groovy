@@ -7,6 +7,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import java.text.DecimalFormatSymbols
 import java.text.DecimalFormat
+import org.hibernate.criterion.Restrictions
 
 class SlideService {
 
@@ -193,19 +194,56 @@ class SlideService {
         org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP.get().clear()
     }
 
-    def exportToCSV(def slideInstance, def params) {
-
-        def slideId = slideInstance.id
+    def exportToCSV(Slide slideInstance, def params) {
 
         def props = params.selectedProperties
+        def depositionArray = slideLayoutService.getDepositionArray(slideInstance.layout)
 
-        def spotCriteria = Spot.createCriteria().list{
+        def spotTotal = slideInstance.spots.size()
+        def spotCounter = 0
+
+        def spotCriteria = Spot.findAllBySlide(slideInstance).collect{ spot ->
+
+            progressService.setProgressBarValue("${slideInstance.id}_CSVexport", spotCounter / spotTotal * 100)
+
+            def spotPropList = new ArrayList<String>()
+
+            if("Block" in props) spotPropList << spot.block
+            if("Column" in props) spotPropList << spot.col
+            if("Row" in props) spotPropList << spot.row
+            if("FG" in props) spotPropList << spot.FG
+            if("BG" in props) spotPropList << spot.BG
+
+            if("Signal" in props){
+                if(params.excludeBadFlags == "on" && spot.flag != 0) spotPropList << "NA"
+                else if(params.excludeBadDiameter == "on" && spot.diameter >= 250) spotPropList << "NA"
+                else if(params.excludeBadSignal == "on" && spot.signal <= 0) spotPropList << "NA"
+                else spotPropList << spot.signal
+            }
+
+            if("x" in props) spotPropList << spot.x
+            if("y" in props) spotPropList << spot.y
+            if("Diameter" in props) spotPropList << spot.diameter
+            if("Flag" in props) spotPropList << spot.flag
+            if("Deposition" in props) spotPropList << slideLayoutService.getDeposition(spot, depositionArray)
+            if("CellLine" in props) spotPropList << (spot.layoutSpot.cellLine?:"NA")
+            if("LysisBuffer" in props) spotPropList << (spot.layoutSpot.lysisBuffer?:"NA")
+            if("DilutionFactor" in props) spotPropList << (spot.layoutSpot.dilutionFactor?.dilutionFactor?:"NA")
+            if("Inducer" in props) spotPropList << (spot.layoutSpot.inducer?:"NA")
+            if("SpotType" in props) spotPropList << (spot.layoutSpot.spotType?.name?:"NA")
+            if("SpotClass" in props) spotPropList << (spot.layoutSpot.spotType?.type?:"NA")
+            if("SampleName" in props) spotPropList << (spot.layoutSpot.sample?.name?:"NA")
+            if("SampleType" in props) spotPropList << (spot.layoutSpot.sample?.type?:"NA")
+            if("TargetGene" in props) spotPropList << (spot.layoutSpot.sample?.targetGene?:"NA")
+        }
+
+        // projections work a lot faster but then it doesn't work when an association is null
+        /*def spotCriteria = Spot.createCriteria().list{
 
             createAlias('layoutSpot', 'lspot')
             createAlias('slide', 'sl')
-            createAlias('lspot.spotType', 'spotTp')
-            createAlias('lspot.sample', 'spotSmple')
-            createAlias('lspot.dilutionFactor', 'df')
+            //createAlias('lspot.spotType', 'spotTp')
+            //createAlias('lspot.sample', 'spotSmple')
 
             eq("sl.id", slideId )
             if(params.excludeBadFlags == "on") eq("flag", 0)
@@ -225,15 +263,16 @@ class SlideService {
                 if("Flag" in props) property("flag")
                 if("CellLine" in props) property("lspot.cellLine")
                 if("LysisBuffer" in props) property("lspot.lysisBuffer")
+                property("dilutionFactor", "df")
                 if("DilutionFactor" in props) property("df.dilutionFactor")
                 if("Inducer" in props) property("lspot.inducer")
-                if("SpotType" in props) property("spotTp.name")
+                /*if("SpotType" in props) property("spotTp.name")
                 if("SpotClass" in props) property("spotTp.type")
                 if("SampleName" in props) property("spotSmple.name")
                 if("SampleType" in props) property("spotSmple.type")
                 if("TargetGene" in props) property("spotSmple.targetGene")
             }
-        }
+        }    */
 
         return fixDecimalSeparator(spotCriteria, params.decimalSeparator, params.decimalPrecision)
     }

@@ -203,11 +203,12 @@ class SlideController {
         [slideInstance: slideInstance, separatorMap: separatorMap, slideProperties: csvHeader]
     }
 
-    def csvHeader = ["Block","Column","Row","FG","BG","Signal", "x","y","Diameter","Flag","CellLine",
+    def csvHeader = ["Block","Column","Row","FG","BG","Signal", "x","y","Diameter","Flag", "Deposition", "CellLine",
             "LysisBuffer", "DilutionFactor", "Inducer", "SpotType", "SpotClass", "SampleName", "SampleType", "TargetGene"]
 
     def processExport = {
 
+        println params.id
         def slideInstance = Slide.get(params.id)
 
         def results = slideService.exportToCSV(slideInstance, params)

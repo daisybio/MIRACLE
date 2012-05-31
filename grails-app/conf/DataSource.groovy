@@ -8,7 +8,7 @@
 dataSource {
     pooled = true
     driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
-    url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner'
+    url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScannerTest'
     username = 'rppa'
     password = 'password55555'
     dbCreate = 'update'
