@@ -24,6 +24,7 @@ environments {
     production {
         dataSource {
             driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
+            driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
             url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScannerTest'
             username = 'rppa'
             password = 'password55555'
