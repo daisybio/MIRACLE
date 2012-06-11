@@ -4,7 +4,9 @@ import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.apache.commons.io.FilenameUtils
+import grails.plugins.springsecurity.Secured
 
+@Secured(['ROLE_USER'])
 class SlideController {
 
     static navigation = [

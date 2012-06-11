@@ -4,8 +4,6 @@ import org.nanocan.rppa.scanner.ResultFileConfig
 
 import org.nanocan.rppa.scanner.Slide
 import org.nanocan.rppa.scanner.ResultFile
-import sebastian.hohns.imagezoom.imageops.ImagemagickOperations
-import org.im4java.core.Info
 import org.nanocan.rppa.layout.SlideLayout
 import org.nanocan.rppa.layout.CellLine
 import org.nanocan.rppa.layout.LysisBuffer
@@ -15,7 +13,9 @@ import org.nanocan.rppa.layout.SpotType
 import org.nanocan.rppa.layout.Inducer
 import org.nanocan.rppa.rnai.Sample
 import grails.util.GrailsUtil
-import org.nanocan.rppa.scanner.ResultFileImporter
+import org.nanocan.rppa.security.Role
+import org.nanocan.rppa.security.Person
+import org.nanocan.rppa.security.PersonRole
 
 class BootStrap {
 
@@ -27,10 +27,30 @@ class BootStrap {
             case "development":
 
                 initSampleData()
+                initUserbase()
 
                 break
         }
 
+    }
+
+    private void initUserbase(){
+
+        def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
+        def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
+
+        def testUser = new Person(username: 'user', enabled: true, password: 'password')
+        testUser.save(flush: true)
+        PersonRole.create testUser, userRole, true
+
+        def adminUser = new Person(username: 'admin', enabled: true, password: 'password')
+        adminUser.save(flush: true)
+        PersonRole.create adminUser, adminRole, true
+        PersonRole.create adminUser, userRole, true
+
+        assert Person.count() == 2
+        assert Role.count() == 2
+        assert PersonRole.count() == 3
     }
 
     private void initSampleData() {
@@ -68,7 +88,7 @@ class BootStrap {
                 xCol: 'I',
                 yCol: 'J',
                 diameterCol: 'K',
-                skipLines: 26
+                skipLines: 25
         ).save(flush:true, failOnError: true)
 
         String fileName = "sampleData/2012-03-28 b-tubulin abcam abnova original.xls"

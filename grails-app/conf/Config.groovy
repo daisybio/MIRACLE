@@ -112,3 +112,8 @@ log4j = {
 grails.views.javascript.library="jquery"
 rppa.upload.directory ="upload/"
 
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.nanocan.rppa.security.Person'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.nanocan.rppa.security.PersonRole'
+grails.plugins.springsecurity.authority.className = 'org.nanocan.rppa.security.Role'
