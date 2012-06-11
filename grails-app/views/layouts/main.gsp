@@ -21,13 +21,35 @@
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'navigation.css')}" type="text/css">
         <g:layoutHead/>
         <r:layoutResources />
+
+        <style>
+        #draggableUser { width:250px; padding: 0.5em; background-color: #ffffff; position: fixed;
+            z-index: 10000; opacity: 0.95; top: 10px; right: 10px;
+            border-color: #e6e6e6; border-bottom-width: 1px; border-style: solid;}
+        </style>
+        <r:script>
+            $(function(){
+                $( "#draggableUser").draggable();
+            });
+        </r:script>
 	</head>
 	<body>
 		<div id="logo" role="banner"><img src="${resource(dir: 'images', file: 'rppascanner_logo_small.png')}" alt="RPPA-Scanner"/>
-        <div style="float:right; border: 0px none; box-shadow: none;"><nav:render group="main"/><br/>
-        <div style="float:right;width:600px;"><hr></div><br/>
-        <g:if test="${controllerName in ['slideLayout', 'cellLine', 'dilution', 'lysisBuffer', 'inducer', 'spotType']}"><nav:render group="layout"/></g:if>
-        <g:if test="${controllerName in ['slide', 'antibody', 'experimenter', 'resultFileConfig']}"><nav:render group="scanner"/></g:if>
+
+        <sec:ifLoggedIn>
+
+            <div id="draggableUser">
+                You are logged in as <sec:username/><br/><br/>
+                <g:link controller="logout">Logout</g:link>
+            </div>
+
+            <div style="float:right; border: 0px none; box-shadow: none;"><nav:render group="main"/><br/>
+
+            <div style="float:right;width:600px;"><hr></div><br/>
+
+            <g:if test="${controllerName in ['slideLayout', 'cellLine', 'dilution', 'lysisBuffer', 'inducer', 'spotType']}"><nav:render group="layout"/></g:if>
+            <g:if test="${controllerName in ['slide', 'antibody', 'experimenter', 'resultFileConfig']}"><nav:render group="scanner"/></g:if>
+        </sec:ifLoggedIn>
         </div>
         </div>
 

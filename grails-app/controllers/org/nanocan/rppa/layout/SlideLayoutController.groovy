@@ -2,7 +2,9 @@ package org.nanocan.rppa.layout
 
 import org.springframework.dao.DataIntegrityViolationException
 import org.nanocan.rppa.scanner.Spot
+import grails.plugins.springsecurity.Secured
 
+@Secured(['ROLE_USER'])
 class SlideLayoutController {
 
     static navigation = [
