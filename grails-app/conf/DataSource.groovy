@@ -1,18 +1,3 @@
-/*dataSource {
-    pooled = true
-    driverClassName = "org.h2.Driver"
-    username = "sa"
-    password = ""
-}*/
-
-dataSource {
-    pooled = true
-    driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
-    url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScannerTest'
-    username = 'rppa'
-    password = 'password55555'
-    dbCreate = 'update'
-}
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = false
@@ -22,8 +7,12 @@ hibernate {
 environments {
     development {
         dataSource {
-            //dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            //url = "jdbc:h2:mem:devDb;MVCC=TRUE"
+            pooled = true
+            driverClassName = "org.h2.Driver"
+            username = "sa"
+            password = ""
+            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            url = "jdbc:h2:mem:devDb;MVCC=TRUE"
         }
     }
     test {
@@ -33,9 +22,12 @@ environments {
         }
     }
     production {
-        /*dataSource {
-            dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE"
+        dataSource {
+            driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
+            url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScannerTest'
+            username = 'rppa'
+            password = 'password55555'
+            dbCreate = 'update'
             pooled = true
             properties {
                maxActive = -1
@@ -47,6 +39,6 @@ environments {
                testOnReturn=true
                validationQuery="SELECT 1"
             }
-        }  */
+        }
     }
 }

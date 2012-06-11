@@ -39,13 +39,13 @@ grails.resources.modules = {
     overrides {
         'jquery-theme' {
             resource id:'theme',
-                    url:[dir: 'jquery-ui/themes/smoothness',
+                    url:[dir: '/css',
                             file:'jquery-ui-1.8.20.custom.css'],
                     attrs:[media:'screen, projection']
         }
 
         'jquery-ui' {
-            resource id:'js', url:[dir:'jquery-ui/js', file:"jquery-ui-1.8.20.custom.min.js"],
+            resource id:'js', url:[dir:'/js', file:"jquery-ui-1.8.20.custom.min.js"],
                     nominify: true, disposition: 'head'
         }
     }
