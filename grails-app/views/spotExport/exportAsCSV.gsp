@@ -20,7 +20,7 @@
 
 
     <div id="formDiv">
-        <g:form name="exportToCSVform" action ="processExport">
+        <g:form name="exportToCSVform" controller="spotExport">
             <g:hiddenField name="id" value="${slideInstance.id}"></g:hiddenField>
 
             <ol class="property-list">
@@ -63,7 +63,10 @@
             </ol>
 
 
-            <fieldset class="buttons"><g:submitButton onclick="outsideFunction();" name="Export"/></fieldset>
+            <fieldset class="buttons">
+                <g:actionSubmit onclick="outsideFunction();" value="Export and download" action="processExport"/>
+                <g:actionSubmit value="Create URL for R" action="createUrlForR"></g:actionSubmit>
+            </fieldset>
         </g:form>
     </div>
 </div>
