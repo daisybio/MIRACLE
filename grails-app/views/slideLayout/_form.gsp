@@ -5,9 +5,9 @@
 <div class="fieldcontain ${hasErrors(bean: slideLayoutInstance, field: 'title', 'error')} ">
 	<label for="title">
 		<g:message code="slideLayout.title.label" default="Title" />
-		
+		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="title" value="${slideLayoutInstance?.title}"/>
+	<g:textField name="title" minSize="1" required="" value="${slideLayoutInstance?.title}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: slideLayoutInstance, field: 'columnsPerBlock', 'error')} required">
@@ -37,8 +37,8 @@
 <div class="fieldcontain ${hasErrors(bean: slideLayoutInstance, field: 'depositionPattern', 'error')} ">
 	<label for="depositionPattern">
 		<g:message code="slideLayout.depositionPattern.label" default="Deposition Pattern" />
-		
+        <span class="required-indicator">*</span>
 	</label>
-	<g:textField name="depositionPattern" value="${slideLayoutInstance?.depositionPattern}"/>
+	<g:textField name="depositionPattern" minSize="1" required="" value="${slideLayoutInstance?.depositionPattern?:'[4,4,2,2,1,1]'}"/>
 </div>
 

@@ -13,11 +13,33 @@ class SampleController {
 
     def ajaxSampleFinder = {
         def samplesFound = Sample.withCriteria {
-            or{
-                ilike 'name', params.term + '%'
-                ilike 'targetGene', params.term + '%'
+            and{
+                isEmpty("identifiers")
+
+                or
+                {
+                    ilike 'name', params.term + '%'
+                    ilike 'targetGene', params.term + '%'
+                }
             }
         }
+
+        def moreSamplesFound = Sample.withCriteria {
+            or
+            {
+                ilike 'name', params.term + '%'
+                ilike 'targetGene', params.term + '%'
+                identifiers{
+                   or
+                   {
+                     ilike 'name', params.term + '%'
+                     ilike 'accessionNumber', params.term + '%'
+                   }
+                }
+            }
+        }
+
+        samplesFound.addAll(moreSamplesFound)
 
         def sampleSelectList = []
 
@@ -34,9 +56,6 @@ class SampleController {
     }
 
     def legendSampleSelected = {
-
-        println "legendaction"
-        println params
 
         render "<script>alert('test');<script>"
     }

@@ -3,17 +3,23 @@ package org.nanocan.rppa.scanner
 class Antibody {
 
     String name
-    double concentration
+    Double concentration
     String concentrationUnit
+    String comments
 
     static constraints = {
         name()
-        concentration()
-        concentrationUnit inList: ["nM", "mM", "pM", "µm"]
+        concentration nullable:true
+        concentrationUnit inList: ["nM", "mM", "pM", "µm"], nullable:true
+        comments nullable: true
     }
 
     String toString()
     {
+       if(concentration != null && concentrationUnit!= null)
         (name + " " + concentration.toString() + " " + concentrationUnit)
+
+       else
+        name
     }
 }
