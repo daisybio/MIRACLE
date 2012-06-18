@@ -40,6 +40,7 @@
       <sourceFolder url="file://$MODULE_DIR$/grails-app/taglib" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/integration" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
@@ -57,6 +58,10 @@
           <root url="jar://$USER_HOME$/.grails/ivy-cache/com.lowagie/itext/jars/itext-2.1.7.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.jrobin/jrobin/jars/jrobin-1.5.9.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/net.bull.javamelody/javamelody-core/jars/javamelody-core-1.37.0.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.2.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/junit/junit-dep/jars/junit-dep-4.9.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.spockframework/spock-core/jars/spock-core-0.6-groovy-1.8.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.spockframework/spock-grails-support/jars/spock-grails-support-0.6-groovy-1.8.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

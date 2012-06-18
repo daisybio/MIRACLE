@@ -15,9 +15,6 @@ class Spot {
     int row
     int col
 
-    static constraints = {
-    }
-
     static mapping = {
         slide index: 'spot_idx'
         block index: 'spot_idx'
@@ -26,6 +23,10 @@ class Spot {
     }
 
     static belongsTo = [slide: Slide, layoutSpot: LayoutSpot]
+
+    static constraints = {
+        layoutSpot nullable: true
+    }
 
     String toString()
     {

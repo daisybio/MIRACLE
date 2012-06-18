@@ -1,3 +1,5 @@
 target/
 imagezoom/
 upload/
+stacktrace.log
+classes/

@@ -53,24 +53,7 @@ class SlideLayoutController {
 
         if(params.size() == 0) render "Nothing to do"
 
-        //to calculate percentage for progress bar
-        def numberOfSpots = params.keySet().size()
-        def currentSpot = 0
-
-        params.each{key, value ->
-            if(value != "")
-            {
-                def spot = LayoutSpot.get(key as Long)
-
-                if (value as Long == -1) spot.properties[spotProp] = null
-                else spot.properties[spotProp] = grailsApplication.getArtefactByLogicalPropertyName("Domain", className).clazz.get(value as Long)
-
-                spot.save()
-            }
-
-            progressService.setProgressBarValue("update${slideLayout}", (currentSpot / numberOfSpots * 100))
-            currentSpot++
-        }
+        slideLayoutService.updateSpotProperties(spotProp, slideLayout, className)
 
         progressService.setProgressBarValue("update${slideLayout}", 100)
         render "Save successful"

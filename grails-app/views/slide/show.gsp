@@ -49,7 +49,7 @@
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 
                 <li><g:link class="create" action="addBlockShifts" id="${slideInstance?.id}">Modify Block Shifts</g:link></li>
-                <li><g:link class="list" action="exportAsCSV" id="${slideInstance?.id}">Export as CSV</g:link></li>
+                <li><g:link class="list" controller="spotExport" action="exportAsCSV" id="${slideInstance?.id}">Export as CSV</g:link></li>
 			</ul>
 		</div>
 		<div id="show-slide" class="content scaffold-show" role="main">
@@ -81,7 +81,7 @@
 				<li class="fieldcontain">
 					<span id="dateOfStaining-label" class="property-label"><g:message code="slide.dateOfStaining.label" default="Date Of Staining" /></span>
 					
-						<span class="property-value" aria-labelledby="dateOfStaining-label"><g:formatDate date="${slideInstance?.dateOfStaining}" /></span>
+						<span class="property-value" aria-labelledby="dateOfStaining-label"><g:formatDate type="date" style="MEDIUM" date="${slideInstance?.dateOfStaining}" /></span>
 					
 				</li>
 				</g:if>

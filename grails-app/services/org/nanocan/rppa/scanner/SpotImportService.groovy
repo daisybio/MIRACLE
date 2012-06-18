@@ -1,7 +1,7 @@
 package org.nanocan.rppa.scanner
 
-import org.nanocan.rppa.layout.LayoutSpot
 import groovy.sql.Sql
+import org.nanocan.rppa.layout.LayoutSpot
 
 /**
  * This service handles the extraction from spot information from an excel sheet using the excel-import plugin.
@@ -11,8 +11,9 @@ class SpotImportService {
 
     //dependencies
     def progressService
-    def slideLayoutService
+    def depositionService
     def dataSourceUnproxied
+    def grailsApplication
 
     /**
      * Get name of sheets of an excel file
@@ -40,10 +41,18 @@ class SpotImportService {
      */
     def deleteSpots = { slideInstanceId ->
 
-        def sql = Sql.newInstance(dataSourceUnproxied)
-        sql.execute('delete from spot where slide_id = ?', slideInstanceId)
-        sql.close()
-        Slide.get(slideInstanceId).refresh()
+        //config
+        def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
+
+        if(groovySql)
+        {
+            def sql = Sql.newInstance(dataSourceUnproxied)
+            sql.execute('delete from spot where slide_id = ?', slideInstanceId)
+            sql.close()
+            Slide.get(slideInstanceId).refresh()
+        }
+
+        else Slide.get(slideInstanceId).spots.clear()
     }
 
     /**
@@ -85,9 +94,9 @@ class SpotImportService {
      * Some global variables
      */
     //we want to keep track of the last layout spot to reduce the database load
-    def lastBlock = -1
-    def lastRow = -1
-    def lastCol = -1
+    int lastBlock = -1
+    int lastRow = -1
+    int lastCol = -1
     def lastLayoutSpot
 
     //global variables for progress bar
@@ -122,22 +131,45 @@ class SpotImportService {
     //use hibernate batch with prepared statements for max performance
     def performSqlBatchInsert = {sql, spots, slideInstance ->
 
+        //config
+        def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
+        def batchSize = grailsApplication.config.rppa.jdbc.batchSize?:150
+
         //extract deposition pattern from layout
-        def depositionList = slideLayoutService.parseDepositions(slideInstance.layout.depositionPattern)
+        def depositionList = depositionService.parseDepositions(slideInstance.layout.depositionPattern)
         int deposLength = depositionList.size()
         int layId = slideInstance.layout.id
 
-        sql.withBatch(200, 'insert into spot (version, bg, fg, block, col, diameter, flag, layout_spot_id, row, slide_id, x, y, signal) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'){ stmt ->
+        if(!groovySql){
 
             spots.eachWithIndex{ obj, currentSpotIndex ->
 
                 //match a layout spot to this slide spot in a closure
-                def layoutSpotId = matchLayoutSpot(sql, obj, layId, deposLength)
+                def layoutSpot = matchLayoutSpot(sql, obj, layId, deposLength)
 
-                //add insert statement to batch
-                stmt.addBatch(0, obj.BG, obj.FG, obj.block, obj.col, obj.diameter, obj.flag, layoutSpotId, obj.row, slideInstance.id, obj.x, obj.y, obj.FG-obj.BG)
+                //add new spot
+                def newSpot = new Spot(obj)
+                newSpot.layoutSpot = layoutSpot
+                newSpot.slide = slideInstance
+                newSpot.save()
 
                 nextStep = updateProgressBar(nextStep, currentSpotIndex)
+            }
+        }
+
+        else{
+            sql.withBatch(batchSize, 'insert into spot (version, bg, fg, block, col, diameter, flag, layout_spot_id, row, slide_id, x, y, signal) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'){ stmt ->
+
+                spots.eachWithIndex{ obj, currentSpotIndex ->
+
+                    //match a layout spot to this slide spot in a closure
+                    def layoutSpot = matchLayoutSpot(sql, obj, layId, deposLength)
+
+                    //add insert statement to batch
+                    stmt.addBatch(0, obj.BG, obj.FG, obj.block, obj.col, obj.diameter, obj.flag, layoutSpot.id, obj.row, slideInstance.id, obj.x, obj.y, obj.FG-obj.BG)
+
+                    nextStep = updateProgressBar(nextStep, currentSpotIndex)
+                }
             }
         }
     }
@@ -146,6 +178,9 @@ class SpotImportService {
      * Closure to find a layout spot that matches the current spot
      */
     def matchLayoutSpot = {sql, obj, layId, deposLength ->
+
+        //config
+        def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
 
         def layoutSpot
 
@@ -165,15 +200,19 @@ class SpotImportService {
             lastRow = obj.row
             lastCol = layoutColumn
 
-            /*/find layout spot
-            layoutSpot = LayoutSpot.find {
-                ( layout.id == (layId as Long)
-                        && block == (obj.block as Integer)
-                        && row == (obj.row as Integer)
-                        && col == layoutColumn )
-            } */
-            layoutSpot = sql.firstRow("select * from layout_spot where layout_id = ? and block = ? and row = ? and col = ?",
-                    [layId, obj.block, obj.row, layoutColumn]).id
+            if(!groovySql){
+                layoutSpot = LayoutSpot.find {
+                    ( layout.id == (layId as Long)
+                            && block == (obj.block as Integer)
+                            && row == (obj.row as Integer)
+                            && col == layoutColumn )
+                }
+            }
+
+            else {
+                layoutSpot = sql.firstRow("select * from layout_spot where layout_id = ? and block = ? and row = ? and col = ?",
+                        [layId, obj.block, obj.row, layoutColumn])
+            }
 
             //check if a layout spot was found, if not abort
             if(layoutSpot == null){

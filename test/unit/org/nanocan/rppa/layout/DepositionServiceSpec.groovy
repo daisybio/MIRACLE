@@ -1,12 +1,13 @@
 package org.nanocan.rppa.layout
 
-import spock.lang.Specification
+import grails.plugin.spock.UnitSpec
 
-class DepositionServiceSpec extends Specification{
-
-    def depositionService
+class DepositionServiceSpec extends UnitSpec{
 
     def "parse a deposition pattern"(){
+
+        setup:
+        def depositionService = new DepositionService()
 
         when:
         def intArray = depositionService.parseDepositions(depositionPattern)
@@ -20,7 +21,8 @@ class DepositionServiceSpec extends Specification{
 
     def "get a deposition array for a 2 columns per block layout"(){
 
-        given:
+        setup:
+        def depositionService = new DepositionService()
         mockDomain(SlideLayout)
         def layout = new SlideLayout(depositionPattern: "[4,4,2,2,1,1]", columnsPerBlock: 2)
 

@@ -17,15 +17,30 @@ environments {
     }
     test {
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:h2:mem:testDb;MVCC=TRUE"
+            //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
+            driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
+            url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner_Test;sendStringParametersAsUnicode=false'
+            username = 'rppa'
+            password = 'password55555'
+            dbCreate = 'create'
+            pooled = true
+            properties {
+                maxActive = -1
+                minEvictableIdleTimeMillis=1800000
+                timeBetweenEvictionRunsMillis=1800000
+                numTestsPerEvictionRun=3
+                testOnBorrow=true
+                testWhileIdle=true
+                testOnReturn=true
+                validationQuery="SELECT 1"
+            }
         }
     }
     production {
         dataSource {
-            driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
+            //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
             driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
-            url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScannerTest'
+            url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner'
             username = 'rppa'
             password = 'password55555'
             dbCreate = 'update'

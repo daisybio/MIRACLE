@@ -17,7 +17,6 @@ class LayoutSpot implements Comparable{
     int row
 
     static belongsTo = SlideLayout
-    static hasMany = [spots: Spot]
     SlideLayout layout
 
     static constraints = {

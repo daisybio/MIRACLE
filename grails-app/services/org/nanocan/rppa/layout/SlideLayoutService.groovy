@@ -1,62 +1,86 @@
 package org.nanocan.rppa.layout
 
-import org.apache.commons.lang.ArrayUtils
-import org.nanocan.rppa.scanner.Spot
+import groovy.sql.Sql
+import org.hibernate.util.ConfigHelper
 
+/**
+ * This service handles additional operations regarding the slide layout
+ */
 class SlideLayoutService {
 
+    //dependencies
+    def progressService
+    def dataSourceUnproxied
+    def grailsApplication
+
+    /**
+     * Creates a full set of layout spots with respect to the number of columns, blocks and rows.
+     * @param slideLayout
+     * @return
+     */
     def createSampleSpots(SlideLayout slideLayout) {
 
-        //def depositions = getDepositionIntArray(slideLayout.depositionPattern)
+        //create an sql instance for direct inserts via groovy sql
+        def sql = Sql.newInstance(dataSourceUnproxied)
 
-        for (int block = 1; block <= slideLayout.numberOfBlocks; block++) {
-            for (int col = 1; col <= slideLayout.columnsPerBlock; col++) {
-                for (int row = 1; row <= slideLayout.rowsPerBlock; row++) {
-                    slideLayout.addToSampleSpots(new LayoutSpot(block: block, col: col, row: row))
+        //get config
+        int batchSize = grailsApplication.config.rppa.jdbc.batchSize?:200
+        boolean useGroovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
+
+        log.debug "using groovy sql instead of GORM:" + useGroovySql
+
+        def insertLoop = { stmt ->
+            for (int block = 1; block <= slideLayout.numberOfBlocks; block++) {
+                for (int col = 1; col <= slideLayout.columnsPerBlock; col++) {
+                    for (int row = 1; row <= slideLayout.rowsPerBlock; row++) {
+                        if (useGroovySql) stmt.addBatch(0, block, null, col, null, null, slideLayout.id, null, row, null, null)
+                        else new LayoutSpot(block: block, col: col, row: row, layout: slideLayout).save()
+                    }
                 }
             }
         }
 
-        slideLayout.save(flush: true, failOnError: true)
+        if(useGroovySql)
+            sql.withBatch(batchSize, 'insert into layout_spot (version, block, cell_line_id, col, dilution_factor_id, inducer_id, layout_id, lysis_buffer_id, row, sample_id, spot_type_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'){ stmt ->
+                insertLoop(stmt)
+            }
+
+        else insertLoop(null)
+
+        //clean up
+        sql.close()
+
+        //refresh slide layout, because hibernate does not know about our changes
+        slideLayout.refresh()
+
+        return null
     }
 
-    def parseDepositions(String depositionPattern)
-    {
-        //remove brackets and split by ,
-        def cut = depositionPattern.substring(1, depositionPattern.length()-1)
-        def depositions = cut.split(",").collect{
-            Integer.parseInt(it)
+    /**
+     * The user can change spot properties in the web interface. This is a html table where each cell corresponds
+     * to one layout spot. This method infers which property has been changed and updates the respective spot property.
+     * @param spotProp
+     * @param slideLayout
+     * @return
+     */
+    def updateSpotProperties(spotProp, slideLayout, className) {
+        //to calculate percentage for progress bar
+        def numberOfSpots = params.keySet().size()
+        def currentSpot = 0
+
+        params.each {key, value ->
+            if (value != "") {
+                def spot = LayoutSpot.get(key as Long)
+
+                if (value as Long == -1) spot.properties[spotProp] = null
+                else spot.properties[spotProp] = grailsApplication.getArtefactByLogicalPropertyName("Domain", className).clazz.get(value as Long)
+
+                spot.save()
+            }
+
+            progressService.setProgressBarValue("update${slideLayout}", (currentSpot / numberOfSpots * 100))
+            currentSpot++
         }
-
-        return depositions
-    }
-
-    def getDepositionArray(SlideLayout layout)
-    {
-        //get deposition pattern as int array
-        def intArray = parseDepositions(layout.depositionPattern)
-
-        //we need an array to store deposition information in
-        def neededLength = layout.columnsPerBlock * intArray.size()
-        def depositionArray = new ArrayList(neededLength)
-
-        //for each layout column we need to iterate over all depositions
-        //this yields an array that allows for each real column to be assigned with the correct deposition number
-
-        for (int layoutColumn = 1; layoutColumn <= layout.columnsPerBlock; layoutColumn++)
-        {
-            for(int d = 0; d < intArray.size(); d++)
-                depositionArray[(intArray.size()) * (layoutColumn-1) + d] = intArray[d]
-        }
-
-        return depositionArray
-    }
-
-    def getDeposition(Spot spot, def depositionArray)
-    {
-        if(spot.layoutSpot == null) return null
-
-        depositionArray[spot.col-1]
     }
 }
 

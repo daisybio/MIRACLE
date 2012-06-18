@@ -14,6 +14,7 @@ class SpotImportServiceIntegrationSpec extends IntegrationSpec{
 
     def spotImportService
     def dataSourceUnproxied
+    def grailsApplication
 
     def "create some dummy spots using groovy sql"()
     {
@@ -65,7 +66,10 @@ class SpotImportServiceIntegrationSpec extends IntegrationSpec{
         slideInstance = Slide.get(1)
     }
 
-    def "process a real result file to import spots"(){
+    def "process a real result file to import spots using groovy SQL"(){
+
+        setup:
+        grailsApplication.config.rppa.jdbc.groovySql = true
 
         when: "process result file"
         spotImportService.processResultFile(slideInstance, sheetName, rfc)
@@ -76,6 +80,24 @@ class SpotImportServiceIntegrationSpec extends IntegrationSpec{
 
         where:
         slideInstance = Slide.get(2)
+        sheetName = "b-tubulin (ab7792) PMT0"
+        rfc = ResultFileConfig.findByName("Default Config")
+    }
+
+    def "process a real result file to import spots using GORM and hibernate"(){
+
+        setup:
+        grailsApplication.config.rppa.jdbc.groovySql = false
+
+        when: "process result file"
+        spotImportService.processResultFile(slideInstance, sheetName, rfc)
+
+        then: "slide has 5184 spots"
+
+        slideInstance.spots.size() == 5184
+
+        where:
+        slideInstance = Slide.get(4)
         sheetName = "b-tubulin (ab7792) PMT0"
         rfc = ResultFileConfig.findByName("Default Config")
     }
