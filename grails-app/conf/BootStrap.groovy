@@ -27,7 +27,10 @@ class BootStrap {
             case "development":
 
                 initSampleData()
+                break
 
+            case "test":
+                initSampleData()
                 break
         }
 
@@ -37,8 +40,8 @@ class BootStrap {
 
         def experimenter = new Experimenter(firstName: "Markus", lastName: "List").save(flush:true, failOnError: true)
 
-        def primaryAB = new Antibody(name: "p53", concentration: 5, concentrationUnit: "mM").save(flush:true, failOnError: true)
-        def primaryAB2 = new Antibody(name: "GAPDH", concentration: 5, concentrationUnit: "mM").save(flush:true, failOnError: true)
+        def primaryAB = new Antibody(name: "btubulin 1", concentration: 5, concentrationUnit: "mM").save(flush:true, failOnError: true)
+        def primaryAB2 = new Antibody(name: "btubulin 2", concentration: 5, concentrationUnit: "mM").save(flush:true, failOnError: true)
 
         def dilution = new Dilution(dilutionFactor:  1.0, color: "#e0e0e0").save(flush:true, failOnError: true)
         def dilutionA = new Dilution(dilutionFactor:  0.5, color: "#aa0000").save(flush:true, failOnError: true)
@@ -68,7 +71,7 @@ class BootStrap {
                 xCol: 'I',
                 yCol: 'J',
                 diameterCol: 'K',
-                skipLines: 26
+                skipLines: 25
         ).save(flush:true, failOnError: true)
 
         String fileName = "sampleData/2012-03-28 b-tubulin abcam abnova original.xls"
@@ -78,9 +81,21 @@ class BootStrap {
         def slideLayout = new SlideLayout(columnsPerBlock: 1, rowsPerBlock: 72, numberOfBlocks: 12,
                 title: "Default Layout", depositionPattern: "[4,4,2,2,1,1]").save(flush:true, failOnError: true)
 
-        def slide = new Slide(experimenter: experimenter, antibody: primaryAB,
+        def slideA = new Slide(experimenter: experimenter, antibody: primaryAB,
                 dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
-                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save()
+                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save(flush:true, failOnError:  true)
+
+        def slideB = new Slide(experimenter: experimenter, antibody: primaryAB,
+                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
+                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save(flush:true, failOnError:  true)
+
+        def slideC = new Slide(experimenter: experimenter, antibody: primaryAB2,
+                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
+                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save(flush:true, failOnError:  true)
+
+        def slideD = new Slide(experimenter: experimenter, antibody: primaryAB2,
+                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
+                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save(flush:true, failOnError:  true)
 
         //ResultFileImporter importer = new ResultFileImporter()
 

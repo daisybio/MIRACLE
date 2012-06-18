@@ -11,7 +11,7 @@
 <div class="nav" role="navigation">
     <ul>
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="list" action="show" id="${slideInstance.id}">Back to slide</g:link></li>
+        <li><g:link class="list" controller="slide" action="show" id="${slideInstanceId}">Back to slide</g:link></li>
     </ul>
 </div>
 
@@ -21,7 +21,7 @@
 
     <div id="formDiv">
         <g:form name="exportToCSVform" controller="spotExport">
-            <g:hiddenField name="id" value="${slideInstance.id}"></g:hiddenField>
+            <g:hiddenField name="id" value="${slideInstanceId}"></g:hiddenField>
 
             <ol class="property-list">
                 <li class="fieldcontain">

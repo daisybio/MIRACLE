@@ -14,8 +14,16 @@ class SlideController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    //dependencies
     def slideService
+    def spotImportService
+    def spotExportService
+    def fileUploadService
+    def progressService
 
+    /**
+     * Standard controller actions
+     */
     def index() {
         redirect(action: "list", params: params)
     }
@@ -30,8 +38,7 @@ class SlideController {
     }
 
     def save() {
-
-        slideService.dealWithFileUploads(request, params)
+        fileUploadService.dealWithFileUploads(request, params)
 
         def slideInstance = new Slide(params)
 
@@ -91,7 +98,7 @@ class SlideController {
         }
 
         //deal with file uploads
-        slideService.dealWithFileUploads(request, params)
+        fileUploadService.dealWithFileUploads(request, params)
 
         //if result file or layout file have changed all spots and block shifts need to be deleted first
         if (slideInstance.spots.size() > 0 || slideInstance.blockShifts.size() > 0)
@@ -124,6 +131,9 @@ class SlideController {
         }
 
         try {
+            //delete spots first, saves a lot of time
+            spotImportService.deleteSpots()
+
             slideInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'slide.label', default: 'Slide'), params.id])
             redirect(action: "list")
@@ -134,13 +144,53 @@ class SlideController {
         }
     }
 
+    /**
+     * Additional controller actions
+     */
+
+    /* Add and delete spots, import from result file */
     def addSpots = {
+        def slideInstance = Slide.get(params.id)
+
+        [slideInstance: slideInstance, configs: ResultFileConfig.list(), sheets: spotImportService.getSheets(slideInstance)]
+    }
+
+    def deleteSpots = {
+        spotImportService.deleteSpots(params.id)
+
+        redirect(action: "show", id: params.id)
+    }
+
+    def processResultFile = {
 
         def slideInstance = Slide.get(params.id)
 
-        [slideInstance: slideInstance, configs: ResultFileConfig.list(), sheets: slideService.getSheets(slideInstance)]
+        if (progressService.retrieveProgressBarValue("excelimport") != 0)
+            render "an import process is already running. please try again later!"
+
+        else if (slideInstance.spots.size() > 0)
+            render "this slide already contains spots. please delete them first!"
+
+        else if(!slideInstance.resultFile)
+            render ("no result file found for ${slideInstance}")
+
+
+        else if (!params.sheet)
+            render "please select a sheet."
+
+        else if (!params.config)
+            render "please select a column map config to assign property columns correctly."
+
+        else
+        {
+            def result = spotImportService.processResultFile(slideInstance, params.sheet, ResultFileConfig.get(params.config))
+
+            progressService.setProgressBarValue("excelimport", 100)
+            render result?:"${slideInstance.spots.size()} spots have been added to the database and linked to the layout."
+        }
     }
 
+    /* block shifts */
     def addBlockShifts = {
         def slideInstance = Slide.get(params.id)
 
@@ -156,19 +206,7 @@ class SlideController {
         def vshift = params.findAll{it.toString().startsWith("vshift")}
         def hshift = params.findAll{it.toString().startsWith("hshift")}
 
-        for (int block in 1..(slideInstance.layout?.numberOfBlocks?:48))
-        {
-            def existingBlock = BlockShift.findBySlideAndBlockNumber(slideInstance, block)
-            if (existingBlock){
-                existingBlock.horizontalShift = Integer.parseInt(hshift["hshift_${block}"])
-                existingBlock.verticalShift = Integer.parseInt(vshift["vshift_${block}"])
-                existingBlock.save(flush:true)
-            }
-            else {
-                slideInstance.addToBlockShifts(new BlockShift(blockNumber: block, horizontalShift: hshift["hshift_${block}"],
-                verticalShift: vshift["vshift_${block}"]))
-            }
-        }
+        slideInstance = slideService.persistBlockShiftPattern(slideInstance, hshift, vshift)
 
         if(slideInstance.save(flush: true))
         {
@@ -180,103 +218,5 @@ class SlideController {
         redirect(action: "show", id: params.id)
     }
 
-    def deleteSpots = {
 
-        def slideInstance = Slide.get(params.id)
-
-        slideInstance.spots.clear()
-
-        if (slideInstance.save()) flash.message = "All spots successfully deleted"
-        else flash.message = "Could not delete spots!"
-
-        slideService.cleanGorm()
-
-        redirect(action: "show", id: params.id)
-
-    }
-
-    def exportAsCSV = {
-
-        def slideInstance = Slide.get(params.id)
-        def separatorMap = ["\t":"tab", ";":"semicolon", ",": "comma"]
-
-        [slideInstance: slideInstance, separatorMap: separatorMap, slideProperties: csvHeader]
-    }
-
-    def csvHeader = ["Block","Column","Row","FG","BG","Signal", "x","y","Diameter","Flag", "Deposition", "CellLine",
-            "LysisBuffer", "DilutionFactor", "Inducer", "SpotType", "SpotClass", "SampleName", "SampleType", "TargetGene"]
-
-    def processExport = {
-
-        println params.id
-        def slideInstance = Slide.get(params.id)
-
-        def results = slideService.exportToCSV(slideInstance, params)
-
-        response.setHeader("Content-disposition", "filename=${slideInstance}.csv")
-        response.contentType = "application/vnd.ms-excel"
-
-        def outs = response.outputStream
-
-        def header = params.selectedProperties.join(params.separator)
-
-        if(params.includeBlockShifts == "on")
-        {
-            results = slideService.includeBlockShifts(results, slideInstance)
-            header = "hshift;vshift;" + header
-        }
-
-        outs << header
-        outs << "\n"
-
-        results.each() {
-
-            outs << it.join(params.separator)
-            outs << "\n"
-        }
-        outs.flush()
-        outs.close()
-        return
-    }
-
-    def progressService
-
-    def processResultFile = {
-
-        def slideInstance = Slide.get(params.id)
-
-        if (progressService.retrieveProgressBarValue("excelimport") != 0)
-        {
-            render "an import process is already running. please try again later!"
-        }
-
-        else if (slideInstance.spots.size() > 0)
-        {
-            render "this slide already contains spots. please delete them first!"
-        }
-
-        else if(!slideInstance.resultFile)
-        {
-            render ("no result file found for ${slideInstance}")
-        }
-
-        else if (!params.sheet)
-        {
-            render "please select a sheet."
-        }
-
-        else if (!params.config)
-        {
-            render "please select a column map config to assign property columns correctly."
-        }
-
-        else
-        {
-            def result = slideService.processResultFile(slideInstance, params.sheet, ResultFileConfig.get(params.config))
-
-            progressService.setProgressBarValue("excelimport", 100)
-            render result?:"${slideInstance.spots.size()} spots have been added to the database and linked to the layout."
-
-        }
-    }
 }

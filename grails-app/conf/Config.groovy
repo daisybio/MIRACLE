@@ -49,6 +49,14 @@ grails.resources.modules = {
                     nominify: true, disposition: 'head'
         }
     }
+    syntaxhighlighter{
+        resource url: '/js/shCore.js'
+        resource url: '/js/shBrushXml.js'
+        resource url: '/js/shBrushR.js'
+        resource url: '/css/shCore.css'
+        resource url: '/css/shCoreDefault.css'
+        resource url: '/css/shThemeDefault.css'
+    }
 }
 
 // The default codec used to encode data with ${}
@@ -94,7 +102,9 @@ log4j = {
     //appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
-
+    //debug  'org.hibernate.SQL'
+           /*'org.hibernate.transaction',
+           'org.hibernate.jdbc' */
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
@@ -106,9 +116,11 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
-    warn   'scanner'
+    warn   'org.nanocan.rppa'
 }
 
 grails.views.javascript.library="jquery"
-rppa.upload.directory ="upload/"
+rppa.upload.directory = "upload/"
+rppa.jdbc.batchSize = 150
+rppa.jdbc.groovySql = true
 

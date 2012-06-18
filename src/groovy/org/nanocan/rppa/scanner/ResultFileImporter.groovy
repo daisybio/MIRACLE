@@ -1,11 +1,9 @@
 package org.nanocan.rppa.scanner
 
 /**
- * Created with IntelliJ IDEA.
- * User: markus.list
- * Date: 28.04.12
- * Time: 16:41
- * To change this template use File | Settings | File Templates.
+ * This class extends the AbstractExcelImporter of the excel-import plugin.
+ * Its purpose is to parse an excel sheet to a list of spots and to
+ * make the sheet names available.
  */
 
 import org.grails.plugins.excelimport.*
@@ -74,8 +72,6 @@ class ResultFileImporter extends AbstractExcelImporter{
                         (rfc.yCol): 'y'
                 ]
         ]
-
-        println CONFIG_SPOT_COLUMN_MAP
 
         return CONFIG_SPOT_COLUMN_MAP
     }

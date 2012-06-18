@@ -2,22 +2,32 @@ package org.nanocan.rppa.scanner
 
 class SpotExportController {
 
-    /* export to csv file */
-    def exportAsCSV = {
+    def spotExportService
 
-        def slideInstance = Slide.get(params.id)
+    def exportAsCSV = {
         def separatorMap = ["\t":"tab", ";":"semicolon", ",": "comma"]
 
-        [slideInstance: slideInstance, separatorMap: separatorMap, slideProperties: csvHeader]
+        [slideInstanceId: params.id, separatorMap: separatorMap, slideProperties: csvHeader]
     }
 
     def createUrlForR = {
-        render params.toString()
+
+        println params
+        params.remove("_action_createUrlForR")
+        def exportLink = g.createLink(controller: "spotExport", action: "processExport", params:  params, absolute: true)
+
+        def importCommand = """read.table("${exportLink.replaceAll("&", "\n&")}", header = TRUE,
+            sep = "${params.separator}", dec = "${params.decimalSeparator}")"""
+
+        [exportLink: exportLink, importCommand: importCommand, slideInstanceId: params.id]
     }
 
     def csvHeader = ["Block","Column","Row","FG","BG","Signal", "x","y","Diameter","Flag", "Deposition", "CellLine",
             "LysisBuffer", "DilutionFactor", "Inducer", "SpotType", "SpotClass", "SampleName", "SampleType", "TargetGene"]
 
+    /*
+     * action that triggers the actual creation of a csv file
+     */
     def processExport = {
 
         def slideInstance = Slide.get(params.id)
