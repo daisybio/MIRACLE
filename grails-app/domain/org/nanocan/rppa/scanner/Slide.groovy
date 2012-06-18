@@ -12,6 +12,7 @@ class Slide {
     ResultFile resultImage
     ResultFile protocol
     SlideLayout layout
+    String comments
 
     static hasMany = [spots: Spot, blockShifts: BlockShift]
 
@@ -20,6 +21,7 @@ class Slide {
     static constraints = {
          protocol nullable: true
          resultImage nullable: true
+         comments nullable: true
     }
 
     static mapping = {

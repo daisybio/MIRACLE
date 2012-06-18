@@ -62,12 +62,11 @@ class SlideLayoutController {
     def save() {
         def slideLayoutInstance = new SlideLayout(params)
 
-        slideLayoutService.createSampleSpots(slideLayoutInstance)
-
         if (!slideLayoutInstance.save(flush: true)) {
             render(view: "create", model: [slideLayoutInstance: slideLayoutInstance])
             return
         }
+        slideLayoutService.createSampleSpots(slideLayoutInstance)
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'slideLayout.label', default: 'SlideLayout'), slideLayoutInstance.id])
         redirect(action: "show", id: slideLayoutInstance.id)
