@@ -9,6 +9,9 @@ import grails.plugins.springsecurity.Secured
 @Secured(['ROLE_USER'])
 class SlideController {
 
+    //dependencies
+    def springSecurityService
+
     static navigation = [
             group: 'main',
             title: 'Slide Scanner Results'
@@ -34,6 +37,9 @@ class SlideController {
     def save() {
 
         slideService.dealWithFileUploads(request, params)
+
+        params.createdBy = springSecurityService.currentUser
+        params.lastUpdatedBy = springSecurityService.currentUser
 
         def slideInstance = new Slide(params)
 
@@ -94,6 +100,8 @@ class SlideController {
 
         //deal with file uploads
         slideService.dealWithFileUploads(request, params)
+
+        params.lastUpdatedBy = springSecurityService.currentUser
 
         //if result file or layout file have changed all spots and block shifts need to be deleted first
         if (slideInstance.spots.size() > 0 || slideInstance.blockShifts.size() > 0)

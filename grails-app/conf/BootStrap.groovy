@@ -1,4 +1,3 @@
-import org.nanocan.rppa.scanner.Experimenter
 import org.nanocan.rppa.scanner.Antibody
 import org.nanocan.rppa.scanner.ResultFileConfig
 
@@ -26,8 +25,8 @@ class BootStrap {
         switch (GrailsUtil.environment) {
             case "development":
 
-                initSampleData()
                 initUserbase()
+                initSampleData()
 
                 break
         }
@@ -36,15 +35,15 @@ class BootStrap {
 
     private void initUserbase(){
 
-        def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
-        def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
+        def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true, failOnError: true)
+        def userRole = new Role(authority: 'ROLE_USER').save(flush: true, failOnError: true)
 
         def testUser = new Person(username: 'user', enabled: true, password: 'password')
-        testUser.save(flush: true)
+        testUser.save(flush: true, failOnError: true)
         PersonRole.create testUser, userRole, true
 
         def adminUser = new Person(username: 'admin', enabled: true, password: 'password')
-        adminUser.save(flush: true)
+        adminUser.save(flush: true, failOnError: true)
         PersonRole.create adminUser, adminRole, true
         PersonRole.create adminUser, userRole, true
 
@@ -54,8 +53,6 @@ class BootStrap {
     }
 
     private void initSampleData() {
-
-        def experimenter = new Experimenter(firstName: "Markus", lastName: "List").save(flush:true, failOnError: true)
 
         def primaryAB = new Antibody(name: "p53", concentration: 5, concentrationUnit: "mM").save(flush:true, failOnError: true)
         def primaryAB2 = new Antibody(name: "GAPDH", concentration: 5, concentrationUnit: "mM").save(flush:true, failOnError: true)
@@ -93,14 +90,19 @@ class BootStrap {
 
         String fileName = "sampleData/2012-03-28 b-tubulin abcam abnova original.xls"
 
-        def resultFile = new ResultFile(fileType: "Result", fileName: "2012-03-28 b-tubulin abcam abnova original.xls", filePath:  fileName, dateUploaded: new Date()).save()
+        def resultFile = new ResultFile(fileType: "Result", fileName: "2012-03-28 b-tubulin abcam abnova original.xls",
+                filePath:  fileName, dateUploaded: new Date()).save(flush: true, failOnError: true)
+
+        def person = Person.get(1)
 
         def slideLayout = new SlideLayout(columnsPerBlock: 1, rowsPerBlock: 72, numberOfBlocks: 12,
-                title: "Default Layout", depositionPattern: "[4,4,2,2,1,1]").save(flush:true, failOnError: true)
+                title: "Default Layout", depositionPattern: "[4,4,2,2,1,1]",
+                createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError: true)
 
-        def slide = new Slide(experimenter: experimenter, antibody: primaryAB,
+        def slide = new Slide(experimenter: person, antibody: primaryAB,
                 dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
-                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save()
+                layout: slideLayout, photoMultiplierTube: 4, protocol:  null,
+                createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError: true)
 
         //ResultFileImporter importer = new ResultFileImporter()
 
@@ -116,7 +118,6 @@ class BootStrap {
         def cellLineCo9 = new CellLine(name: "Co9", color: "#00bb00").save(flush:true, failOnError: true)
         def lysisBuffer = new LysisBuffer(name: "LB 5", concentration: 5, concentrationUnit: "mM", color: "#00aaaa").save(flush:true, failOnError: true)
         def lysisBuffer10 = new LysisBuffer(name: "LB 10", concentration: 10, concentrationUnit: "mM", color: "#0000bb").save(flush:true, failOnError: true)
-
         slideLayoutService.createSampleSpots(slideLayout)
     }
 

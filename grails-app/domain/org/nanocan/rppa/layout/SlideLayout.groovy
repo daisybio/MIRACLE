@@ -1,6 +1,14 @@
 package org.nanocan.rppa.layout
 
+import org.nanocan.rppa.security.Person
+
 class SlideLayout{
+
+    Date dateCreated
+    Date lastUpdated
+
+    Person createdBy
+    Person lastUpdatedBy
     
     String title
     int columnsPerBlock
