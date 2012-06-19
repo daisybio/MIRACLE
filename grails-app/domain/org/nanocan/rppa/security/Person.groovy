@@ -1,5 +1,7 @@
 package org.nanocan.rppa.security
 
+import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor
+
 class Person {
 
 	transient springSecurityService
@@ -37,4 +39,9 @@ class Person {
 	protected void encodePassword() {
 		password = springSecurityService.encodePassword(password)
 	}
+
+    String toString()
+    {
+        (firstName + " " + lastName)
+    }
 }

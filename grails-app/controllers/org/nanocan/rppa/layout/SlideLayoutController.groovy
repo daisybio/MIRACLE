@@ -7,14 +7,16 @@ import grails.plugins.springsecurity.Secured
 @Secured(['ROLE_USER'])
 class SlideLayoutController {
 
+    //dependencies
+    def springSecurityService
+    def slideLayoutService
+
     static navigation = [
             group: 'main',
             title: 'Slide Layout'
     ]
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-
-    def slideLayoutService
 
     def index() {
         redirect(action: "list", params: params)
@@ -79,6 +81,10 @@ class SlideLayoutController {
     }
 
     def save() {
+
+        params.createdBy = springSecurityService.currentUser
+        params.lastUpdatedBy = springSecurityService.currentUser
+
         def slideLayoutInstance = new SlideLayout(params)
 
         slideLayoutService.createSampleSpots(slideLayoutInstance)
@@ -132,6 +138,8 @@ class SlideLayoutController {
                 return
             }
         }
+
+        params.lastUpdatedBy = springSecurityService.currentUser
 
         slideLayoutInstance.properties = params
 

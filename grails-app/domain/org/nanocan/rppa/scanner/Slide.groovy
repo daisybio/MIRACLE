@@ -1,11 +1,19 @@
 package org.nanocan.rppa.scanner
 
 import org.nanocan.rppa.layout.SlideLayout
+import org.nanocan.rppa.security.Person
 
-class Slide {
+class Slide{
 
     Date dateOfStaining
-    Experimenter experimenter
+
+    Date dateCreated
+    Date lastUpdated
+
+    Person createdBy
+    Person lastUpdatedBy
+
+    Person experimenter
     int laserWavelength
     int photoMultiplierTube
     ResultFile resultFile
@@ -18,6 +26,7 @@ class Slide {
     Antibody antibody
 
     static constraints = {
+         laserWavelength min: 1, max: 1000
          protocol nullable: true
          resultImage nullable: true
     }
@@ -29,6 +38,6 @@ class Slide {
 
     String toString()
     {
-        (dateOfStaining.toGMTString() + "_" + experimenter.toString() + "_" + antibody.toString())
+        (dateOfStaining.dateString + "_" + experimenter.toString() + "_" + antibody.toString())
     }
 }
