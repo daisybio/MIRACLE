@@ -21,13 +21,22 @@
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'navigation.css')}" type="text/css">
         <g:layoutHead/>
         <r:layoutResources />
+
 	</head>
 	<body>
 		<div id="logo" role="banner"><img src="${resource(dir: 'images', file: 'rppascanner_logo_small.png')}" alt="RPPA-Scanner"/>
-        <div style="float:right; border: 0px none; box-shadow: none;"><nav:render group="main"/><br/>
-        <div style="float:right;width:600px;"><hr></div><br/>
-        <g:if test="${controllerName in ['slideLayout', 'cellLine', 'dilution', 'lysisBuffer', 'inducer', 'spotType']}"><nav:render group="layout"/></g:if>
-        <g:if test="${controllerName in ['slide', 'antibody', 'experimenter', 'resultFileConfig']}"><nav:render group="scanner"/></g:if>
+
+        <sec:ifLoggedIn>
+
+            <g:render template="/templates/user"/>
+
+            <div style="float:right; border: 0px none; box-shadow: none;"><nav:render group="main"/><br/>
+
+            <div style="float:right;width:600px;"><hr></div><br/>
+
+            <g:if test="${controllerName in ['slideLayout', 'cellLine', 'dilution', 'lysisBuffer', 'inducer', 'spotType']}"><nav:render group="layout"/></g:if>
+            <g:if test="${controllerName in ['slide', 'antibody', 'experimenter', 'resultFileConfig']}"><nav:render group="scanner"/></g:if>
+        </sec:ifLoggedIn>
         </div>
         </div>
 

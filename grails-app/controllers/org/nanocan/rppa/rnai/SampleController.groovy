@@ -1,7 +1,9 @@
 package org.nanocan.rppa.rnai
 
-import grails.converters.*;
+import grails.converters.*
+import grails.plugins.springsecurity.Secured;
 
+@Secured(['ROLE_USER'])
 class SampleController {
 
     def scaffold = true

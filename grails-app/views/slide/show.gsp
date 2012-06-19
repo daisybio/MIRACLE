@@ -32,6 +32,14 @@
             </r:script>
         </g:if>
 
+        <r:script>$(function() {
+            $("#accordion").accordion({
+                collapsible:true,
+                autoHeight: false
+            });
+
+        });</r:script>
+
 	</head>
 	<body>
 		<a href="#show-slide" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -57,101 +65,127 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<ol class="property-list slide">
-			
-				<g:if test="${slideInstance?.antibody}">
-				<li class="fieldcontain">
-					<span id="antibody-label" class="property-label"><g:message code="slide.antibody.label" default="Antibody" /></span>
-					
-						<span class="property-value" aria-labelledby="antibody-label"><g:link controller="antibody" action="show" id="${slideInstance?.antibody?.id}">${slideInstance?.antibody?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
 
-                <g:if test="${slideInstance?.layout}">
-                    <li class="fieldcontain">
-                        <span id="layout-label" class="property-label"><g:message code="slide.layout.label" default="Layout" /></span>
+            <div id="accordion" style="margin: 25px; width: 90%;">
+                <h3><a href="#">Properties</a></h3>
+                <div>
+                    <ol class="property-list slide">
 
-                        <span class="property-value" aria-labelledby="layout-label"><g:link controller="slideLayout" action="show" id="${slideInstance?.layout?.id}">${slideInstance?.layout?.encodeAsHTML()}</g:link></span>
+                        <g:if test="${slideInstance?.antibody}">
+                        <li class="fieldcontain">
+                            <span id="antibody-label" class="property-label"><g:message code="slide.antibody.label" default="Antibody" /></span>
 
-                    </li>
+                                <span class="property-value" aria-labelledby="antibody-label"><g:link controller="antibody" action="show" id="${slideInstance?.antibody?.id}">${slideInstance?.antibody?.encodeAsHTML()}</g:link></span>
+
+                        </li>
+                        </g:if>
+
+                        <g:if test="${slideInstance?.layout}">
+                            <li class="fieldcontain">
+                                <span id="layout-label" class="property-label"><g:message code="slide.layout.label" default="Layout" /></span>
+
+                                <span class="property-value" aria-labelledby="layout-label"><g:link controller="slideLayout" action="show" id="${slideInstance?.layout?.id}">${slideInstance?.layout?.encodeAsHTML()}</g:link></span>
+
+                            </li>
+                        </g:if>
+
+                        <g:if test="${slideInstance?.dateOfStaining}">
+                        <li class="fieldcontain">
+                            <span id="dateOfStaining-label" class="property-label"><g:message code="slide.dateOfStaining.label" default="Date Of Staining" /></span>
+
+                                <span class="property-value" aria-labelledby="dateOfStaining-label"><g:formatDate date="${slideInstance?.dateOfStaining}" /></span>
+
+                        </li>
+                        </g:if>
+
+                        <g:if test="${slideInstance?.experimenter}">
+                        <li class="fieldcontain">
+                            <span id="experimenter-label" class="property-label"><g:message code="slide.experimenter.label" default="Experimenter" /></span>
+
+                                <span class="property-value" aria-labelledby="experimenter-label"><g:link controller="Person" action="show" id="${slideInstance?.experimenter?.id}">${slideInstance?.experimenter?.encodeAsHTML()}</g:link></span>
+
+                        </li>
+                        </g:if>
+
+                        <g:if test="${slideInstance?.laserWavelength}">
+                        <li class="fieldcontain">
+                            <span id="laserWavelength-label" class="property-label"><g:message code="slide.laserWavelength.label" default="Laser Wavelength (nm)" /></span>
+
+                                <span class="property-value" aria-labelledby="laserWavelength-label"><g:fieldValue bean="${slideInstance}" field="laserWavelength"/></span>
+
+                        </li>
+                        </g:if>
+
+                        <g:if test="${slideInstance?.photoMultiplierTube}">
+                            <li class="fieldcontain">
+                                <span id="photoMultiplierTube-label" class="property-label"><g:message code="slide.photoMultiplierTube.label" default="Laser Wavelength" /></span>
+
+                                <span class="property-value" aria-labelledby="photoMultiplierTube-label"><g:fieldValue bean="${slideInstance}" field="photoMultiplierTube"/></span>
+
+                            </li>
+                        </g:if>
+
+                        <g:if test="${slideInstance?.resultFile}">
+                        <li class="fieldcontain">
+                            <span id="resultFile-label" class="property-label"><g:message code="slide.resultFile.label" default="Result File" /></span>
+
+                                <span class="property-value" aria-labelledby="resultFile-label"><g:link controller="resultFile" action="show" id="${slideInstance?.resultFile?.id}">${slideInstance?.resultFile?.encodeAsHTML()}</g:link></span>
+
+                        </li>
+                        </g:if>
+
+                        <g:if test="${slideInstance?.resultImage}">
+                        <li class="fieldcontain">
+                            <span id="resultImage-label" class="property-label"><g:message code="slide.resultImage.label" default="Result Image" /></span>
+
+                                <span class="property-value" aria-labelledby="resultImage-label"><g:link controller="resultFile" action="show" id="${slideInstance?.resultImage?.id}">${slideInstance?.resultImage?.encodeAsHTML()}</g:link></span>
+
+                        </li>
+                        </g:if>
+
+                        <g:if test="${slideInstance?.protocol}">
+                            <li class="fieldcontain">
+                                <span id="protocol-label" class="property-label"><g:message code="slide.protocol.label" default="Protocol" /></span>
+
+                                <span class="property-value" aria-labelledby="protocol-label"><g:link controller="resultFile" action="show" id="${slideInstance?.protocol?.id}">${slideInstance?.protocol?.encodeAsHTML()}</g:link></span>
+
+                            </li>
+                        </g:if>
+
+                        <li class="fieldcontain">
+                        <span id="spots-counter" class="property-label">Spots read in from file:</span>
+                        <span class="property-value">
+                        <g:if test="${spotsDetected > 0}">
+                            ${spotsDetected}
+                                <g:link action="deleteSpots" id="${slideInstance?.id}">Delete Spots</g:link>
+                        </g:if>
+                        <g:else><g:link action="addSpots" id="${slideInstance?.id}">0 Add Spots</g:link></g:else>
+                        </span>
+                        </li>
+
+                    </ol>
+                </div>
+
+                <h3><a href="#">History</a></h3>
+                <div>
+                    <g:render template="/templates/history" model="[
+                            createdBy: slideInstance.createdBy,
+                            dateCreated: slideInstance.dateCreated,
+                            lastUpdated: slideInstance.lastUpdated,
+                            lastUpdatedBy: slideInstance.lastUpdatedBy]"/>
+                </div>
+
+                <g:if test="${slideInstance?.resultImage}">
+                    <h3><a href="#">Slide Image</a></h3>
+                    <div>
+                        <imagezoom:openzoom imageurl="${resource(dir: imagezoomFolder, file:'ImageProperties.xml')}"
+                                            height="50%"
+                                            width="50%"
+                                            divid="slideZoom"/>
+                        <div id="slideZoom"/>
+                    </div>
                 </g:if>
-			
-				<g:if test="${slideInstance?.dateOfStaining}">
-				<li class="fieldcontain">
-					<span id="dateOfStaining-label" class="property-label"><g:message code="slide.dateOfStaining.label" default="Date Of Staining" /></span>
-					
-						<span class="property-value" aria-labelledby="dateOfStaining-label"><g:formatDate type="date" style="MEDIUM" date="${slideInstance?.dateOfStaining}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${slideInstance?.experimenter}">
-				<li class="fieldcontain">
-					<span id="experimenter-label" class="property-label"><g:message code="slide.experimenter.label" default="Experimenter" /></span>
-					
-						<span class="property-value" aria-labelledby="experimenter-label"><g:link controller="experimenter" action="show" id="${slideInstance?.experimenter?.id}">${slideInstance?.experimenter?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${slideInstance?.laserWavelength}">
-				<li class="fieldcontain">
-					<span id="laserWavelength-label" class="property-label"><g:message code="slide.laserWavelength.label" default="Laser Wavelength (nm)" /></span>
-					
-						<span class="property-value" aria-labelledby="laserWavelength-label"><g:fieldValue bean="${slideInstance}" field="laserWavelength"/></span>
-					
-				</li>
-				</g:if>
-
-                <g:if test="${slideInstance?.photoMultiplierTube}">
-                    <li class="fieldcontain">
-                        <span id="photoMultiplierTube-label" class="property-label"><g:message code="slide.photoMultiplierTube.label" default="Laser Wavelength" /></span>
-
-                        <span class="property-value" aria-labelledby="photoMultiplierTube-label"><g:fieldValue bean="${slideInstance}" field="photoMultiplierTube"/></span>
-
-                    </li>
-                </g:if>
-			
-				<g:if test="${slideInstance?.resultFile}">
-				<li class="fieldcontain">
-					<span id="resultFile-label" class="property-label"><g:message code="slide.resultFile.label" default="Result File" /></span>
-					
-						<span class="property-value" aria-labelledby="resultFile-label"><g:link controller="resultFile" action="show" id="${slideInstance?.resultFile?.id}">${slideInstance?.resultFile?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${slideInstance?.resultImage}">
-				<li class="fieldcontain">
-					<span id="resultImage-label" class="property-label"><g:message code="slide.resultImage.label" default="Result Image" /></span>
-					
-						<span class="property-value" aria-labelledby="resultImage-label"><g:link controller="resultFile" action="show" id="${slideInstance?.resultImage?.id}">${slideInstance?.resultImage?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-
-                <g:if test="${slideInstance?.protocol}">
-                    <li class="fieldcontain">
-                        <span id="protocol-label" class="property-label"><g:message code="slide.protocol.label" default="Protocol" /></span>
-
-                        <span class="property-value" aria-labelledby="protocol-label"><g:link controller="resultFile" action="show" id="${slideInstance?.protocol?.id}">${slideInstance?.protocol?.encodeAsHTML()}</g:link></span>
-
-                    </li>
-                </g:if>
-
-                <li class="fieldcontain">
-                <span id="spots-counter" class="property-label">Spots read in from file:</span>
-                <span class="property-value">
-                <g:if test="${spotsDetected > 0}">
-                    ${spotsDetected}
-                        <g:link action="deleteSpots" id="${slideInstance?.id}">Delete Spots</g:link>
-                </g:if>
-                <g:else><g:link action="addSpots" id="${slideInstance?.id}">Add Spots</g:link></g:else>
-                </span>
-                </li>
-
-			</ol>
+            </div>
 
 			<g:form>
 				<fieldset class="buttons">
@@ -160,12 +194,6 @@
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
-
-            <imagezoom:openzoom imageurl="${resource(dir: imagezoomFolder, file:'ImageProperties.xml')}"
-                                height="50%"
-                                width="50%"
-                                divid="slideZoom"/>
-            <div id="slideZoom"/>
 
 		</div>
 	</body>

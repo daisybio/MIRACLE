@@ -2,7 +2,9 @@ package org.nanocan.rppa.scanner
 
 import org.springframework.dao.DataIntegrityViolationException
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
+@Secured(['ROLE_USER'])
 class ResultFileController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
