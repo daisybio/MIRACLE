@@ -1,4 +1,4 @@
-<%@ page import="org.nanocan.rppa.scanner.Antibody; org.nanocan.rppa.scanner.Experimenter; org.nanocan.rppa.layout.SlideLayout; org.nanocan.rppa.scanner.Slide" %>
+<%@ page import="org.nanocan.rppa.security.Person; org.nanocan.rppa.scanner.Antibody; org.nanocan.rppa.layout.SlideLayout; org.nanocan.rppa.scanner.Slide" %>
 
 
 <head>
@@ -48,7 +48,7 @@
 		<g:message code="slide.experimenter.label" default="Experimenter" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="experimenter" name="experimenter.id" from="${Experimenter.list()}" optionKey="id" required="" value="${slideInstance?.experimenter?.id}" class="many-to-one"/>
+	<g:select id="experimenter" name="experimenter.id" from="${Person.list()}" optionKey="id" required="" value="${slideInstance?.experimenter?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'laserWavelength', 'error')} required">
