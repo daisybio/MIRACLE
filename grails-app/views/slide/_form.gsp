@@ -56,7 +56,7 @@
 		<g:message code="slide.laserWavelength.label" default="Laser Wavelength (nm)" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field type="number" name="laserWavelength" required="" value="${fieldValue(bean: slideInstance, field: 'laserWavelength')}"/>
+	<g:field type="number" name="laserWavelength" required="" min="1" value="${fieldValue(bean: slideInstance, field: 'laserWavelength')}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'photoMultiplierTube', 'error')} required">

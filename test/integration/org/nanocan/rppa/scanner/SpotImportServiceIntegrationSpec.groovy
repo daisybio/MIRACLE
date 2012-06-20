@@ -3,6 +3,9 @@ package org.nanocan.rppa.scanner
 import grails.plugin.spock.IntegrationSpec
 import groovy.sql.Sql
 import spock.lang.Stepwise
+import org.nanocan.rppa.layout.SlideLayout
+import org.nanocan.rppa.security.Person
+import org.nanocan.rppa.layout.NoMatchingLayoutException
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +19,7 @@ class SpotImportServiceIntegrationSpec extends IntegrationSpec{
     def dataSourceUnproxied
     def grailsApplication
 
-    def "create some dummy spots using groovy sql"()
+    /*def "create some dummy spots using groovy sql"()
     {
         setup:
         def sql = Sql.newInstance(dataSourceUnproxied)
@@ -112,5 +115,45 @@ class SpotImportServiceIntegrationSpec extends IntegrationSpec{
 
         where:
         slideInstanceId = 2
+    }  */
+
+    def "import spots of a two column sample file"(){
+        when:
+        def spots = spotImportService.importSpotsFromExcel(slideInstance.resultFile.filePath, "GAPDH 0,01 PMT1", resultFileConfig)
+
+        then:
+        spots.size() == 8640
+
+        where:
+        slideInstance = Slide.get(5)
+        resultFileConfig = ResultFileConfig.findByName("Default Config")
+    }
+
+    def "match layout spots for a two column sample file"(){
+        when:
+        slideInstance = spotImportService.processResultFile(slideInstance, "GAPDH 0,01 PMT1", resultFileConfig)
+
+        then:
+        slideInstance.spots.size() == 8640
+
+        where:
+        slideInstance = Slide.get(5)
+        resultFileConfig = ResultFileConfig.findByName("Default Config")
+    }
+
+    def "match false layout for two column sample file"(){
+        setup: "fake layout"
+        def falseLayout = SlideLayout.get(1)
+
+        when:
+        slideInstance.layout = falseLayout
+        def result = spotImportService.processResultFile(slideInstance, "GAPDH 0,01 PMT1", resultFileConfig)
+
+        then:
+        result.startsWith("No matching layout found for spot")
+
+        where:
+        slideInstance = Slide.get(5)
+        resultFileConfig = ResultFileConfig.findByName("Default Config")
     }
 }

@@ -30,6 +30,8 @@ class BootStrap {
                 break
 
             case "test":
+
+                initUserbase()
                 initSampleData()
                 break
         }
@@ -92,15 +94,23 @@ class BootStrap {
         ).save(flush:true, failOnError: true)
 
         String fileName = "sampleData/2012-03-28 b-tubulin abcam abnova original.xls"
+        String fileNameTwoColumns = "sampleData/2012-01-19 MLP - orginal.xls"
 
         def resultFile = new ResultFile(fileType: "Result", fileName: "2012-03-28 b-tubulin abcam abnova original.xls",
                 filePath:  fileName, dateUploaded: new Date()).save(flush: true, failOnError: true)
+
+        def resultFileTwoColums = new ResultFile(fileType: "Result", fileName: "2012-01-19 MLP - orginal.xls",
+                filePath:  fileNameTwoColumns, dateUploaded: new Date()).save(flush: true, failOnError: true)
 
         def person = Person.get(1)
 
         def slideLayout = new SlideLayout(columnsPerBlock: 1, rowsPerBlock: 72, numberOfBlocks: 12,
                 title: "Default Layout", depositionPattern: "[4,4,2,2,1,1]",
                 createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError: true)
+
+        def slideLayoutTwoColumns = new SlideLayout(columnsPerBlock: 2, rowsPerBlock: 15, numberOfBlocks: 48,
+                title: "Two Column Layout", depositionPattern: "[4,4,2,2,1,1]",
+                createdBy: person, lastUpdatedBy: person).save(flush: true, failOnError: true)
 
         def slide = new Slide(experimenter: person, antibody: primaryAB,
                 dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
@@ -122,13 +132,10 @@ class BootStrap {
                 layout: slideLayout, photoMultiplierTube: 4, protocol:  null,
                 createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError:  true)
 
-        //ResultFileImporter importer = new ResultFileImporter()
-
-        //importer.readFromFile(fileName)
-
-        //def spots = importer.getSpots("b-tubulin (ab7792) PMT0", resultFileConfig)
-
-        //spots.each{ println it }
+        def slideTwoColumns = new Slide(experimenter: person, antibody: primaryAB2,
+                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFileTwoColums, resultImage: null,
+                layout: slideLayoutTwoColumns, photoMultiplierTube: 4, protocol:  null,
+                createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError:  true)
 
         /* slide layout    */
 
@@ -136,7 +143,9 @@ class BootStrap {
         def cellLineCo9 = new CellLine(name: "Co9", color: "#00bb00").save(flush:true, failOnError: true)
         def lysisBuffer = new LysisBuffer(name: "LB 5", concentration: 5, concentrationUnit: "mM", color: "#00aaaa").save(flush:true, failOnError: true)
         def lysisBuffer10 = new LysisBuffer(name: "LB 10", concentration: 10, concentrationUnit: "mM", color: "#0000bb").save(flush:true, failOnError: true)
+
         slideLayoutService.createSampleSpots(slideLayout)
+        slideLayoutService.createSampleSpots(slideLayoutTwoColumns)
     }
 
     def destroy = {
