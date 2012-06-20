@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff76e78a-24e9-4a09-a6b2-f99514bc63a9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/layout/NoMatchingLayoutException.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/org/nanocan/rppa/scanner/SpotImportServiceSpec.groovy" />
       <change type="DELETED" beforePath="D:\Projects\RPPAscanner\RPPAscanner-grailsPlugins.iml.orig" afterPath="" />
       <change type="DELETED" beforePath="D:\Projects\RPPAscanner\RPPAscanner.iml.orig" afterPath="" />
       <change type="DELETED" beforePath="D:\Projects\RPPAscanner\application.properties.orig" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test\unit\org\nanocan\rppa\scanner\SpotExportControllerSpec.groovy" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/layout/SlideLayoutService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/layout/SlideLayoutService.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SpotImportService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SpotImportService.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slide/_form.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slide/_form.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slide/show.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slide/show.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stacktrace.log" afterPath="$PROJECT_DIR$/stacktrace.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/org/nanocan/rppa/scanner/SpotImportServiceIntegrationSpec.groovy" afterPath="$PROJECT_DIR$/test/integration/org/nanocan/rppa/scanner/SpotImportServiceIntegrationSpec.groovy" />
     </list>
@@ -75,10 +66,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SpotImportService.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SpotImportService.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SpotImportService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="213" column="47" selection-start="6707" selection-end="6707" vertical-scroll-proportion="0.15157117">
+            <state line="205" column="40" selection-start="6571" selection-end="6571" vertical-scroll-proportion="1.36">
               <folding />
             </state>
           </provider>
@@ -95,10 +86,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpotImportServiceIntegrationSpec.groovy" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SpotImportServiceIntegrationSpec.groovy" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/integration/org/nanocan/rppa/scanner/SpotImportServiceIntegrationSpec.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="131" column="76" selection-start="3573" selection-end="3573" vertical-scroll-proportion="-11.44">
+            <state line="142" column="42" selection-start="3913" selection-end="3913" vertical-scroll-proportion="0.36363637">
               <folding />
             </state>
           </provider>
@@ -146,19 +137,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NoMatchingLayoutException.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/layout/NoMatchingLayoutException.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="32" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="BootStrap.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/conf/BootStrap.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="147" column="33" selection-start="7706" selection-end="7706" vertical-scroll-proportion="-18.92">
+            <state line="140" column="34" selection-start="7094" selection-end="7094" vertical-scroll-proportion="-48.84">
               <folding />
             </state>
           </provider>
@@ -633,7 +615,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1216" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.0" order="7" side_tool="false" content_ui="tabs" />
@@ -655,7 +637,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24653149" sideWeight="0.5785985" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4214015" sideWeight="0.49786323" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4214015" sideWeight="0.49786323" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -726,21 +708,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/_form.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="68" selection-start="2600" selection-end="2600" vertical-scroll-proportion="-6.591837">
-          <folding>
-            <marker date="1340179688997" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1340179688997" expanded="true" signature="-1:-1" placeholder="{&quot;source&quot;: ''...}" />
-            <marker date="1340179688997" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1340179688997" expanded="true" signature="-1:-1" placeholder="{&quot;source&quot;: ''...}" />
-            <marker date="1340179688997" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1340179688997" expanded="true" signature="-1:-1" placeholder="{&quot;source&quot;: ''...}" />
-            <marker date="1340179688997" expanded="true" signature="-1:-1" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SlideService.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="6" selection-start="480" selection-end="480" vertical-scroll-proportion="0.0">
@@ -817,23 +784,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/conf/BootStrap.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="147" column="33" selection-start="7706" selection-end="7706" vertical-scroll-proportion="-18.92">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/layout/SlideLayoutService.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="84" selection-start="1049" selection-end="1049" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/integration/org/nanocan/rppa/scanner/SpotImportServiceIntegrationSpec.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="131" column="76" selection-start="3573" selection-end="3573" vertical-scroll-proportion="-11.44">
           <folding />
         </state>
       </provider>
@@ -847,9 +800,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SpotExportService.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="65" selection-start="712" selection-end="712" vertical-scroll-proportion="-0.20141342">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/conf/BootStrap.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="140" column="34" selection-start="7094" selection-end="7094" vertical-scroll-proportion="-48.84">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SpotImportService.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="213" column="47" selection-start="6707" selection-end="6707" vertical-scroll-proportion="0.15157117">
+        <state line="205" column="40" selection-start="6571" selection-end="6571" vertical-scroll-proportion="1.36">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/integration/org/nanocan/rppa/scanner/SpotImportServiceIntegrationSpec.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="142" column="42" selection-start="3913" selection-end="3913" vertical-scroll-proportion="0.36363637">
           <folding />
         </state>
       </provider>

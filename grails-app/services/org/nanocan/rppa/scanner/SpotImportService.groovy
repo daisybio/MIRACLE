@@ -143,20 +143,31 @@ class SpotImportService {
         //extract deposition pattern from layout
         def depositionList = depositionService.parseDepositions(slideInstance.layout.depositionPattern)
         int deposLength = depositionList.size()
-        int layId = slideInstance.layout.id
+
+        //sort rows in obj like this block -> column -> row
+        spots.sort{ a,b -> (a.block <=> b.block) ?: (a.row <=> b.row) ?:(a.col <=> b.col)  }
+
+        //get all layout spots in the correct order
+        def layoutSpots = fetchOrderedLayoutSpots(slideInstance.layout.id)
+
+        def layoutSpotIterator = layoutSpots.iterator()
+        def currentLayoutSpot
+
+        if(layoutSpotIterator.hasNext())
+            currentLayoutSpot = layoutSpotIterator.next()
+
+        else throw new NoMatchingLayoutException(obj: null)
+
 
         if(!groovySql){
-
             spots.eachWithIndex{ obj, currentSpotIndex ->
 
-                //match a layout spot to this slide spot in a closure
-                def layoutSpot = matchLayoutSpot(sql, obj, layId, deposLength)
-
-                if(layoutSpot == "null")throw new NoMatchingLayoutException(obj)
+                int layoutColumn = mapToLayoutColumn(obj.col, deposLength)
+                currentLayoutSpot = scrollThroughLayoutSpots(currentLayoutSpot, layoutSpotIterator, obj, layoutColumn)
 
                 //add new spot
                 def newSpot = new Spot(obj)
-                newSpot.layoutSpot = layoutSpot
+                newSpot.layoutSpot = currentLayoutSpot
                 newSpot.slide = slideInstance
                 newSpot.save()
 
@@ -168,13 +179,13 @@ class SpotImportService {
             sql.withBatch(batchSize, 'insert into spot (version, bg, fg, block, col, diameter, flag, layout_spot_id, row, slide_id, x, y, signal) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'){ stmt ->
 
                 spots.eachWithIndex{ obj, currentSpotIndex ->
+                    int layoutColumn = mapToLayoutColumn(obj.col, deposLength)
 
                     //match a layout spot to this slide spot in a closure
-                    def layoutSpot = matchLayoutSpot(sql, obj, layId, deposLength)
-                    if(layoutSpot == null) throw new NoMatchingLayoutException(obj)
+                    currentLayoutSpot = scrollThroughLayoutSpots(currentLayoutSpot, layoutSpotIterator, obj, layoutColumn)
 
                     //add insert statement to batch
-                    stmt.addBatch(0, obj.BG, obj.FG, obj.block, obj.col, obj.diameter, obj.flag, layoutSpot.id, obj.row, slideInstance.id, obj.x, obj.y, obj.FG-obj.BG)
+                    stmt.addBatch(0, obj.BG, obj.FG, obj.block, obj.col, obj.diameter, obj.flag, currentLayoutSpot.id, obj.row, slideInstance.id, obj.x, obj.y, obj.FG-obj.BG)
 
                     nextStep = updateProgressBar(nextStep, currentSpotIndex)
                 }
@@ -182,45 +193,34 @@ class SpotImportService {
         }
     }
 
-    /**
-     * Closure to find a layout spot that matches the current spot
-     */
-    def matchLayoutSpot(sql, obj, layId, deposLength){
+    public fetchOrderedLayoutSpots(layoutId) {
+        def layoutSpots = LayoutSpot.withCriteria {
+            eq("layout.id", layoutId)
+            order('block')
+            order('row')
+            order('col')
+        }
+        return layoutSpots
+    }
 
-        //config
-        def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
+    public scrollThroughLayoutSpots(def currentLayoutSpot, def layoutSpotIterator, def obj, int layoutColumn) {
 
-        def layoutSpot
-
-        int layoutColumn = mapToLayoutColumn(obj.col, deposLength)
-
-        //if within one deposition pattern the layout shouldn't change
-        if(lastBlock == obj.block && lastRow == obj.row && lastCol == layoutColumn){
-            return(lastLayoutSpot)
+        //scroll forward
+        while ((currentLayoutSpot.row < (obj.row as int) || currentLayoutSpot.block < (obj.block as int)
+                || currentLayoutSpot.col < layoutColumn) && layoutSpotIterator.hasNext()) {
+            currentLayoutSpot = layoutSpotIterator.next()
         }
 
-        lastBlock = obj.block
-        lastRow = obj.row
-        lastCol = layoutColumn
-
-        if(!groovySql){
-            layoutSpot = LayoutSpot.find {
-                ( layout.id == (layId as Long)
-                        && block == (obj.block as Integer)
-                        && row == (obj.row as Integer)
-                        && col == layoutColumn )
-            }
+        //check if we missed the right spot
+        if(currentLayoutSpot.row == obj.row && currentLayoutSpot.block == obj.block && currentLayoutSpot.col == layoutColumn)
+        {
+            return currentLayoutSpot
         }
 
-        else {
-            layoutSpot = sql.firstRow("select * from layout_spot where layout_id = ? and block = ? and row = ? and col = ?",
-                    [layId, obj.block, obj.row, layoutColumn])
+        else
+        {
+            throw new NoMatchingLayoutException(obj)
         }
-
-        //save spot for next iteration
-        lastLayoutSpot = layoutSpot
-
-        return layoutSpot
     }
 
     def mapToLayoutColumn(col, deposLength) {
