@@ -2,6 +2,7 @@ package org.nanocan.rppa.scanner
 
 import groovy.sql.Sql
 import org.nanocan.rppa.layout.LayoutSpot
+import org.nanocan.rppa.layout.NoMatchingLayoutException
 
 /**
  * This service handles the extraction from spot information from an excel sheet using the excel-import plugin.
@@ -117,7 +118,12 @@ class SpotImportService {
         def sql = Sql.newInstance(dataSourceUnproxied)
 
         //insert spots
-        performSqlBatchInsert(sql, spots, slideInstance)
+        try{
+            performSqlBatchInsert(sql, spots, slideInstance)
+        }catch(NoMatchingLayoutException nmle)
+        {
+            return "No matching layout found for spot ${nmle.obj}"
+        }
 
         //clean up
         sql.close()
@@ -125,12 +131,11 @@ class SpotImportService {
         //refresh slide because hibernate does not know about our changes
         slideInstance.refresh()
 
-        return null
+        return slideInstance
     }
 
     //use hibernate batch with prepared statements for max performance
-    def performSqlBatchInsert = {sql, spots, slideInstance ->
-
+    def performSqlBatchInsert(sql, spots, slideInstance){
         //config
         def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
         def batchSize = grailsApplication.config.rppa.jdbc.batchSize?:150
@@ -146,6 +151,8 @@ class SpotImportService {
 
                 //match a layout spot to this slide spot in a closure
                 def layoutSpot = matchLayoutSpot(sql, obj, layId, deposLength)
+
+                if(layoutSpot == "null")throw new NoMatchingLayoutException(obj)
 
                 //add new spot
                 def newSpot = new Spot(obj)
@@ -164,6 +171,7 @@ class SpotImportService {
 
                     //match a layout spot to this slide spot in a closure
                     def layoutSpot = matchLayoutSpot(sql, obj, layId, deposLength)
+                    if(layoutSpot == null) throw new NoMatchingLayoutException(obj)
 
                     //add insert statement to batch
                     stmt.addBatch(0, obj.BG, obj.FG, obj.block, obj.col, obj.diameter, obj.flag, layoutSpot.id, obj.row, slideInstance.id, obj.x, obj.y, obj.FG-obj.BG)
@@ -177,56 +185,50 @@ class SpotImportService {
     /**
      * Closure to find a layout spot that matches the current spot
      */
-    def matchLayoutSpot = {sql, obj, layId, deposLength ->
+    def matchLayoutSpot(sql, obj, layId, deposLength){
 
         //config
         def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
 
         def layoutSpot
 
-        //match layout column to actual column
-        int layoutColumn = (((obj.col as Integer)-1) / deposLength)
-        //we don't want to start with zero
-        layoutColumn++
+        int layoutColumn = mapToLayoutColumn(obj.col, deposLength)
 
         //if within one deposition pattern the layout shouldn't change
         if(lastBlock == obj.block && lastRow == obj.row && lastCol == layoutColumn){
-            layoutSpot = lastLayoutSpot
+            return(lastLayoutSpot)
         }
 
-        else
-        {
-            lastBlock = obj.block
-            lastRow = obj.row
-            lastCol = layoutColumn
+        lastBlock = obj.block
+        lastRow = obj.row
+        lastCol = layoutColumn
 
-            if(!groovySql){
-                layoutSpot = LayoutSpot.find {
-                    ( layout.id == (layId as Long)
-                            && block == (obj.block as Integer)
-                            && row == (obj.row as Integer)
-                            && col == layoutColumn )
-                }
-            }
-
-            else {
-                layoutSpot = sql.firstRow("select * from layout_spot where layout_id = ? and block = ? and row = ? and col = ?",
-                        [layId, obj.block, obj.row, layoutColumn])
-            }
-
-            //check if a layout spot was found, if not abort
-            if(layoutSpot == null){
-                progressService.setProgressBarValue("excelimport", 100)
-                return "Error: No layout information found"
-            }
-
-            //save spot for next iteration
-            else{
-                lastLayoutSpot = layoutSpot
+        if(!groovySql){
+            layoutSpot = LayoutSpot.find {
+                ( layout.id == (layId as Long)
+                        && block == (obj.block as Integer)
+                        && row == (obj.row as Integer)
+                        && col == layoutColumn )
             }
         }
+
+        else {
+            layoutSpot = sql.firstRow("select * from layout_spot where layout_id = ? and block = ? and row = ? and col = ?",
+                    [layId, obj.block, obj.row, layoutColumn])
+        }
+
+        //save spot for next iteration
+        lastLayoutSpot = layoutSpot
 
         return layoutSpot
+    }
+
+    def mapToLayoutColumn(col, deposLength) {
+        //match layout column to actual column
+        int layoutColumn = (((col as Integer) - 1) / deposLength)
+        //we don't want to start with zero
+        layoutColumn++
+        return layoutColumn
     }
 
 }

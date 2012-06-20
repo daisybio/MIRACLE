@@ -159,7 +159,7 @@
                             ${spotsDetected}
                                 <g:link action="deleteSpots" id="${slideInstance?.id}">Delete Spots</g:link>
                         </g:if>
-                        <g:else><g:link action="addSpots" id="${slideInstance?.id}">0 Add Spots</g:link></g:else>
+                        <g:else>0 <g:link action="addSpots" id="${slideInstance?.id}">Add Spots</g:link></g:else>
                         </span>
                         </li>
 

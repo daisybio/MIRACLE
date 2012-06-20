@@ -184,7 +184,6 @@ class SlideController {
         else if(!slideInstance.resultFile)
             render ("no result file found for ${slideInstance}")
 
-
         else if (!params.sheet)
             render "please select a sheet."
 
@@ -196,7 +195,10 @@ class SlideController {
             def result = spotImportService.processResultFile(slideInstance, params.sheet, ResultFileConfig.get(params.config))
 
             progressService.setProgressBarValue("excelimport", 100)
-            render result?:"${slideInstance.spots.size()} spots have been added to the database and linked to the layout."
+
+            if(!(result instanceof Slide)) render result
+
+            else render "${slideInstance.spots.size()} spots have been added to the database and linked to the layout."
         }
     }
 

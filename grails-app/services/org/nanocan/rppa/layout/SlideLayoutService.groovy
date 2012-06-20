@@ -20,9 +20,6 @@ class SlideLayoutService {
      */
     def createSampleSpots(SlideLayout slideLayout) {
 
-        //create an sql instance for direct inserts via groovy sql
-        def sql = Sql.newInstance(dataSourceUnproxied)
-
         //get config
         int batchSize = grailsApplication.config.rppa.jdbc.batchSize?:200
         boolean useGroovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
@@ -40,18 +37,21 @@ class SlideLayoutService {
             }
         }
 
-        if(useGroovySql)
+        if(useGroovySql){
+            //create an sql instance for direct inserts via groovy sql
+            def sql = Sql.newInstance(dataSourceUnproxied)
+
             sql.withBatch(batchSize, 'insert into layout_spot (version, block, cell_line_id, col, dilution_factor_id, inducer_id, layout_id, lysis_buffer_id, row, sample_id, spot_type_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'){ stmt ->
                 insertLoop(stmt)
             }
+            //clean up
+            sql.close()
+
+            //refresh slide layout, because hibernate does not know about our changes
+            slideLayout.refresh()
+        }
 
         else insertLoop(null)
-
-        //clean up
-        sql.close()
-
-        //refresh slide layout, because hibernate does not know about our changes
-        slideLayout.refresh()
 
         return null
     }
