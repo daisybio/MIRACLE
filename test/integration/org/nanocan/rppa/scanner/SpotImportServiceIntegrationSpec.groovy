@@ -19,7 +19,7 @@ class SpotImportServiceIntegrationSpec extends IntegrationSpec{
     def dataSourceUnproxied
     def grailsApplication
 
-    /*def "create some dummy spots using groovy sql"()
+    def "create some dummy spots using groovy sql"()
     {
         setup:
         def sql = Sql.newInstance(dataSourceUnproxied)
@@ -115,7 +115,7 @@ class SpotImportServiceIntegrationSpec extends IntegrationSpec{
 
         where:
         slideInstanceId = 2
-    }  */
+    }
 
     def "import spots of a two column sample file"(){
         when:
@@ -134,6 +134,7 @@ class SpotImportServiceIntegrationSpec extends IntegrationSpec{
         slideInstance = spotImportService.processResultFile(slideInstance, "GAPDH 0,01 PMT1", resultFileConfig)
 
         then:
+        println slideInstance
         slideInstance.spots.size() == 8640
 
         where:
