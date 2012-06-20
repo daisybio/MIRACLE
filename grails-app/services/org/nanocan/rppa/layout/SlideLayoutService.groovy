@@ -63,7 +63,7 @@ class SlideLayoutService {
      * @param slideLayout
      * @return
      */
-    def updateSpotProperties(spotProp, slideLayout, className) {
+    def updateSpotProperties(params, spotProp, slideLayout, className) {
         //to calculate percentage for progress bar
         def numberOfSpots = params.keySet().size()
         def currentSpot = 0

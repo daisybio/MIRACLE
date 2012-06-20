@@ -102,25 +102,28 @@ class BootStrap {
                 title: "Default Layout", depositionPattern: "[4,4,2,2,1,1]",
                 createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError: true)
 
+<<<<<<< HEAD
+        def slideA = new Slide(experimenter: experimenter, antibody: primaryAB,
+                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
+                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save(flush:true, failOnError:  true)
+
+        def slideB = new Slide(experimenter: experimenter, antibody: primaryAB,
+                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
+                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save(flush:true, failOnError:  true)
+
+        def slideC = new Slide(experimenter: experimenter, antibody: primaryAB2,
+                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
+                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save(flush:true, failOnError:  true)
+
+        def slideD = new Slide(experimenter: experimenter, antibody: primaryAB2,
+                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
+                layout: slideLayout, photoMultiplierTube: 4, protocol:  null).save(flush:true, failOnError:  true)
+=======
         def slide = new Slide(experimenter: person, antibody: primaryAB,
                 dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
                 layout: slideLayout, photoMultiplierTube: 4, protocol:  null,
                 createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError: true)
-
-        def slideB = new Slide(experimenter: person, antibody: primaryAB,
-                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
-                layout: slideLayout, photoMultiplierTube: 4, protocol:  null,
-                createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError:  true)
-
-        def slideC = new Slide(experimenter: person, antibody: primaryAB2,
-                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
-                layout: slideLayout, photoMultiplierTube: 4, protocol:  null,
-                createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError:  true)
-
-        def slideD = new Slide(experimenter: person, antibody: primaryAB2,
-                dateOfStaining: new Date(), laserWavelength: 635, resultFile: resultFile, resultImage: null,
-                layout: slideLayout, photoMultiplierTube: 4, protocol:  null,
-                createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError:  true)
+>>>>>>> spring-security
 
         //ResultFileImporter importer = new ResultFileImporter()
 

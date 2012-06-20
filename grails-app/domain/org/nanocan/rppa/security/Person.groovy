@@ -42,6 +42,6 @@ class Person {
 
     String toString()
     {
-        (firstName + " " + lastName)
+        username
     }
 }

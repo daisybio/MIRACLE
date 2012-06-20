@@ -57,7 +57,7 @@ class SlideLayoutController {
 
         if(params.size() == 0) render "Nothing to do"
 
-        slideLayoutService.updateSpotProperties(spotProp, slideLayout, className)
+        slideLayoutService.updateSpotProperties(params, spotProp, slideLayout, className)
 
         progressService.setProgressBarValue("update${slideLayout}", 100)
         render "Save successful"
