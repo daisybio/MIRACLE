@@ -12,8 +12,9 @@ class SpotExportController {
 
     def createUrlForR = {
 
-        println params
+        //if we don't remove this, it'll override the action setting below
         params.remove("_action_createUrlForR")
+
         def exportLink = g.createLink(controller: "spotExport", action: "processExport", params:  params, absolute: true)
 
         def importCommand = """read.table("${exportLink.replaceAll("&", "\n&")}", header = TRUE,
