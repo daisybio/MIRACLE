@@ -5,12 +5,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.apache.commons.io.FilenameUtils
 import grails.plugins.springsecurity.Secured
+import org.nanocan.rppa.project.Project
 
 @Secured(['ROLE_USER'])
 class SlideController {
 
     //dependencies
     def springSecurityService
+    def projectService
 
     static navigation = [
             group: 'main',
@@ -22,7 +24,6 @@ class SlideController {
     //dependencies
     def slideService
     def spotImportService
-    def spotExportService
     def fileUploadService
     def progressService
 
@@ -35,24 +36,48 @@ class SlideController {
 
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [slideInstanceList: Slide.list(params), slideInstanceTotal: Slide.count()]
+
+        def slideInstanceList
+        def slideInstanceListTotal
+
+        if(session.projectSelected)
+        {
+            if(!params.offset) params.offset = 0
+
+            slideInstanceList = Project.get(session.projectSelected as Long).slides
+            slideInstanceListTotal = slideInstanceList.size()
+
+            int rangeMin = Math.min(slideInstanceListTotal, params.int('offset'))
+            int rangeMax = Math.min(slideInstanceListTotal, (params.int('offset') + params.int('max')))
+
+            slideInstanceList = slideInstanceList.asList().subList(rangeMin, rangeMax)
+        }
+
+        else
+        {
+            slideInstanceList = Slide.list(params)
+            slideInstanceListTotal = Slide.count()
+        }
+
+        [slideInstanceList: slideInstanceList, slideInstanceTotal: slideInstanceListTotal]
     }
 
     def create() {
-        [slideInstance: new Slide(params)]
+        [slideInstance: new Slide(params), projects: Project.list()]
     }
 
     def save() {
-        fileUploadService.dealWithFileUploads(request, params)
-
         params.createdBy = springSecurityService.currentUser
         params.lastUpdatedBy = springSecurityService.currentUser
 
         def slideInstance = new Slide(params)
 
+        fileUploadService.dealWithFileUploads(request, params)
+
         if (!slideInstance.save(flush: true)) {
             render(view: "create", model: [slideInstance: slideInstance])
         }
+        projectService.addToProject(slideInstance, params.projectsSelected)
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'slide.label', default: 'Slide'), slideInstance.id])
         redirect(action: "show", id: slideInstance.id)
@@ -71,7 +96,7 @@ class SlideController {
         if(slideInstance?.resultImage)
             imagezoomFolder = FilenameUtils.removeExtension(slideInstance?.resultImage?.filePath.replace("upload", "imagezoom"))
 
-        [slideInstance: slideInstance, imagezoomFolder: imagezoomFolder]
+        [slideInstance: slideInstance, imagezoomFolder: imagezoomFolder, projects:  projectService.findProject(slideInstance)]
     }
 
     def edit() {
@@ -82,7 +107,7 @@ class SlideController {
             return
         }
 
-        [slideInstance: slideInstance]
+        [slideInstance: slideInstance, projects: Project.list(), selectedProjects: projectService.findProject(slideInstance)]
     }
 
     def update() {
@@ -105,15 +130,17 @@ class SlideController {
             }
         }
 
-        //deal with file uploads
-        fileUploadService.dealWithFileUploads(request, params)
-
         params.lastUpdatedBy = springSecurityService.currentUser
+
+        slideInstance.properties = params
+
+        //deal with file uploads
+        slideInstance = fileUploadService.dealWithFileUploads(request, slideInstance)
 
         //if result file or layout file have changed all spots and block shifts need to be deleted first
         if (slideInstance.spots.size() > 0 || slideInstance.blockShifts.size() > 0)
         {
-            if (slideInstance.resultFile != params.resultFile || slideInstance.layout != params.layout)
+            if (slideInstance.resultFile != properties.resultFile || slideInstance.layout != properties.layout)
             {
                 flash.message = "You can't change the result file or slide layout without deleting spots and block shift patterns first. This is necessary to keep the data consistent."
                 render(view: "edit", model: [slideInstance: new Slide(params)])
@@ -121,12 +148,12 @@ class SlideController {
             }
         }
 
-        slideInstance.properties = params
-
         if (!slideInstance.save(flush: true)) {
             render(view: "edit", model: [slideInstance: slideInstance])
             return
         }
+
+        projectService.updateProjects(slideInstance, params.projectsSelected)
 
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'slide.label', default: 'Slide'), slideInstance.id])
         redirect(action: "show", id: slideInstance.id)
@@ -141,6 +168,8 @@ class SlideController {
         }
 
         try {
+            //remove from all projects
+            projectService.updateProjects(slideInstance, [])
             //delete spots first, saves a lot of time
             spotImportService.deleteSpots()
 

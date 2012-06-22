@@ -125,6 +125,22 @@
                             </li>
                         </g:if>
 
+                        <g:if test="${projects}">
+                            <li class="fieldcontain">
+                                <span id="projects-label" class="property-label"><g:message code="slideLayout.projects.label" default="Projects" /></span>
+
+                                <span class="property-value" aria-labelledby="projects-label">
+                                    <ul class="property-list">
+                                        <g:each in="${projects}">
+                                            <li>
+                                                <g:link controller="project" action="show" id="${it.id}">${it.projectTitle}</g:link>
+                                            </li>
+                                        </g:each>
+                                    </ul>
+                                </span>
+                            </li>
+                        </g:if>
+
                         <g:if test="${slideInstance?.resultFile}">
                         <li class="fieldcontain">
                             <span id="resultFile-label" class="property-label"><g:message code="slide.resultFile.label" default="Result File" /></span>

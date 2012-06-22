@@ -2,6 +2,7 @@ package org.nanocan.rppa.layout
 
 import groovy.sql.Sql
 import org.hibernate.util.ConfigHelper
+import org.nanocan.rppa.project.Project
 
 /**
  * This service handles additional operations regarding the slide layout

@@ -15,6 +15,7 @@ import grails.util.GrailsUtil
 import org.nanocan.rppa.security.Role
 import org.nanocan.rppa.security.Person
 import org.nanocan.rppa.security.PersonRole
+import org.nanocan.rppa.project.Project
 
 class BootStrap {
 
@@ -146,6 +147,8 @@ class BootStrap {
 
         slideLayoutService.createSampleSpots(slideLayout)
         slideLayoutService.createSampleSpots(slideLayoutTwoColumns)
+
+        def project = new Project(projectTitle: "Test project", projectDescription: "A project to test", createdBy: person, lastUpdatedBy: person).save(flush:true, failOnError: true)
     }
 
     def destroy = {
