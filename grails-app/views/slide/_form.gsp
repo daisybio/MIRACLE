@@ -84,6 +84,13 @@
     <g:select id="layout" name="layout.id" from="${SlideLayout.list()}" optionKey="id" required="" value="${slideInstance?.layout?.id}" class="many-to-one"/>
 </div>
 
+<div class="fieldcontain">
+    <label for="projects">
+        <g:message code="slideLayout.projects.label" default="Projects" />
+    </label>
+    <g:select name="projectsSelected" multiple="${true}" size="10" from="${projects}" optionKey="id"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'resultFile', 'error')} required">
 	<label for="resultFile">
 		<g:message code="slide.resultFile.label" default="Result File" />
@@ -116,5 +123,4 @@
         <input type="hidden" id="protocol.id" name="protocol.id" value="${slideInstance?.protocol?.id}">
         <tr><td>...or upload new file: </td><td><input type="file" id="protocol.input" name="protocolInput"/></td></tr></table></div>
 </div>
-
 

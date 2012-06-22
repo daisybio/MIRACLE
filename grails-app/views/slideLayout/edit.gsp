@@ -39,6 +39,14 @@
                         <g:textField name="title" value="${slideLayoutInstance?.title}"/>
                     </div>
 
+                    <div class="fieldcontain">
+                        <label for="projects">
+                            <g:message code="slideLayout.projects.label" default="Projects" />
+                        </label>
+                        <g:select name="projectsSelected" multiple="${true}" size="10" from="${projects}" value="${selectedProjects.collect{it.id}}" optionKey="id"/>
+                    </div>
+
+
                 </fieldset>
 				<fieldset class="buttons">
 					<g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />

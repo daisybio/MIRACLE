@@ -1,3 +1,4 @@
+<%@ page import="org.nanocan.rppa.scanner.Slide" %>
 <!doctype html>
 <html>
 	<head>
@@ -100,6 +101,18 @@
                 <div id="page-body" role="main">
                     <h1>Welcome to RPPA-Scanner</h1>
                     <p>This web-tool allows you to upload Mapix scanner result files and add them to a SQL database, in order to make them available for further analysis, e.g. in R.  </p>
+                </div>
+
+                Here are the last 5 slides that have been modified: <br/><br/>
+
+                <div style="margin-left:350px;">
+                   <ul>
+                       <g:each in="${Slide.list(sort: 'lastUpdated', max: '5')}">
+                            <li style="padding:5px;">
+                                <g:link controller="Slide" action="show" id="${it.id}">${it}</g:link>
+                            </li>
+                       </g:each>
+                   </ul>
                 </div>
                 </sec:ifLoggedIn>
 

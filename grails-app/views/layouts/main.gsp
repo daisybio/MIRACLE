@@ -29,6 +29,7 @@
         <sec:ifLoggedIn>
 
             <g:render template="/templates/user"/>
+            <g:render template="/templates/projects"/>
 
             <div style="float:right; border: 0px none; box-shadow: none;"><nav:render group="main"/><br/>
 

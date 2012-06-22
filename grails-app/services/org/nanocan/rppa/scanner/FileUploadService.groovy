@@ -51,7 +51,7 @@ class FileUploadService {
      * @param params
      * @return
      */
-    def dealWithFileUploads(def request, def params)
+    def dealWithFileUploads(def request, def slideInstance)
     {
         CommonsMultipartFile resultFile
         CommonsMultipartFile resultImage
@@ -66,16 +66,13 @@ class FileUploadService {
             resultImage = (CommonsMultipartFile) mpr.getFile("resultImageInput");
             protocol = (CommonsMultipartFile) mpr.getFile("protocolInput");
 
-            if(!resultFile.empty) params["resultFile.id"] = createResultFile(resultFile, "Result").id
-            else params.remove("resultFileInput")
+            if(!resultFile.empty) slideInstance.resultFile = createResultFile(resultFile, "Result")
 
-            if(!resultImage.empty) params["resultImage.id"] = createResultFile(resultImage, "Image").id
-            else params.remove("resultImageInput")
+            if(!resultImage.empty) slideInstance.resultImage = createResultFile(resultImage, "Image")
 
-            if(!protocol.empty) params["protocol.id"] = createResultFile(protocol, "Protocol").id
-            else params.remove("protocolInput")
+            if(!protocol.empty) slideInstance.protocol = createResultFile(protocol, "Protocol")
         }
 
-        return params
+        return slideInstance
     }
 }
