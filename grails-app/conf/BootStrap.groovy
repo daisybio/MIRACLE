@@ -35,27 +35,33 @@ class BootStrap {
                 initUserbase()
                 initSampleData()
                 break
+
+            case "migrate":
+                initUserbase()
+                break
         }
 
     }
 
     private void initUserbase(){
 
-        def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true, failOnError: true)
-        def userRole = new Role(authority: 'ROLE_USER').save(flush: true, failOnError: true)
+        def adminRole = Role.findByAuthority("ROLE_ADMIN")
+        if(!adminRole)  adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true, failOnError: true)
+        def userRole = Role.findByAuthority("ROLE_USER")
+        if(!userRole) userRole= new Role(authority: 'ROLE_USER').save(flush: true, failOnError: true)
 
-        def testUser = new Person(username: 'user', enabled: true, password: 'password')
-        testUser.save(flush: true, failOnError: true)
-        PersonRole.create testUser, userRole, true
+        if(!Person.findByUsername("user")){
+            def testUser = new Person(username: 'user', enabled: true, password: 'password')
+            testUser.save(flush: true, failOnError: true)
+            PersonRole.create testUser, userRole, true
+        }
 
-        def adminUser = new Person(username: 'admin', enabled: true, password: 'password')
-        adminUser.save(flush: true, failOnError: true)
-        PersonRole.create adminUser, adminRole, true
-        PersonRole.create adminUser, userRole, true
-
-        assert Person.count() == 2
-        assert Role.count() == 2
-        assert PersonRole.count() == 3
+        if(!Person.findByUsername("mlist")){
+            def adminUser = new Person(username: 'mlist', enabled: true, password: 'password')
+            adminUser.save(flush: true, failOnError: true)
+            PersonRole.create adminUser, adminRole, true
+            PersonRole.create adminUser, userRole, true
+        }
     }
 
     private void initSampleData() {

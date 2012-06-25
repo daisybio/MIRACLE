@@ -115,6 +115,16 @@ class SlideLayoutController {
         [slideLayoutInstance: slideLayoutInstance, projects: projectService.findProject(slideLayoutInstance)]
     }
 
+    def sampleList(){
+        def slideLayoutInstance = SlideLayout.get(params.id)
+
+        def samples = slideLayoutInstance.sampleSpots.collect{
+            it.sample
+        }
+
+        [samples: samples.unique()]
+    }
+
     def edit() {
         def slideLayoutInstance = SlideLayout.get(params.id)
         if (!slideLayoutInstance) {

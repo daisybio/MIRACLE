@@ -36,6 +36,25 @@ environments {
             }
         }
     }
+    migrate {
+        dataSource {
+            driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
+            url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner_Copy;sendStringParametersAsUnicode=false'
+            username = 'rppa'
+            password = 'password55555'
+            pooled = true
+            properties {
+                maxActive = -1
+                minEvictableIdleTimeMillis=1800000
+                timeBetweenEvictionRunsMillis=1800000
+                numTestsPerEvictionRun=3
+                testOnBorrow=true
+                testWhileIdle=true
+                testOnReturn=true
+                validationQuery="SELECT 1"
+            }
+        }
+    }
     production {
         dataSource {
             //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
