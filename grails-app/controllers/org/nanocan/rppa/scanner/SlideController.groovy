@@ -130,6 +130,9 @@ class SlideController {
             }
         }
 
+        def oldResultFile = slideInstance.resultFile
+        def oldLayout = slideInstance.layout
+
         params.lastUpdatedBy = springSecurityService.currentUser
 
         slideInstance.properties = params
@@ -140,7 +143,7 @@ class SlideController {
         //if result file or layout file have changed all spots and block shifts need to be deleted first
         if (slideInstance.spots.size() > 0 || slideInstance.blockShifts.size() > 0)
         {
-            if (slideInstance.resultFile != properties.resultFile || slideInstance.layout != properties.layout)
+            if (slideInstance.resultFile != oldResultFile || slideInstance.layout != oldLayout)
             {
                 flash.message = "You can't change the result file or slide layout without deleting spots and block shift patterns first. This is necessary to keep the data consistent."
                 render(view: "edit", model: [slideInstance: new Slide(params)])
