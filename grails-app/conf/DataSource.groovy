@@ -19,7 +19,7 @@ environments {
         dataSource {
             //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
             driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
-            url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner_Test;sendStringParametersAsUnicode=false'
+            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner_Test;sendStringParametersAsUnicode=false'
             username = 'rppa'
             password = 'password55555'
             dbCreate = 'create'
@@ -39,7 +39,7 @@ environments {
     migrate {
         dataSource {
             driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
-            url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner_Copy;sendStringParametersAsUnicode=false'
+            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner_Copy;sendStringParametersAsUnicode=false'
             username = 'rppa'
             password = 'password55555'
             pooled = true
@@ -59,7 +59,7 @@ environments {
         dataSource {
             //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
             driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
-            url = 'jdbc:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner'
+            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner'
             username = 'rppa'
             password = 'password55555'
             dbCreate = 'update'

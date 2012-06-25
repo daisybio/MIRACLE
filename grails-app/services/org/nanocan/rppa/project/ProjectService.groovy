@@ -10,14 +10,14 @@ class ProjectService {
             if(doInstance instanceof SlideLayout) {
                 layouts
                 {
-                    eq "id", doInstance.id
+                    id == doInstance.id
                 }
             }
             else if(doInstance instanceof Slide)
             {
                 slides
                 {
-                    eq "id", doInstance.id
+                    id == doInstance.id
                 }
             }
         }.list()
