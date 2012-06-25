@@ -36,10 +36,6 @@
 					
 						<th><g:message code="slide.resultFile.label" default="Result File" /></th>
 					
-						<th><g:message code="slide.resultImage.label" default="Result Image" /></th>
-
-                        <th><g:message code="slide.protocol.label" default="Protocol" /></th>
-					
 					</tr>
 				</thead>
 				<tbody>
@@ -48,7 +44,7 @@
 					
 						<td><g:link action="show" id="${slideInstance.id}">${fieldValue(bean: slideInstance, field: "antibody")}</g:link></td>
 					
-						<td><g:formatDate date="${slideInstance.dateOfStaining}" /></td>
+						<td><g:formatDate type="date" date="${slideInstance.dateOfStaining}" /></td>
 					
 						<td>${fieldValue(bean: slideInstance, field: "experimenter")}</td>
 					
@@ -57,10 +53,6 @@
                         <td>${fieldValue(bean: slideInstance, field: "photoMultiplierTube")}</td>
 					
 						<td>${fieldValue(bean: slideInstance, field: "resultFile")}</td>
-					
-						<td>${fieldValue(bean: slideInstance, field: "resultImage")}</td>
-
-                        <td>${fieldValue(bean: slideInstance, field: "protocol")}</td>
 					
 					</tr>
 				</g:each>

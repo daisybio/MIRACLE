@@ -8,7 +8,7 @@
     <g:render template="colorLegend" model="${[sampleProperty: sampleProperty]}"></g:render>
 </g:if>
 <g:else>
-    <g:render template="sampleLegend"></g:render>
+    <g:render template="sampleLegend" model="${[layoutId: slideLayout.id]}"></g:render>
 </g:else>
 
 <g:set var="spot" value="${0}"/>

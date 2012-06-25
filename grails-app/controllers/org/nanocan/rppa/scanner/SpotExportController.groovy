@@ -17,8 +17,8 @@ class SpotExportController {
 
         def exportLink = g.createLink(controller: "spotExport", action: "processExport", params:  params, absolute: true)
 
-        def importCommand = """read.table("${exportLink.replaceAll("&", "\n&")}", header = TRUE,
-            sep = "${params.separator}", dec = "${params.decimalSeparator}")"""
+        def importCommand = """read.table("${exportLink.replaceAll("&", "\n&")}
+        ", header = TRUE, sep = "${params.separator}", dec = "${params.decimalSeparator}")"""
 
         [exportLink: exportLink, importCommand: importCommand, slideInstanceId: params.id]
     }

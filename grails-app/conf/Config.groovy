@@ -129,3 +129,6 @@ rppa.jdbc.groovySql = true
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.nanocan.rppa.security.Person'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.nanocan.rppa.security.PersonRole'
 grails.plugins.springsecurity.authority.className = 'org.nanocan.rppa.security.Role'
+
+//select migration file
+grails.plugin.databasemigration.changelogFileName = 'changelog-0.3.groovy'
