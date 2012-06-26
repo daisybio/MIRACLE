@@ -31,6 +31,30 @@
                 });
             </r:script>
         </g:if>
+        <g:elseif test="${!imagezoomFolderExists && slideInstance?.resultImage}">
+            <r:script>
+                $(function() {
+                     $( "#image-process-confirm" ).dialog({
+                        position: 'top',
+                        modal: true,
+                        resizable: false,
+                        height:230,
+                        modal: true,
+                        buttons: {
+                            "Yes, process image now": function() {
+                                $('#slideZoomPanel').text('Image is being processed in the background...');
+                                <g:remoteFunction action="zoomifyImage" id="${slideInstance.id}" update="slideZoomPanel"/>;
+                                $( this ).dialog( "close" );
+                                $('#image-process-confirm').hide(true);
+                            },
+                            "No, thanks": function() {
+                            $( this ).dialog( "close" );
+                            }
+                        }
+                    });
+                });
+            </r:script>
+        </g:elseif>
 
         <r:script>$(function() {
             $("#accordion").accordion({
@@ -50,6 +74,12 @@
         </div>
     </g:if>
 
+    <g:elseif test="${!imagezoomFolderExists && slideInstance?.resultImage}">
+        <div id="image-process-confirm" title="Would you like to process the image file?">
+            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>The image file for this slide has not yet been processed. Proceed now?</p>
+        </div>
+    </g:elseif>
+
         <div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -57,7 +87,7 @@
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 
                 <li><g:link class="create" action="addBlockShifts" id="${slideInstance?.id}">Modify Block Shifts</g:link></li>
-                <li><g:link class="list" controller="spotExport" action="exportAsCSV" id="${slideInstance?.id}">Export as CSV</g:link></li>
+                <li><g:link class="list" controller="spotExport" action="exportAsCSV" id="${slideInstance?.id}">Export (R / CSV)</g:link></li>
 			</ul>
 		</div>
 		<div id="show-slide" class="content scaffold-show" role="main">
@@ -93,7 +123,7 @@
                         <li class="fieldcontain">
                             <span id="dateOfStaining-label" class="property-label"><g:message code="slide.dateOfStaining.label" default="Date Of Staining" /></span>
 
-                                <span class="property-value" aria-labelledby="dateOfStaining-label"><g:formatDate date="${slideInstance?.dateOfStaining}" /></span>
+                                <span class="property-value" aria-labelledby="dateOfStaining-label"><g:formatDate type="date" date="${slideInstance?.dateOfStaining}" /></span>
 
                         </li>
                         </g:if>
@@ -193,12 +223,17 @@
 
                 <g:if test="${slideInstance?.resultImage}">
                     <h3><a href="#">Slide Image</a></h3>
-                    <div>
-                        <imagezoom:openzoom imageurl="${resource(dir: imagezoomFolder, file:'ImageProperties.xml')}"
-                                            height="50%"
-                                            width="50%"
-                                            divid="slideZoom"/>
-                        <div id="slideZoom"/>
+                    <div id="slideZoomPanel">
+                        <g:if test="${imagezoomFolderExists}">
+                            <g:render template="slideZoom" model="${[imagezoomFolder: imagezoomFolder]}"/>
+                        </g:if>
+                        <g:else>
+                            It seems that the image file of this slide has not been processed yet.
+
+                            <g:remoteLink action="zoomifyImage" id="${slideInstance?.id}"
+                              before="\$('#slideZoomPanel').html('Image processing is running in the background and will take a while. This page will update when the process is complete. You can also navigate away and return later if you do not wish to wait.');"
+                              update="slideZoomPanel">Process now</g:remoteLink>
+                        </g:else>
                     </div>
                 </g:if>
             </div>

@@ -1,8 +1,7 @@
 package org.nanocan.rppa.scanner
 
 import org.springframework.dao.DataIntegrityViolationException
-import org.springframework.web.multipart.MultipartHttpServletRequest
-import org.springframework.web.multipart.commons.CommonsMultipartFile
+
 import org.apache.commons.io.FilenameUtils
 import grails.plugins.springsecurity.Secured
 import org.nanocan.rppa.project.Project
@@ -92,11 +91,15 @@ class SlideController {
         }
 
         def imagezoomFolder
+        boolean imagezoomFolderExists
 
         if(slideInstance?.resultImage)
-            imagezoomFolder = FilenameUtils.removeExtension(slideInstance?.resultImage?.filePath.replace("upload", "imagezoom"))
+        {
+            imagezoomFolder = "imagezoom/" + FilenameUtils.removeExtension(FilenameUtils.getName(slideInstance?.resultImage?.filePath+"_colorized.jpg"))
+            imagezoomFolderExists = new File("web-app/"+imagezoomFolder).exists()
+        }
 
-        [slideInstance: slideInstance, imagezoomFolder: imagezoomFolder, projects:  projectService.findProject(slideInstance)]
+        [slideInstance: slideInstance,imagezoomFolderExists: imagezoomFolderExists, imagezoomFolder: imagezoomFolder, projects:  projectService.findProject(slideInstance)]
     }
 
     def edit() {
@@ -108,6 +111,20 @@ class SlideController {
         }
 
         [slideInstance: slideInstance, projects: Project.list(), selectedProjects: projectService.findProject(slideInstance)]
+    }
+
+    def zoomifyImage() {
+        def slideInstance = Slide.get(params.id)
+        fileUploadService.zoomifyImage(slideInstance.resultImage.filePath)
+
+        def imagezoomFolder
+
+        if(slideInstance?.resultImage)
+        {
+            imagezoomFolder = "imagezoom/" + FilenameUtils.removeExtension(FilenameUtils.getName(slideInstance?.resultImage?.filePath+"_colorized.jpg"))
+        }
+
+        render template: "slideZoom", model: [imagezoomFolder: imagezoomFolder]
     }
 
     def update() {
