@@ -2,6 +2,12 @@ package org.nanocan.rppa.scanner
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
+import org.apache.commons.io.FileUtils
+import org.im4java.core.IMOperation
+import org.im4java.core.RecolorGMOperation
+import org.im4java.core.GraphicsMagickCmd
+import org.im4java.core.GMOperation
+import liquibase.util.file.FilenameUtils
 
 /**
  * Service takes files out of the request and persists them in the appropriate fashion.
@@ -24,11 +30,6 @@ class FileUploadService {
 
             resultFile.transferTo( new File(filePath) )
 
-            if(type == "Image")
-            {
-                imageConvertService.createZoomifyImage("upload", filePath, ['numCPUCores': -1])
-            }
-
             def newResultFile = new ResultFile(fileType: type, fileName: (resultFile.originalFilename as String), filePath: filePath, dateUploaded:  currentDate as Date)
 
             if(newResultFile.save(flush: true))
@@ -43,6 +44,20 @@ class FileUploadService {
                 return null
             }
         }
+    }
+
+    def zoomifyImage(String filePath) {
+        Runtime rt = Runtime.getRuntime()
+        def exactPath = FilenameUtils.separatorsToSystem(filePath)
+
+        Process pr = rt.exec("cmd /c gm convert ${exactPath} -recolor \"1 1 1, 0 0 0, 0 0 0\" -rotate \"-90<\" -normalize ${exactPath}_colorized.jpg")
+        pr.waitFor()
+
+        def convertSettings = [:]
+        convertSettings.numCPUCores = -1
+        convertSettings.imgLib = "im4java-gm"
+
+        imageConvertService.createZoomifyImage("web-app/imagezoom", filePath + "_colorized.jpg", convertSettings)
     }
 
     /**
