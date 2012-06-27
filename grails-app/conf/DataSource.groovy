@@ -55,6 +55,16 @@ environments {
             }
         }
     }
+    standalone {
+        dataSource {
+            pooled = true
+            driverClassName = "org.h2.Driver"
+            username = "sa"
+            password = ""
+            dbCreate = "create" // one of 'create', 'create-drop', 'update', 'validate', ''
+            url = "jdbc:h2:file:rppaDB;MVCC=TRUE"
+        }
+    }
     production {
         dataSource {
             //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'

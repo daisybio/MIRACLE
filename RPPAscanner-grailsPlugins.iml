@@ -14,8 +14,6 @@
           <root url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/joda-time-1.4/grails-app/views" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/mail-1.0/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/mail-1.0/grails-app/views" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-ui-0.2/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-ui-0.2/grails-app/views" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/famfamfam-1.0.1/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/build-test-data-2.0.2/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/database-migration-1.1/grails-app/views" relative="/" />
@@ -101,13 +99,6 @@
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-core-1.2.7.3/grails-app/i18n" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-core-1.2.7.3/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-core-1.2.7.3/grails-app/taglib" isTestSource="false" />
-    </content>
-    <content url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-ui-0.2">
-      <sourceFolder url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-ui-0.2/grails-app/i18n" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-ui-0.2/grails-app/controllers" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-ui-0.2/grails-app/domain" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-ui-0.2/grails-app/services" isTestSource="false" />
-      <sourceFolder url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/spring-security-ui-0.2/grails-app/taglib" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/tomcat-2.0.4" />
     <content url="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/webxml-1.4.1">

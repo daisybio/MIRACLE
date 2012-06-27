@@ -95,7 +95,7 @@ class SlideController {
 
         if(slideInstance?.resultImage)
         {
-            imagezoomFolder = "imagezoom/" + FilenameUtils.removeExtension(FilenameUtils.getName(slideInstance?.resultImage?.filePath+"_colorized.jpg"))
+            imagezoomFolder = fileUploadService.getImagezoomFolder(slideInstance?.resultImage?.filePath)
             imagezoomFolderExists = new File("web-app/"+imagezoomFolder).exists()
         }
 
@@ -121,7 +121,7 @@ class SlideController {
 
         if(slideInstance?.resultImage)
         {
-            imagezoomFolder = "imagezoom/" + FilenameUtils.removeExtension(FilenameUtils.getName(slideInstance?.resultImage?.filePath+"_colorized.jpg"))
+            imagezoomFolder = fileUploadService.getImagezoomFolder(slideInstance?.resultImage?.filePath)
         }
 
         render template: "slideZoom", model: [imagezoomFolder: imagezoomFolder]

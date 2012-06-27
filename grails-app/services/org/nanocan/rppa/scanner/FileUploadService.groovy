@@ -2,12 +2,8 @@ package org.nanocan.rppa.scanner
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
-import org.apache.commons.io.FileUtils
-import org.im4java.core.IMOperation
-import org.im4java.core.RecolorGMOperation
-import org.im4java.core.GraphicsMagickCmd
-import org.im4java.core.GMOperation
 import liquibase.util.file.FilenameUtils
+import org.apache.commons.io.FilenameUtils
 
 /**
  * Service takes files out of the request and persists them in the appropriate fashion.
@@ -46,18 +42,46 @@ class FileUploadService {
         }
     }
 
+    /*
+     * Creates tiles for the imagezoom plugin and does some image processing
+     * depends on having graphicsmagick on the path
+     */
     def zoomifyImage(String filePath) {
         Runtime rt = Runtime.getRuntime()
-        def exactPath = FilenameUtils.separatorsToSystem(filePath)
 
-        Process pr = rt.exec("cmd /c gm convert ${exactPath} -recolor \"1 1 1, 0 0 0, 0 0 0\" -rotate \"-90<\" -normalize ${exactPath}_colorized.jpg")
+        //fomat path
+        def formattedPath = makePathURLSafe(filePath)
+        def exactOriginalPath = FilenameUtils.separatorsToSystem(filePath)
+        def exactFormattedPath = FilenameUtils.separatorsToSystem(formattedPath)
+
+        try{
+        //put all color information into the red channel and rotate if height > width by -90 degrees.
+        Process pr = rt.exec("cmd /c gm convert ${exactOriginalPath} -recolor \"1 1 1, 0 0 0, 0 0 0\" -rotate \"-90<\" -normalize ${exactFormattedPath}.jpg")
         pr.waitFor()
 
         def convertSettings = [:]
-        convertSettings.numCPUCores = -1
-        convertSettings.imgLib = "im4java-gm"
+        convertSettings.numCPUCores = -1 //use all cores
+        convertSettings.imgLib = "im4java-gm" // use graphics magick (alternative to im = imagemagick)
 
-        imageConvertService.createZoomifyImage("web-app/imagezoom", filePath + "_colorized.jpg", convertSettings)
+        //create tiles
+        imageConvertService.createZoomifyImage("web-app/imagezoom", formattedPath + ".jpg", convertSettings)
+
+        //clean up
+        new File(formattedPath+".jpg").delete()
+
+        } catch(FileNotFoundException e)
+        {
+            log.error "There was an error during image processing. A file was not found:" + e.getMessage()
+            println e.stackTrace
+        }
+    }
+
+    def makePathURLSafe(String filePath) {
+        return FilenameUtils.getFullPath(filePath) + FilenameUtils.getBaseName(filePath).split("_")[0]
+    }
+
+    def getImagezoomFolder(def filePath) {
+        return "imagezoom/" + FilenameUtils.removeExtension(FilenameUtils.getName(makePathURLSafe(filePath + "_colorized.jpg")))
     }
 
     /**

@@ -87,10 +87,12 @@ grails.hibernate.cache.queries = true
 environments {
     development {
         grails.logging.jul.usebridge = true
+        rppa.upload.directory = "upload/"
     }
     production {
         grails.logging.jul.usebridge = false
         grails.serverURL = "http://10.149.64.8:8080/RPPAscanner"
+        rppa.upload.directory = "/upload/"
     }
 }
 
@@ -120,7 +122,7 @@ log4j = {
 }
 
 grails.views.javascript.library="jquery"
-rppa.upload.directory = "upload/"
+
 rppa.jdbc.batchSize = 150
 rppa.jdbc.groovySql = true
 
