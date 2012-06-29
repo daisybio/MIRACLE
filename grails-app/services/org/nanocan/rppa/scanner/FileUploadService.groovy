@@ -4,6 +4,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import liquibase.util.file.FilenameUtils
 import org.apache.commons.io.FilenameUtils
+import org.apache.commons.io.FileUtils
 
 /**
  * Service takes files out of the request and persists them in the appropriate fashion.
@@ -51,23 +52,40 @@ class FileUploadService {
 
         //fomat path
         def formattedPath = makePathURLSafe(filePath)
-        def exactOriginalPath = FilenameUtils.separatorsToSystem(filePath)
+        //def exactOriginalPath = FilenameUtils.separatorsToSystem(filePath)
         def exactFormattedPath = FilenameUtils.separatorsToSystem(formattedPath)
 
+        //create a "safe filename" copy
+        def tempFile = new File("${exactFormattedPath}.tif")
+        FileUtils.copyFile(new File(filePath), tempFile)
+
+        // on windows we need to use cmd /c before we can execute any program
+        def graphicsMagickCommand
+        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
+            graphicsMagickCommand = "cmd /c gm convert ${exactFormattedPath}.tif -recolor \"1 1 1, 0 0 0, 0 0 0\" -rotate \"-90<\" -normalize ${exactFormattedPath}.jpg"
+        else graphicsMagickCommand = ["gm", "convert", exactFormattedPath + ".tif", "-recolor", "1 1 1, 0 0 0, 0 0 0", "-rotate", "-90<", "-normalize", exactFormattedPath+".jpg"] as String[]
+
         try{
+        //String
+
         //put all color information into the red channel and rotate if height > width by -90 degrees.
-        Process pr = rt.exec("cmd /c gm convert ${exactOriginalPath} -recolor \"1 1 1, 0 0 0, 0 0 0\" -rotate \"-90<\" -normalize ${exactFormattedPath}.jpg")
-        pr.waitFor()
+        Process pr = rt.exec(graphicsMagickCommand)
+        int result = pr.waitFor()
+
+        log.info "graphicsMagick command exit with status " + result
 
         def convertSettings = [:]
         convertSettings.numCPUCores = -1 //use all cores
         convertSettings.imgLib = "im4java-gm" // use graphics magick (alternative to im = imagemagick)
 
+        def imagezoomFolder = grailsApplication.config.rppa.imagezoom.directory
+
         //create tiles
-        imageConvertService.createZoomifyImage("web-app/imagezoom", formattedPath + ".jpg", convertSettings)
+        imageConvertService.createZoomifyImage(imagezoomFolder, exactFormattedPath + ".jpg", convertSettings)
 
         //clean up
         new File(formattedPath+".jpg").delete()
+        tempFile.delete()
 
         } catch(FileNotFoundException e)
         {
@@ -80,8 +98,12 @@ class FileUploadService {
         return FilenameUtils.getFullPath(filePath) + FilenameUtils.getBaseName(filePath).split("_")[0]
     }
 
+    def getImagezoomTarget(def filePath) {
+        return "imagezoom/" + getImagezoomFolder(filePath)
+    }
+
     def getImagezoomFolder(def filePath) {
-        return "imagezoom/" + FilenameUtils.removeExtension(FilenameUtils.getName(makePathURLSafe(filePath + "_colorized.jpg")))
+        return FilenameUtils.removeExtension(FilenameUtils.getName(makePathURLSafe(filePath)))
     }
 
     /**
@@ -90,7 +112,7 @@ class FileUploadService {
      * @param params
      * @return
      */
-    def dealWithFileUploads(def request, def slideInstance)
+    def dealWithFileUploads(def request, Slide slideInstance)
     {
         CommonsMultipartFile resultFile
         CommonsMultipartFile resultImage

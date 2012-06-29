@@ -2,12 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff76e78a-24e9-4a09-a6b2-f99514bc63a9" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/TreatmentController.groovy" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/Treatment.groovy" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/treatment/_form.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/treatment/create.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/treatment/edit.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/treatment/list.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/treatment/show.gsp" />
       <change type="DELETED" beforePath="D:\Projects\RPPAscanner\RPPAscanner-grailsPlugins.iml.orig" afterPath="" />
       <change type="DELETED" beforePath="D:\Projects\RPPAscanner\RPPAscanner.iml.orig" afterPath="" />
+      <change type="DELETED" beforePath="D:\Projects\RPPAscanner\application.properties.orig" afterPath="" />
       <change type="DELETED" beforePath="D:\Projects\RPPAscanner\grails-app\views\slide\show.gsp.orig" afterPath="" />
       <change type="DELETED" beforePath="D:\Projects\RPPAscanner\test.sql" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application.properties" afterPath="$PROJECT_DIR$/application.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/Config.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/Config.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SpotExportController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SpotExportController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/security/PersonController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/security/PersonController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Antibody.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Antibody.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/FileUploadService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/FileUploadService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SpotExportService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SpotExportService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/resultFileConfig/_form.gsp" afterPath="$PROJECT_DIR$/grails-app/views/resultFileConfig/_form.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/resultFileConfig/show.gsp" afterPath="$PROJECT_DIR$/grails-app/views/resultFileConfig/show.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/_form.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/_form.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/spotExport/createUrlForR.gsp" afterPath="$PROJECT_DIR$/grails-app/views/spotExport/createUrlForR.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stacktrace.log" afterPath="$PROJECT_DIR$/stacktrace.log" />
     </list>
     <ignored path="RPPAscanner.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,13 +92,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FileUploadService.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/FileUploadService.groovy">
+      <file leaf-file-name="sampleSpotTable.gsp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="111" column="43" selection-start="4165" selection-end="4165" vertical-scroll-proportion="0.0">
+            <state line="22" column="39" selection-start="643" selection-end="643" vertical-scroll-proportion="0.45058626">
               <folding>
-                <element signature="e#34#103#0" expanded="true" />
+                <marker date="1340966908937" expanded="true" signature="4807:5134" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="5169:5359" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="5202:5353" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="5394:5689" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="5721:7244" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="5747:5844" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="5859:7238" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="6278:6365" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="6497:6584" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="6638:7200" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="6697:7186" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="6789:7168" placeholder="{...}" />
+                <marker date="1340966908937" expanded="true" signature="7271:7371" placeholder="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LayoutSpot.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy">
+          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="34" column="21" selection-start="756" selection-end="756" vertical-scroll-proportion="-0.39534885">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Slide.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Slide.groovy">
+          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="46" selection-start="490" selection-end="490" vertical-scroll-proportion="-8.767442">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SlideLayout.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy">
+          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="166" selection-start="470" selection-end="470" vertical-scroll-proportion="-9.488372">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -80,26 +154,69 @@
       <file leaf-file-name="Config.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/conf/Config.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="42" selection-start="624" selection-end="624" vertical-scroll-proportion="0.0">
+            <state line="120" column="77" selection-start="4775" selection-end="4775" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataSource.groovy" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/grails-app/conf/DataSource.groovy">
+      <file leaf-file-name="_sampleLegend.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_sampleLegend.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="38" selection-start="2343" selection-end="2343" vertical-scroll-proportion="0.3073005">
+            <state line="17" column="52" selection-start="692" selection-end="692" vertical-scroll-proportion="-5.897959">
+              <folding>
+                <marker date="1340713447733" expanded="true" signature="504:563" placeholder="{...}" />
+                <marker date="1340713447733" expanded="true" signature="638:1384" placeholder="{...}" />
+                <marker date="1340713447733" expanded="true" signature="691:1368" placeholder="{&quot;source&quot;: ''...}" />
+                <marker date="1340713447733" expanded="true" signature="868:1350" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slide/create.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="44" selection-start="1082" selection-end="1082" vertical-scroll-proportion="-3.4081633">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SlideController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy">
+      <file leaf-file-name="_form.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slide/_form.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="20" selection-start="2975" selection-end="2975" vertical-scroll-proportion="-11.130435">
+            <state line="59" column="9" selection-start="2679" selection-end="2679" vertical-scroll-proportion="-10.061225">
+              <folding>
+                <marker date="1340713447707" expanded="true" signature="222:1431" placeholder="{...}" />
+                <marker date="1340713447707" expanded="true" signature="274:620" placeholder="{&quot;source&quot;: ''...}" />
+                <marker date="1340713447707" expanded="true" signature="479:602" placeholder="{...}" />
+                <marker date="1340713447707" expanded="true" signature="674:1022" placeholder="{&quot;source&quot;: ''...}" />
+                <marker date="1340713447707" expanded="true" signature="880:1004" placeholder="{...}" />
+                <marker date="1340713447707" expanded="true" signature="1073:1415" placeholder="{&quot;source&quot;: ''...}" />
+                <marker date="1340713447707" expanded="true" signature="1276:1397" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_form.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_form.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="103" selection-start="1953" selection-end="1953" vertical-scroll-proportion="-6.5306125">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="show.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="82" column="55" selection-start="4178" selection-end="4178" vertical-scroll-proportion="-6.612245">
+              <folding>
+                <marker date="1340965146020" expanded="true" signature="335:471" placeholder="{...}" />
+                <marker date="1340965146020" expanded="true" signature="375:458" placeholder="{&quot;collapsible&quot;: true...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -120,22 +237,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/application.properties" />
+        <option value="$PROJECT_DIR$/grails-app/views/treatment/_form.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/treatment/list.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/treatment/show.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/SpotExportService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/resultFileConfig/_form.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/resultFileConfig/show.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SpotExportController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/sampleList.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/_sampleLegend.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/project/ProjectService.groovy" />
-        <option value="$PROJECT_DIR$/src/java/RecolorGMOperations/java.java" />
-        <option value="$PROJECT_DIR$/grails-app/views/slide/list.gsp" />
-        <option value="$PROJECT_DIR$/src/java/org/im4java/core/RecolorGMOperation.java" />
-        <option value="$PROJECT_DIR$/grails-app/views/slide/_slideZoom.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/slide/show.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/spotExport/createUrlForR.gsp" />
         <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/FileUploadService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/_form.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Slide.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy" />
         <option value="$PROJECT_DIR$/grails-app/conf/Config.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" />
       </list>
     </option>
   </component>
@@ -159,7 +276,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -170,21 +287,53 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RPPAscanner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RPPAscanner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RPPAscanner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RPPAscanner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Modules" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="276" />
-    <property name="project.structure.proportion" value="0.15" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="294" />
-    <property name="recentsLimit" value="5" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="291" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="296" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="960" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="965" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="960" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="291" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="289" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -213,9 +362,6 @@
       <recent name="D:\Projects\RPPAscanner\web-app\css" />
       <recent name="D:\Projects\RPPAscanner\grails-app\views\slide" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Projects\RPPAscanner\grails-app\views\slideLayout" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="org.nanocan.rppa.security" />
       <recent name="org.nanocan.rppa.layout" />
@@ -223,15 +369,19 @@
       <recent name="org.nanocan" />
       <recent name="rppa.layout" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\RPPAscanner\grails-app\views\slideLayout" />
+    </key>
   </component>
   <component name="RunManager" selected="Grails.Grails:RPPAscanner">
-    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
       <module name="" />
-      <setting name="path" value="" />
       <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workDir" value="D:\Projects\RPPAscanner" />
-      <setting name="debug" value="false" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="depsClasspath" value="true" />
+      <setting name="passParentEnv" value="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <setting name="launchBrowser" value="true" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -250,14 +400,13 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
       <module name="" />
+      <setting name="path" value="" />
       <setting name="vmparams" value="" />
-      <setting name="cmdLine" value="run-app" />
-      <setting name="depsClasspath" value="true" />
-      <setting name="passParentEnv" value="true" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <setting name="launchBrowser" value="true" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="D:\Projects\RPPAscanner" />
+      <setting name="debug" value="false" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -288,6 +437,24 @@
       </option>
       <option name="moduleName" value="" />
       <option name="trusted" value="true" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -328,24 +495,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -363,6 +512,17 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -389,17 +549,6 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -509,17 +658,17 @@
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276515" sideWeight="0.49839744" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15421557" sideWeight="0.21969697" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3285985" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15421557" sideWeight="0.5814394" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3285985" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15421557" sideWeight="0.6714015" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15421557" sideWeight="0.21969697" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15421557" sideWeight="0.21969697" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15421557" sideWeight="0.21875" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24653149" sideWeight="0.5785985" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4185606" sideWeight="0.49786323" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24653149" sideWeight="0.6714015" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41761363" sideWeight="0.49786323" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -594,93 +743,161 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/../grails/grails-2.0.4/src/grails-datastore-gorm-1.0.9.RELEASE-sources.jar!/org/grails/datastore/gorm/GormStaticApi.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/resultFileConfig/list.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="0" selection-start="3660" selection-end="3660" vertical-scroll-proportion="0.33333334" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/project/ProjectController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="24" selection-start="668" selection-end="668" vertical-scroll-proportion="-0.73913044" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/list.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="68" selection-start="848" selection-end="848" vertical-scroll-proportion="0.031481482" />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.grails/ivy-cache/net.bull.javamelody/javamelody-core/jars/javamelody-core-1.37.0.jar!/net/bull/javamelody/MonitoringFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="0" selection-start="3014" selection-end="3014" vertical-scroll-proportion="0.8602541" />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/imagezoom-0.3.5/lib/im4java-1.1.0-1.5.jar!/org/im4java/core/Operation.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="154" selection-end="154" vertical-scroll-proportion="0.15070923" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0/src.zip!/java/lang/ProcessBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1009" column="0" selection-start="38133" selection-end="38133" vertical-scroll-proportion="0.3327674" />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/imagezoom-0.3.5/lib/im4java-1.1.0-1.5.jar!/org/im4java/core/GMOperation.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="54" selection-start="312" selection-end="312" vertical-scroll-proportion="0.24113475" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="176" column="61" selection-start="6202" selection-end="6202" vertical-scroll-proportion="0.36042404" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/_slideZoom.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="48" selection-start="258" selection-end="258" vertical-scroll-proportion="0.1574074" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/project/ProjectService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="41" selection-start="1377" selection-end="1377" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.grails/2.0.4/projects/RPPAscanner/plugins/imagezoom-0.3.5/grails-app/services/sebastian/hohns/imagezoom/ImageConvertService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="29" selection-start="3355" selection-end="3355" vertical-scroll-proportion="0.029513888" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/show.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="13" selection-start="3108" selection-end="3108" vertical-scroll-proportion="0.6451613" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="20" selection-start="2975" selection-end="2975" vertical-scroll-proportion="-11.130435">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/scanner/FileUploadService.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SpotExportController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="43" selection-start="4165" selection-end="4165" vertical-scroll-proportion="0.0">
+        <state line="19" column="56" selection-start="616" selection-end="638" vertical-scroll-proportion="-9.608696">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/spotExport/createUrlForR.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="16" selection-start="1368" selection-end="1368" vertical-scroll-proportion="-6.5306125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="26" selection-start="679" selection-end="679" vertical-scroll-proportion="-14.043478">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="28" selection-start="1474" selection-end="1474" vertical-scroll-proportion="-4.1836734">
           <folding>
-            <element signature="e#34#103#0" expanded="true" />
+            <marker date="1340958110401" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1340958110401" expanded="true" signature="-1:-1" placeholder="{&quot;color&quot;: ' fpwmx8th2p8v2 '...}" />
+            <marker date="1340958110401" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1340958110401" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1340958110401" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1340958110401" expanded="true" signature="-1:-1" placeholder="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/resultFileConfig/show.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="118" column="80" selection-start="5588" selection-end="5588" vertical-scroll-proportion="0.06122449">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/_form.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="9" selection-start="2679" selection-end="2679" vertical-scroll-proportion="-10.061225">
+          <folding>
+            <marker date="1340713447707" expanded="true" signature="222:1431" placeholder="{...}" />
+            <marker date="1340713447707" expanded="true" signature="274:620" placeholder="{&quot;source&quot;: ''...}" />
+            <marker date="1340713447707" expanded="true" signature="479:602" placeholder="{...}" />
+            <marker date="1340713447707" expanded="true" signature="674:1022" placeholder="{&quot;source&quot;: ''...}" />
+            <marker date="1340713447707" expanded="true" signature="880:1004" placeholder="{...}" />
+            <marker date="1340713447707" expanded="true" signature="1073:1415" placeholder="{&quot;source&quot;: ''...}" />
+            <marker date="1340713447707" expanded="true" signature="1276:1397" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_form.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="103" selection-start="1953" selection-end="1953" vertical-scroll-proportion="-6.5306125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="55" selection-start="4178" selection-end="4178" vertical-scroll-proportion="-6.612245">
+          <folding>
+            <marker date="1340965146020" expanded="true" signature="335:471" placeholder="{...}" />
+            <marker date="1340965146020" expanded="true" signature="375:458" placeholder="{&quot;collapsible&quot;: true...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Slide.groovy">
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="46" selection-start="490" selection-end="490" vertical-scroll-proportion="-8.767442">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy">
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="21" selection-start="756" selection-end="756" vertical-scroll-proportion="-0.39534885">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy">
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="166" selection-start="470" selection-end="470" vertical-scroll-proportion="-9.488372">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/conf/Config.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="42" selection-start="624" selection-end="624" vertical-scroll-proportion="0.0">
+        <state line="120" column="77" selection-start="4775" selection-end="4775" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/conf/DataSource.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_sampleLegend.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="38" selection-start="2343" selection-end="2343" vertical-scroll-proportion="0.3073005">
+        <state line="17" column="52" selection-start="692" selection-end="692" vertical-scroll-proportion="-5.897959">
+          <folding>
+            <marker date="1340713447733" expanded="true" signature="504:563" placeholder="{...}" />
+            <marker date="1340713447733" expanded="true" signature="638:1384" placeholder="{...}" />
+            <marker date="1340713447733" expanded="true" signature="691:1368" placeholder="{&quot;source&quot;: ''...}" />
+            <marker date="1340713447733" expanded="true" signature="868:1350" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/create.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="44" selection-start="1082" selection-end="1082" vertical-scroll-proportion="-3.4081633">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="39" selection-start="643" selection-end="643" vertical-scroll-proportion="0.45058626">
+          <folding>
+            <marker date="1340966908937" expanded="true" signature="4807:5134" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="5169:5359" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="5202:5353" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="5394:5689" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="5721:7244" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="5747:5844" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="5859:7238" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="6278:6365" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="6497:6584" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="6638:7200" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="6697:7186" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="6789:7168" placeholder="{...}" />
+            <marker date="1340966908937" expanded="true" signature="7271:7371" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>

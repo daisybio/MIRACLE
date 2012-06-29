@@ -1,4 +1,4 @@
-<%@ page import="org.nanocan.rppa.layout.SpotType; org.nanocan.rppa.layout.Inducer; org.nanocan.rppa.layout.Dilution; org.nanocan.rppa.layout.LysisBuffer; org.nanocan.rppa.layout.CellLine" %>
+<%@ page import="org.nanocan.rppa.layout.Treatment; org.nanocan.rppa.layout.SpotType; org.nanocan.rppa.layout.Inducer; org.nanocan.rppa.layout.Dilution; org.nanocan.rppa.layout.LysisBuffer; org.nanocan.rppa.layout.CellLine" %>
 <head>
     <r:require module="colorPicker"/>
     <style>
@@ -21,6 +21,7 @@
     <g:elseif test="${sampleProperty == 'dilutionFactor'}"><g:set var="samplePropertyList" value="${Dilution.list()}"/></g:elseif>
     <g:elseif test="${sampleProperty == 'inducer'}"><g:set var="samplePropertyList" value="${Inducer.list()}"/></g:elseif>
     <g:elseif test="${sampleProperty == 'spotType'}"><g:set var="samplePropertyList" value="${SpotType.list()}"/></g:elseif>
+    <g:elseif test="${sampleProperty == 'treatment'}"><g:set var="samplePropertyList" value="${Treatment.list()}"/></g:elseif>
 
     <thead>
     <tr><th>${sampleProperty.toString().capitalize()}</th><th>Color</th></tr>

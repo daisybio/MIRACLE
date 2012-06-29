@@ -67,6 +67,7 @@ class SpotExportService {
             if ("LysisBuffer" in props) spotPropList << (spot.layoutSpot.lysisBuffer ?: "NA")
             if ("DilutionFactor" in props) spotPropList << (spot.layoutSpot.dilutionFactor?.dilutionFactor ?: "NA")
             if ("Inducer" in props) spotPropList << (spot.layoutSpot.inducer ?: "NA")
+            if ("Treatment" in props) spotPropList << (spot.layoutSpot.treatment ?: "NA")
             if ("SpotType" in props) spotPropList << (spot.layoutSpot.spotType?.name ?: "NA")
             if ("SpotClass" in props) spotPropList << (spot.layoutSpot.spotType?.type ?: "NA")
             if ("SampleName" in props) spotPropList << (spot.layoutSpot.sample?.name ?: "NA")

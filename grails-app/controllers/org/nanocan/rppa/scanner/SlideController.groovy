@@ -62,6 +62,7 @@ class SlideController {
     }
 
     def create() {
+        params.experimenter = springSecurityService.currentUser
         [slideInstance: new Slide(params), projects: Project.list()]
     }
 
@@ -71,9 +72,9 @@ class SlideController {
 
         def slideInstance = new Slide(params)
 
-        fileUploadService.dealWithFileUploads(request, params)
+        slideInstance = fileUploadService.dealWithFileUploads(request, slideInstance)
 
-        if (!slideInstance.save(flush: true)) {
+        if (!slideInstance.save(flush: true, failOnError: true)) {
             render(view: "create", model: [slideInstance: slideInstance])
         }
         projectService.addToProject(slideInstance, params.projectsSelected)
@@ -95,8 +96,8 @@ class SlideController {
 
         if(slideInstance?.resultImage)
         {
-            imagezoomFolder = fileUploadService.getImagezoomFolder(slideInstance?.resultImage?.filePath)
-            imagezoomFolderExists = new File("web-app/"+imagezoomFolder).exists()
+            imagezoomFolder = fileUploadService.getImagezoomTarget(slideInstance?.resultImage?.filePath)
+            imagezoomFolderExists = new File(grailsApplication.config.rppa.imagezoom.directory + "/" + fileUploadService.getImagezoomFolder(slideInstance?.resultImage?.filePath)).exists()
         }
 
         [slideInstance: slideInstance,imagezoomFolderExists: imagezoomFolderExists, imagezoomFolder: imagezoomFolder, projects:  projectService.findProject(slideInstance)]
@@ -121,7 +122,7 @@ class SlideController {
 
         if(slideInstance?.resultImage)
         {
-            imagezoomFolder = fileUploadService.getImagezoomFolder(slideInstance?.resultImage?.filePath)
+            imagezoomFolder = fileUploadService.getImagezoomTarget(slideInstance?.resultImage?.filePath)
         }
 
         render template: "slideZoom", model: [imagezoomFolder: imagezoomFolder]

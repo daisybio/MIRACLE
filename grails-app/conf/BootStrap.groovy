@@ -20,6 +20,7 @@ import org.nanocan.rppa.project.Project
 class BootStrap {
 
     def slideLayoutService
+    def grailsApplication
 
     def init = { servletContext ->
 
@@ -39,7 +40,14 @@ class BootStrap {
             case "migrate":
                 initUserbase()
                 break
+
+            case "standalone":
+                initUserbase()
+                break
         }
+
+        String imagezoomFolder = grailsApplication.config.rppa.imagezoom.directory
+        new File(imagezoomFolder).mkdir()
 
     }
 

@@ -14,9 +14,20 @@
 <g:set var="spot" value="${0}"/>
 <g:set var="spotList" value="${spots.toList()}"/>
 
-<!-- Figure out how many tabs we need with 12 blocks per tab -->
-<g:set var="tabsNeeded" value="${(int) (slideLayout.numberOfBlocks / 12)}"/>
-<g:if test="slideLayout.numberOfBlocks % 12 != 0"><g:set var="tabsNeeded" value="${tabsNeeded++}"></g:set></g:if>
+<g:if test="${slideLayout.blocksPerRow}">
+    <g:set var="blocksPerRow" value="${Math.min(slideLayout.blocksPerRow, slideLayout.numberOfBlocks)}"/>
+</g:if>
+<g:else>
+    <g:set var="blocksPerRow" value="${12}"/>
+</g:else>
+
+<!-- Figure out how many tabs we need with n blocks per tab -->
+<g:set var="fullTabsNeeded" value="${(int) (slideLayout.numberOfBlocks / blocksPerRow)}"/>
+<g:set var="blocksInLastTab" value="${slideLayout.numberOfBlocks % blocksPerRow}" />
+<g:if test="${blocksInLastTab != 0}">
+    <g:set var="tabsNeeded" value="${++fullTabsNeeded}"></g:set>
+</g:if>
+<g:else><g:set var="tabsNeeded" value="${fullTabsNeeded}"/></g:else>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -49,27 +60,31 @@
 <div id = "blockTabs" style="overflow: auto; height:700px;">
  <ul>
  <g:each var="i" in="${1..tabsNeeded}">
-  <g:set var="tab" value="${((i-1) * 12)+1}"/>
-    <li><a href="#blockTabs-${i}" onclick="registerHandlers('blockTable${i}');">Blocks ${tab}..${tab+11}</a></li>
+  <g:set var="tab" value="${((i-1) * blocksPerRow)+1}"/>
+    <g:if test="${blocksInLastTab != 0 && i == tabsNeeded}"><g:set var="upperBound" value="${blocksInLastTab}"/></g:if>
+    <g:else><g:set var="upperBound" value="${blocksPerRow}"/></g:else>
+    <li><a href="#blockTabs-${i}" onclick="registerHandlers('blockTable${i}');">Blocks ${tab}..${tab+upperBound-1}</a></li>
  </g:each>
  </ul>
 
  <g:each var="i" in="${1..tabsNeeded}">
-    <g:set var="tab" value="${((i-1) * 12)+1}"/>
+    <g:set var="tab" value="${((i-1) * blocksPerRow)+1}"/>
+    <g:if test="${blocksInLastTab != 0 && i == tabsNeeded}"><g:set var="upperBound" value="${blocksInLastTab}"/></g:if>
+    <g:else><g:set var="upperBound" value="${blocksPerRow}"/></g:else>
 
     <div id="blockTabs-${i}">
     <table id="blockTable${i}" style="border: 1px solid;">
         <thead>
         <tr>
             <th>Block</th>
-            <g:each in="${tab..(tab+11)}" var="block">
+            <g:each in="${tab..(tab+upperBound-1)}" var="block">
                 <th colspan="${slideLayout.columnsPerBlock}">${block}</th>
             </g:each>
         </tr>
 
         <tr align="center">
             <th>Column</th>
-            <g:each in="${tab..(tab+11)}">
+            <g:each in="${tab..(tab+upperBound-1)}">
                 <g:each in="${1..(slideLayout.columnsPerBlock)}" var="col">
                     <th style="width:25px;">${col}</th>
                 </g:each>
@@ -81,7 +96,7 @@
         <g:each in="${1..(slideLayout.rowsPerBlock)}" var="row">
             <tr id="r${row+1}">
                 <td>${row}</td>
-                <g:each in="${tab..tab+11}">
+                <g:each in="${tab..(tab+upperBound-1)}">
                     <g:each in="${1..(slideLayout.columnsPerBlock)}">
                         <td style="border: 1px solid; background-color:${spotList.get(spot)?.properties[sampleProperty]?spotList.get(spot).properties[sampleProperty].color?:'#e0e0e0':''};"><input name="${spotList.get(spot).id}" type="hidden" value=""></td>
                         <g:set var="spot" value="${++spot}"/>

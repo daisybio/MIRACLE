@@ -34,6 +34,14 @@
 	<g:field type="number" name="numberOfBlocks" min="1" required="" value="${fieldValue(bean: slideLayoutInstance, field: 'numberOfBlocks')}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: slideLayoutInstance, field: 'blocksPerRow', 'error')} required">
+    <label for="blocksPerRow">
+        <g:message code="slideLayout.numberOfBlocks.label" default="Blocks Per Row" />
+        <span class="required-indicator">*</span>
+    </label>
+    <g:field type="number" name="blocksPerRow" min="1" required="" value="${fieldValue(bean: slideLayoutInstance, field: 'blocksPerRow')}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: slideLayoutInstance, field: 'depositionPattern', 'error')} ">
 	<label for="depositionPattern">
 		<g:message code="slideLayout.depositionPattern.label" default="Deposition Pattern" />

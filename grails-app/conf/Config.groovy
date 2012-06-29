@@ -88,11 +88,19 @@ environments {
     development {
         grails.logging.jul.usebridge = true
         rppa.upload.directory = "upload/"
+        rppa.imagezoom.directory = "web-app/imagezoom"
+        rppa.imagezoom.url = "web-app"
     }
     production {
         grails.logging.jul.usebridge = false
         grails.serverURL = "http://10.149.64.8:8080/RPPAscanner"
         rppa.upload.directory = "/upload/"
+        rppa.imagezoom.directory = "/tomcat/apache-tomcat-7.0.27/webapps/RPPAscanner/imagezoom"
+        rppa.imagezoom.url = ""
+    }
+    standalone {
+        rppa.upload.directory = "upload/"
+        rppa.imagezoom.directory = "imagezoom"
     }
 }
 
@@ -117,8 +125,20 @@ log4j = {
            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
            'org.springframework',
            'org.hibernate',
-           'net.sf.ehcache.hibernate'
+           'net.sf.ehcache.hibernate',
+           'org.nanocan.rppa'
     warn   'org.nanocan.rppa'
+    info   'org.nanocan.rppa'
+
+    appenders {
+        rollingFile  name:'infoLog', file:'log/info.log', threshold: org.apache.log4j.Level.INFO, maxFileSize:1024
+        rollingFile  name:'warnLog', file:'log/warn.log', threshold: org.apache.log4j.Level.WARN, maxFileSize:1024
+        rollingFile  name:'errorLog', file:'log/error.log', threshold: org.apache.log4j.Level.ERROR, maxFileSize:1024
+    }
+
+    root {
+        info 'infoLog','warnLog','errorLog'
+    }
 }
 
 grails.views.javascript.library="jquery"

@@ -23,7 +23,14 @@
     <div style="margin: 20px;">In order to import this slide into R you will need to use the read function of R in combination with a
         <a href="${exportLink}">URL</a>.</div>
 
-    <div style="margin: 20px;">The full command for the direct import is then:</div>
+    <div style="margin: 20px;">
+        RStudio server does not allow a direct import due to a bug. Instead download the file into RStudio server via the following command
+        (you have to adapt destinationFileName):
+    </div>
+
+    <pre class="brush: r">download.file("${exportLink.toString()}\n", "destinationFileName.csv")</pre>
+
+    <div style="margin: 20px;">The full command for a direct import in a R desktop environment (like RStudio,Rcommander, or plain R) is:</div>
 
     <pre class="brush: r">${importCommand}</pre>
 

@@ -71,6 +71,15 @@
                         </li>
                         </g:if>
 
+                        <g:if test="${slideLayoutInstance?.blocksPerRow}">
+                            <li class="fieldcontain">
+                                <span id="blocksPerRow-label" class="property-label"><g:message code="slideLayout.blocksPerRow.label" default="Blocks PerRow" /></span>
+
+                                <span class="property-value" aria-labelledby="blocksPerRow-label"><g:fieldValue bean="${slideLayoutInstance}" field="blocksPerRow"/></span>
+
+                            </li>
+                        </g:if>
+
                         <g:if test="${slideLayoutInstance?.depositionPattern}">
                         <li class="fieldcontain">
                             <span id="depositionPattern-label" class="property-label"><g:message code="slideLayout.depositionPattern.label" default="Deposition Pattern" /></span>
@@ -110,12 +119,13 @@
 
             <h1>Change Spot Properties</h1>
             <ul style="padding:20px;padding-left:100px;">
-                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'sample']}"> Sample Information </g:link></li>
                 <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'cellLine']}"> Cellline </g:link></li>
-                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'lysisBuffer']}"> Lysis Buffer </g:link></li>
                 <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'dilutionFactor']}"> Dilution </g:link></li>
                 <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'inducer']}"> Inducer </g:link></li>
+                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'lysisBuffer']}"> Lysis Buffer </g:link></li>
+                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'sample']}"> Sample Information </g:link></li>
                 <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'spotType']}"> Spot Type </g:link></li>
+                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'treatment']}"> Treatment </g:link></li>
             </ul>
 			<g:form>
 				<fieldset class="buttons">

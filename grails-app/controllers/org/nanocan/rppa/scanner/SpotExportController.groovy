@@ -24,7 +24,7 @@ class SpotExportController {
     }
 
     def csvHeader = ["Block","Column","Row","FG","BG","Signal", "x","y","Diameter","Flag", "Deposition", "CellLine",
-            "LysisBuffer", "DilutionFactor", "Inducer", "SpotType", "SpotClass", "SampleName", "SampleType", "TargetGene"]
+            "LysisBuffer", "DilutionFactor", "Inducer", "Treatment", "SpotType", "SpotClass", "SampleName", "SampleType", "TargetGene"]
 
     /*
      * action that triggers the actual creation of a csv file
@@ -35,7 +35,7 @@ class SpotExportController {
 
         def results = spotExportService.exportToCSV(slideInstance, params)
 
-        response.setHeader("Content-disposition", "filename=${slideInstance}.csv")
+        response.setHeader("Content-disposition", "filename=${slideInstance.toString().replace(" ", "_")}.csv")
         response.contentType = "application/vnd.ms-excel"
 
         def outs = response.outputStream
