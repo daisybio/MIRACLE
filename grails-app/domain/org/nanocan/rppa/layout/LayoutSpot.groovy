@@ -11,6 +11,7 @@ class LayoutSpot implements Comparable{
     Inducer inducer
     SpotType spotType
     Sample sample
+    Treatment treatment
 
     int block
     int col
@@ -26,6 +27,7 @@ class LayoutSpot implements Comparable{
         inducer nullable: true
         sample nullable:  true
         spotType nullable:  true
+        treatment nullable:  true
     }
 
     static mapping = {

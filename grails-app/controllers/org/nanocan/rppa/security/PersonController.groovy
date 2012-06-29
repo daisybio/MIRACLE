@@ -33,12 +33,12 @@ class PersonController {
         def personInstance = new Person(params)
         if (!personInstance.save(flush: true)) {
 
-            PersonRole.create personInstance, userRole, true
-            if(isAdmin) { PersonRole.create personInstance, adminRole, true }
-
             render(view: "create", model: [personInstance: personInstance, isAdmin: isAdmin])
             return
         }
+
+        PersonRole.create personInstance, userRole, true
+        if(isAdmin) { PersonRole.create personInstance, adminRole, true }
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'person.label', default: 'Person'), personInstance.id])
         redirect(action: "show", id: personInstance.id)

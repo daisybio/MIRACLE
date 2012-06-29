@@ -1,13 +1,11 @@
 <%@ page import="org.nanocan.rppa.scanner.ResultFileConfig" %>
 
-
-
-<div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'bgCol', 'error')} ">
-    <label for="bgCol">
-        <g:message code="resultFileConfig.bgCol.label" default="Bg Col"/>
+<div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'name', 'error')} ">
+    <label for="name">
+        <g:message code="resultFileConfig.name.label" default="Name"/>
 
     </label>
-    <g:textField name="bgCol" value="${resultFileConfigInstance?.bgCol}"/>
+    <g:textField name="name" value="${resultFileConfigInstance?.name}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'blockCol', 'error')} ">
@@ -26,12 +24,12 @@
     <g:textField name="columnCol" value="${resultFileConfigInstance?.columnCol}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'diameterCol', 'error')} ">
-    <label for="diameterCol">
-        <g:message code="resultFileConfig.diameterCol.label" default="Diameter Col"/>
+<div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'rowCol', 'error')} ">
+    <label for="rowCol">
+        <g:message code="resultFileConfig.rowCol.label" default="Row Col"/>
 
     </label>
-    <g:textField name="diameterCol" value="${resultFileConfigInstance?.diameterCol}"/>
+    <g:textField name="rowCol" value="${resultFileConfigInstance?.rowCol}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'fgCol', 'error')} ">
@@ -42,28 +40,29 @@
     <g:textField name="fgCol" value="${resultFileConfigInstance?.fgCol}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'bgCol', 'error')} ">
+    <label for="bgCol">
+        <g:message code="resultFileConfig.bgCol.label" default="Bg Col"/>
+
+    </label>
+    <g:textField name="bgCol" value="${resultFileConfigInstance?.bgCol}"/>
+</div>
+
+
+<div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'diameterCol', 'error')} ">
+    <label for="diameterCol">
+        <g:message code="resultFileConfig.diameterCol.label" default="Diameter Col"/>
+
+    </label>
+    <g:textField name="diameterCol" value="${resultFileConfigInstance?.diameterCol}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'flagCol', 'error')} ">
     <label for="flagCol">
         <g:message code="resultFileConfig.flagCol.label" default="Flag Col"/>
 
     </label>
     <g:textField name="flagCol" value="${resultFileConfigInstance?.flagCol}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'name', 'error')} ">
-    <label for="name">
-        <g:message code="resultFileConfig.name.label" default="Name"/>
-
-    </label>
-    <g:textField name="name" value="${resultFileConfigInstance?.name}"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'rowCol', 'error')} ">
-    <label for="rowCol">
-        <g:message code="resultFileConfig.rowCol.label" default="Row Col"/>
-
-    </label>
-    <g:textField name="rowCol" value="${resultFileConfigInstance?.rowCol}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: resultFileConfigInstance, field: 'skipLines', 'error')} required">

@@ -27,13 +27,13 @@
     </g:if>
     <ol class="property-list resultFileConfig">
 
-        <g:if test="${resultFileConfigInstance?.bgCol}">
+        <g:if test="${resultFileConfigInstance?.name}">
             <li class="fieldcontain">
-                <span id="bgCol-label" class="property-label"><g:message code="resultFileConfig.bgCol.label"
-                                                                         default="Bg Col"/></span>
+                <span id="name-label" class="property-label"><g:message code="resultFileConfig.name.label"
+                                                                        default="Name"/></span>
 
-                <span class="property-value" aria-labelledby="bgCol-label"><g:fieldValue
-                        bean="${resultFileConfigInstance}" field="bgCol"/></span>
+                <span class="property-value" aria-labelledby="name-label"><g:fieldValue
+                        bean="${resultFileConfigInstance}" field="name"/></span>
 
             </li>
         </g:if>
@@ -60,13 +60,13 @@
             </li>
         </g:if>
 
-        <g:if test="${resultFileConfigInstance?.diameterCol}">
+        <g:if test="${resultFileConfigInstance?.rowCol}">
             <li class="fieldcontain">
-                <span id="diameterCol-label" class="property-label"><g:message code="resultFileConfig.diameterCol.label"
-                                                                               default="Diameter Col"/></span>
+                <span id="rowCol-label" class="property-label"><g:message code="resultFileConfig.rowCol.label"
+                                                                          default="Row Col"/></span>
 
-                <span class="property-value" aria-labelledby="diameterCol-label"><g:fieldValue
-                        bean="${resultFileConfigInstance}" field="diameterCol"/></span>
+                <span class="property-value" aria-labelledby="rowCol-label"><g:fieldValue
+                        bean="${resultFileConfigInstance}" field="rowCol"/></span>
 
             </li>
         </g:if>
@@ -82,6 +82,17 @@
             </li>
         </g:if>
 
+        <g:if test="${resultFileConfigInstance?.bgCol}">
+            <li class="fieldcontain">
+                <span id="bgCol-label" class="property-label"><g:message code="resultFileConfig.bgCol.label"
+                                                                         default="Bg Col"/></span>
+
+                <span class="property-value" aria-labelledby="bgCol-label"><g:fieldValue
+                        bean="${resultFileConfigInstance}" field="bgCol"/></span>
+
+            </li>
+        </g:if>
+
         <g:if test="${resultFileConfigInstance?.flagCol}">
             <li class="fieldcontain">
                 <span id="flagCol-label" class="property-label"><g:message code="resultFileConfig.flagCol.label"
@@ -93,27 +104,17 @@
             </li>
         </g:if>
 
-        <g:if test="${resultFileConfigInstance?.name}">
+        <g:if test="${resultFileConfigInstance?.diameterCol}">
             <li class="fieldcontain">
-                <span id="name-label" class="property-label"><g:message code="resultFileConfig.name.label"
-                                                                        default="Name"/></span>
+                <span id="diameterCol-label" class="property-label"><g:message code="resultFileConfig.diameterCol.label"
+                                                                               default="Diameter Col"/></span>
 
-                <span class="property-value" aria-labelledby="name-label"><g:fieldValue
-                        bean="${resultFileConfigInstance}" field="name"/></span>
+                <span class="property-value" aria-labelledby="diameterCol-label"><g:fieldValue
+                        bean="${resultFileConfigInstance}" field="diameterCol"/></span>
 
             </li>
         </g:if>
 
-        <g:if test="${resultFileConfigInstance?.rowCol}">
-            <li class="fieldcontain">
-                <span id="rowCol-label" class="property-label"><g:message code="resultFileConfig.rowCol.label"
-                                                                          default="Row Col"/></span>
-
-                <span class="property-value" aria-labelledby="rowCol-label"><g:fieldValue
-                        bean="${resultFileConfigInstance}" field="rowCol"/></span>
-
-            </li>
-        </g:if>
 
         <g:if test="${resultFileConfigInstance?.skipLines}">
             <li class="fieldcontain">
