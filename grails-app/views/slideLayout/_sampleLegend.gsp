@@ -38,7 +38,7 @@
         Select a sample: <g:textField id="sampleSelection" name="sampleSelection"/>
 
         <div style="float:right;"><input type="button" value="Deselect" onclick="alert('Now just click on a sample to deselect');
-        selColor='#ffffff'; selName=''; selId = '';
+        selColor='#ffffff'; selName=''; selId = '-1';
         document.getElementById('colorPickDiv').setAttribute('style', 'margin: 20px; background-color: #ffffff; border: 1px solid; width:25px; height:25px;');
         "/></div><br/> <br/>
 

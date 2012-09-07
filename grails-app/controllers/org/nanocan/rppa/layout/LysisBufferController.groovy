@@ -6,10 +6,4 @@ import grails.plugins.springsecurity.Secured
 class LysisBufferController {
 
     def scaffold = true
-
-    static navigation = [
-            group: 'layout',
-            title: 'LysisBuffer'
-    ]
-
 }

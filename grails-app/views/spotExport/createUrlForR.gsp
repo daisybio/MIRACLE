@@ -9,13 +9,17 @@
 </head>
 <body>
 
-<div class="nav" role="navigation">
-    <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
         <li><g:link class="list" controller="slide" action="show" id="${slideInstanceId}">Back to slide</g:link></li>
         <li><g:link class="list" controller="spotExport" action="exportAsCSV" id="${slideInstanceId}">Back to export page</g:link></li>
-    </ul>
+            </ul>
+        </div>
+    </div>
 </div>
+
 
 <div class="content">
     <h1>Export spots to R</h1>

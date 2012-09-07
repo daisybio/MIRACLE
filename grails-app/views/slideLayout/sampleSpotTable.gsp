@@ -36,12 +36,17 @@
     });
 </script>
 
-<div class="nav" role="navigation">
-    <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+                <g:render template="/templates/navmenu"></g:render>
         <li><g:link class="list" action="show" id="${slideLayout?.id}">Back to Layout</g:link></li>
-    </ul>
+            </ul>
+        </div>
+    </div>
 </div>
+
 
 <g:jprogressDialog message="Updating layout information..." progressId="update${slideLayout.id}" trigger="layoutUpdateButton"/>
 

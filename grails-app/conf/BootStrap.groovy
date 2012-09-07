@@ -16,10 +16,14 @@ import org.nanocan.rppa.security.Role
 import org.nanocan.rppa.security.Person
 import org.nanocan.rppa.security.PersonRole
 import org.nanocan.rppa.project.Project
+import grails.converters.JSON
+import org.nanocan.rppa.scanner.Spot
+import org.nanocan.rppa.scanner.BlockShift
 
 class BootStrap {
 
     def slideLayoutService
+    def depositionService
     def grailsApplication
 
     def init = { servletContext ->
@@ -49,6 +53,41 @@ class BootStrap {
         String imagezoomFolder = grailsApplication.config.rppa.imagezoom.directory
         new File(imagezoomFolder).mkdir()
 
+        /* custom JSON output */
+        JSON.registerObjectMarshaller(Spot) {
+
+            def returnArray = [:]
+            returnArray['FG'] = it.FG
+            returnArray['BG'] = it.BG
+            returnArray['Signal'] = it.signal
+            returnArray['Block'] = it.block
+            returnArray['Row'] = it.row
+            returnArray['Column'] = it.col
+            returnArray['SampleName'] = it.layoutSpot?.sample?.name?:"NA"
+            returnArray['SampleType'] = it.layoutSpot?.sample?.type?:"NA"
+            returnArray['TargetGene'] = it.layoutSpot?.sample?.targetGene?:"NA"
+            returnArray['CellLine'] = it.layoutSpot?.cellLine?.name?:"NA"
+            returnArray['LysisBuffer'] = it.layoutSpot?.lysisBuffer?.name?:"NA"
+            returnArray['DilutionFactor'] = it.layoutSpot?.dilutionFactor?.dilutionFactor?:"NA"
+            returnArray['Inducer'] = it.layoutSpot?.inducer?.name?:"NA"
+            returnArray['Treatment'] = it.layoutSpot?.treatment?.name?:"NA"
+            returnArray['SpotType'] = it.layoutSpot?.spotType?.name?:"NA"
+            returnArray['SpotClass'] = it.layoutSpot?.spotType?.type?:"NA"
+            returnArray['Flag'] = it.flag
+            returnArray['Diameter'] = it.diameter
+
+            return returnArray
+        }
+
+        JSON.registerObjectMarshaller(BlockShift) {
+
+            def returnArray = [:]
+            returnArray['Block'] = it.blockNumber
+            returnArray['hshift'] = it.horizontalShift
+            returnArray['vshift'] = it.verticalShift
+
+            return returnArray
+        }
     }
 
     private void initUserbase(){

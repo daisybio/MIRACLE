@@ -1,5 +1,7 @@
 package org.nanocan.rppa.scanner
 
+import grails.converters.JSON
+
 class SpotExportController {
 
     def spotExportService
@@ -8,6 +10,29 @@ class SpotExportController {
         def separatorMap = ["\t":"tab", ";":"semicolon", ",": "comma"]
 
         [slideInstanceId: params.id, separatorMap: separatorMap, slideProperties: csvHeader]
+    }
+
+    def exportAsJSON = {
+
+        def slideInstance = Slide.get(params.id)
+        def spots = Spot.findAllBySlide(slideInstance, [readOnly:true])
+
+        render spots as JSON
+    }
+
+    def exportShiftsAsJSON = {
+        def slideInstance = Slide.get(params.id)
+        def shifts = BlockShift.findAllBySlide(slideInstance)
+
+        render shifts as JSON
+    }
+
+    def getDepositionPattern = {
+        render Slide.get(params.id).layout.depositionPattern
+    }
+
+    def getBlocksPerRow = {
+        render Slide.get(params.id).layout.blocksPerRow
     }
 
     def createUrlForR = {

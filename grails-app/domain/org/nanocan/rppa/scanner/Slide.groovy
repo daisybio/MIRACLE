@@ -20,6 +20,7 @@ class Slide{
     ResultFile resultImage
     ResultFile protocol
     SlideLayout layout
+    String title
     String comments
 
     static hasMany = [spots: Spot, blockShifts: BlockShift]
@@ -31,6 +32,7 @@ class Slide{
          protocol nullable: true
          resultImage nullable: true
          comments nullable: true
+         title nullable: true
     }
 
     static mapping = {
@@ -40,6 +42,7 @@ class Slide{
 
     String toString()
     {
-        (dateOfStaining.dateString + "_" + experimenter.toString() + "_" + antibody.toString())
+        if(!title) (dateOfStaining.dateString + "_" + experimenter.toString() + "_" + antibody.toString())
+        else title
     }
 }

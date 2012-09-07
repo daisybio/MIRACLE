@@ -35,6 +35,22 @@
     </r:script>
 </head>
 
+<div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'title', 'error')} required">
+    <label for="title">
+        <g:message code="slide.title.label" default="Title" />
+        <span class="required-indicator">*</span>
+    </label>
+    <g:textField name="title" value="${slideInstance.title}"></g:textField>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'comments', 'error')} required">
+    <label for="title">
+        <g:message code="slide.comments.label" default="Comments" />
+        <span class="required-indicator">*</span>
+    </label>
+    <g:textArea cols="10" rows="10" name="comments" value="${slideInstance.comments}"></g:textArea>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'dateOfStaining', 'error')} required">
 	<label for="dateOfStaining">
 		<g:message code="slide.dateOfStaining.label" default="Date Of Staining" />
