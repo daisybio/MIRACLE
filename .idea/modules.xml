@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RPPAscanner.iml" filepath="$PROJECT_DIR$/RPPAscanner.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RPPAscanner-grailsPlugins.iml" filepath="$PROJECT_DIR$/RPPAscanner-grailsPlugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MIRACLE.iml" filepath="$PROJECT_DIR$/MIRACLE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MIRACLE-grailsPlugins.iml" filepath="$PROJECT_DIR$/MIRACLE-grailsPlugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Rconnect-inplacePlugin.iml" filepath="$PROJECT_DIR$/Rconnect-inplacePlugin.iml" />
     </modules>
   </component>
 </project>

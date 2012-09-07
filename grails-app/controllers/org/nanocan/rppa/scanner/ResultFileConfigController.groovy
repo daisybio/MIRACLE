@@ -6,9 +6,4 @@ import grails.plugins.springsecurity.Secured
 class ResultFileConfigController {
 
     def scaffold = true
-
-    static navigation = [
-            group: 'scanner',
-            title: 'Result File Config'
-    ]
 }

@@ -14,8 +14,8 @@
 		padding-bottom: 6px;
 		margin: 60px auto;
 		text-align: left;
-		border: 1px solid #aab;
-		background-color: #f0f0fa;
+		border: 1px solid #000000;
+		background-color: #ffffff;
 		-moz-box-shadow: 2px 2px 2px #eee;
 		-webkit-box-shadow: 2px 2px 2px #eee;
 		-khtml-box-shadow: 2px 2px 2px #eee;
@@ -24,9 +24,9 @@
 
 	#login .inner .fheader {
 		padding: 18px 26px 14px 26px;
-		background-color: #f7f7ff;
+		background-color: #000000;
 		margin: 0px 0 14px 0;
-		color: #2e3741;
+		color: #ffffff;
 		font-size: 18px;
 		font-weight: bold;
 	}

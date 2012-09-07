@@ -14,11 +14,6 @@ class SlideLayoutController {
     def projectService
     def progressService
 
-    static navigation = [
-            group: 'main',
-            title: 'Slide Layout'
-    ]
-
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {

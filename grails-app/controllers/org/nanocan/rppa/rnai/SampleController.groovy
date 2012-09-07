@@ -8,11 +8,6 @@ class SampleController {
 
     def scaffold = true
 
-    static navigation = [
-            group: 'main',
-            title: 'Sample Information'
-    ]
-
     def ajaxSampleFinder = {
         def samplesFound = Sample.withCriteria {
             and{

@@ -38,7 +38,7 @@ html * {
 
 body {
 	background: #ffffff;
-	color: #333333;
+	color: #000000;
 	margin: 0 auto;
 	max-width: 960px;
 	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
@@ -59,7 +59,7 @@ body {
 .ie6 body,
 .ie7 body,
 .ie8 body {
-	border-color: #255b17;
+	border-color: #000000;
 	border-style: solid;
 	border-width: 0 1px;
 }
@@ -105,7 +105,9 @@ box-shadow: 0 0 5px 2px #aaaaaa;
 }
 
 #logo {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
+    padding-left:10px;
+    padding-top: 5px;
 }
 
 .content {
@@ -151,72 +153,35 @@ box-shadow: 0 0 5px 2px #aaaaaa;
 
 /* NAVIGATION MENU */
 
-.nav {
-	background-color: #ffffff;
-	padding: 0.5em 0.75em;
-	   -moz-box-shadow: 0 0 3px 1px #aaaaaa;
-	-webkit-box-shadow: 0 0 3px 1px #aaaaaa;
-	        box-shadow: 0 0 3px 1px #aaaaaa;
-	zoom: 1;
+.navbar {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.nav ul {
-	overflow: hidden;
-	padding-left: 0;
-	zoom: 1;
-}
-
-.nav li {
-	display: block;
-	float: left;
-	list-style-type: none;
-	margin-right: 0.5em;
-	padding: 0;
-}
-
-.nav a {
-	color: #666666;
-	display: block;
-	padding: 0.25em 0.7em;
-	text-decoration: none;
-	   -moz-border-radius: 0.3em;
-	-webkit-border-radius: 0.3em;
-	        border-radius: 0.3em;
-}
-
-.nav a:active, .nav a:visited {
-	color: #666666;
-}
-
-.nav a:focus, .nav a:hover {
-	background-color: #999999;
-	color: #ffffff;
-	outline: none;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
-}
-
-.no-borderradius .nav a:focus, .no-borderradius .nav a:hover {
-	background-color: transparent;
-	color: #444444;
-	text-decoration: underline;
-}
-
-.nav a.home, .nav a.list, .nav a.create, .nav a.delete {
-	background-position: 0.7em center;
-	background-repeat: no-repeat;
-	text-indent: 25px;
+.nav a.home, .nav a.list, .nav a.create, .nav a.delete, .nav a.plate, .nav a.heatmap {
+    background-position: 0.7em center;
+    background-repeat: no-repeat;
+    text-indent: 25px;
 }
 
 .nav a.home {
-	background-image: url(../images/skin/house.png);
+    background-image: url(../images/skin/house.png);
+}
+
+.nav a.plate {
+    background-image: url(../images/plate_nano.png);
+}
+
+.nav a.heatmap {
+    background-image: url(../images/skin/heatmap.png);
 }
 
 .nav a.list {
-	background-image: url(../images/skin/database_table.png);
+    background-image: url(../images/skin/database_table.png);
 }
 
 .nav a.create {
-	background-image: url(../images/skin/database_add.png);
+    background-image: url(../images/skin/database_add.png);
 }
 
 .nav a.delete {
@@ -497,7 +462,7 @@ th.desc a {
 }
 
 th:hover, tr:hover {
-	background: rgb(223, 239, 255);
+	background: rgb(208, 204, 204);
 }
 
 /* PAGINATION */

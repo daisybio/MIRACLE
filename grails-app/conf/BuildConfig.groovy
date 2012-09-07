@@ -6,6 +6,8 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 grails.project.war.file = "target/${appName}.war"
 
+grails.plugin.location.Rconnect = "../Rconnect/"
+
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {

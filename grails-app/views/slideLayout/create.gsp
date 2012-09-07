@@ -8,13 +8,18 @@
 	</head>
 	<body>
 		<a href="#create-slideLayout" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav">
+                    <g:render template="/templates/navmenu"></g:render>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="create-slideLayout" class="content scaffold-create" role="main">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="create-slideLayout" class="content scaffold-create" role="main">
 			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
 			<div class="message" role="status">${flash.message?:"Important: Column means \"deposition blocks\" here, e.g. 6 different depositions spotted twice result in 2 columns."}</div>
 			<g:hasErrors bean="${slideLayoutInstance}">

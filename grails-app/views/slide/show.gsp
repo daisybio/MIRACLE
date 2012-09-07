@@ -80,16 +80,25 @@
         </div>
     </g:elseif>
 
-        <div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <ul class="nav">
+                    <g:render template="/templates/navmenu"></g:render>
 				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 
                 <li><g:link class="create" action="addBlockShifts" id="${slideInstance?.id}">Modify Block Shifts</g:link></li>
                 <li><g:link class="list" controller="spotExport" action="exportAsCSV" id="${slideInstance?.id}">Export (R / CSV)</g:link></li>
-			</ul>
-		</div>
+                <g:if test="${slideInstance.spots.size() > 0}">
+                    <li>
+                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"R", action:"plotHeatmap", id:slideInstance.id)}', '_blank', 'height=900,width=900,toolbar=0,location=0,menubar=0');">Plot Heatmap</a>
+                    </li>
+                </g:if>
+                </ul>
+            </div>
+        </div>
+    </div>
 		<div id="show-slide" class="content scaffold-show" role="main">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
@@ -100,6 +109,24 @@
                 <h3><a href="#">Properties</a></h3>
                 <div>
                     <ol class="property-list slide">
+
+                        <g:if test="${slideInstance?.title}">
+                            <li class="fieldcontain">
+                                <span id="title-label" class="property-label"><g:message code="slide.title.label" default="Title" /></span>
+
+                                <span class="property-value" aria-labelledby="title-label">${slideInstance.title}</span>
+
+                            </li>
+                        </g:if>
+
+                        <g:if test="${slideInstance?.comments}">
+                            <li class="fieldcontain">
+                                <span id="comments-label" class="property-label"><g:message code="slide.comments.label" default="Comments" /></span>
+
+                                <span class="property-value" aria-labelledby="comments-label">${slideInstance.comments}</span>
+
+                            </li>
+                        </g:if>
 
                         <g:if test="${slideInstance?.antibody}">
                         <li class="fieldcontain">

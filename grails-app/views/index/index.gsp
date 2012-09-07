@@ -85,6 +85,16 @@
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		        <sec:ifLoggedIn>
 
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <ul class="nav">
+                                <g:render template="/templates/navmenu"></g:render>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="status" role="complementary">
 
                 <h1>Application Status</h1>
@@ -99,21 +109,17 @@
                     </ul>
                 </div>
                 <div id="page-body" role="main">
-                    <h1>Welcome to RPPA-Scanner</h1>
-                    <p>This web-tool allows you to upload Mapix scanner result files and add them to a SQL database, in order to make them available for further analysis, e.g. in R.  </p>
+                    <h1>Welcome to MIRACLE</h1>
+
+                    <p>MIRACLE is a web-tool for <b>MI</b>croarray <b>R</b>-based <b>A</b>nalysis of <b>C</b>omplex <b>L</b>ysate Array <b>E</b>xperiments.
+
+                    It allows you to upload microarray files produced by a scanner (in either XLS, CSV or TXT format) and to add the experimental information, e.g. the spot signal, to a SQL database.
+                    In order to organize your results, you can assign layout information for each spot and perform further analysis by using inbuilt R functionality for plotting, normalization and
+                    quantification of the results. If you wish to perform further analysis you can export the combined layout / signal information as CSV file or directly to R, where a number of
+                    R functions help the user in performing a manual analysis of the data.</p>
                 </div>
 
-                Here are the last 5 slides that have been modified: <br/><br/>
-
-                <div style="margin-left:350px;">
-                   <ul>
-                       <g:each in="${Slide.list(sort: 'lastUpdated', max: '5')}">
-                            <li style="padding:5px;">
-                                <g:link controller="Slide" action="show" id="${it.id}">${it}</g:link>
-                            </li>
-                       </g:each>
-                   </ul>
-                </div>
+                <img width="400" src="<g:resource dir="images" file="chip.png"/>"/>
                 </sec:ifLoggedIn>
 
             <sec:ifNotLoggedIn>

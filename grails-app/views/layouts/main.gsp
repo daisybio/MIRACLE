@@ -1,3 +1,4 @@
+<%@ page import="org.nanocan.rppa.project.Project" %>
 <!doctype html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -12,38 +13,38 @@
 		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'rppa-fav-icon.png')}" type="image/x-icon">
 		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'rppa-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'rppa-touch-icon-retina.png')}">
-        <nav:resources override="true"/>
         <imagezoom:resources player="openzoom" />
+
         <r:require module="jquery-ui"/>
+        <r:require module="bootstrap"/>
+
         <g:javascript library="application"/>
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
-        <link rel="stylesheet" href="${resource(dir: 'css', file: 'navigation.css')}" type="text/css">
         <g:layoutHead/>
         <r:layoutResources />
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'navigation.css')}" type="text/css">
 
 	</head>
 	<body>
-		<div id="logo" role="banner"><img src="${resource(dir: 'images', file: 'rppascanner_logo_small.png')}" alt="RPPA-Scanner"/>
+		<div id="logo" role="banner"><img src="${resource(dir: 'images', file: 'miracle_banner.png')}" alt="Miracle">
 
-        <sec:ifLoggedIn>
-
-            <g:render template="/templates/user"/>
-            <g:render template="/templates/projects"/>
-
-            <div style="float:right; border: 0px none; box-shadow: none;"><nav:render group="main"/><br/>
-
-            <div style="float:right;width:600px;"><hr></div><br/>
-
-            <g:if test="${controllerName in ['slideLayout', 'cellLine', 'dilution', 'lysisBuffer', 'inducer', 'spotType']}"><nav:render group="layout"/></g:if>
-            <g:if test="${controllerName in ['slide', 'antibody', 'experimenter', 'resultFileConfig']}"><nav:render group="scanner"/></g:if>
-        </sec:ifLoggedIn>
-        </div>
+            <sec:ifLoggedIn>
+                <div id="logout" style="float:right; padding-right:10px; padding-top:10px;">
+                    You are logged in as<br/><b><sec:username/></b><br/><br/>
+                    <g:link controller="logout">Logout</g:link>
+                    <sec:ifAllGranted roles="ROLE_ADMIN"> | <g:link controller="person">Manage</g:link></sec:ifAllGranted>
+                </div>
+            </sec:ifLoggedIn>
         </div>
 
         <g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+
+    <r:script>
+        $('.dropdown-toggle').dropdown();
+    </r:script>
         <r:layoutResources />
 	</body>
 </html>

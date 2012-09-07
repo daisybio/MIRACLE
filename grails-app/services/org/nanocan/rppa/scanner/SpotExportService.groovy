@@ -4,6 +4,7 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import org.hibernate.ScrollableResults
 import org.hibernate.ScrollMode
+import grails.converters.deep.JSON
 
 /**
  * Service handles the composition of all relevant spot information to create a CSV output file

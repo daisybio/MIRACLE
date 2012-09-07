@@ -13,11 +13,6 @@ class SlideController {
     def springSecurityService
     def projectService
 
-    static navigation = [
-            group: 'main',
-            title: 'Slide Scanner Results'
-    ]
-
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     //dependencies
