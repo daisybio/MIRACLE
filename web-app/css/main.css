@@ -158,7 +158,7 @@ box-shadow: 0 0 5px 2px #aaaaaa;
     margin-right: 10px;
 }
 
-.nav a.home, .nav a.list, .nav a.create, .nav a.delete, .nav a.plate, .nav a.heatmap {
+.nav a.home, .nav a.list, .nav a.create, .nav a.delete, .nav a.plate, .nav a.heatmap, .nav a.plot{
     background-position: 0.7em center;
     background-repeat: no-repeat;
     text-indent: 25px;
@@ -169,11 +169,15 @@ box-shadow: 0 0 5px 2px #aaaaaa;
 }
 
 .nav a.plate {
-    background-image: url(../images/plate_nano.png);
+    background-image: url(../images/skin/plate_nano.png);
 }
 
 .nav a.heatmap {
     background-image: url(../images/skin/heatmap.png);
+}
+
+.nav a.plot {
+    background-image: url(../images/skin/plot.png);
 }
 
 .nav a.list {
@@ -468,41 +472,43 @@ th:hover, tr:hover {
 /* PAGINATION */
 
 .pagination {
-	border-top: 0;
-	margin: 0;
-	padding: 0.3em 0.2em;
-	text-align: center;
-	   -moz-box-shadow: 0 0 3px 1px #AAAAAA;
-	-webkit-box-shadow: 0 0 3px 1px #AAAAAA;
-	        box-shadow: 0 0 3px 1px #AAAAAA;
-	background-color: #EFEFEF;
+    border-top: 0;
+    margin: 0;
+    padding: 0.3em 0.2em;
+    text-align: center;
+    -moz-box-shadow: 0 0 3px 1px #AAAAAA;
+    -webkit-box-shadow: 0 0 3px 1px #AAAAAA;
+    box-shadow: 0 0 3px 1px #AAAAAA;
+    background-color: #EFEFEF;
 }
 
 .pagination a,
 .pagination .currentStep {
-	color: #666666;
-	display: inline-block;
-	margin: 0 0.1em;
-	padding: 0.25em 0.7em;
-	text-decoration: none;
-	   -moz-border-radius: 0.3em;
-	-webkit-border-radius: 0.3em;
-	        border-radius: 0.3em;
+    color: #666666;
+    display: inline-block;
+    margin: 0 0.1em;
+    padding: 0.25em 0.7em;
+    text-decoration: none;
+    -moz-border-radius: 0.3em;
+    -webkit-border-radius: 0.3em;
+    border-radius: 0.3em;
+    line-height: 24px;
+    float: none;
 }
 
 .pagination a:hover, .pagination a:focus,
 .pagination .currentStep {
-	background-color: #999999;
-	color: #ffffff;
-	outline: none;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+    background-color: #999999;
+    color: #ffffff;
+    outline: none;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 .no-borderradius .pagination a:hover, .no-borderradius .pagination a:focus,
 .no-borderradius .pagination .currentStep {
-	background-color: transparent;
-	color: #444444;
-	text-decoration: underline;
+    background-color: transparent;
+    color: #444444;
+    text-decoration: underline;
 }
 
 /* ACTION BUTTONS */

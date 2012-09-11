@@ -32,13 +32,11 @@ class BootStrap {
             case "development":
 
                 initUserbase()
-                initSampleData()
+
                 break
 
             case "test":
-
                 initUserbase()
-                initSampleData()
                 break
 
             case "migrate":

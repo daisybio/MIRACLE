@@ -71,9 +71,11 @@
     </ul>
 </li>
 <li class="divider-vertical"></li>
-<li><form class="navbar-search">
-    <input type="text" class="search-query" placeholder="Search">
-</form>
+<li>
+    <g:form class="navbar-search" url='[controller: "searchable", action: "index"]' id="searchableForm" name="searchableForm" method="get">
+        <g:textField class="search-query" placeholder="Search" name="q" value="${params.q}" size="50"/>
+    </g:form>
+
 </li>
 <li class="divider-vertical"></li>
 <li><g:form class="navbar-form" name="projectForm" controller="project" action="updateSelectedProject">

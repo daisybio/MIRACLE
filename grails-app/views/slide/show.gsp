@@ -92,7 +92,10 @@
                 <li><g:link class="list" controller="spotExport" action="exportAsCSV" id="${slideInstance?.id}">Export (R / CSV)</g:link></li>
                 <g:if test="${slideInstance.spots.size() > 0}">
                     <li>
-                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"R", action:"plotHeatmap", id:slideInstance.id)}', '_blank', 'height=900,width=900,toolbar=0,location=0,menubar=0');">Plot Heatmap</a>
+                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"r", action:"heatmap", id:slideInstance.id)}', '_blank', 'height=900,width=900,toolbar=0,location=0,menubar=0');">Plot Heatmap</a>
+                    </li>
+                    <li>
+                        <g:link class="plot" controller="r" action="proteinConcentration" id="${slideInstance?.id}">Estimate Protein Concentration</g:link>
                     </li>
                 </g:if>
                 </ul>

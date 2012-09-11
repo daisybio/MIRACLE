@@ -27,6 +27,11 @@ class Slide{
 
     Antibody antibody
 
+    static searchable = {
+        antibody component: true
+        experimenter component: true
+    }
+
     static constraints = {
          laserWavelength min: 1, max: 1000
          protocol nullable: true
