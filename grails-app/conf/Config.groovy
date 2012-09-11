@@ -11,7 +11,7 @@
 // }
 
 
-grails.project.groupId = RPPAscanner // change this to alter the default package name and Maven publishing destination
+grails.project.groupId = MIRACLE // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
 grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
@@ -90,8 +90,18 @@ environments {
         rppa.upload.directory = "upload/"
         rppa.imagezoom.directory = "web-app/imagezoom"
         rppa.imagezoom.url = "web-app"
+        grails.server.url = 'http://10.84.12.130:8080/MIRACLE'
+        rconnect.host = "192.168.56.102"
+        rconnect.port = "6311"
     }
     production {
+        grails.logging.jul.usebridge = false
+        grails.serverURL = "http://10.149.64.8:8080/MIRACLE"
+        rppa.upload.directory = "/upload/"
+        rppa.imagezoom.directory = "/tomcat/apache-tomcat-7.0.27/webapps/MIRACLE/imagezoom"
+        rppa.imagezoom.url = ""
+    }
+    test {
         grails.logging.jul.usebridge = false
         grails.serverURL = "http://10.149.64.8:8080/MIRACLE"
         rppa.upload.directory = "/upload/"
@@ -139,10 +149,7 @@ log4j = {
         rollingFile  name:'warnLog', file:'log/warn.log', threshold: org.apache.log4j.Level.WARN, maxFileSize:1024
         rollingFile  name:'errorLog', file:'log/error.log', threshold: org.apache.log4j.Level.ERROR, maxFileSize:1024
         rollingFile  name:'debugLog', file:'log/debug.log', threshold: org.apache.log4j.Level.DEBUG, maxFileSize:1024
-    }
-
-    root {
-        info 'infoLog','warnLog','errorLog', 'debugLog'
+        console      name:'stdout', threshold: org.apache.log4j.Level.WARN
     }
 }
 
@@ -150,9 +157,6 @@ grails.views.javascript.library="jquery"
 
 rppa.jdbc.batchSize = 150
 rppa.jdbc.groovySql = true
-
-rconnect.host = "192.168.56.102"
-rconnect.port = "6311"
 
 // Added by the Spring Security Core plugin:
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.nanocan.rppa.security.Person'
@@ -164,7 +168,7 @@ grails.plugin.databasemigration.changelogFileName = 'changelog-0.3.groovy'
 
 //CAS configuration for single sign on
 grails.plugins.springsecurity.cas.loginUri = '/login'
-grails.plugins.springsecurity.cas.serviceUrl = 'http://10.84.12.130:8080/MIRACLE/j_spring_cas_security_check'
+grails.plugins.springsecurity.cas.serviceUrl = grails.server.url + '/j_spring_cas_security_check'
 grails.plugins.springsecurity.cas.serverUrlPrefix = 'https://sso.sdu.dk'
-grails.plugins.springsecurity.cas.proxyCallbackUrl = 'http://10.84.12.130:8080/MIRACLE/secure/receptor'
+grails.plugins.springsecurity.cas.proxyCallbackUrl = grails.server.url + '/secure/receptor'
 grails.plugins.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'

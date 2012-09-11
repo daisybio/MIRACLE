@@ -5,7 +5,7 @@ hibernate {
 }
 // environment specific settings
 environments {
-    development {
+    /*development {
         dataSource {
             pooled = true
             driverClassName = "org.h2.Driver"
@@ -14,15 +14,36 @@ environments {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE"
         }
+    } */
+    development {
+        dataSource {
+            //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
+            driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
+            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=MIRACLE;sendStringParametersAsUnicode=false'
+            username = 'rppa'
+            password = 'password55555'
+
+            pooled = true
+            properties {
+                maxActive = -1
+                minEvictableIdleTimeMillis=1800000
+                timeBetweenEvictionRunsMillis=1800000
+                numTestsPerEvictionRun=3
+                testOnBorrow=true
+                testWhileIdle=true
+                testOnReturn=true
+                validationQuery="SELECT 1"
+            }
+        }
     }
     test {
         dataSource {
             //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
             driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
-            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner_Test;sendStringParametersAsUnicode=false'
+            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=MIRACLE;sendStringParametersAsUnicode=false'
             username = 'rppa'
             password = 'password55555'
-            dbCreate = 'create'
+            dbCreate = 'update'
             pooled = true
             properties {
                 maxActive = -1

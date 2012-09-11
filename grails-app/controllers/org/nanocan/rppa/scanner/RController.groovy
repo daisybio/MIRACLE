@@ -1,50 +1,88 @@
 package org.nanocan.rppa.scanner
 
-import rconnect.RconnectService
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
+import grails.plugins.springsecurity.Secured
+import org.apache.commons.codec.binary.Base64
 
 class RController {
 
+    def rppaService
     def rconnectService
-    def roperationsService
+
+    public final List layoutProperties = ["SampleName","SampleType", "TargetGene", "CellLine", "LysisBuffer", "Deposition", "Inducer", "Treatment"]
+
+    @Secured(['ROLE_ADMIN'])
+    def installPackageToR(){
+        def rConnection = rconnectService.getConnection()
+        rConnection.voidEval("download.file(\"http://192.168.56.101:8080/MIRACLE/rlib/rppa_1.0.tar.gz\", \"rppa.tar.gz\")")
+        rConnection.voidEval("install.packages(\"rppa.tar.gz\", repos = NULL, type = \"source\")")
+        render(rConnection.eval("require(rppa)").toDebugString())
+    }
+
+    def heatmap(){
+        println params
+        [slideId: params.id]
+    }
 
     def plotHeatmap(){
 
-        def slideInstance = Slide.get(params.id)
+        def images = plot(params.id as Integer, [["rppa.plot.heatmap(spots, title=title)"]])
 
-        def rConnection = rconnectService.getConnection()
-        def tempDir = roperationsService.createTempDir(rConnection)
+        [images: images]
+    }
 
-        roperationsService.setWorkingDirectory(rConnection, tempDir)
+    def proteinConcentration(){
+        [id: params.id, layoutProperties: layoutProperties]
+    }
 
-        rConnection.eval("rm(list=ls())")
-        rConnection.eval("require(rppa)")
+    def plotProteinConcentration(){
 
-        rConnection.eval("ls()")
-        rConnection.eval("spots <- rppa.load(baseUrl=\"http://192.168.56.101:8080/MIRACLE/spotExport/\", slideIndex=${slideInstance.id})")
-        rConnection.eval("spots <- spots[,c(\"Block\", \"Row\", \"Column\", \"Signal\", \"Deposition\", \"DilutionFactor\")]")
-        if (slideInstance.layout.blocksPerRow) rConnection.eval("attr(spots, \"blocksPerRow\") <- ${slideInstance.layout.blocksPerRow}")
+        def stringenize = { return (it.collect{ x -> ("\"" + x.toString() + "\"")})}
+        def vectorize = { String s = stringenize(it).toString(); return("c(" + s.substring(1, s.length()-1) + ")")}
 
-        rConnection.assign("fileName", "heatmap.png")
+        def sample = params.sample?vectorize(params.list("sample")):"NA"
+        def A = params.A?vectorize(params.list("A")):"NA"
+        def B = params.B?vectorize(params.list("B")):"NA"
+        def fill = params.fill?vectorize(params.list("fill")):"NA"
 
-        rConnection.eval("png(fileName, width = 800, height = 800)")
-        rConnection.eval("rppa.plot.heatmap(spots, plotNA=F, title=\"${slideInstance.toString()}\")")
-        rConnection.eval("dev.off()")
+        def images
 
-        BufferedImage img
-        img = rconnectService.transferPlot(rConnection, "heatmap.png", img)
+        images = plot(params.id as Integer, [
+                [
+                    "spots\$DilutionFactor <- as.double(spots\$DilutionFactor)",
+                    "result <- rppa.superCurve(spots, select.columns.sample=${sample}, select.columns.A=${A}, select.columns.B=${B}, select.columns.fill=${fill}, interactive=F)"
+                ],
+                [   "rppa.proteinConc.plot(result, error.bars=F, horizontal.line=F)"    ]
+            ])
 
-        response.contentType = 'image/png' // or the appropriate image content type
 
-        ImageIO.write(img, "png", response.getOutputStream())
+        [images: images]
+    }
 
-        response.outputStream.flush()
-        response.outputStream.close()
+    def error(){
+        [:]
+    }
 
-        img.close()
+    private plot(int slideId, List<ArrayList<String>> commands){
+
+        def rConnection = rppaService.openConnectionAndTransferSlide(slideId)
+
+        def images = commands.collect
+        {
+            BufferedImage img
+            img = rppaService.plotInR(rConnection, it, null, null)
+            ByteArrayOutputStream baos = new ByteArrayOutputStream()
+            ImageIO.write(img, "png", baos)
+            baos.flush()
+            String encodeImage = Base64.encodeBase64String(baos.toByteArray())
+            baos.close()
+
+            return(encodeImage)
+        }
+
         rConnection.close()
 
-        render(response)
+        return(images)
     }
 }

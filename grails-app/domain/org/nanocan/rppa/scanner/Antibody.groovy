@@ -7,6 +7,8 @@ class Antibody {
     String concentrationUnit
     String comments
 
+    static searchable = true
+
     static constraints = {
         name()
         concentration nullable:true

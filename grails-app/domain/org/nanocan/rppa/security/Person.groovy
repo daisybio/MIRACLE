@@ -13,6 +13,8 @@ class Person {
 	boolean accountLocked
 	boolean passwordExpired
 
+    static searchable = [only: ['username']]
+
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
