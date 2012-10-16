@@ -21,7 +21,8 @@
     <div class="navbar-inner">
         <div class="container">
             <ul class="nav">
-        <li><g:link class="list" controller="slide" action="show" id="${slideInstanceId}">Back to slide</g:link></li>
+                 <g:render template="/templates/navmenu"></g:render>
+               <li><g:link class="list" controller="slide" action="show" id="${slideInstanceId}">Back to slide</g:link></li>
             </ul>
         </div>
     </div>
@@ -90,7 +91,6 @@
 
             <fieldset class="buttons">
                 <g:actionSubmit onclick="outsideFunction();" value="Export and download" action="processExport"/>
-                <g:actionSubmit value="Create URL for R" action="createUrlForR"></g:actionSubmit>
             </fieldset>
         </g:form>
     </div>

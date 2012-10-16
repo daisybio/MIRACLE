@@ -28,6 +28,9 @@
         <li>
             <g:link class="create" controller="slideLayout" action="create">Create New Layout</g:link>
         </li>
+        <li>
+            <g:link class="create" controller="plateImport" action="plateImport">Import Layout from SAVANAH</g:link>
+        </li>
         <li class="divider"></li>
         <li>
             <g:link class="slide_layout" controller="cellLine" action="list">CellLines</g:link>

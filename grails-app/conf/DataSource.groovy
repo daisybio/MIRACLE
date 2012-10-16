@@ -35,6 +35,27 @@ environments {
                 validationQuery="SELECT 1"
             }
         }
+
+        dataSource_SAVANAH {
+            //dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            //url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+            driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
+            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=SAVANAH_dev;sendStringParametersAsUnicode=false'
+            username = 'savanah'
+            password = 'blub999999999'
+            pooled = true
+            properties {
+                maxActive = -1
+                minEvictableIdleTimeMillis=1800000
+                timeBetweenEvictionRunsMillis=1800000
+                numTestsPerEvictionRun=3
+                testOnBorrow=true
+                testWhileIdle=true
+                testOnReturn=true
+                validationQuery="SELECT 1"
+            }
+            readOnly = true
+        }
     }
     test {
         dataSource {

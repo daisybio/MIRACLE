@@ -90,7 +90,7 @@ environments {
         rppa.upload.directory = "upload/"
         rppa.imagezoom.directory = "web-app/imagezoom"
         rppa.imagezoom.url = "web-app"
-        grails.server.url = 'http://10.84.12.130:8080/MIRACLE'
+        grails.serverURL = 'http://10.84.12.130:8080/MIRACLE'
         rconnect.host = "192.168.56.102"
         rconnect.port = "6311"
     }
@@ -100,6 +100,8 @@ environments {
         rppa.upload.directory = "/upload/"
         rppa.imagezoom.directory = "/tomcat/apache-tomcat-7.0.27/webapps/MIRACLE/imagezoom"
         rppa.imagezoom.url = ""
+        rconnect.host = "10.149.64.8"
+        rconnect.port = "6311"
     }
     test {
         grails.logging.jul.usebridge = false
@@ -168,7 +170,8 @@ grails.plugin.databasemigration.changelogFileName = 'changelog-0.3.groovy'
 
 //CAS configuration for single sign on
 grails.plugins.springsecurity.cas.loginUri = '/login'
-grails.plugins.springsecurity.cas.serviceUrl = grails.server.url + '/j_spring_cas_security_check'
+grails.plugins.springsecurity.cas.serviceUrl = grails.serverURL + '/j_spring_cas_security_check'
 grails.plugins.springsecurity.cas.serverUrlPrefix = 'https://sso.sdu.dk'
-grails.plugins.springsecurity.cas.proxyCallbackUrl = grails.server.url + '/secure/receptor'
+//grails.plugins.springsecurity.cas.proxyCallbackUrl = grails.serverURL + '/secure/receptor'
 grails.plugins.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
+grails.plugins.springsecurity.logout.afterLogoutUrl = 'https://sso.sdu.dk/logout?url=' + grails.serverURL

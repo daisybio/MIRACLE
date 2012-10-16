@@ -40,12 +40,10 @@ class SpotExportController {
         //if we don't remove this, it'll override the action setting below
         params.remove("_action_createUrlForR")
 
-        def exportLink = g.createLink(controller: "spotExport", action: "processExport", params:  params, absolute: true)
+        def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
+        baseUrl = baseUrl.substring(0, baseUrl.size()-5)
 
-        def importCommand = """read.table("${exportLink.replaceAll("&", "\n&")}
-        ", header = TRUE, sep = "${params.separator}", dec = "${params.decimalSeparator}")"""
-
-        [exportLink: exportLink, importCommand: importCommand, slideInstanceId: params.id]
+        [baseUrl: baseUrl, slideInstanceId: params.id]
     }
 
     def csvHeader = ["Block","Column","Row","FG","BG","Signal", "x","y","Diameter","Flag", "Deposition", "CellLine",

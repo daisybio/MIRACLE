@@ -581,3 +581,13 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+.circle{
+    background: #d6060b;
+    height: 80px;
+    width: 80px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+    float:left;
+    margin: 20px;
+}
