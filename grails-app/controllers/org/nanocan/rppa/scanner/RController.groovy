@@ -9,13 +9,14 @@ class RController {
 
     def rppaService
     def rconnectService
+    def grailsApplication
 
     public final List layoutProperties = ["SampleName","SampleType", "TargetGene", "CellLine", "LysisBuffer", "Deposition", "Inducer", "Treatment"]
 
     @Secured(['ROLE_ADMIN'])
     def installPackageToR(){
         def rConnection = rconnectService.getConnection()
-        rConnection.voidEval("download.file(\"http://192.168.56.101:8080/MIRACLE/rlib/rppa_1.0.tar.gz\", \"rppa.tar.gz\")")
+        rConnection.voidEval("download.file(\"${grailsApplication.config.grails.serverURL}/rlib/rppa_1.0.tar.gz\", \"rppa.tar.gz\")")
         rConnection.voidEval("install.packages(\"rppa.tar.gz\", repos = NULL, type = \"source\")")
         render(rConnection.eval("require(rppa)").toDebugString())
     }

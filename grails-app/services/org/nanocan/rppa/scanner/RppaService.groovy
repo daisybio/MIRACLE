@@ -6,6 +6,7 @@ class RppaService {
 
     def rconnectService
     def roperationsService
+    def grailsApplication
 
     def openConnectionAndTransferSlide(int slideId) {
 
@@ -24,9 +25,9 @@ class RppaService {
             //throw new Exception("Could not load necessary R libraries!")
         }
 
-        rConnection.eval("spots <- rppa.load(baseUrl=\"http://192.168.56.101:8080/MIRACLE/spotExport/\", slideIndex=${slideId})")
+        rConnection.eval("spots <- rppa.load(baseUrl=\"${grailsApplication.config.grails.serverURL}/spotExport/\", slideIndex=${slideId})")
         rConnection.eval("spots <- rppa.filter.diameter(spots)")
-        //rConnection.eval("spots <- rppa.filter.flagged(spots)")
+        rConnection.eval("spots <- rppa.filter.flagged(spots)")
         rConnection.eval("spots <- rppa.filter.neg.values(spots)")
         //rConnection.eval("spots <- spots[,c(\"Block\", \"Row\", \"Column\", \"Signal\", \"Deposition\", \"DilutionFactor\")]")
         rConnection.assign("title", slideInstance.toString())

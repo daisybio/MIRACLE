@@ -13,8 +13,8 @@
     <div class="navbar-inner">
         <div class="container">
             <ul class="nav">
-        <li><g:link class="list" controller="slide" action="show" id="${slideInstanceId}">Back to slide</g:link></li>
-        <li><g:link class="list" controller="spotExport" action="exportAsCSV" id="${slideInstanceId}">Back to export page</g:link></li>
+                <g:render template="/templates/navmenu"></g:render>
+                <li><g:link class="list" controller="slide" action="show" id="${slideInstanceId}">Back to slide</g:link></li>
             </ul>
         </div>
     </div>
@@ -24,25 +24,15 @@
 <div class="content">
     <h1>Export spots to R</h1>
 
-    <div style="margin: 20px;">In order to import this slide into R you will need to use the read function of R in combination with a
-        <a href="${exportLink}">URL</a>.</div>
+    <div style="margin: 20px;">In order to import this slide into R copy the following command and paste it in the R command line interface</div>
 
-    <div style="margin: 20px;">
-        RStudio server does not allow a direct import due to a bug. Instead download the file into RStudio server via the following command
-        (you have to adapt destinationFileName):
-    </div>
+    <pre class="brush: r">rppa.load(baseUrl="${baseUrl.toString()}", slideIndex=${slideInstanceId})</pre>
 
-    <pre class="brush: r">download.file("${exportLink.toString()}\n", "destinationFileName.csv")</pre>
-
-    <div style="margin: 20px;">The full command for a direct import in a R desktop environment (like RStudio,Rcommander, or plain R) is:</div>
-
-    <pre class="brush: r">${importCommand}</pre>
-
-    <div style="margin: 20px;">Double click on the command to select it, then use CTRL+C to copy to the clipboard and
+    <div style="margin: 20px;">Double click on the command (not on the link, but next to it) to select it, then use CTRL+C to copy to the clipboard and
     paste in the R console. <br/>You can assign your data to a variable like this:
     </div>
 
-    <pre class="brush: r">myDataName <- read.table(...) //above command</pre>
+    <pre class="brush: r">myDataName <- rppa.load(...) //above command</pre>
 
     <script type="text/javascript">
         $(document).ready(function() { SyntaxHighlighter.all() });
