@@ -29,6 +29,7 @@ class WellLayout implements Comparable {
         inducer nullable:  true
         treatment nullable: true
         numberOfCellsSeeded nullable: true
+        sample nullable: true
     }
 
     String toString(){

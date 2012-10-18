@@ -7,6 +7,8 @@ import grails.plugins.springsecurity.Secured
 @Secured(['ROLE_USER'])
 class PlateImportController {
 
+    def plateImportService
+
     def plateImport(){
         def plates
 
@@ -39,8 +41,25 @@ class PlateImportController {
         [plates: plates]
     }
 
-    def submit(){
-        println params
+    def processPlates(){
+
+        def plates = params.list("plates")
+        def extractions = [:]
+
+        plates.each{
+            def excludedPlateExtractions = []
+            for(int extraction in 1..params.int("numOfExtractions")){
+                excludedPlateExtractions << params.boolean("Plate_"+it.toString()+"|Extraction_"+extraction+"|Field")
+            }
+            extractions.put(it, excludedPlateExtractions)
+        }
+        println extractions
+        plateImportService.importPlates(plates, extractions, params.spottingOrientation,
+                params.extractorOperationMode,
+                params.depositionPattern, params.columnsPerBlock,
+                params.bottomLeftDilution, params.topLeftDilution,
+                params.topRightDilution, params.bottomRightDilution)
+
         render "success"
     }
 
