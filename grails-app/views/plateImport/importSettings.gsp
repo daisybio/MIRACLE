@@ -12,7 +12,8 @@
             autoHeight: false
         });
 
-    });</r:script>
+    });
+    </r:script>
 
     <style>
     .myselectable li.ui-selecting  { background: #FECA40; }
@@ -35,21 +36,34 @@
 <div id="show-plateImport" class="content scaffold-show" role="main">
     <h1><g:message code="default.import.label" args="[entityName]" /></h1>
     <div class="message" role="status">${flash.message?:"Select extraction and define settings. Per default all extractions are used."}</div>
-    <g:form name="importSettingsForm">
-    <div id="accordion" style="margin: 25px; width: 90%;">
+    <g:form name="importSettingsForm" action="processPlates">
+    <g:set var="numOfExtractions" value="${8}"/>
+    <g:hiddenField name="numOfExtractions" value="${numOfExtractions}"/>
 
+    <div id="accordion" style="margin: 25px; width: 90%;">
         <g:each in="${plates}" var="plate">
             <h3><a href="#">Exclude extractions in plate ${plate}</a></h3>
        <div>
            <ol class="myselectable" id="${plate}ExtractionFilter">
-                    <g:each in="${1..8}" var="extraction">
+                    <g:hiddenField name="plates" value="${plate}"/>
+                    <g:each in="${1..numOfExtractions}" var="extraction">
                         <li id="Plate_${plate}|Extraction_${extraction}" class="ui-state-default">${extraction}</li>
+                        <g:hiddenField name="Plate_${plate}|Extraction_${extraction}|Field" value="false"/>
                     </g:each>
                 </ol>
             </div>
             <r:script>
                 $(function() {
-                    $("#${plate}ExtractionFilter").selectable();
+                    $("#${plate}ExtractionFilter").selectable({
+                            selected: function(event, ui){
+                                var newId = "" + ui.selected.id + "|Field";
+                                $(document.getElementById(newId)).attr("value", true);
+                            },
+                            unselected: function(event, ui){
+                                var newId = "" + ui.selected.id + "|Field";
+                                $(document.getElementById(newId)).attr("value", false);
+                            }
+                    });
                 });
             </r:script>
         </g:each>

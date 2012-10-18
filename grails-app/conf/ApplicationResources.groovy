@@ -12,10 +12,6 @@ modules = {
     jstree {
         dependsOn 'jquery'
         resource url: 'js/jquery.jstree.js'
-        resource url: 'js/themes/default/d.gif'
-        resource url: 'js/themes/default/d.png'
-        resource url: 'js/themes/default/style.css'
-        resource url: 'js/themes/default/throbber.gif'
     }
 
     rainbowVis {
