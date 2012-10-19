@@ -1,9 +1,7 @@
 package org.nanocan.rppa.spotting
 
 import org.nanocan.savanah.plates.WellLayout
-import org.nanocan.rppa.layout.LayoutSpot
-import org.nanocan.rppa.layout.CellLine
-import org.nanocan.rppa.layout.SlideLayout
+import groovy.transform.InheritConstructors
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,48 +9,10 @@ import org.nanocan.rppa.layout.SlideLayout
  * Date: 18-10-12
  * Time: 16:58
  */
+@InheritConstructors
 class LeftToRightSpotter extends Spotter{
 
-    def slideLayout = new SlideLayout()
-
     def sorter = new SortRowWise()
-    def currentSpottingColumn = 1
-    def maxSpottingColumns = ?
-
-    def currentSpottingRow = 1
-    def maxSpottingRows = ?
-
-    @Override
-    def spot(List<WellLayout> extraction, extractorColumns) {
-
-        def extractionSorted = extraction.sort(sorter)
-
-        extraction.each{
-            def cellLine
-
-            if(it.cellLine) cellLine = CellLine.findByName(it.cellLine.name)
-
-            if(!cellLine)
-            {
-                cellLine = new CellLine(name: it.cellLine.name, color: it.cellLine.color)
-                cellLine.save(flush: true)
-            }
-
-            //repeat cellLine procedure with inducer, treatment and lysisbuffer
-            //where to get dilutionFactor from???
-
-            def newLayoutSpot = new LayoutSpot(block: calculateBlockFromRowAndCol(it.row, it.col, extractorColumns),
-            cellLine: cellLine, dilutionFactor: ?, col: currentSpottingColumn, row: currentSpottingRow, inducer: inducer,
-            lysisBuffer: lysisBuffer, treatment: treatment, layout: slideLayout)
-
-            slideLayout.addToSampleSpots(newLayoutSpot)
-        }
-    }
-
-    def getSlideLayout()
-    {
-        return slideLayout
-    }
 
     private class SortRowWise implements Comparator<WellLayout>{
 
@@ -66,5 +26,21 @@ class LeftToRightSpotter extends Spotter{
                 else return 0
             }
         }
+    }
+
+
+    @Override
+    void nextSpot() {
+        if(currentSpottingColumn < maxSpottingColumns) currentSpottingColumn++;
+
+        else{
+            currentSpottingRow++
+            currentSpottingColumn = 1
+        }
+    }
+
+    @Override
+    List<WellLayout> sortExtraction(List<WellLayout> extraction) {
+        return extraction.sort(sorter)
     }
 }

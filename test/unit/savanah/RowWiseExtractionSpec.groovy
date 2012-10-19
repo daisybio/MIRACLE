@@ -108,5 +108,39 @@ class RowWiseExtractionSpec extends UnitSpec{
 
     }
 
+    def "test extraction of a 96 well plate"(){
+        setup:
+        def plateLayout96 = new PlateLayout(name: "test layout 96", format: "96-well", cols: 12, rows: 8)
+        plateLayout96.save()
+
+        for (int col = 1; col <= plateLayout96.cols; col++) {
+            for (int row = 1; row <= plateLayout96.rows; row++) {
+                plateLayout96.addToWells(new WellLayout(col: col, row: row, layout: plateLayout96))
+            }
+        }
+        plateLayout96.save()
+
+        def plate96 = new Plate(cols: 12, rows:  8, barcode: "test 96", family: "daughter", format: "96-well", name: "test plate 96", layout: plateLayout96)
+        plate96.save()
+
+        def iterator96 = new ExtractionRowWiseIterator(plate: plate96, extractorCols: 6, extractorRows: 2)
+        def counter = 0
+
+        when:
+        def extractions = []
+
+        while(iterator96.hasNext()){
+            extractions << iterator96.next()
+            counter++
+        }
+
+        then:
+        counter == 8
+        extractions.first().size() == 12
+        extractions.first().first() instanceof WellLayout == true
+        extractions.last().size() == 12
+        extractions.size() == 8
+    }
+
 
 }

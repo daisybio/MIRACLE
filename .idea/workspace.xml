@@ -2,35 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff76e78a-24e9-4a09-a6b2-f99514bc63a9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/LeftToRightSpotter.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/Spotter.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/TopToBottomSpotter.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionColumnWiseIterator.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionIteratorBase.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionRowWiseIterator.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/savanah/ColumnWiseExtractionSpec.groovy" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/savanah/RowWiseExtractionSpec.groovy" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\miracle\IndexControllerSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\rppa\layout\TreatmentControllerSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\rppa\layout\TreatmentSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\rppa\org\nanocan\rppa\security\IndexControllerSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\rppa\project\ProjectServiceSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\rppa\project\ProjectSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\rppa\scanner\RControllerSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\rppa\scanner\RppaServiceSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\rppa\security\MySecurityServiceSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\rppa\security\PersonControllerSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\savanah\PlateImportControllerSpec.groovy" afterPath="" />
-      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\savanah\experiment\ExperimentControllerTests.groovy" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/savanah/LeftToRightSpotterSpec.groovy" />
+      <change type="DELETED" beforePath="D:\Projects\MIRACLE\test\unit\org\nanocan\rppa\security\PersonControllerTests.groovy" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application.properties" afterPath="$PROJECT_DIR$/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/ApplicationResources.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/ApplicationResources.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" afterPath="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/savanah/PlateImportController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/savanah/PlateImportController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/plates/WellLayout.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/plates/WellLayout.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/org/nanocan/savanah/PlateImportService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/org/nanocan/savanah/PlateImportService.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/plateImport/_blockSettings.gsp" afterPath="$PROJECT_DIR$/grails-app/views/plateImport/_blockSettings.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/plateImport/importSettings.gsp" afterPath="$PROJECT_DIR$/grails-app/views/plateImport/importSettings.gsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/css/bootstrap.css" afterPath="$PROJECT_DIR$/web-app/css/bootstrap.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/LeftToRightSpotter.groovy" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/LeftToRightSpotter.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/Spotter.groovy" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/Spotter.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/TopToBottomSpotter.groovy" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/TopToBottomSpotter.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionIteratorBase.groovy" afterPath="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionIteratorBase.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/unit/savanah/RowWiseExtractionSpec.groovy" afterPath="$PROJECT_DIR$/test/unit/savanah/RowWiseExtractionSpec.groovy" />
     </list>
     <ignored path="RPPAscanner.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -88,86 +70,149 @@
     <favorites_list name="RPPAscanner" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="PlateLayout.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/plates/PlateLayout.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="32" selection-start="270" selection-end="270" vertical-scroll-proportion="-5.139535">
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Plate.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/plates/Plate.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="6" selection-start="86" selection-end="86" vertical-scroll-proportion="-1.5813954">
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WellLayout.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/plates/WellLayout.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="22" selection-start="926" selection-end="1188" vertical-scroll-proportion="-15.418605">
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlateImportService.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/savanah/PlateImportService.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="1112" selection-end="1279" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#29#68#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Spotter.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/Spotter.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="26" selection-start="809" selection-end="809" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#35#77#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TopToBottomSpotter.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/TopToBottomSpotter.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="6" selection-start="126" selection-end="126" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LeftToRightSpotter.groovy" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/LeftToRightSpotter.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="37" selection-start="1475" selection-end="1475" vertical-scroll-proportion="0.7090204">
-              <folding>
-                <element signature="e#35#79#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="PlateImportService.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/savanah/PlateImportService.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="70" column="0" selection-start="3591" selection-end="3878" vertical-scroll-proportion="0.0">
+                  <folding>
+                    <element signature="e#29#68#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="RowWiseExtractionSpec.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/test/unit/savanah/RowWiseExtractionSpec.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="115" column="36" selection-start="2844" selection-end="2844" vertical-scroll-proportion="0.0">
+                  <folding>
+                    <element signature="e#17#56#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="PlateImportController.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/savanah/PlateImportController.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="71" column="13" selection-start="2044" selection-end="2044" vertical-scroll-proportion="-24.391304">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Person.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/security/Person.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="2" column="6" selection-start="44" selection-end="44" vertical-scroll-proportion="-0.7906977">
+                  <folding />
+                </state>
+              </provider>
+              <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+                <state />
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Person.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/security/Person.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="5" column="69" selection-start="131" selection-end="131" vertical-scroll-proportion="-1.9767442">
+                  <folding />
+                </state>
+              </provider>
+              <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+                <state />
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Spotter.groovy" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/Spotter.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="63" column="18" selection-start="1830" selection-end="1830" vertical-scroll-proportion="0.57866377">
+                  <folding>
+                    <element signature="e#35#77#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="LeftToRightSpotter.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/LeftToRightSpotter.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="15" column="61" selection-start="309" selection-end="309" vertical-scroll-proportion="-5.1">
+                  <folding>
+                    <element signature="e#35#79#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="TopToBottomSpotter.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/TopToBottomSpotter.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="34" column="12" selection-start="855" selection-end="855" vertical-scroll-proportion="0.0">
+                  <folding>
+                    <element signature="e#35#79#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ExtractionRowWiseIterator.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionRowWiseIterator.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="12" column="54" selection-start="285" selection-end="285" vertical-scroll-proportion="0.0">
+                  <folding>
+                    <element signature="e#40#79#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ExtractionIteratorBase.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionIteratorBase.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="11" column="6" selection-start="217" selection-end="217" vertical-scroll-proportion="0.0">
+                  <folding>
+                    <element signature="e#40#79#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="LeftToRightSpotterSpec.groovy" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/test/unit/savanah/LeftToRightSpotterSpec.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="161" column="51" selection-start="5939" selection-end="5939" vertical-scroll-proportion="1.9685658">
+                  <folding>
+                    <element signature="e#17#52#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SlideLayout.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="24" column="30" selection-start="460" selection-end="460" vertical-scroll-proportion="-9.488372">
+                  <folding />
+                </state>
+              </provider>
+              <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+                <state />
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -190,22 +235,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/ExtractionIteratorBase.groovy" />
-        <option value="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/ExtractionRowWiseIterator.groovy" />
-        <option value="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/Extractor.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/plates/WellLayout.groovy" />
-        <option value="$PROJECT_DIR$/test/unit/org/nanocan/savanah/extraction/ExtractionSpec.groovy" />
-        <option value="$PROJECT_DIR$/test/integration/org/nanocan/savanah/ExtractionSpec.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" />
-        <option value="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionIteratorBase.groovy" />
         <option value="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionRowWiseIterator.groovy" />
         <option value="$PROJECT_DIR$/test/unit/savanah/ExtractionSpec.groovy" />
         <option value="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionColumnWiseIterator.groovy" />
-        <option value="$PROJECT_DIR$/test/unit/savanah/RowWiseExtractionSpec.groovy" />
         <option value="$PROJECT_DIR$/test/unit/savanah/ColumnWiseExtractionSpec.groovy" />
+        <option value="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/Converter96to384.groovy" />
+        <option value="$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionIteratorBase.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/plateImport/_blockSettings.gsp" />
         <option value="$PROJECT_DIR$/grails-app/services/org/nanocan/savanah/PlateImportService.groovy" />
-        <option value="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/Spotter.groovy" />
+        <option value="$PROJECT_DIR$/test/unit/org/nanocan/rppa/spotting/LeftToRightSpotterSpec.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/savanah/PlateImportController.groovy" />
         <option value="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/LeftToRightSpotter.groovy" />
+        <option value="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/TopToBottomSpotter.groovy" />
+        <option value="$PROJECT_DIR$/test/unit/savanah/RowWiseExtractionSpec.groovy" />
+        <option value="$PROJECT_DIR$/test/unit/savanah/LeftToRightSpotterSpec.groovy" />
+        <option value="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/Spotter.groovy" />
       </list>
     </option>
   </component>
@@ -750,80 +795,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0/src.zip!/java/lang/Override.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="18" selection-start="971" selection-end="971" vertical-scroll-proportion="0.6923077">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/unit/org/nanocan/rppa/scanner/SpotImportServiceSpec.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="33" selection-start="262" selection-end="262" vertical-scroll-proportion="0.058358062">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionRowWiseIterator.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="19" selection-start="870" selection-end="870" vertical-scroll-proportion="0.5844794">
-          <folding>
-            <element signature="e#40#79#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/unit/savanah/ColumnWiseExtractionSpec.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="27" selection-start="2402" selection-end="2402" vertical-scroll-proportion="0.59100205">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/plates/Plate.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="6" selection-start="86" selection-end="86" vertical-scroll-proportion="-1.5813954">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/unit/savanah/RowWiseExtractionSpec.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="5" selection-start="1830" selection-end="1830" vertical-scroll-proportion="0.271581">
-          <folding>
-            <element signature="e#17#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionColumnWiseIterator.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="22" selection-start="820" selection-end="820" vertical-scroll-proportion="0.5276431">
-          <folding>
-            <element signature="e#40#79#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/integration/org/nanocan/rppa/scanner/SpotImportServiceIntegrationSpec.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="87" selection-start="556" selection-end="556" vertical-scroll-proportion="0.16488846">
-          <folding>
-            <element signature="e#34#76#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/conf/DataSource.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="68" selection-start="2033" selection-end="2033" vertical-scroll-proportion="0.44519883">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/plates/PlateLayout.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="32" selection-start="270" selection-end="270" vertical-scroll-proportion="-5.139535">
@@ -834,18 +805,23 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionIteratorBase.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/plateImport/_blockSettings.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="56" selection-start="1201" selection-end="1201" vertical-scroll-proportion="0.62075657">
-          <folding>
-            <element signature="e#40#79#0" expanded="true" />
-          </folding>
+        <state line="19" column="43" selection-start="534" selection-end="534" vertical-scroll-proportion="-6.591837">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/unit/org/nanocan/rppa/scanner/SpotImportServiceSpec.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="6" selection-start="187" selection-end="187" vertical-scroll-proportion="0.16815035">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/plates/WellLayout.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="22" selection-start="926" selection-end="1188" vertical-scroll-proportion="-15.418605">
+        <state line="15" column="23" selection-start="433" selection-end="433" vertical-scroll-proportion="-4.3488374">
           <folding />
         </state>
       </provider>
@@ -853,36 +829,111 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionRowWiseIterator.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="54" selection-start="285" selection-end="285" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#40#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/savanah/extraction/ExtractionIteratorBase.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="6" selection-start="217" selection-end="217" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#40#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/savanah/PlateImportService.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="1112" selection-end="1279" vertical-scroll-proportion="0.0">
+        <state line="70" column="0" selection-start="3591" selection-end="3878" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#29#68#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/TopToBottomSpotter.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/savanah/security/Person.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="6" selection-start="126" selection-end="126" vertical-scroll-proportion="0.0">
+        <state line="2" column="6" selection-start="44" selection-end="44" vertical-scroll-proportion="-0.7906977">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/security/Person.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="69" selection-start="131" selection-end="131" vertical-scroll-proportion="-1.9767442">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/savanah/PlateImportController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="13" selection-start="2044" selection-end="2044" vertical-scroll-proportion="-24.391304">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/Spotter.groovy">
+    <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/TopToBottomSpotter.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="26" selection-start="809" selection-end="809" vertical-scroll-proportion="0.0">
+        <state line="34" column="12" selection-start="855" selection-end="855" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#35#77#0" expanded="true" />
+            <element signature="e#35#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="30" selection-start="460" selection-end="460" vertical-scroll-proportion="-9.488372">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/unit/savanah/RowWiseExtractionSpec.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="115" column="36" selection-start="2844" selection-end="2844" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#17#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/LeftToRightSpotter.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="37" selection-start="1475" selection-end="1475" vertical-scroll-proportion="0.7090204">
+        <state line="15" column="61" selection-start="309" selection-end="309" vertical-scroll-proportion="-5.1">
           <folding>
             <element signature="e#35#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/unit/savanah/LeftToRightSpotterSpec.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="161" column="51" selection-start="5939" selection-end="5939" vertical-scroll-proportion="1.9685658">
+          <folding>
+            <element signature="e#17#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/groovy/org/nanocan/rppa/spotting/Spotter.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="18" selection-start="1830" selection-end="1830" vertical-scroll-proportion="0.57866377">
+          <folding>
+            <element signature="e#35#77#0" expanded="true" />
           </folding>
         </state>
       </provider>
