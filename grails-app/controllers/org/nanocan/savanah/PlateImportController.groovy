@@ -8,6 +8,7 @@ import grails.plugins.springsecurity.Secured
 class PlateImportController {
 
     def plateImportService
+    def springSecurityService
 
     def plateImport(){
         def plates
@@ -54,13 +55,31 @@ class PlateImportController {
             extractions.put(it, excludedPlateExtractions)
         }
         println extractions
-        plateImportService.importPlates(plates, extractions, params.spottingOrientation,
-                params.extractorOperationMode,
-                params.depositionPattern, params.columnsPerBlock,
-                params.bottomLeftDilution, params.topLeftDilution,
-                params.topRightDilution, params.bottomRightDilution)
 
-        render "success"
+        def slideLayout
+        try{
+            slideLayout = plateImportService.importPlates(plates, extractions, params.spottingOrientation,
+                    params.extractorOperationMode,
+                    params.depositionPattern, params.xPerBlock,
+                    params.bottomLeftDilution, params.topLeftDilution,
+                    params.topRightDilution, params.bottomRightDilution)
+        } catch(Exception e)
+        {
+            flash.message = "Import failed with exception: " + e.getMessage()
+            redirect(action: "plateImport")
+            return
+        }
+
+        slideLayout.lastUpdatedBy = springSecurityService.currentUser
+        slideLayout.createdBy = springSecurityService.currentUser
+
+        if (slideLayout.save(flush: true, failOnError: true)) {
+            redirect(controller: "slideLayout", action: "show", id: slideLayout.id)
+        }
+        else{
+            flash.message = "import succeeded, but persisting the slide layout failed: " + slideLayout.errors.toString()
+            redirect(action:  "plateImport")
+        }
     }
 
     def blockSettings(){
