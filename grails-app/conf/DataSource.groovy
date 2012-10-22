@@ -3,129 +3,52 @@ hibernate {
     cache.use_query_cache = false
     cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory'
 }
+
 // environment specific settings
-environments {
-    /*development {
-        dataSource {
-            pooled = true
-            driverClassName = "org.h2.Driver"
-            username = "sa"
-            password = ""
-            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:h2:mem:devDb;MVCC=TRUE"
-        }
-    } */
-    development {
-        dataSource {
-            //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
-            driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
-            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=MIRACLE;sendStringParametersAsUnicode=false'
-            username = 'rppa'
-            password = 'password55555'
-
-            pooled = true
-            properties {
-                maxActive = -1
-                minEvictableIdleTimeMillis=1800000
-                timeBetweenEvictionRunsMillis=1800000
-                numTestsPerEvictionRun=3
-                testOnBorrow=true
-                testWhileIdle=true
-                testOnReturn=true
-                validationQuery="SELECT 1"
+if(!dataSource){
+    environments {
+        development {
+            dataSource {
+                pooled = true
+                driverClassName = "org.h2.Driver"
+                username = "sa"
+                password = ""
+                dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+                url = "jdbc:h2:file:devDb;MVCC=TRUE"
             }
         }
-
-        dataSource_SAVANAH {
-            //dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            //url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
-            driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
-            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=SAVANAH_dev;sendStringParametersAsUnicode=false'
-            username = 'savanah'
-            password = 'blub999999999'
-            pooled = true
-            properties {
-                maxActive = -1
-                minEvictableIdleTimeMillis=1800000
-                timeBetweenEvictionRunsMillis=1800000
-                numTestsPerEvictionRun=3
-                testOnBorrow=true
-                testWhileIdle=true
-                testOnReturn=true
-                validationQuery="SELECT 1"
-            }
-            readOnly = true
-        }
-    }
-    test {
-        dataSource {
-            //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
-            driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
-            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=MIRACLE_DEV;sendStringParametersAsUnicode=false'
-            username = 'rppa'
-            password = 'password55555'
-            dbCreate = 'update'
-            pooled = true
-            properties {
-                maxActive = -1
-                minEvictableIdleTimeMillis=1800000
-                timeBetweenEvictionRunsMillis=1800000
-                numTestsPerEvictionRun=3
-                testOnBorrow=true
-                testWhileIdle=true
-                testOnReturn=true
-                validationQuery="SELECT 1"
+        test {
+            dataSource {
+                pooled = true
+                driverClassName = "org.h2.Driver"
+                username = "sa"
+                password = ""
+                dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+                url = "jdbc:h2:file:testDb;MVCC=TRUE"
             }
         }
-    }
-    migrate {
-        dataSource {
-            driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
-            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner_Copy;sendStringParametersAsUnicode=false'
-            username = 'rppa'
-            password = 'password55555'
-            pooled = true
-            properties {
-                maxActive = -1
-                minEvictableIdleTimeMillis=1800000
-                timeBetweenEvictionRunsMillis=1800000
-                numTestsPerEvictionRun=3
-                testOnBorrow=true
-                testWhileIdle=true
-                testOnReturn=true
-                validationQuery="SELECT 1"
-            }
-        }
-    }
-    standalone {
-        dataSource {
-            pooled = true
-            driverClassName = "org.h2.Driver"
-            username = "sa"
-            password = ""
-            dbCreate = "create" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:h2:file:rppaDB;MVCC=TRUE"
-        }
-    }
-    production {
-        dataSource {
-            //driverClassName = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
-            driverClassName = 'net.sourceforge.jtds.jdbc.Driver'
-            url = 'jdbc:jtds:sqlserver://10.149.64.14:1433;databaseName=RPPAScanner'
-            username = 'rppa'
-            password = 'password55555'
-            dbCreate = 'update'
-            pooled = true
-            properties {
-               maxActive = -1
-               minEvictableIdleTimeMillis=1800000
-               timeBetweenEvictionRunsMillis=1800000
-               numTestsPerEvictionRun=3
-               testOnBorrow=true
-               testWhileIdle=true
-               testOnReturn=true
-               validationQuery="SELECT 1"
+        prod {
+            dataSource {
+                pooled = true
+                driverClassName = "org.h2.Driver"
+                username = "sa"
+                password = ""
+                dbCreate = "create" // one of 'create', 'create-drop', 'update', 'validate', ''
+                url = "jdbc:h2:file:prodDb;MVCC=TRUE"
             }
         }
     }
 }
+
+if(!dataSource_SAVANAH)
+{
+    dataSource_SAVANAH{
+        pooled = true
+        driverClassName = "org.h2.Driver"
+        username = "sa"
+        password = ""
+        dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+        url = "jdbc:h2:file:savanahDb;MVCC=TRUE"
+    }
+}
+

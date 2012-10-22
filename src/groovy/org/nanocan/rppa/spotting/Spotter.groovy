@@ -58,8 +58,7 @@ abstract class Spotter {
                 for(int subRow in 0..1)
                 {
                     println "row:" +(row + subRow) + "|col:"+ (col + subCol) + "|block:" + calculateBlockFromRowAndCol(row + subRow, col + subCol) + "|spotRow:" + currentSpottingRow + "|spotCol" + currentSpottingColumn
-
-                    createLayoutSpot(it, null, row + subRow, col + subCol)
+                    createLayoutSpot(it, null, (row + subRow), (col + subCol))
                 }
             }
         }
@@ -78,9 +77,15 @@ abstract class Spotter {
 
     def calculateBlockFromRowAndCol(int row, int col)
     {
-        row = (row % maxExtractorRows) + 1
-        col = (col % maxExtractorColumns) + 1
-        (((row - 1) * maxExtractorColumns) + col)
+        //get extractor position from plate position
+        def modRow = (row % maxExtractorRows)
+        if(modRow == 0 ) modRow = maxExtractorRows
+
+        def modCol = (col % maxExtractorColumns)
+        if (modCol == 0) modCol = maxExtractorColumns
+
+        //convert into block number
+        (((modRow - 1) * maxExtractorColumns) + modCol)
     }
 
     def createLayoutSpot(wellLayout, dilutionFactor, row, column){

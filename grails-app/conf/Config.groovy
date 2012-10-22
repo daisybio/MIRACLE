@@ -10,6 +10,32 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
+/* Default config to be overwritten in config files */
+grails.plugins.springsecurity.cas.active = false
+grails.logging.jul.usebridge = true
+rppa.upload.directory = "upload/"
+rppa.imagezoom.directory = "web-app/imagezoom"
+rppa.imagezoom.url = "web-app"
+grails.serverURL = 'http://localhost:8080/MIRACLE'
+rconnect.host = "localhost"
+rconnect.port = "6311"
+
+/* Search for external config files */
+def ENV_NAME = "MIRACLE_CONFIG"
+if (!grails.config.locations || !(grails.config.locations instanceof List)) {
+    grails.config.locations = []
+}
+if (System.getenv(ENV_NAME)) {
+    println "Including configuration file specified in environment: " + System.getenv(ENV_NAME);
+    grails.config.locations << "file:" + System.getenv(ENV_NAME).replace('\\', '/')
+}
+else if (System.getProperty(ENV_NAME)) {
+    println "Including configuration file specified on command line: " + System.getProperty(ENV_NAME);
+    grails.config.locations << "file:" + System.getProperty(ENV_NAME)
+}
+else{
+    println "No config file found. Using defaults config."
+}
 
 grails.project.groupId = MIRACLE // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
@@ -85,31 +111,6 @@ grails.hibernate.cache.queries = true
 
 // set per-environment serverURL stem for creating absolute links
 environments {
-    development {
-        grails.logging.jul.usebridge = true
-        rppa.upload.directory = "upload/"
-        rppa.imagezoom.directory = "web-app/imagezoom"
-        rppa.imagezoom.url = "web-app"
-        grails.serverURL = 'http://10.84.12.130:8080/MIRACLE'
-        rconnect.host = "192.168.56.102"
-        rconnect.port = "6311"
-    }
-    production {
-        grails.logging.jul.usebridge = false
-        grails.serverURL = "http://10.149.64.8:8080/MIRACLE"
-        rppa.upload.directory = "/upload/"
-        rppa.imagezoom.directory = "/tomcat/apache-tomcat-7.0.27/webapps/MIRACLE/imagezoom"
-        rppa.imagezoom.url = ""
-        rconnect.host = "10.149.64.8"
-        rconnect.port = "6311"
-    }
-    test {
-        grails.logging.jul.usebridge = false
-        grails.serverURL = "http://10.149.64.8:8080/MIRACLE"
-        rppa.upload.directory = "/upload/"
-        rppa.imagezoom.directory = "/tomcat/apache-tomcat-7.0.27/webapps/MIRACLE/imagezoom"
-        rppa.imagezoom.url = ""
-    }
     standalone {
         rppa.upload.directory = "upload/"
         rppa.imagezoom.directory = "imagezoom"
@@ -168,10 +169,3 @@ grails.plugins.springsecurity.authority.className = 'org.nanocan.rppa.security.R
 //select migration file
 grails.plugin.databasemigration.changelogFileName = 'changelog-0.3.groovy'
 
-//CAS configuration for single sign on
-grails.plugins.springsecurity.cas.loginUri = '/login'
-grails.plugins.springsecurity.cas.serviceUrl = grails.serverURL + '/j_spring_cas_security_check'
-grails.plugins.springsecurity.cas.serverUrlPrefix = 'https://sso.sdu.dk'
-//grails.plugins.springsecurity.cas.proxyCallbackUrl = grails.serverURL + '/secure/receptor'
-grails.plugins.springsecurity.cas.proxyReceptorUrl = '/secure/receptor'
-grails.plugins.springsecurity.logout.afterLogoutUrl = 'https://sso.sdu.dk/logout?url=' + grails.serverURL

@@ -5,6 +5,7 @@ import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor
 class Person {
 
 	transient springSecurityService
+    boolean isPasswordEncoded = false
 
 	String username
 	String password
@@ -28,15 +29,20 @@ class Person {
 		PersonRole.findAllByPerson(this).collect { it.role } as Set
 	}
 
-	def beforeInsert() {
-		encodePassword()
-	}
+    def beforeInsert() {
+        if ( !isPasswordEncoded )
+        {
+            isPasswordEncoded = true
+            encodePassword ()
+        }
+    }
 
-	def beforeUpdate() {
-		if (isDirty('password')) {
-			encodePassword()
-		}
-	}
+    def beforeUpdate() {
+        if (isDirty('password')) {
+            isPasswordEncoded = false
+            encodePassword()
+        }
+    }
 
 	protected void encodePassword() {
 		password = springSecurityService.encodePassword(password)
