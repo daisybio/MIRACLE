@@ -90,7 +90,7 @@
                 </div>
                 <li class="fieldcontain">
                     <span class="property-label">Deposition pattern:</span>
-                    <span class="property-value"><g:textField name="depositionPattern" value="[4,4,2,2,1,1]"/></span>
+                    <span class="property-value"><g:textField name="depositionPattern" value="${'[4,4,2,2,1,1]'}"/></span>
                 </li>
                 <li class="fieldcontain">
                     <span class="property-label">96-well plate conversion</span>

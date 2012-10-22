@@ -119,7 +119,7 @@ abstract class Spotter {
         //else property is null and remains null
 
         def newLayoutSpot = new LayoutSpot(block: calculateBlockFromRowAndCol(row, column),
-                cellLine: props.cellLine, dilutionFactor: 0, col: currentSpottingColumn, row: currentSpottingRow, inducer: props.inducer,
+                cellLine: props.cellLine, dilutionFactor: dilutionFactor, col: currentSpottingColumn, row: currentSpottingRow, inducer: props.inducer,
                 treatment: props.treatment, layout: slideLayout)
 
         slideLayout.addToSampleSpots(newLayoutSpot)

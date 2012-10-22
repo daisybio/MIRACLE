@@ -2,7 +2,7 @@ package org.nanocan.savanah
 
 import org.nanocan.savanah.experiment.Experiment
 import org.nanocan.savanah.plates.Plate
-import grails.plugins.springsecurity.Secured
+import org.springframework.security.access.annotation.Secured
 
 @Secured(['ROLE_USER'])
 class PlateImportController {

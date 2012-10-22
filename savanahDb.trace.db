@@ -1,0 +1,75 @@
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "ENTRY" not found; SQL statement:
+alter table entry drop constraint FK5C30872911D905B [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "ENTRY" not found; SQL statement:
+alter table entry drop constraint FK5C30872D21C4E39 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EXPERIMENT" not found; SQL statement:
+alter table experiment drop constraint FKFAE9DBFD50A3AA2B [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EXPERIMENT" not found; SQL statement:
+alter table experiment drop constraint FKFAE9DBFDD48C0C81 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EXPERIMENT" not found; SQL statement:
+alter table experiment drop constraint FKFAE9DBFD39BA2AA5 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EXPERIMENT_PLATE" not found; SQL statement:
+alter table experiment_plate drop constraint FK4CDB68542B126157 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "EXPERIMENT_PLATE" not found; SQL statement:
+alter table experiment_plate drop constraint FK4CDB68546C240C9B [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "IDENTIFIER" not found; SQL statement:
+alter table identifier drop constraint FK9F88ACA9F737B643 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "LIBRARY" not found; SQL statement:
+alter table library drop constraint FK9E824BB50A3AA2B [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "LIBRARY" not found; SQL statement:
+alter table library drop constraint FK9E824BBD48C0C81 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PLATE" not found; SQL statement:
+alter table plate drop constraint FK65CDB16F7D72864 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PLATE" not found; SQL statement:
+alter table plate drop constraint FK65CDB16911D905B [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PLATE" not found; SQL statement:
+alter table plate drop constraint FK65CDB16D21C4E39 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PLATE" not found; SQL statement:
+alter table plate drop constraint FK65CDB163AE5DCD [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PLATE" not found; SQL statement:
+alter table plate drop constraint FK65CDB167AA94C [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PROJECT" not found; SQL statement:
+alter table project drop constraint FKED904B1950A3AA2B [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PROJECT" not found; SQL statement:
+alter table project drop constraint FKED904B19D48C0C81 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PROJECT_EXPERIMENT" not found; SQL statement:
+alter table project_experiment drop constraint FK42CE32527AFE0 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "PROJECT_EXPERIMENT" not found; SQL statement:
+alter table project_experiment drop constraint FK42CE35ADFEE7D [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "WELL_LAYOUT" not found; SQL statement:
+alter table well_layout drop constraint FK567173BB434FBFD1 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "WELL_LAYOUT" not found; SQL statement:
+alter table well_layout drop constraint FK567173BBE8A98002 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "WELL_LAYOUT" not found; SQL statement:
+alter table well_layout drop constraint FK567173BBF737B643 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "WELL_LAYOUT" not found; SQL statement:
+alter table well_layout drop constraint FK567173BBDEDDCFE4 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "WELL_LAYOUT" not found; SQL statement:
+alter table well_layout drop constraint FK567173BB3D733668 [42102-164]
+10-22 09:14:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "WELL_LAYOUT" not found; SQL statement:
+alter table well_layout drop constraint FK567173BB3F81C151 [42102-164]
