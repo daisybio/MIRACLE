@@ -148,6 +148,109 @@ class LeftToRightSpotterSpec extends UnitSpec{
         e.message.startsWith("Layout is full.") == true
     }
 
+    def "test spotting of a single extraction of a 96 well plate"()
+    {
+        setup:
+        def iterator = new ExtractionRowWiseIterator(plate: plates96.first(),  extractorCols: 6, extractorRows: 2)
+        def leftToRightSpotter = new LeftToRightSpotter(grailsApplication: grailsApplication)
+
+        when:
+        def extraction = iterator.next()
+        leftToRightSpotter.spot96as384(extraction)
+
+        def slideLayout = leftToRightSpotter.slideLayout
+
+        persistSlideLayout(slideLayout, leftToRightSpotter)
+
+        println slideLayout.sampleSpots
+
+        then:
+        slideLayout.errors.toString() == "org.grails.datastore.mapping.validation.ValidationErrors: 0 errors"
+        slideLayout.sampleSpots.size() == 48
+        LayoutSpot.findByBlockGreaterThan(48) == null
+        LayoutSpot.findByRowGreaterThan(1) == null
+        LayoutSpot.findByColGreaterThan(1) == null
+    }
+
+    def "test spotting of two extractions of a 96 well plate"()
+    {
+        setup:
+        def iterator = new ExtractionRowWiseIterator(plate: plates96.first(),  extractorCols: 6, extractorRows: 2)
+        def leftToRightSpotter = new LeftToRightSpotter(grailsApplication: grailsApplication)
+
+        when:
+        leftToRightSpotter.spot96as384(iterator.next())
+        leftToRightSpotter.spot96as384(iterator.next())
+
+        def slideLayout = leftToRightSpotter.slideLayout
+
+        persistSlideLayout(slideLayout, leftToRightSpotter)
+
+        println slideLayout.sampleSpots
+
+        then:
+        slideLayout.errors.toString() == "org.grails.datastore.mapping.validation.ValidationErrors: 0 errors"
+        slideLayout.sampleSpots.size() == 96
+        LayoutSpot.findByBlockGreaterThan(48) == null
+        LayoutSpot.findByRowGreaterThan(1) == null
+        LayoutSpot.findByColGreaterThan(2) == null
+    }
+
+    def "test spotting of three extractions of a 96 well plate"()
+    {
+        setup:
+        def iterator = new ExtractionRowWiseIterator(plate: plates96.first(), extractorCols: 6, extractorRows: 2)
+        def leftToRightSpotter = new LeftToRightSpotter(grailsApplication: grailsApplication)
+
+        when:
+        leftToRightSpotter.spot96as384(iterator.next())
+        leftToRightSpotter.spot96as384(iterator.next())
+        leftToRightSpotter.spot96as384(iterator.next())
+
+        def slideLayout = leftToRightSpotter.slideLayout
+
+        persistSlideLayout(slideLayout, leftToRightSpotter)
+
+        println slideLayout.sampleSpots
+
+        then:
+        slideLayout.errors.toString() == "org.grails.datastore.mapping.validation.ValidationErrors: 0 errors"
+        slideLayout.sampleSpots.size() == 144
+        LayoutSpot.findByBlockGreaterThan(48) == null
+        LayoutSpot.findByRowGreaterThan(2) == null
+        LayoutSpot.findByColGreaterThan(2) == null
+    }
+
+
+
+    def "test spotting of a single 96 well plate"()
+    {
+        setup:
+        def iterator = new ExtractionRowWiseIterator(plate: plates96.first(), extractorCols: 6, extractorRows: 2)
+        def leftToRightSpotter = new LeftToRightSpotter(grailsApplication: grailsApplication)
+
+        when:
+        while(iterator.hasNext())
+        {
+            def extraction = iterator.next()
+            leftToRightSpotter.spot96as384(extraction)
+        }
+
+        def slideLayout = leftToRightSpotter.slideLayout
+
+        persistSlideLayout(slideLayout, leftToRightSpotter)
+
+        println slideLayout.sampleSpots
+
+        then:
+        slideLayout.errors.toString() == "org.grails.datastore.mapping.validation.ValidationErrors: 0 errors"
+        slideLayout.sampleSpots.size() == 384
+        LayoutSpot.findByBlockGreaterThan(48) == null
+        LayoutSpot.findByRowGreaterThan(4) == null
+        LayoutSpot.findByColGreaterThan(2) == null
+    }
+
+
     def "test spotting with four 96 well plates as 384 diluted"()
     {
         setup:
@@ -156,7 +259,7 @@ class LeftToRightSpotterSpec extends UnitSpec{
         when:
         for(def plate in plates96){
             println "adding ${plate}"
-            def iterator = new ExtractionRowWiseIterator(plate: plate, extractionColumns: 6, extractorRows: 2)
+            def iterator = new ExtractionRowWiseIterator(plate: plate, extractorCols: 6, extractorRows: 2)
             while(iterator.hasNext())
                 leftToRightSpotter.spot96as384(iterator.next())
         }
