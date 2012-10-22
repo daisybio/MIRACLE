@@ -35,7 +35,7 @@ class BootStrap {
             case "development":
 
                 initUserbase()
-                initSAVANAH()
+                //initSAVANAH()
 
                 break
 

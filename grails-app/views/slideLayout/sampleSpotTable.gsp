@@ -103,8 +103,13 @@
                 <td>${row}</td>
                 <g:each in="${tab..(tab+upperBound-1)}">
                     <g:each in="${1..(slideLayout.columnsPerBlock)}">
-                        <td style="border: 1px solid; background-color:${spotList.get(spot)?.properties[sampleProperty]?spotList.get(spot).properties[sampleProperty].color?:'#e0e0e0':''};"><input name="${spotList.get(spot).id}" type="hidden" value=""></td>
-                        <g:set var="spot" value="${++spot}"/>
+                        <g:if test="${spot < spotList.size()}">
+                            <td style="border: 1px solid; background-color:${spotList.get(spot)?.properties[sampleProperty]?spotList.get(spot).properties[sampleProperty].color?:'#e0e0e0':''};"><input name="${spotList.get(spot).id}" type="hidden" value=""></td>
+                            <g:set var="spot" value="${++spot}"/>
+                        </g:if>
+                        <g:else>
+                            <td style="border: 1px solid; background-color:#fffff;">empty</td>
+                        </g:else>
                     </g:each>
                 </g:each>
             </tr>

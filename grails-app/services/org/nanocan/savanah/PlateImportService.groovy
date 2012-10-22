@@ -29,25 +29,34 @@ class PlateImportService {
      */
     def importPlates(plates, extractions, spottingOrientation, extractorOperationMode, depositionPattern, xPerBlock, bottomLeftDilution, topLeftDilution, topRightDilution, bottomRightDilution) {
 
+        println xPerBlock
+
         def spotter
 
         //spot top-to-bottom or left-to-right
-        if(spottingOrientation == "left-to-right") spotter = new LeftToRightSpotter(grailsApplication: grailsApplication, maxSpottingColumns: xPerBlock)
-        else if(spottingOrientation == "top-to-bottom") spotter = new TopToBottomSpotter(grailsApplication: grailsApplication, maxSpottingRows: xPerBlock)
+        if(spottingOrientation == "left-to-right") spotter = new LeftToRightSpotter(grailsApplication: grailsApplication, maxSpottingColumns: 2)
+        else if(spottingOrientation == "top-to-bottom") spotter = new TopToBottomSpotter(grailsApplication: grailsApplication, maxSpottingRows: 2)
+
+        println "spotter"
 
         //iterate over plates
         plates.each{
+
+            println "iterating plate ${it}"
+
             //iterate over extractions
             def iterator
             def extractorRows = 4
             def extractorCols = 12
 
             def plate = Plate.findByName(it)
+            println "Found plate ${plate}"
 
             //if we use a 384 well plate we can use the default options (48 pins), but in case of 96 well plates
             // we need to reduce the size of the virtual extraction head. We regain the lost pins by adding a dilution pattern during spotting with spot96as384.
             if(plate.plateType == "96-well")
             {
+                println "Plate type is 96 well, adjusting extraction head"
                 extractorRows = extractorRows / 2
                 extractorCols = extractorCols / 2
             }
@@ -56,20 +65,31 @@ class PlateImportService {
             if(extractorOperationMode == "row-wise") iterator = new ExtractionRowWiseIterator(plate: plate, extractorCols: extractorCols, extractorRows: extractorRows)
             else if(extractorOperationMode =="column-wise") iterator = new ExtractionColumnWiseIterator(plate: plate, extractorCols: extractorCols, extractorRows: extractorRows)
 
+            println "iterator created for ${extractorOperationMode}: ${iterator}"
+
             while(iterator.hasNext())
             {
 
                 //spot current extraction on virtual slide
-                if(plate.plateType == "96-well")
+                if(plate.format == "96-well")  {
+                    println "adding 96-well plate to slide layout as 384 diluted."
                     spotter.spot96as384(iterator.next())
-                else if(plate.plateType == "384-well")
+                }
+                else if(plate.format == "384-well"){
+                    println "adding 384-well plate."
                     spotter.spot384(iterator.next())
+                }
+                else{
+                    throw new Exception("plate type unknown")
+                    break;
+                }
             }
+            println "done with plate ${plate}."
         }
 
         def slideLayout = spotter.slideLayout
         slideLayout.blocksPerRow = 12
-        slideLayout.columnsPerBlock = xPerBlock
+        slideLayout.columnsPerBlock = 2
         slideLayout.depositionPattern = depositionPattern
         slideLayout.numberOfBlocks = 48
         slideLayout.rowsPerBlock = spotter.currentSpottingRow
