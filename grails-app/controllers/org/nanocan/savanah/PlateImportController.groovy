@@ -3,6 +3,7 @@ package org.nanocan.savanah
 import org.nanocan.savanah.experiment.Experiment
 import org.nanocan.savanah.plates.Plate
 import org.springframework.security.access.annotation.Secured
+import org.nanocan.rppa.layout.SlideLayout
 
 @Secured(['ROLE_USER'])
 class PlateImportController {
@@ -38,13 +39,14 @@ class PlateImportController {
     }
 
     def importSettings(){
-        def plates = params.plateOrder
+        def plates = params.list("plateOrder")
         [plates: plates]
     }
 
     def processPlates(){
 
         def plates = params.list("plates")
+        def xPerBlock = params.int("xPerBlock")
         def extractions = [:]
 
         plates.each{
@@ -56,11 +58,25 @@ class PlateImportController {
         }
         println extractions
 
+        if(!params.title || params.title == "")
+        {
+            flash.message = "You have to give a title to this layout!"
+            redirect(action: "plateImport")
+            return
+        }
+        //check if title is taken
+        if(SlideLayout.findByTitle(params.title))
+        {
+            flash.message = "Please select another title (this one already exists)."
+            redirect(action: "plateImport")
+            return
+        }
+
         def slideLayout
         try{
-            slideLayout = plateImportService.importPlates(plates, extractions, params.spottingOrientation,
+            slideLayout = plateImportService.importPlates(params.title, plates, extractions, params.spottingOrientation,
                     params.extractorOperationMode,
-                    params.depositionPattern, params.xPerBlock,
+                    params.depositionPattern, xPerBlock,
                     params.bottomLeftDilution, params.topLeftDilution,
                     params.topRightDilution, params.bottomRightDilution)
         } catch(Exception e)

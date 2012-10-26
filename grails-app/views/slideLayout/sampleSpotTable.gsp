@@ -101,14 +101,14 @@
         <g:each in="${1..(slideLayout.rowsPerBlock)}" var="row">
             <tr id="r${row+1}">
                 <td>${row}</td>
-                <g:each in="${tab..(tab+upperBound-1)}">
-                    <g:each in="${1..(slideLayout.columnsPerBlock)}">
-                        <g:if test="${spot < spotList.size()}">
+                <g:each in="${tab..(tab+upperBound-1)}" var="block">
+                    <g:each in="${1..(slideLayout.columnsPerBlock)}" var="col">
+                        <g:if test="${spot < spotList.size() && spotList.get(spot).row == row && spotList.get(spot).col == col && spotList.get(spot).block == block }">
                             <td style="border: 1px solid; background-color:${spotList.get(spot)?.properties[sampleProperty]?spotList.get(spot).properties[sampleProperty].color?:'#e0e0e0':''};"><input name="${spotList.get(spot).id}" type="hidden" value=""></td>
                             <g:set var="spot" value="${++spot}"/>
                         </g:if>
                         <g:else>
-                            <td style="border: 1px solid; background-color:#fffff;">empty</td>
+                            <td style="border: 1px solid"></td>
                         </g:else>
                     </g:each>
                 </g:each>
@@ -191,11 +191,13 @@
                     if(j != 0) //protect row names from color changes
                     {
                         var cell = document.getElementById(tableName).rows[i].cells[j];
-                        cell.style.backgroundColor = selColor;
-                        cell.firstChild.setAttribute("value", selId);
-                        $('#message').html("Please save your changes!") ;
-
-                        window.onbeforeunload = unloadPage;
+                        if(cell.style.backgroundColor != "")
+                        {
+                             cell.style.backgroundColor = selColor;
+                             cell.firstChild.setAttribute("value", selId);
+                             $('#message').html("Please save your changes!") ;
+                            window.onbeforeunload = unloadPage;
+                        }
                     }
                 }
             }

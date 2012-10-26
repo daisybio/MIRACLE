@@ -41,6 +41,60 @@
     <g:hiddenField name="numOfExtractions" value="${numOfExtractions}"/>
 
     <div id="accordion" style="margin: 25px; width: 90%;">
+
+        <h3><a href="#">Import settings</a></h3>
+        <div>
+            <ol class="property-list"/>
+            <li class="fieldcontain">
+                <span class="property-label">Title for Layout:</span>
+                <span class="property-value"><g:textField name="title" value=""/></span>
+            </li>
+            <li class="fieldcontain">
+                <span class="property-label">Traverse settings for Extractor:</span>
+                <span class="property-value"><g:select from="${['row-wise', 'column-wise']}" value="row-wise" name="extractorOperationMode"/></span>
+            </li>
+            <li class="fieldcontain">
+                <span class="property-label">Block spotting orientation: </span>
+                <span class="property-value">
+                    <g:select from="${['top-to-bottom', 'left-to-right']}"
+                              value="left-to-right"
+                              name="spottingOrientation"
+                              onchange="${g.remoteFunction(action: 'blockSettings', update:'blockSettings', params:'\'&blockOrder=\'+this.value')}"
+                    />
+                </span>
+            </li>
+            <div id="blockSettings">
+                <g:render template="blockSettings" model="${[rowWise: true]}"/>
+            </div>
+            <li class="fieldcontain">
+                <span class="property-label">Deposition pattern:</span>
+                <span class="property-value"><g:textField name="depositionPattern" value="${'[4,4,2,2,1,1]'}"/></span>
+            </li>
+            <li class="fieldcontain">
+                <span class="property-label">96-well plate conversion</span>
+                <span class="property-value">
+                    <div style="width:240px;">
+                        A single spot in a 96 well plate is converted into a square of four spots in different dilutions.
+                        Please select the dilution pattern here.
+                        <div class="circle">
+                            <g:select style="width:65px; margin: 15px;" from="${Dilution.list()}" name="topLeftDilution"/>
+                        </div>
+                        <div class="circle">
+                            <g:select style="width:65px; margin: 15px;" from="${Dilution.list()}" name="topRightDilution"/>
+                        </div>
+                        <div class="circle">
+                            <g:select style="width:65px; margin: 15px;" from="${Dilution.list()}" name="bottomLeftDilution"/>
+                        </div>
+                        <div class="circle">
+                            <g:select style="width:65px; margin: 15px;" from="${Dilution.list()}" name="bottomRightDilution"/>
+                        </div>
+                    </div>
+                </span>
+            </li>
+        </ol>
+
+        </div>
+
         <g:each in="${plates}" var="plate">
             <h3><a href="#">Exclude extractions in plate ${plate}</a></h3>
        <div>
@@ -67,56 +121,6 @@
                 });
             </r:script>
         </g:each>
-
-        <h3><a href="#">Import settings</a></h3>
-        <div>
-            <ol class="property-list"/>
-                <li class="fieldcontain">
-                    <span class="property-label">Traverse settings for Extractor:</span>
-                    <span class="property-value"><g:select from="${['row-wise', 'column-wise']}" value="row-wise" name="extractorOperationMode"/></span>
-                </li>
-                <li class="fieldcontain">
-                    <span class="property-label">Block spotting orientation: </span>
-                    <span class="property-value">
-                        <g:select from="${['top-to-bottom', 'left-to-right']}"
-                                  value="left-to-right"
-                                  name="spottingOrientation"
-                                  onchange="${g.remoteFunction(action: 'blockSettings', update:'blockSettings', params:'\'&blockOrder=\'+this.value')}"
-                        />
-                    </span>
-                </li>
-                <div id="blockSettings">
-                    <g:render template="blockSettings" model="${[rowWise: true]}"/>
-                </div>
-                <li class="fieldcontain">
-                    <span class="property-label">Deposition pattern:</span>
-                    <span class="property-value"><g:textField name="depositionPattern" value="${'[4,4,2,2,1,1]'}"/></span>
-                </li>
-                <li class="fieldcontain">
-                    <span class="property-label">96-well plate conversion</span>
-                    <span class="property-value">
-                        <div style="width:240px;">
-                            A single spot in a 96 well plate is converted into a square of four spots in different dilutions.
-                            Please select the dilution pattern here.
-                            <div class="circle">
-                                <g:select style="width:65px; margin: 15px;" from="${Dilution.list()}" name="topLeftDilution"/>
-                            </div>
-                            <div class="circle">
-                                <g:select style="width:65px; margin: 15px;" from="${Dilution.list()}" name="topRightDilution"/>
-                            </div>
-                            <div class="circle">
-                                <g:select style="width:65px; margin: 15px;" from="${Dilution.list()}" name="bottomLeftDilution"/>
-                            </div>
-                            <div class="circle">
-                                <g:select style="width:65px; margin: 15px;" from="${Dilution.list()}" name="bottomRightDilution"/>
-                            </div>
-                        </div>
-                    </span>
-                </li>
-            </ol>
-
-        </div>
-
     </div>
 
     <div class="buttons"><g:submitButton class="save" name="continue" value="Continue"/></div>

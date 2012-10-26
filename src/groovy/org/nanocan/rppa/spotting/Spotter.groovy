@@ -3,6 +3,7 @@ package org.nanocan.rppa.spotting
 import org.nanocan.rppa.layout.SlideLayout
 import org.nanocan.savanah.plates.WellLayout
 import org.nanocan.rppa.layout.LayoutSpot
+import org.nanocan.rppa.layout.Dilution
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,7 +42,11 @@ abstract class Spotter {
         nextSpot()
     }
 
-    def spot96as384(List<WellLayout> extraction) {
+    def spot96as384(List<WellLayout> extraction){
+        spot96as384(extraction, null)
+    }
+
+    def spot96as384(List<WellLayout> extraction, dilutionPattern) {
 
         def parseRow = {row -> 1 + (row - 1) * 2}
         def parseColumn = {col -> 1 + (col - 1) * 2}
@@ -57,8 +62,7 @@ abstract class Spotter {
             {
                 for(int subRow in 0..1)
                 {
-                    println "row:" +(row + subRow) + "|col:"+ (col + subCol) + "|block:" + calculateBlockFromRowAndCol(row + subRow, col + subCol) + "|spotRow:" + currentSpottingRow + "|spotCol" + currentSpottingColumn
-                    createLayoutSpot(it, null, (row + subRow), (col + subCol))
+                    createLayoutSpot(it, dilutionPattern[subRow][subCol], (row + subRow), (col + subCol))
                 }
             }
         }
@@ -92,16 +96,18 @@ abstract class Spotter {
 
         if (isFull()) throw new Exception("Layout is full. Can not add ${wellLayout}.")
 
-        def propInstance
         def props = [:]
 
         for(prop in ["cellLine", "inducer", "treatment"])
         {
+            def propInstance
+
             if (wellLayout."${prop}"){
-                def domainClass = grailsApplication.getClassForName(prop.toString().capitalize())
+                def domainClass = grailsApplication.getClassForName("org.nanocan.rppa.layout." + prop.toString().capitalize())
 
                 //check if property exists in MIRACLE
                 propInstance = domainClass.findByName(wellLayout."${prop}".name)
+                println propInstance
 
                 //if property is given in layout, but does not yet exist in MIRACLE, create it.
                 if(!propInstance)
@@ -109,7 +115,7 @@ abstract class Spotter {
                     propInstance = domainClass.newInstance()
                     propInstance.name = wellLayout."${prop}".name
                     propInstance.color = wellLayout."${prop}".color
-                    propInstance.save(flush: true)
+                    propInstance.save(flush: true, failOnError: true)
                 }
             }
 
@@ -117,6 +123,9 @@ abstract class Spotter {
         }
 
         //else property is null and remains null
+
+        println props
+        if (dilutionFactor) dilutionFactor = Dilution.findByDilutionFactor(dilutionFactor as Double)
 
         def newLayoutSpot = new LayoutSpot(block: calculateBlockFromRowAndCol(row, column),
                 cellLine: props.cellLine, dilutionFactor: dilutionFactor, col: currentSpottingColumn, row: currentSpottingRow, inducer: props.inducer,
