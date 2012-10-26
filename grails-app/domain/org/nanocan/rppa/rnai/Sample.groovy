@@ -11,7 +11,7 @@ class Sample {
 
     static constraints = {
         name unique: true
-        type inList: ["siRNA"]
+        type inList: ["siRNA", "miRNA inhibitor", "miRNA mimic"]
         targetGene()
         color unique:  false, validator:  {val, obj -> (val != "#ffffff" && val != "#e0e0e0")}, nullable: false
     }

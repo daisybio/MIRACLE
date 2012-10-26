@@ -4,6 +4,8 @@ import org.nanocan.rppa.layout.SlideLayout
 import org.nanocan.savanah.plates.WellLayout
 import org.nanocan.rppa.layout.LayoutSpot
 import org.nanocan.rppa.layout.Dilution
+import org.nanocan.rppa.rnai.Sample
+import org.nanocan.rppa.layout.SpotType
 
 /**
  * Created by IntelliJ IDEA.
@@ -98,7 +100,7 @@ abstract class Spotter {
 
         def props = [:]
 
-        for(prop in ["cellLine", "inducer", "treatment"])
+        for(prop in ["cellLine", "inducer", "treatment", "numberOfCellsSeeded"])
         {
             def propInstance
 
@@ -107,7 +109,6 @@ abstract class Spotter {
 
                 //check if property exists in MIRACLE
                 propInstance = domainClass.findByName(wellLayout."${prop}".name)
-                println propInstance
 
                 //if property is given in layout, but does not yet exist in MIRACLE, create it.
                 if(!propInstance)
@@ -115,6 +116,7 @@ abstract class Spotter {
                     propInstance = domainClass.newInstance()
                     propInstance.name = wellLayout."${prop}".name
                     propInstance.color = wellLayout."${prop}".color
+                    if(prop == "treatment") propInstance.comments =  wellLayout.treatment.comments
                     propInstance.save(flush: true, failOnError: true)
                 }
             }
@@ -122,14 +124,27 @@ abstract class Spotter {
             props.put(prop, propInstance)
         }
 
+        if(wellLayout.sample)
+        {
+            def sample = Sample.findByName(wellLayout.sample.name)
+
+            if (!sample)
+            {
+                def wellSample = wellLayout.sample
+                sample = new Sample(color: wellSample.color, name: wellSample.name, targetGene: wellSample.targetGene, type: wellSample.type).save(flush: true, failOnError: true)
+            }
+
+            props.put("sample", sample)
+        }
+        else props.put("sample", null)
+
         //else property is null and remains null
 
-        println props
         if (dilutionFactor) dilutionFactor = Dilution.findByDilutionFactor(dilutionFactor as Double)
 
         def newLayoutSpot = new LayoutSpot(block: calculateBlockFromRowAndCol(row, column),
                 cellLine: props.cellLine, dilutionFactor: dilutionFactor, col: currentSpottingColumn, row: currentSpottingRow, inducer: props.inducer,
-                treatment: props.treatment, layout: slideLayout)
+                treatment: props.treatment, numberOfCellsSeeded: props.numberOfCellsSeeded, spotType: SpotType.findByType("Sample"), sample: props.sample, layout: slideLayout)
 
         slideLayout.addToSampleSpots(newLayoutSpot)
     }

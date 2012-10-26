@@ -128,6 +128,7 @@
                 <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'dilutionFactor']}"> Dilution </g:link></li>
                 <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'inducer']}"> Inducer </g:link></li>
                 <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'lysisBuffer']}"> Lysis Buffer </g:link></li>
+                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'numberOfCellsSeeded']}"> Number of Cells Seeded </g:link></li>
                 <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'sample']}"> Sample Information </g:link></li>
                 <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'spotType']}"> Spot Type </g:link></li>
                 <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'treatment']}"> Treatment </g:link></li>

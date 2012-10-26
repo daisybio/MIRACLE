@@ -104,7 +104,7 @@
                 <g:each in="${tab..(tab+upperBound-1)}" var="block">
                     <g:each in="${1..(slideLayout.columnsPerBlock)}" var="col">
                         <g:if test="${spot < spotList.size() && spotList.get(spot).row == row && spotList.get(spot).col == col && spotList.get(spot).block == block }">
-                            <td style="border: 1px solid; background-color:${spotList.get(spot)?.properties[sampleProperty]?spotList.get(spot).properties[sampleProperty].color?:'#e0e0e0':''};"><input name="${spotList.get(spot).id}" type="hidden" value=""></td>
+                            <td style="border: 1px solid; background-color:${spotList.get(spot)?.properties[sampleProperty]?spotList.get(spot).properties[sampleProperty].color?:'#e0e0e0':'#ffffff'};"><input name="${spotList.get(spot).id}" type="hidden" value=""></td>
                             <g:set var="spot" value="${++spot}"/>
                         </g:if>
                         <g:else>

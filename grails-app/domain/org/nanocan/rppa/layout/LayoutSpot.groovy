@@ -12,6 +12,7 @@ class LayoutSpot implements Comparable{
     SpotType spotType
     Sample sample
     Treatment treatment
+    NumberOfCellsSeeded numberOfCellsSeeded
 
     int block
     int col
@@ -21,6 +22,7 @@ class LayoutSpot implements Comparable{
     SlideLayout layout
 
     static constraints = {
+        numberOfCellsSeeded nullable: true
         cellLine nullable:  true
         lysisBuffer nullable: true
         dilutionFactor nullable: true
