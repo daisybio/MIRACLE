@@ -41,7 +41,7 @@ class PlateImportService {
 
         log.debug "spotter"
         def prop = "cellLine"
-        println grailsApplication.getClassForName("org.nanocan.rppa.layout." + prop.toString().capitalize())
+        log.debug grailsApplication.getClassForName("org.nanocan.rppa.layout." + prop.toString().capitalize())
         //iterate over plates
         plates.each{
 
@@ -64,9 +64,6 @@ class PlateImportService {
                 extractorCols = extractorCols / 2
             }
 
-            println "Plate ${plate} wells:"
-            println plate.layout.wells.size()
-
             //extract row- or column-wise
             if(extractorOperationMode == "row-wise") iterator = new ExtractionRowWiseIterator(plate: plate, extractorCols: extractorCols, extractorRows: extractorRows)
             else if(extractorOperationMode =="column-wise") iterator = new ExtractionColumnWiseIterator(plate: plate, extractorCols: extractorCols, extractorRows: extractorRows)
@@ -76,13 +73,13 @@ class PlateImportService {
 
             while(iterator.hasNext())
             {
-                println "iteration plate ${plate}"
+                log.debug "iteration plate ${plate}"
                 extractionIndex++
-                println extractions.get(plate.name)
-                println extractions[plate.name].get(extractionIndex)
+                log.debug extractions.get(plate.name)
+                log.debug extractions[plate.name].get(extractionIndex)
 
                 if(extractions[plate.name].get(extractionIndex) == true){
-                    println "skipping extraction ${extractionIndex} of plate ${it}"
+                    log.debug "skipping extraction ${extractionIndex} of plate ${it}"
                     iterator.next()
                     continue
                 }

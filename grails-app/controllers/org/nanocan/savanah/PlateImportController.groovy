@@ -56,7 +56,6 @@ class PlateImportController {
             }
             extractions.put(it, excludedPlateExtractions)
         }
-        println extractions
 
         if(!params.title || params.title == "")
         {

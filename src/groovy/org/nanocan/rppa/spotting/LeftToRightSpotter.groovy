@@ -13,7 +13,7 @@ import groovy.transform.InheritConstructors
 class LeftToRightSpotter extends Spotter{
 
     def sorter = new SortRowWise()
-    def currentSpottingRowUsed = false
+    def currentSpottingRowUsed = true
 
     private class SortRowWise implements Comparator<WellLayout>{
 
