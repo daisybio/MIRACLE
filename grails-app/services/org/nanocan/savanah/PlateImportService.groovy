@@ -3,9 +3,9 @@ package org.nanocan.savanah
 import org.nanocan.savanah.plates.Plate
 import org.nanocan.savanah.extraction.ExtractionRowWiseIterator
 import org.nanocan.savanah.extraction.ExtractionColumnWiseIterator
-import org.nanocan.rppa.spotting.Spotter
 import org.nanocan.rppa.spotting.LeftToRightSpotter
 import org.nanocan.rppa.spotting.TopToBottomSpotter
+import org.nanocan.rppa.layout.Dilution
 
 class PlateImportService {
 
@@ -27,56 +27,73 @@ class PlateImportService {
     (allowing us to add more plates to a single slide),
     but deposition patterns occur in a regular fashion and thus allow us to merge these layout spots into one.
      */
-    def importPlates(plates, extractions, spottingOrientation, extractorOperationMode, depositionPattern, xPerBlock, bottomLeftDilution, topLeftDilution, topRightDilution, bottomRightDilution) {
+    def importPlates(title, plates, extractions, spottingOrientation, extractorOperationMode, depositionPattern, xPerBlock, bottomLeftDilution, topLeftDilution, topRightDilution, bottomRightDilution) {
 
-        println xPerBlock
+        def dilutionPattern = [[topLeftDilution,topRightDilution],[bottomLeftDilution,bottomRightDilution]]
+
+        log.debug xPerBlock
 
         def spotter
 
         //spot top-to-bottom or left-to-right
-        if(spottingOrientation == "left-to-right") spotter = new LeftToRightSpotter(grailsApplication: grailsApplication, maxSpottingColumns: 2)
-        else if(spottingOrientation == "top-to-bottom") spotter = new TopToBottomSpotter(grailsApplication: grailsApplication, maxSpottingRows: 2)
+        if(spottingOrientation == "left-to-right") spotter = new LeftToRightSpotter(grailsApplication: grailsApplication, maxSpottingColumns: xPerBlock)
+        else if(spottingOrientation == "top-to-bottom") spotter = new TopToBottomSpotter(grailsApplication: grailsApplication, maxSpottingRows: xPerBlock)
 
-        println "spotter"
-
+        log.debug "spotter"
+        def prop = "cellLine"
+        println grailsApplication.getClassForName("org.nanocan.rppa.layout." + prop.toString().capitalize())
         //iterate over plates
         plates.each{
 
-            println "iterating plate ${it}"
+            log.debug "iterating plate ${it}"
 
             //iterate over extractions
             def iterator
-            def extractorRows = 4
-            def extractorCols = 12
+            int extractorRows = 4
+            int extractorCols = 12
 
             def plate = Plate.findByName(it)
-            println "Found plate ${plate}"
+            log.debug "Found plate ${plate}"
 
             //if we use a 384 well plate we can use the default options (48 pins), but in case of 96 well plates
             // we need to reduce the size of the virtual extraction head. We regain the lost pins by adding a dilution pattern during spotting with spot96as384.
-            if(plate.plateType == "96-well")
+            if(plate.format == "96-well")
             {
-                println "Plate type is 96 well, adjusting extraction head"
+                log.debug "Plate type is 96 well, adjusting extraction head"
                 extractorRows = extractorRows / 2
                 extractorCols = extractorCols / 2
             }
+
+            println "Plate ${plate} wells:"
+            println plate.layout.wells.size()
 
             //extract row- or column-wise
             if(extractorOperationMode == "row-wise") iterator = new ExtractionRowWiseIterator(plate: plate, extractorCols: extractorCols, extractorRows: extractorRows)
             else if(extractorOperationMode =="column-wise") iterator = new ExtractionColumnWiseIterator(plate: plate, extractorCols: extractorCols, extractorRows: extractorRows)
 
-            println "iterator created for ${extractorOperationMode}: ${iterator}"
+            log.debug "iterator created for ${extractorOperationMode}: ${iterator}"
+            int extractionIndex = -1
 
             while(iterator.hasNext())
             {
+                println "iteration plate ${plate}"
+                extractionIndex++
+                println extractions.get(plate.name)
+                println extractions[plate.name].get(extractionIndex)
+
+                if(extractions[plate.name].get(extractionIndex) == true){
+                    println "skipping extraction ${extractionIndex} of plate ${it}"
+                    iterator.next()
+                    continue
+                }
 
                 //spot current extraction on virtual slide
                 if(plate.format == "96-well")  {
-                    println "adding 96-well plate to slide layout as 384 diluted."
-                    spotter.spot96as384(iterator.next())
+                    log.debug "adding 96-well plate to slide layout as 384 diluted."
+                    spotter.spot96as384(iterator.next(), dilutionPattern)
                 }
                 else if(plate.format == "384-well"){
-                    println "adding 384-well plate."
+                    log.debug "adding 384-well plate."
                     spotter.spot384(iterator.next())
                 }
                 else{
@@ -84,16 +101,17 @@ class PlateImportService {
                     break;
                 }
             }
-            println "done with plate ${plate}."
+            log.debug "done with plate ${plate}."
         }
 
         def slideLayout = spotter.slideLayout
         slideLayout.blocksPerRow = 12
-        slideLayout.columnsPerBlock = 2
+        slideLayout.columnsPerBlock = xPerBlock
         slideLayout.depositionPattern = depositionPattern
         slideLayout.numberOfBlocks = 48
         slideLayout.rowsPerBlock = spotter.currentSpottingRow
-        slideLayout.title = "test layout"
+        if(spotter instanceof LeftToRightSpotter && !spotter.currentSpottingRowUsed) slideLayout.rowsPerBlock--
+        slideLayout.title = title
 
         return(slideLayout)
     }
