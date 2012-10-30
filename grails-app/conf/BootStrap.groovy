@@ -76,6 +76,7 @@ class BootStrap {
             returnArray['Treatment'] = it.layoutSpot?.treatment?.name?:"NA"
             returnArray['SpotType'] = it.layoutSpot?.spotType?.name?:"NA"
             returnArray['SpotClass'] = it.layoutSpot?.spotType?.type?:"NA"
+            returnArray['NumberOfCellsSeeded'] = it.layoutSpot?.numberOfCellsSeeded?.name?:"NA"
             returnArray['Flag'] = it.flag
             returnArray['Diameter'] = it.diameter
 
