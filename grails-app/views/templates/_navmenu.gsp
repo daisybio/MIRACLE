@@ -1,18 +1,32 @@
 <%@ page import="org.nanocan.rppa.project.Project" %>
 <li class="dropdown" id="main.menu">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#main.menu">
-        <g:message code="default.menu.label" default="Home"/>
+        <g:message code="default.menu.label" default="Projects"/>
         <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
         <li>
-            <a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a>
+            <g:link class="list" controller="project" action="list">List Projects</g:link>
         </li>
         <li>
-            <g:link class="list" controller="slideLayout" action="list">List Layouts</g:link>
+            <g:link class="create" controller="project" action="create">Create New Project</g:link>
+        </li>
+    </ul>
+</li>
+<li class="dropdown" id="plate.menu">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#plate.menu">
+        <g:message code="default.plateLayout.menu.label" args="['...']" default="Plate Layout"/>
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li>
+            <g:link class="list" controller="plateLayout" action="list">List Layouts</g:link>
         </li>
         <li>
-            <g:link class="list" controller="slide" action="list">List Slide Results</g:link>
+            <g:link class="create" controller="plateLayout" action="create">Create New Layout</g:link>
+        </li>
+        <li>
+            <g:link class="create" controller="plateImport" action="plateLayoutImport">Import Layout from SAVANAH</g:link>
         </li>
     </ul>
 </li>
@@ -57,7 +71,7 @@
 </li>
 <li class="dropdown" id="organize.menu">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#organize.menu">
-        <g:message code="default.slide.menu.label" default="Imported Results"/>
+        <g:message code="default.slide.menu.label" default="Slide Data"/>
         <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
@@ -76,7 +90,7 @@
 <li class="divider-vertical"></li>
 <li>
     <g:form class="navbar-search" url='[controller: "searchable", action: "index"]' id="searchableForm" name="searchableForm" method="get">
-        <g:textField class="search-query" placeholder="Search" name="q" value="${params.q}" size="50"/>
+        <g:textField class="search-query" placeholder="Search" name="q" value="${params.q}"/>
     </g:form>
 
 </li>
