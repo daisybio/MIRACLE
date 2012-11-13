@@ -73,9 +73,11 @@ class SlideLayoutService {
             if (value != "") {
                 def spot = LayoutSpot.get(key as Long)
 
-                if (value as Long == -1) spot.properties[spotProp] = null
-                else spot.properties[spotProp] = grailsApplication.getArtefactByLogicalPropertyName("Domain", className).clazz.get(value as Long)
+                def classPrefix = "org.nanocan.rppa.layout."
+                if(className == "sample")  classPrefix = "org.nanocan.rppa.rnai."
 
+                if (value as Long == -1) spot.properties[spotProp] = null
+                else spot.properties[spotProp] = grailsApplication.getDomainClass(classPrefix + className.toString().capitalize()).clazz.get(value as Long)
                 spot.save()
             }
 

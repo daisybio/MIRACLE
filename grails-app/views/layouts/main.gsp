@@ -27,7 +27,10 @@
 
 	</head>
 	<body>
-		<div id="logo" role="banner"><img src="${resource(dir: 'images', file: 'miracle_banner.png')}" alt="Miracle">
+		<div id="logo" role="banner">
+            <a href="${createLink(uri: '/')}">
+                <img src="${resource(dir: 'images', file: 'miracle_banner.png')}" alt="MIRACLE">
+            </a>
 
             <sec:ifLoggedIn>
                 <div id="logout" style="float:right; padding-right:10px; padding-top:10px;">

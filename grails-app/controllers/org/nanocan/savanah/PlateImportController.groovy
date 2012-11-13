@@ -4,12 +4,86 @@ import org.nanocan.savanah.experiment.Experiment
 import org.nanocan.savanah.plates.Plate
 import org.springframework.security.access.annotation.Secured
 import org.nanocan.rppa.layout.SlideLayout
+import org.nanocan.savanah.plates.PlateLayout
 
 @Secured(['ROLE_USER'])
 class PlateImportController {
 
     def plateImportService
     def springSecurityService
+
+    def plateLayoutImport(){
+        def plateLayouts
+
+        if(params.experiment){
+            def experiment  = Experiment.get(params.experiment)
+            plateLayouts = experiment.plates
+        }
+
+        else plateLayouts = PlateLayout.list()
+
+        [experiments: Experiment.list(), plateLayouts: plateLayouts]
+    }
+
+    def importSelectedPlateLayouts(){
+        println params
+
+        def plateLayouts = params.list("platesSelected").collect{ PlateLayout.get(it)}
+        def numberOfCellsSeededList = []
+        def cellLineList = []
+        def inducerList = []
+        def treatmentList = []
+        def sampleList = []
+
+        plateLayouts.each{ playout ->
+            playout.wells.each{
+                if(it.numberOfCellsSeeded) numberOfCellsSeededList << it.numberOfCellsSeeded
+                if(it.cellLine) cellLineList << it.cellLine
+                if(it.inducer) inducerList << it.inducer
+                if(it.treatment) treatmentList << it.treatment
+                if(it.sample) sampleList << it.sample
+            }
+        }
+
+        numberOfCellsSeededList.unique()
+        cellLineList.unique()
+        inducerList.unique()
+        treatmentList.unique()
+        sampleList.unique()
+
+        def conflictNumberOfCellsSeeded = []
+
+        numberOfCellsSeededList.each{
+            if(!org.nanocan.rppa.layout.NumberOfCellsSeeded.findByName(it.name)) conflictNumberOfCellsSeeded << it
+        }
+
+        def conflictCellLine = []
+
+        cellLineList.each{
+            if(!org.nanocan.rppa.layout.CellLine.findByName(it.name)) conflictCellLine << it
+        }
+
+        def conflictInducer = []
+
+        inducerList.each{
+            if(!org.nanocan.rppa.layout.Inducer.findByName(it.name)) conflictInducer << it
+        }
+
+        def conflictTreatment = []
+
+        treatmentList.each{
+            if(!org.nanocan.rppa.layout.Treatment.findByName(it.name)) conflictTreatment << it
+        }
+
+        def conflictSample = []
+
+        sampleList.each{
+            if(!org.nanocan.rppa.rnai.Sample.findByName(it.name)) conflictSample << it
+        }
+
+        [numberOfCellsSeededList : conflictNumberOfCellsSeeded, cellLineList: conflictCellLine,
+                inducerList: conflictInducer, treatmentList: conflictTreatment, sampleList: conflictSample]
+    }
 
     def plateImport(){
         def plates
