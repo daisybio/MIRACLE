@@ -14,6 +14,16 @@ class ${className}Controller {
     }
 
     def create() {
+
+        if(params.backParams){
+            println params.backParams
+            def paramsMap = [:]
+            params.remove("backParams").findAll(/([^&=]+)=([^&]+)/) { full, name, value ->  paramsMap[name] = value }
+            flash.backParams = paramsMap
+        }
+        if(params.backController) flash.backController = params.remove("backController")
+        if(params.backAction) flash.backAction = params.remove("backAction")
+
         [${propertyName}: new ${className}(params)]
     }
 
@@ -25,7 +35,8 @@ class ${className}Controller {
         }
 
 		flash.message = message(code: 'default.created.message', args: [message(code: '${domainClass.propertyName}.label', default: '${className}'), ${propertyName}.id])
-        redirect(action: "show", id: ${propertyName}.id)
+        if(flash.backAction) redirect(controller: flash.backController, action: flash.backAction, params: flash.backParams)
+        else redirect(action: "show", id: ${propertyName}.id)
     }
 
     def show() {

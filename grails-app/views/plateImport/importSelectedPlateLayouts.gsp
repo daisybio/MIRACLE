@@ -26,15 +26,26 @@
     </div>
 </div>
 <div id="show-plateImport" class="content scaffold-show" role="main">
-    <h1>The following properties could not be found in MIRACLE. Please check the assignments</h1>
-    <div class="message" role="status">${flash.message}</div>
+    <h1>Property Assignment</h1>
+    <div class="message" role="status">${flash.message?:"Assign SAVANAH properties to MIRACLE properties or create new ones."}</div>
+    <g:set var="backParams" value="${params.toQueryString()}"/>
+    <g:set var="backController" value="plateImport"/>
+    <g:set var="backAction" value = "importSelectedPlateLayouts"/>
 
     <div id="accordion" style="margin: 25px; width: 90%;">
         <h3><a href="#">CellLine</a></h3>
         <div>
+        <ol class="property-list">
             <g:each in="${cellLineList}" var="cellLine">
-                <g:select from="${CellLine.list()}" value="${CellLine.findByNameLike(cellLine.name)}" name="cellline_${cellLine}"/>
+                <li class="fieldcontain">
+                <span class="property-label">${cellLine}:</span>
+                <span class="property-value"><g:select from="${CellLine.list()}" value="${CellLine.findByNameLike(cellLine.name)}" name="cellline_${cellLine}"/>
+                    or <g:link controller="cellLine" action="create"
+                               params="${[name: cellLine.name, color: cellLine.color, backParams: backParams, backController: backController, backAction: backAction]}">
+                create</g:link></span>
+                </li>
             </g:each>
+        </ol>
         </div>
     </div>
 

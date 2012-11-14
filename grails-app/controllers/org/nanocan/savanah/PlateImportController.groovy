@@ -51,38 +51,8 @@ class PlateImportController {
         treatmentList.unique()
         sampleList.unique()
 
-        def conflictNumberOfCellsSeeded = []
-
-        numberOfCellsSeededList.each{
-            if(!org.nanocan.rppa.layout.NumberOfCellsSeeded.findByName(it.name)) conflictNumberOfCellsSeeded << it
-        }
-
-        def conflictCellLine = []
-
-        cellLineList.each{
-            if(!org.nanocan.rppa.layout.CellLine.findByName(it.name)) conflictCellLine << it
-        }
-
-        def conflictInducer = []
-
-        inducerList.each{
-            if(!org.nanocan.rppa.layout.Inducer.findByName(it.name)) conflictInducer << it
-        }
-
-        def conflictTreatment = []
-
-        treatmentList.each{
-            if(!org.nanocan.rppa.layout.Treatment.findByName(it.name)) conflictTreatment << it
-        }
-
-        def conflictSample = []
-
-        sampleList.each{
-            if(!org.nanocan.rppa.rnai.Sample.findByName(it.name)) conflictSample << it
-        }
-
-        [numberOfCellsSeededList : conflictNumberOfCellsSeeded, cellLineList: conflictCellLine,
-                inducerList: conflictInducer, treatmentList: conflictTreatment, sampleList: conflictSample]
+        [numberOfCellsSeededList : numberOfCellsSeededList, cellLineList: cellLineList,
+                inducerList: inducerList, treatmentList: treatmentList, sampleList: sampleList]
     }
 
     def plateImport(){
