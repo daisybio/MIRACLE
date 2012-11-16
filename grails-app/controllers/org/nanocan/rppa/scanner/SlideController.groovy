@@ -29,15 +29,20 @@ class SlideController {
     }
 
     def list() {
+        //deal with max
+        if(!params.max && session.maxSlideResult) params.max = session.maxSlideResult
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        session.maxSlideResult = params.max
+
+        //deal with offset
+        params.offset = params.offset?:(session.offsetSlideResult?:0)
+        session.offsetSlideResult = params.offset
 
         def slideInstanceList
         def slideInstanceListTotal
 
         if(session.projectSelected)
         {
-            if(!params.offset) params.offset = 0
-
             slideInstanceList = Project.get(session.projectSelected as Long).slides
             slideInstanceListTotal = slideInstanceList.size()
 

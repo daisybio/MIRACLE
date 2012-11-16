@@ -21,14 +21,20 @@ class SlideLayoutController {
     }
 
     def list() {
+        //deal with max
+        if(!params.max && session.maxSlideLayout) params.max = session.maxSlideLayout
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        session.maxSlideLayout = params.max
+
+        //deal with offset
+        params.offset = params.offset?:(session.offsetSlideLayout?:0)
+        session.offsetSlideLayout = params.offset
 
         def slideLayoutInstanceList
         def slideLayoutInstanceListTotal
 
         if(session.projectSelected)
         {
-            if(!params.offset) params.offset = 0
             slideLayoutInstanceList = Project.get(session.projectSelected as Long).layouts
             slideLayoutInstanceListTotal = slideLayoutInstanceList.size()
 

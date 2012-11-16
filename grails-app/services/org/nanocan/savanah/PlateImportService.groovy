@@ -11,6 +11,21 @@ class PlateImportService {
 
     def grailsApplication
 
+    def importPlateLayout(def plateName, def newPlateName, def cellLineMap, def numberOfCellsMap,def inducerMap, def treatmentMap, def sampleMap){
+        def savanahLayout = org.nanocan.savanah.plates.PlateLayout.findByName(plateName)
+
+        def miracleLayout = new org.nanocan.rppa.layout.PlateLayout(name: newPlateName, format: savanahLayout.format).save(flush: true, failOnError: true)
+        savanahLayout.wells.each{ well ->
+            miracleLayout.addToWells(new org.nanocan.rppa.layout.WellLayout(col:  well.col, row: well.row, cellLine: cellLineMap."${well.cellLine}",
+                    inducer: inducerMap."${well.inducer}", numberOfCellsSeeded: numberOfCellsMap."${well.numberOfCellsSeeded}",
+                    treatment: treatmentMap."${well.treatment}", spotType: null, sample: sampleMap."${well.sample}"))
+        }
+
+        miracleLayout.save(flush: true, failOnError: true)
+
+        return miracleLayout
+    }
+
     /*
     We are assuming an extraction head with 48 pins, e.g. 12 columns and 4 rows. We could now extract with these 48 pins 8 extractions
     from a 384 well plate, either row- or column-wise (extractorOperationMode).
