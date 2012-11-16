@@ -11,10 +11,11 @@ class WellLayout implements Comparable{
     CellLine cellLine
     Inducer inducer
     Treatment treatment
+    SpotType spotType
+    Sample sample
 
     static belongsTo = [plateLayout: PlateLayout]
 
-    Sample sample
 
     static constraints = {
         cellLine nullable: true
@@ -22,6 +23,7 @@ class WellLayout implements Comparable{
         treatment nullable: true
         numberOfCellsSeeded nullable: true
         sample nullable: true
+        spotType nullable: true
     }
 
     String toString(){

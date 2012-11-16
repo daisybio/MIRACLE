@@ -1,4 +1,4 @@
-<%@ page import="org.nanocan.rppa.layout.NumberOfCellsSeeded; org.nanocan.rppa.layout.Inducer; org.nanocan.rppa.layout.CellLine; org.nanocan.rppa.layout.Treatment;" %>
+<%@ page import="org.nanocan.rppa.layout.SpotType; org.nanocan.rppa.layout.NumberOfCellsSeeded; org.nanocan.rppa.layout.Inducer; org.nanocan.rppa.layout.CellLine; org.nanocan.rppa.layout.Treatment;" %>
 <head>
     <r:require module="colorPicker"/>
     <style>
@@ -20,7 +20,7 @@
     <g:elseif test="${sampleProperty == 'inducer'}"><g:set var="samplePropertyList" value="${Inducer.list()}"/></g:elseif>
     <g:elseif test="${sampleProperty == 'treatment'}"><g:set var="samplePropertyList" value="${Treatment.list()}"/></g:elseif>
     <g:elseif test="${sampleProperty == 'numberOfCellsSeeded'}"><g:set var="samplePropertyList" value="${NumberOfCellsSeeded.list()}"/></g:elseif>
-
+    <g:elseif test="${sampleProperty == 'spotType'}"><g:set var="samplePropertyList" value="${SpotType.list()}"/></g:elseif>
     <thead>
     <tr><th>${sampleProperty.toString().capitalize()}</th><th>Color</th></tr>
     </thead>

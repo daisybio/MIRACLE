@@ -2,6 +2,7 @@ package org.nanocan.rppa.layout
 
 import grails.plugins.springsecurity.Secured
 import org.springframework.dao.DataIntegrityViolationException
+import org.nanocan.rppa.project.Project
 
 @Secured(['ROLE_USER'])
 class PlateLayoutController {
@@ -16,8 +17,35 @@ class PlateLayoutController {
     }
 
     def list() {
+        //deal with max
+        if(!params.max && session.maxPlateLayout) params.max = session.maxPlateLayout
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [plateLayoutInstanceList: PlateLayout.list(params), plateLayoutInstanceTotal: PlateLayout.count()]
+        session.maxPlateLayout = params.max
+
+        //deal with offset
+        params.offset = params.offset?:(session.offsetPlateLayout?:0)
+        session.offsetPlateLayout = params.offset
+
+        def plateLayoutInstanceList
+        def plateLayoutInstanceListTotal
+
+        if(session.projectSelected)
+        {
+            plateLayoutInstanceList = Project.get(session.projectSelected as Long).layouts
+            plateLayoutInstanceListTotal = plateLayoutInstanceList.size()
+
+            int rangeMin = Math.min(plateLayoutInstanceListTotal, params.int('offset'))
+            int rangeMax = Math.min(plateLayoutInstanceListTotal, (params.int('offset') + params.int('max')))
+
+            plateLayoutInstanceList = plateLayoutInstanceList.asList().subList(rangeMin, rangeMax)
+        }
+        else
+        {
+            plateLayoutInstanceList = PlateLayout.list(params)
+            plateLayoutInstanceListTotal = PlateLayout.count()
+        }
+
+        [plateLayoutInstanceList: plateLayoutInstanceList, plateLayoutInstanceTotal: plateLayoutInstanceListTotal]
     }
 
     def create() {

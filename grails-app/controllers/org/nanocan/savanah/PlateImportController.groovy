@@ -5,6 +5,11 @@ import org.nanocan.savanah.plates.Plate
 import org.springframework.security.access.annotation.Secured
 import org.nanocan.rppa.layout.SlideLayout
 import org.nanocan.savanah.plates.PlateLayout
+import org.nanocan.rppa.layout.NumberOfCellsSeeded
+import org.nanocan.rppa.layout.CellLine
+import org.nanocan.rppa.layout.Inducer
+import org.nanocan.rppa.layout.Treatment
+import org.nanocan.rppa.rnai.Sample
 
 @Secured(['ROLE_USER'])
 class PlateImportController {
@@ -25,8 +30,64 @@ class PlateImportController {
         [experiments: Experiment.list(), plateLayouts: plateLayouts]
     }
 
+    def convertAndSavePlateLayout(){
+        def plateLayouts = params.list("plateLayouts")
+        def miracleNewLayout
+
+        def numberOfCellsSeededMap = [:]
+        def cellLineMap = [:]
+        def inducerMap = [:]
+        def treatmentMap = [:]
+        def sampleMap = [:]
+
+        params.each{k,v ->
+            def indexOfSeparator = k.toString().indexOf('_') + 1
+
+            if(k.toString().startsWith("numberOfCellsSeeded")) numberOfCellsSeededMap.put(k.toString().substring(indexOfSeparator), NumberOfCellsSeeded.findByName(v))
+            else if(k.toString().startsWith("cellline")) cellLineMap.put(k.toString().substring(indexOfSeparator), CellLine.findByName(v))
+            else if(k.toString().startsWith("inducer")) inducerMap.put(k.toString().substring(indexOfSeparator), Inducer.findByName(v))
+            else if(k.toString().startsWith("treatment")) treatmentMap.put(k.toString().substring(indexOfSeparator), Treatment.findByName(v))
+            else if(k.toString().startsWith("sample")) sampleMap.put(k.toString().substring(indexOfSeparator), Sample.findByName(v))
+        }
+        println numberOfCellsSeededMap
+        println cellLineMap
+        println inducerMap
+        println treatmentMap
+        println sampleMap
+        //check plate names
+        flash.message = "PlateLayout(s) with name(s) "
+        boolean nameConflict = false
+        plateLayouts.each{ layout ->
+            if(org.nanocan.rppa.layout.PlateLayout.findByName(params."${layout}_tf") != null){
+                flash.message += params."${layout}_tf" + " "
+                nameConflict = true
+            }
+        }
+        if (nameConflict)
+        {
+            flash.message += "exists already. Choose another name"
+            params.platesSelected = plateLayouts.collect{PlateLayout.findByName(it).id}
+            def newModel = [:]
+            newModel.putAll(params)
+            newModel.putAll(importSelectedPlateLayouts())
+            println newModel
+            render(view: "importSelectedPlateLayouts", model: newModel)
+            return
+        }
+
+        plateLayouts.each{ layout ->
+            miracleNewLayout = plateImportService.importPlateLayout(layout, params."${layout}_tf", cellLineMap, numberOfCellsSeededMap, inducerMap, treatmentMap, sampleMap)
+        }
+
+        flash.message = "The following plate layouts have been imported: ${plateLayouts} - ${plateLayouts.collect{params."${it}_tf"}}"
+
+        if(plateLayouts.size() > 1)
+            redirect(controller: "plateLayout", action:"list")
+        else redirect(controller: "plateLayout", action: "show", id: miracleNewLayout.id)
+
+    }
+
     def importSelectedPlateLayouts(){
-        println params
 
         def plateLayouts = params.list("platesSelected").collect{ PlateLayout.get(it)}
         def numberOfCellsSeededList = []
@@ -51,8 +112,11 @@ class PlateImportController {
         treatmentList.unique()
         sampleList.unique()
 
+        def titles = plateLayouts.collect{it.name}
+
         [numberOfCellsSeededList : numberOfCellsSeededList, cellLineList: cellLineList,
-                inducerList: inducerList, treatmentList: treatmentList, sampleList: sampleList]
+                inducerList: inducerList, treatmentList: treatmentList, sampleList: sampleList,
+                titles: titles, plateLayouts: plateLayouts]
     }
 
     def plateImport(){

@@ -55,7 +55,7 @@
     <g:form name="changeAttribute" action="editAttributes">
         <g:hiddenField name="id" value="${plateLayout?.id}"/>
         Select a property: <g:select name="sampleProperty" optionKey="key" optionValue="value" value="${sampleProperty}"
-                  from="${["cellLine":"CellLine", "inducer":"Inducer", "treatment":"Treatment", "numberOfCellsSeeded":"Number of cells seeded", "sample":"Sample"]}"
+                  from="${["cellLine":"CellLine", "inducer":"Inducer", "spotType": "Spot Type", "treatment":"Treatment", "numberOfCellsSeeded":"Number of cells seeded", "sample":"Sample"]}"
                   onchange="document.forms['changeAttribute'].submit();"
         />
     </g:form> <br/>
