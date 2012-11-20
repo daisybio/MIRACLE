@@ -27,19 +27,22 @@
 
 	</head>
 	<body>
-		<div id="logo" role="banner">
-            <a href="${createLink(uri: '/')}">
-                <img src="${resource(dir: 'images', file: 'miracle_banner.png')}" alt="MIRACLE">
-            </a>
+        <g:if test="${params.nobanner=='true'}"></g:if>
+		<g:else>
+            <div id="logo" role="banner">
+                <a href="${createLink(uri: '/')}">
+                    <img src="${resource(dir: 'images', file: 'miracle_banner.png')}" alt="MIRACLE">
+                </a>
 
-            <sec:ifLoggedIn>
-                <div id="logout" style="float:right; padding-right:10px; padding-top:10px;">
-                    You are logged in as<br/><b><sec:username/></b><br/><br/>
-                    <g:link controller="logout">Logout</g:link>
-                    <sec:ifAllGranted roles="ROLE_ADMIN"> | <g:link controller="person">Manage</g:link></sec:ifAllGranted>
-                </div>
-            </sec:ifLoggedIn>
-        </div>
+                <sec:ifLoggedIn>
+                    <div id="logout" style="float:right; padding-right:10px; padding-top:10px;">
+                        You are logged in as<br/><b><sec:username/></b><br/><br/>
+                        <g:link controller="logout">Logout</g:link>
+                        <sec:ifAllGranted roles="ROLE_ADMIN"> | <g:link controller="person">Manage</g:link></sec:ifAllGranted>
+                    </div>
+                </sec:ifLoggedIn>
+            </div>
+        </g:else>
 
         <g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>

@@ -26,33 +26,32 @@
 </div>
 <div id="show-plateImport" class="content scaffold-show" role="main">
     <h1><g:message code="default.import.label" args="[entityName]" /></h1>
-    <div class="message" role="status">${flash.message?:"Plates and experiments need to be created in SAVANAH first"}</div>
 
     <div id="accordion" style="margin: 25px; width: 90%;">
-        <h3><a href="#">Select plates for import</a></h3>
+        <h3><a href="#">Hints</a></h3>
         <div>
+            <div class="message" role="status">${flash.message?:"Select plate layouts by dragging them to the middle list."}</div>
+            <div class="message">Order list elements by drag and drop, then press continue</div>
+            <div class="message">Double click on a list element in order to open a preview window of the layout.</div>
+            <div class="message">To remove elements from the selection drag them to the trash bin.</div>
+            <div class="message">You can spot a plate layout multiple times. Just drag it to the selection list several times.</div>
+            <div class="message">You can mix layout plates from MIRACLE and SAVANAH, e.g. in order to include control plates.</div>
 
-            Select an experiment:
-            <g:select from="${experiments}" name="experiment" value="${experiment}" onchange="${g.remoteFunction(action: 'filterPlates', params: '\'&experiment=\'+this.value', update: 'plateSelect')}"/>
-            <br/><br/>
-            Select plates by dragging them from left to right. Order them by drag and drop, then press check<br/><br/>
-            <div style="padding-left:163px; padding-bottom: 10px; width:143px;">Selected plates:</div>
+        </div>
+        <h3><a href="#">Select plate layouts for new slide layout</a></h3>
+        <div>
             <div id="plateSelect">
-                <g:render template="plateSorting" model="${[plates: plates]}"/>
-            </div>
-
-            <input style="padding:10px;margin-top:10px;"
-                   class="buttons" value="Check"
-                   type="button" name="continue"
-                   onclick="var plateOrder = $('#selectedPlates').sortable('serialize');${g.remoteFunction(action: 'platesOrdered', update:'selectedPlatesInOrder', params: '\'&\'+plateOrder')}"/>
-
-            <div id="selectedPlatesInOrder" style="float:right;padding:5px;">
-                No plates have been selected
+                <g:render template="plateSorting"/>
             </div>
         </div>
     </div>
 
-
+    <div class="buttons">
+        <input
+                value="Continue"
+                type="button" name="continue"
+                onclick="var plateOrder = $('#selectedPlates').sortable('serialize');${g.remoteFunction(action: 'platesOrdered', update:'show-plateImport', params: '\'&\'+plateOrder')}"/>
+    </div>
 
 </div>
 </body>

@@ -1,4 +1,4 @@
-<%@ page import="org.nanocan.rppa.rnai.Sample;" %>
+<%@ page import="org.nanocan.savanah.attributes.Sample;" %>
 <html>
 <head>
     <style>
