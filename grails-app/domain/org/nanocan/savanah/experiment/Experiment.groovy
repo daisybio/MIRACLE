@@ -2,6 +2,7 @@ package org.nanocan.savanah.experiment
 
 import org.nanocan.savanah.plates.Plate
 import org.nanocan.savanah.security.Person
+import org.nanocan.savanah.plates.PlateLayout
 
 class Experiment {
 
@@ -15,7 +16,7 @@ class Experiment {
     Person createdBy
     Person lastUpdatedBy
 
-    static hasMany = [plates: Plate]
+    static hasMany = [plates: Plate, plateLayouts: PlateLayout]
 
     static constraints = {
         name unique: true

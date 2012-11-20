@@ -150,6 +150,12 @@ class PlateLayoutController {
         [plateLayout:  plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty]
     }
 
+    def showAttributes(){
+        def plateLayoutInstance = PlateLayout.get(params.id)
+
+        [plateLayout:  plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty]
+    }
+
     def updateWellProperty()
     {
         def wellProp = params.wellProperty

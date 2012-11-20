@@ -29,11 +29,19 @@
     <div class="message" role="status">${flash.message?:"Plates and experiments need to be created in SAVANAH first"}</div>
 
     <div id="accordion" style="margin: 25px; width: 90%;">
-        <h3><a href="#">Select plates for import</a></h3>
+        <h3><a href="#">Select plate layouts for import</a></h3>
         <div>
-
+            Select a project:
+            <div>
+                 <g:select from="${projects}" name="project" value="${project}"
+                      noSelection="['':'']"
+                      onchange="${g.remoteFunction(action: 'filterPlateLayoutsByExperiment', params: '\'&project=\'+this.value', update: 'experimentSelect')}"/>
+            </div>
+            <br/><br/>
             Select an experiment:
-            <g:select from="${experiments}" name="experiment" value="${experiment}" onchange="${g.remoteFunction(action: 'filterPlateLayouts', params: '\'&experiment=\'+this.value', update: 'plateSelect')}"/>
+            <div id="experimentSelect">
+                <g:render template="experimentSelect" model="${["experiments": experiments, experiment: experiment]}"/>
+            </div>
             <br/><br/>
             <g:form name="importPlateLayouts" action="importSelectedPlateLayouts" controller="plateImport">
             <div id="plateSelect">
