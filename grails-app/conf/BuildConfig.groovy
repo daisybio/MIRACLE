@@ -23,7 +23,6 @@ grails.project.dependency.resolution = {
         grailsHome()
         grailsCentral()
         mavenCentral()
-
         // uncomment these to enable remote dependency resolution from public Maven repositories
         //mavenCentral()
         //mavenLocal()
@@ -51,5 +50,6 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:$grailsVersion"
         test ":spock:0.6"
+        compile ":webflow:2.0.0"
     }
 }

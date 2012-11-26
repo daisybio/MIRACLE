@@ -5,7 +5,7 @@ import org.nanocan.rppa.scanner.Slide
 import org.nanocan.rppa.security.Person
 import org.nanocan.rppa.layout.PlateLayout
 
-class Project {
+class Project implements Serializable {
 
     String projectTitle
     String projectDescription

@@ -1,6 +1,6 @@
 package org.nanocan.savanah.attributes
 
-class Identifier {
+class Identifier implements Serializable{
 
     String name
     String accessionNumber

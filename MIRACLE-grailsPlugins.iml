@@ -110,6 +110,7 @@
       <sourceFolder url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/spring-security-core-1.2.7.3/grails-app/taglib" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/tomcat-2.1.1" />
+    <content url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/webflow-2.0.0" />
     <content url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/webxml-1.4.1">
       <sourceFolder url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/webxml-1.4.1/src/groovy" isTestSource="false" />
     </content>
@@ -119,6 +120,10 @@
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (MIRACLE-grailsPlugins)">
         <CLASSES>
+          <root url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/excel-import-1.0.0/lib" />
+          <root url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/joda-time-1.4/lib" />
+          <root url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/imagezoom-0.3.5/lib" />
+          <root url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/searchable-0.6.3/lib" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi/jars/poi-3.7.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.geronimo.specs/geronimo-stax-api_1.0_spec/jars/geronimo-stax-api_1.0_spec-1.0.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/stax/stax-api/jars/stax-api-1.0.1.jar!/" />
@@ -140,10 +145,7 @@
           <root url="jar://$USER_HOME$/.grails/ivy-cache/junit/junit-dep/jars/junit-dep-4.9.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.spockframework/spock-core/jars/spock-core-0.6-groovy-1.8.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.spockframework/spock-grails-support/jars/spock-grails-support-0.6-groovy-1.8.jar!/" />
-          <root url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/excel-import-1.0.0/lib" />
-          <root url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/joda-time-1.4/lib" />
-          <root url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/imagezoom-0.3.5/lib" />
-          <root url="file://$USER_HOME$/.grails/2.1.1/projects/MIRACLE/plugins/searchable-0.6.3/lib" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/jboss/javassist/jars/javassist-3.7.ga.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

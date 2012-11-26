@@ -3,8 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <g:set var="entityName" value="${message(code: 'from.savanah', default: 'from SAVANAH')}" />
-    <title><g:message code="default.import.label" args="[entityName]" /></title>
+    <title><g:message code="match.savanah.properties" /></title>
 
     <r:script>$(function() {
         $("#accordion").accordion({
@@ -15,7 +14,6 @@
     </r:script>
 </head>
 <body>
-<g:if test="${onthefly!=true}">
     <a href="#show-plateImport" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
     <div class="navbar">
         <div class="navbar-inner">
@@ -26,10 +24,9 @@
             </div>
         </div>
     </div>
-</g:if>
 <div id="show-plateImport" class="content scaffold-show" role="main">
-    <h1>Property Assignment</h1>
-    <div class="message" role="status">${flash.message?:"Assign SAVANAH properties to MIRACLE properties or create new ones."}</div>
+    <h1><g:message code="match.savanah.properties" /></h1>
+    <div class="message" role="status">${message?:"Assign SAVANAH properties to MIRACLE properties or create new ones."}</div>
     <g:set var="backParams" value="${params.toQueryString()}"/>
     <g:set var="backController" value="plateImport"/>
     <g:set var="backAction" value = "importSelectedPlateLayouts"/>
@@ -41,32 +38,9 @@
         <g:set var="importAction" value="convertAndSavePlateLayout"/>
     </g:else>
 
-    <g:form name="propertyAssignmentForm" controller="plateImport" action="${importAction}">
-
-    <g:if test="${onthefly==true}">
-        <g:each in="${layouts}" var="layoutId">
-            <input type="hidden" name="layouts" value="${layoutId}"/>
-        </g:each>
-    </g:if>
-
-    <g:each in="${plateLayouts}" var="plateLayout">
-        <input type="hidden" name="plateLayouts" value="${plateLayout}"/>
-    </g:each>
+    <g:form>
 
     <div id="accordion" style="margin: 25px; width: 90%;">
-       <g:if test="${onthefly!=true}">
-        <h3><a href="#">Change Layout Names</a></h3>
-        <div><ol class="property-list">
-            <g:each in="${titles}" var="title">
-                <li class="fieldcontain">
-                <span class="property-label">${title}</span>
-                <span id="${title}_span" class="property-value ${(params.get(title+"_tf")?PlateLayout.findByName(params.get(title+"_tf")):PlateLayout.findByName(title))?'error':''}">
-                    <g:textField id="${title}_tf" name="${title}_tf" value="${params.get(title+"_tf")?:title}"/>
-                </span>
-                </li>
-            </g:each>
-        </ol></div>
-       </g:if>
         <g:if test="${cellLineList.size() > 0}">
         <h3><a href="#">CellLine</a></h3>
         <div>

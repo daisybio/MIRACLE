@@ -1,6 +1,6 @@
 package org.nanocan.rppa.rnai
 
-class Identifier {
+class Identifier implements Serializable{
 
     String name
     String accessionNumber

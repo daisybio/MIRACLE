@@ -1,6 +1,6 @@
 package org.nanocan.savanah.attributes
 
-class Treatment {
+class Treatment implements Serializable{
 
     String name
     String comments

@@ -23,6 +23,7 @@ abstract class Spotter {
     def grailsApplication
     def currentSpottingColumn = 1
     def currentSpottingRow = 1
+    def matchingMaps
 
     Spotter(Map map)
     {
@@ -31,6 +32,7 @@ abstract class Spotter {
         this.maxSpottingColumns = map.maxSpottingColumns?:2
         this.maxExtractorColumns = map.maxExtractorColumns?:12
         this.maxExtractorRows = map.maxExtractorRows?:4
+        this.matchingMaps = map.matchingMaps
     }
 
     def spot384(List<WellLayout> extraction) {
@@ -100,51 +102,41 @@ abstract class Spotter {
 
         def props = [:]
 
-        for(prop in ["cellLine", "inducer", "treatment", "numberOfCellsSeeded"])
+        for(prop in ["cellLine", "inducer", "treatment", "numberOfCellsSeeded", "sample"])
         {
             def propInstance
 
             if (wellLayout."${prop}"){
+
                 def domainClass = grailsApplication.getClassForName("org.nanocan.rppa.layout." + prop.toString().capitalize())
 
-                //check if property exists in MIRACLE
-                propInstance = domainClass.findByName(wellLayout."${prop}".name)
-
-                //if property is given in layout, but does not yet exist in MIRACLE, create it.
-                if(!propInstance)
+                //if this is a savanah well layout, we need to get the corresponding miracle properties from a match list
+                if (wellLayout instanceof org.nanocan.savanah.plates.WellLayout)
                 {
-                    propInstance = domainClass.newInstance()
-                    propInstance.name = wellLayout."${prop}".name
-                    propInstance.color = wellLayout."${prop}".color
-                    if(prop == "treatment") propInstance.comments =  wellLayout.treatment.comments
-                    propInstance.save(flush: true, failOnError: true)
+                    propInstance = domainClass.findByName(matchingMaps[prop].get(wellLayout."${prop}".name))
                 }
+
+                else propInstance = domainClass.findByName(wellLayout."${prop}".name)
             }
 
             props.put(prop, propInstance)
         }
 
-        if(wellLayout.sample)
+        //spot type
+        if (wellLayout instanceof org.nanocan.savanah.plates.WellLayout)
         {
-            def sample = Sample.findByName(wellLayout.sample.name)
-
-            if (!sample)
-            {
-                def wellSample = wellLayout.sample
-                sample = new Sample(color: wellSample.color, name: wellSample.name, targetGene: wellSample.targetGene, type: wellSample.type).save(flush: true, failOnError: true)
-            }
-
-            props.put("sample", sample)
+            props.put("spotType", null)
         }
-        else props.put("sample", null)
-
-        //else property is null and remains null
+        else
+        {
+            props.put("spotType", wellLayout.spotType)
+        }
 
         if (dilutionFactor) dilutionFactor = Dilution.findByDilutionFactor(dilutionFactor as Double)
 
         def newLayoutSpot = new LayoutSpot(block: calculateBlockFromRowAndCol(row, column),
                 cellLine: props.cellLine, dilutionFactor: dilutionFactor, col: currentSpottingColumn, row: currentSpottingRow, inducer: props.inducer,
-                treatment: props.treatment, numberOfCellsSeeded: props.numberOfCellsSeeded, spotType: SpotType.findByType("Sample"), sample: props.sample, layout: slideLayout)
+                treatment: props.treatment, numberOfCellsSeeded: props.numberOfCellsSeeded, spotType: props.spotType, sample: props.sample, layout: slideLayout)
 
         slideLayout.addToSampleSpots(newLayoutSpot)
     }

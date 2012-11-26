@@ -1,6 +1,6 @@
 package org.nanocan.rppa.layout
 
-class Dilution {
+class Dilution implements Serializable{
 
     Double dilutionFactor
     String color

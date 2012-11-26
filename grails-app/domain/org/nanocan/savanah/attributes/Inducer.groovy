@@ -1,6 +1,6 @@
 package org.nanocan.savanah.attributes
 
-class Inducer {
+class Inducer implements Serializable{
 
     String name
     double concentration

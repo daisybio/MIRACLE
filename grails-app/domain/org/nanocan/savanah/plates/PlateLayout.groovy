@@ -1,6 +1,6 @@
 package org.nanocan.savanah.plates
 
-class PlateLayout {
+class PlateLayout implements Serializable{
 
     String name
     String format

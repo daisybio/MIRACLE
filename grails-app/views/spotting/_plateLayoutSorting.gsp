@@ -19,7 +19,7 @@
     </div>
     <br/><br/>
     <div id="savanahPlateLayoutsDiv">
-        <g:render template="plateLayoutList" model="${[layouts: savanahLayouts, prefix: 'savanah_layout_', ulid: 'unselectedSavanahPlateLayouts']}"/>
+        <g:render template="plateLayoutList" model="${[layouts: savanahLayouts, prefix: 'layout_savanah', ulid: 'unselectedSavanahPlateLayouts']}"/>
     </div>
 </div>
 
@@ -32,7 +32,7 @@
                   onchange="${g.remoteFunction(action: 'filterMiraclePlateLayoutsByProject', params: '\'&project=\'+this.value', update: 'miraclePlateLayoutsDiv')}"/>
     </div> <br/><br/>
     <div id="miraclePlateLayoutsDiv">
-        <g:render template="plateLayoutList" model="${[layouts: miracleLayouts, prefix: 'miracle_layout_', ulid: 'unselectedMiraclePlateLayouts']}" />
+        <g:render template="plateLayoutList" model="${[layouts: miracleLayouts, prefix: 'layout_miracle', ulid: 'unselectedMiraclePlateLayouts']}" />
     </div>
 </div>
 
