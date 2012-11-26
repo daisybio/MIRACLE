@@ -4,7 +4,7 @@ import org.nanocan.savanah.plates.Plate
 import org.nanocan.savanah.security.Person
 import org.nanocan.savanah.plates.PlateLayout
 
-class Experiment {
+class Experiment implements Serializable{
 
     String name
     Date dateOfExperiment

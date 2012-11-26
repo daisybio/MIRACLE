@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <g:set var="entityName" value="${message(code: 'from.savanah', default: 'from SAVANAH')}" />
-    <title><g:message code="default.import.label" args="[entityName]" /></title>
+    <title><g:message code="select.plate.layouts"/></title>
 
     <r:script>$(function() {
         $("#accordion").accordion({
@@ -25,12 +24,12 @@
     </div>
 </div>
 <div id="show-plateImport" class="content scaffold-show" role="main">
-    <h1><g:message code="default.import.label" args="[entityName]" /></h1>
+    <h1><g:message code="select.plate.layouts" /></h1>
 
     <div id="accordion" style="margin: 25px; width: 90%;">
         <h3><a href="#">Hints</a></h3>
         <div>
-            <div class="message" role="status">${flash.message?:"Select plate layouts by dragging them to the middle list."}</div>
+            <div class="message" role="status">${message?:"Select plate layouts by dragging them to the middle list."}</div>
             <div class="message">Order list elements by drag and drop, then press continue</div>
             <div class="message">Double click on a list element in order to open a preview window of the layout.</div>
             <div class="message">To remove elements from the selection drag them to the trash bin.</div>
@@ -41,17 +40,25 @@
         <h3><a href="#">Select plate layouts for new slide layout</a></h3>
         <div>
             <div id="plateSelect">
-                <g:render template="plateSorting"/>
+                <g:render template="plateLayoutSorting"/>
             </div>
         </div>
     </div>
 
+    <g:form>
+        <g:hiddenField id="plateLayoutOrder" name="plateLayoutOrder" value=""/>
+
     <div class="buttons">
-        <input
+        <g:submitButton
                 value="Continue"
-                type="button" name="continue"
-                onclick="var plateLayoutOrder = $('#selectedPlates').sortable('serialize');${g.remoteFunction(action: 'plateLayoutsOrdered', update:'show-plateImport', params: '\'&\'+plateLayoutOrder')}"/>
+                name="plateLayoutsOrdered"
+                onclick="
+                    var plateLayoutOrder = jQuery('#selectedPlates').sortable('serialize');
+                    jQuery('#plateLayoutOrder').attr('value', plateLayoutOrder);
+                "
+        />
     </div>
+    </g:form>
 
 </div>
 </body>

@@ -1,6 +1,6 @@
 package org.nanocan.rppa.layout
 
-class Inducer {
+class Inducer implements Serializable{
 
     String name
     double concentration

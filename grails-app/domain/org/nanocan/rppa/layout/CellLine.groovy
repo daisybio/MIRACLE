@@ -1,6 +1,6 @@
 package org.nanocan.rppa.layout
 
-class CellLine {
+class CellLine implements Serializable{
 
     String name
     String color

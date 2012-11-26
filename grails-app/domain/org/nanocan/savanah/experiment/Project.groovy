@@ -2,7 +2,7 @@ package org.nanocan.savanah.experiment
 
 import org.nanocan.savanah.security.Person
 
-class Project {
+class Project implements Serializable{
 
     String name
 

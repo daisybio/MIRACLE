@@ -1,6 +1,6 @@
 package org.nanocan.savanah.attributes
 
-class CellLine {
+class CellLine implements Serializable{
 
     String name
     String color

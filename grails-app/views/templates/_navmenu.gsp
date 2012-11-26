@@ -43,7 +43,7 @@
             <g:link class="create" controller="slideLayout" action="create">Create New Layout</g:link>
         </li>
         <li>
-            <g:link class="create" controller="plateImport" action="plateImport">Create Slide Layout from Plate Layouts</g:link>
+            <g:link class="create" controller="spotting" action="index">Create Slide Layout from Plate Layouts</g:link>
         </li>
         <li class="divider"></li>
         <li>

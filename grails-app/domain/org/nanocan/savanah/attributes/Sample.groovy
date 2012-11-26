@@ -1,6 +1,6 @@
 package org.nanocan.savanah.attributes
 
-class Sample {
+class Sample implements Serializable{
 
     String name
     String type

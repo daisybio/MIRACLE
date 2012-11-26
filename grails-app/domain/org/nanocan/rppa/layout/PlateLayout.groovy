@@ -1,6 +1,6 @@
 package org.nanocan.rppa.layout
 
-class PlateLayout {
+class PlateLayout implements Serializable{
 
     String name
     String format

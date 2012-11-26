@@ -1,6 +1,6 @@
 package org.nanocan.savanah.attributes
 
-class NumberOfCellsSeeded {
+class NumberOfCellsSeeded implements Serializable{
 
     String name
     int number

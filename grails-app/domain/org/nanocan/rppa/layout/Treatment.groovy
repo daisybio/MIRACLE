@@ -1,6 +1,6 @@
 package org.nanocan.rppa.layout
 
-class Treatment {
+class Treatment implements Serializable{
 
     String name
     String comments

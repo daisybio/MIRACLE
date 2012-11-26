@@ -4,13 +4,13 @@ import org.nanocan.savanah.experiment.Experiment
 import org.nanocan.savanah.plates.Plate
 import org.springframework.security.access.annotation.Secured
 import org.nanocan.rppa.layout.SlideLayout
-import org.nanocan.savanah.plates.PlateLayout
 import org.nanocan.rppa.layout.NumberOfCellsSeeded
 import org.nanocan.rppa.layout.CellLine
 import org.nanocan.rppa.layout.Inducer
 import org.nanocan.rppa.layout.Treatment
 import org.nanocan.rppa.rnai.Sample
 import org.nanocan.savanah.experiment.Project
+import org.nanocan.savanah.plates.PlateLayout
 
 @Secured(['ROLE_USER'])
 class PlateImportController {
@@ -81,7 +81,7 @@ class PlateImportController {
         if(!layouts) layouts = PlateLayout.list()
         else layouts = layouts.plateLayouts
 
-        render template: "plateLayoutList", model: ["layouts": layouts, "ulid": "unselectedSavanahPlateLayouts", "prefix":"savanah_layout_"]
+        render template: "plateLayoutList", model: ["layouts": layouts, "ulid": "unselectedSavanahPlateLayouts", "prefix":"layout_savanah"]
     }
 
     def filterMiraclePlateLayoutsByProject(){
@@ -90,7 +90,7 @@ class PlateImportController {
         if(!layouts) layouts = org.nanocan.rppa.layout.PlateLayout.list()
         else layouts = layouts.plateLayouts
 
-        render template: "plateLayoutList", model: ["layouts": layouts, "ulid": "unselectedMiraclePlateLayouts", "prefix":"miracle_layout_"]
+        render template: "plateLayoutList", model: ["layouts": layouts, "ulid": "unselectedMiraclePlateLayouts", "prefix":"layout_miracle"]
     }
 
     def convertAndSavePlateLayout(){
@@ -149,33 +149,7 @@ class PlateImportController {
     def importSelectedPlateLayouts(){
 
         def plateLayouts = params.list("platesSelected").collect{ PlateLayout.get(it)}
-        def numberOfCellsSeededList = []
-        def cellLineList = []
-        def inducerList = []
-        def treatmentList = []
-        def sampleList = []
-
-        plateLayouts.each{ playout ->
-            playout.wells.each{
-                if(it.numberOfCellsSeeded) numberOfCellsSeededList << it.numberOfCellsSeeded
-                if(it.cellLine) cellLineList << it.cellLine
-                if(it.inducer) inducerList << it.inducer
-                if(it.treatment) treatmentList << it.treatment
-                if(it.sample) sampleList << it.sample
-            }
-        }
-
-        numberOfCellsSeededList.unique()
-        cellLineList.unique()
-        inducerList.unique()
-        treatmentList.unique()
-        sampleList.unique()
-
-        def titles = plateLayouts.collect{it.name}
-
-        [numberOfCellsSeededList : numberOfCellsSeededList, cellLineList: cellLineList,
-                inducerList: inducerList, treatmentList: treatmentList, sampleList: sampleList,
-                titles: titles, plateLayouts: plateLayouts]
+        plateImportService.createMatchListsForSavanahLayouts(plateLayouts)
     }
 
     def plateImport(){
@@ -197,35 +171,93 @@ class PlateImportController {
                 miracleLayouts: org.nanocan.rppa.layout.PlateLayout.list()]
     }
 
-    def platesOrdered(){
+    def plateLayoutsOrdered(){
 
-        if (!params.list("plate[]"))
-            render "No plates have been selected"
-
+        if (!params.list("layout[]"))
+        {
+            flash.message = "No plate layouts have been selected"
+            redirect action: "plateImport"
+        }
         else{
-            def plates = params.list("plate[]").collect{
-                Plate.get(it)
+            def layouts = [:]
+            boolean hasSavanahLayouts = false
+
+            params.list("layout[]").each{
+                if(it.toString().startsWith("savanah")) hasSavanahLayouts = true
+                layouts = plateImportService.getPlateLayoutFromId(it, layouts)
+            }
+            if(hasSavanahLayouts){
+                def savanahLayouts = []
+                layouts.values().each {
+                    if(it instanceof PlateLayout) savanahLayouts << it
+                }
+
+                def matchModel = plateImportService.createMatchListsForSavanahLayouts(savanahLayouts)
+                matchModel.put("nobanner", true)
+                matchModel.put("onthefly", true)
+                matchModel.put("layouts", layouts.keySet())
+                render( view: "importSelectedPlateLayouts", model: matchModel)
             }
 
-            render(template: "sortedPlates", model: [sortedPlates: plates])
+            else render (view: "spotterSettings", model: [nobanner: true, layouts:  layouts])
         }
     }
 
-    def importSettings(){
-        def plates = params.list("plateOrder")
-        [plates: plates]
+    def spotterSettings(){
+
+        def numberOfCellsSeededMap = [:]
+        def cellLineMap = [:]
+        def inducerMap = [:]
+        def treatmentMap = [:]
+        def sampleMap = [:]
+
+        params.each{k,v ->
+            def indexOfSeparator = k.toString().indexOf('_') + 1
+
+            if(k.toString().startsWith("numberOfCellsSeeded")) numberOfCellsSeededMap.put(k.toString().substring(indexOfSeparator), NumberOfCellsSeeded.findByName(v))
+            else if(k.toString().startsWith("cellline")) cellLineMap.put(k.toString().substring(indexOfSeparator), CellLine.findByName(v))
+            else if(k.toString().startsWith("inducer")) inducerMap.put(k.toString().substring(indexOfSeparator), Inducer.findByName(v))
+            else if(k.toString().startsWith("treatment")) treatmentMap.put(k.toString().substring(indexOfSeparator), Treatment.findByName(v))
+            else if(k.toString().startsWith("sample")) sampleMap.put(k.toString().substring(indexOfSeparator), Sample.findByName(v))
+        }
+
+        flash.numberOfCellsSeededMap = numberOfCellsSeededMap
+        flash.cellLineMap = cellLineMap
+        flash.inducerMap = inducerMap
+        flash.treatmentMap = treatmentMap
+        flash.sampleMap = sampleMap
+
+        def layouts = [:]
+        params.list("layouts").each{
+            layouts = plateImportService.getPlateLayoutFromId(it, layouts)
+        }
+
+        [layouts: layouts]
     }
 
-    def processPlates(){
+    def processPlateLayouts(){
 
-        def plates = params.list("plates")
+        println params
+        println flash
+
+        def plateLayouts = params.list("layouts")
+        def layouts = [:]
+
+        plateLayouts.each{
+            layouts = plateImportService.getPlateLayoutFromId(it, layouts)
+        }
+
         def xPerBlock = params.int("xPerBlock")
         def extractions = [:]
+        def excludedPlateExtractionsMap = [:]
 
-        plates.each{
+        plateLayouts.each{
+
             def excludedPlateExtractions = []
             for(int extraction in 1..params.int("numOfExtractions")){
-                excludedPlateExtractions << params.boolean("Plate_"+it.toString()+"|Extraction_"+extraction+"|Field")
+                def extractionExcluded = "Plate_"+it.toString()+"|Extraction_"+extraction+"|Field"
+                excludedPlateExtractions << params.boolean(extractionExcluded)
+                excludedPlateExtractionsMap.put(extractionExcluded, params.boolean(extractionExcluded))
             }
             extractions.put(it, excludedPlateExtractions)
         }
@@ -233,20 +265,20 @@ class PlateImportController {
         if(!params.title || params.title == "")
         {
             flash.message = "You have to give a title to this layout!"
-            redirect(action: "plateImport")
+            render (view: "spotterSettings", model: [layouts:  layouts, excludedPlateExtractions: excludedPlateExtractionsMap])
             return
         }
         //check if title is taken
         if(SlideLayout.findByTitle(params.title))
         {
             flash.message = "Please select another title (this one already exists)."
-            redirect(action: "plateImport")
+            render (view: "spotterSettings", model: [layouts:  layouts, excludedPlateExtractions: excludedPlateExtractionsMap])
             return
         }
 
         def slideLayout
         try{
-            slideLayout = plateImportService.importPlates(params.title, plates, extractions, params.spottingOrientation,
+            slideLayout = plateImportService.importPlates(params.title, plateLayouts, extractions, params.spottingOrientation,
                     params.extractorOperationMode,
                     params.depositionPattern, xPerBlock,
                     params.bottomLeftDilution, params.topLeftDilution,

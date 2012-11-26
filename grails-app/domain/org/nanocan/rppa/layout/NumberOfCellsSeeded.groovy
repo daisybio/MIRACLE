@@ -1,6 +1,6 @@
 package org.nanocan.rppa.layout
 
-class NumberOfCellsSeeded {
+class NumberOfCellsSeeded implements Serializable{
 
     String name
     String color

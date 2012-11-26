@@ -1,6 +1,6 @@
 package org.nanocan.rppa.rnai
 
-class Sample {
+class Sample implements Serializable{
 
     String name
     String type

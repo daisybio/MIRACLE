@@ -17,17 +17,17 @@ class ExtractionIteratorBase {
     def currentExtractionColumn
     def extractorRows
     def extractorCols
-    def plate
+    def plateLayout
 
     ExtractionIteratorBase(Map map){
 
         this.extractorCols = map.extractorCols?:12
         this.extractorRows = map.extractorRows?:4
-        this.plate = map.plate
+        this.plateLayout = map.plateLayout
 
         //calculate number of extraction rows and columns
-        extractionColumns = plate.cols / extractorCols
-        extractionRows = plate.rows / extractorRows
+        extractionColumns = plateLayout.cols / extractorCols
+        extractionRows = plateLayout.rows / extractorRows
 
         //set initial values
         currentExtractionColumn = 1
@@ -35,7 +35,7 @@ class ExtractionIteratorBase {
     }
 
     def extract(int currentExtractionColumn, int currentExtractionRow){
-        if(!plate) return null
+        if(!plateLayout) return null
         if(currentExtractionColumn > extractionColumns || currentExtractionRow > extractionRows) return null
 
         def startColumn = ((currentExtractionColumn - 1) * extractorCols) + 1
@@ -45,9 +45,7 @@ class ExtractionIteratorBase {
         def endRow = startRow + extractorRows - 1
 
         def extraction = WellLayout.withCriteria{
-            plateLayout{
-                eq("id", plate.layout.id)
-            }
+            eq("id", plateLayout.id)
             between("row", startRow, endRow)
             between("col", startColumn, endColumn)
         }
