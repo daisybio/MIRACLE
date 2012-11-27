@@ -7,7 +7,8 @@
     <r:script>$(function() {
         $("#accordion").accordion({
             collapsible:true,
-            autoHeight: false
+            autoHeight: false,
+            active: 1
         });
 
     });</r:script>
@@ -25,7 +26,7 @@
 </div>
 <div id="show-plateImport" class="content scaffold-show" role="main">
     <h1><g:message code="select.plate.layouts" /></h1>
-
+    <g:if test="${message}"><div class="message" role="status">${message}</div></g:if>
     <div id="accordion" style="margin: 25px; width: 90%;">
         <h3><a href="#">Hints</a></h3>
         <div>

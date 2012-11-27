@@ -10,12 +10,12 @@
     <div>
         <g:select from="${savanahProjects}" name="project" value="${project}"
                   noSelection="['':'']"
-                  onchange="${g.remoteFunction(action: 'filterSavanahExperimentsByProject', params: '\'&project=\'+this.value', update: 'experimentSelect')}"/>
+                  onchange="${g.remoteFunction(controller: 'plateImport', action: 'filterSavanahExperimentsByProject', params: '\'&project=\'+this.value', update: 'experimentSelect')}"/>
     </div>  <br/>
     Select an experiment:
     <div id="experimentSelect">
         <g:select from="${experiments}" name="experiment" noSelection="['':'']" value="${experiment}"
-                  onchange="${g.remoteFunction(action: 'filterSavanahPlateLayoutsByExperiment', params: '\'&experiment=\'+this.value', update: 'savanahPlateLayoutsDiv')}"/>
+                  onchange="${g.remoteFunction(controller: 'plateImport', action: 'filterSavanahPlateLayoutsByExperiment', params: '\'&experiment=\'+this.value', update: 'savanahPlateLayoutsDiv')}"/>
     </div>
     <br/><br/>
     <div id="savanahPlateLayoutsDiv">
@@ -27,12 +27,12 @@
     <b>MIRACLE Plate Layouts</b> <br/> <br/>
     Select a project:
     <div>
-        <g:select from="${miracleProjects}" name="project" value="${project}"
+        <g:select from="${miracleProjects}" name="project" value="${session.projectSelected?miracleProjects.find{it.id == session.projectSelected as Long}:null}"
                   noSelection="['':'']"
-                  onchange="${g.remoteFunction(action: 'filterMiraclePlateLayoutsByProject', params: '\'&project=\'+this.value', update: 'miraclePlateLayoutsDiv')}"/>
+                  onchange="${g.remoteFunction(controller: 'plateImport', action: 'filterMiraclePlateLayoutsByProject', params: '\'&project=\'+this.value', update: 'miraclePlateLayoutsDiv')}"/>
     </div> <br/><br/>
     <div id="miraclePlateLayoutsDiv">
-        <g:render template="plateLayoutList" model="${[layouts: miracleLayouts, prefix: 'layout_miracle', ulid: 'unselectedMiraclePlateLayouts']}" />
+        <g:render template="plateLayoutList" model="${[layouts: session.projectSelected?miracleProjects.find{it.id == session.projectSelected as Long}.plateLayouts:miracleLayouts, prefix: 'layout_miracle', ulid: 'unselectedMiraclePlateLayouts']}" />
     </div>
 </div>
 

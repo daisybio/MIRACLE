@@ -1,6 +1,5 @@
 package org.nanocan.savanah.extraction
 
-import org.nanocan.savanah.plates.Plate
 import org.nanocan.savanah.plates.WellLayout
 
 /**
@@ -44,10 +43,26 @@ class ExtractionIteratorBase {
         def endColumn = startColumn + extractorCols -1
         def endRow = startRow + extractorRows - 1
 
-        def extraction = WellLayout.withCriteria{
-            eq("id", plateLayout.id)
-            between("row", startRow, endRow)
-            between("col", startColumn, endColumn)
+        def extraction
+
+        if(plateLayout instanceof org.nanocan.savanah.plates.PlateLayout)
+        {
+            extraction = WellLayout.withCriteria{
+                plateLayout{
+                    eq("id", plateLayout.id)
+                }
+                between("row", startRow, endRow)
+                between("col", startColumn, endColumn)
+            }
+        }
+        else {
+            extraction = org.nanocan.rppa.layout.WellLayout.withCriteria{
+                plateLayout{
+                    eq("id", plateLayout.id)
+                }
+                between("row", startRow, endRow)
+                between("col", startColumn, endColumn)
+            }
         }
 
         return(extraction)

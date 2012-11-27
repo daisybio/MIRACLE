@@ -18,7 +18,7 @@ class ${className}Controller {
         if(params.backParams){
             println params.backParams
             def paramsMap = [:]
-            params.remove("backParams").findAll(/([^&=]+)=([^&]+)/) { full, name, value ->  paramsMap[name] = value }
+            params.remove("backParams").substring(1).findAll(/([^&=]+)=([^&]+)/) { full, name, value ->  paramsMap[name] = value }
             flash.backParams = paramsMap
         }
         if(params.backController) flash.backController = params.remove("backController")

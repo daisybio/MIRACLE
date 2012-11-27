@@ -6,7 +6,7 @@ import org.nanocan.savanah.attributes.Treatment
 import org.nanocan.savanah.attributes.Sample
 import org.nanocan.savanah.attributes.NumberOfCellsSeeded
 
-class WellLayout implements Comparable {
+class WellLayout implements Serializable, Comparable {
 
     int col
     int row
