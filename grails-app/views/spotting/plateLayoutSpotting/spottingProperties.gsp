@@ -1,4 +1,4 @@
-<%@ page import="org.nanocan.rppa.layout.Dilution" %>
+<%@ page import="org.nanocan.rppa.layout.LysisBuffer; org.nanocan.rppa.layout.SpotType; org.nanocan.rppa.layout.Dilution" %>
 <!doctype html>
 <html>
 <head>
@@ -22,6 +22,15 @@
     </style>
 </head>
 <body>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <ul class="nav">
+                <g:render template="/templates/navmenu"></g:render>
+            </ul>
+        </div>
+    </div>
+</div>
 <div id="show-plateImport" class="content scaffold-show" role="main">
     <h1><g:message code="spotting.properties"/></h1>
     <div class="message" role="status">${message?:"Select extraction and define settings. Per default all extractions are used."}</div>
@@ -37,6 +46,14 @@
             <li class="fieldcontain">
                 <span class="property-label">Title for Layout:</span>
                 <span class="property-value"><g:textField name="title" value="${title}"/></span>
+            </li>
+            <li class="fieldcontain">
+                <span class="property-label">Default Spot Type for spotting:</span>
+                <span class="property-value"><g:select from="${SpotType.list()}" value="${defaultSpotType}" name="defaultSpotType"/></span>
+            </li>
+            <li class="fieldcontain">
+                <span class="property-label">Default Lysis Buffer for spotting:</span>
+                <span class="property-value"><g:select from="${LysisBuffer.list()}" value="${defaultLysisBuffer}" name="defaultLysisBuffer"/></span>
             </li>
             <li class="fieldcontain">
                 <span class="property-label">Traverse settings for Extractor:</span>
@@ -84,13 +101,14 @@
 
         </div>
 
-        <g:each in="${layouts.entrySet()}" var="layout">
-            <h3><a href="#">Exclude extractions in layout ${layout.value}</a></h3>
+        <g:set var="counter" value="${1}"/>
+        <g:each in="${selectedLayouts}" var="layout">
+            <h3><a href="#">Exclude extractions in layout ${layouts[layout]}</a></h3>
        <div>
-           <ol class="myselectable" id="${layout.key}ExtractionFilter">
-                    <g:hiddenField name="layouts" value="${layout.key}"/>
+           <ol class="myselectable" id="${counter}ExtractionFilter">
+                    <g:hiddenField name="layouts" value="${counter}"/>
                     <g:each in="${1..numOfExtractions}" var="extraction">
-                        <g:set var="extractionId" value="Plate_${layout.key}|Extraction_${extraction}"/>
+                        <g:set var="extractionId" value="Plate_${counter}|Extraction_${extraction}"/>
                         <g:set var="extractionFieldId" value="${extractionId}|Field"/>
                         <g:if test="${excludedPlateExtractions?excludedPlateExtractions[extractionFieldId]:false == true}">
                             <g:set var="extractionValue" value="${true}"/>
@@ -105,7 +123,7 @@
             </div>
             <r:script>
                 $(function() {
-                    $("#${layout.key}ExtractionFilter").selectable({
+                    $("#${counter}ExtractionFilter").selectable({
                             selected: function(event, ui){
                                 var newId = "" + ui.selected.id + "|Field";
                                 $(document.getElementById(newId)).attr("value", "true");
@@ -117,6 +135,7 @@
                     });
                 });
             </r:script>
+            <g:set var="counter" value="${counter+1}"/>
         </g:each>
     </div>
 

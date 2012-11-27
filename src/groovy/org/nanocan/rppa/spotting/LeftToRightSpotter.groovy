@@ -1,6 +1,7 @@
 package org.nanocan.rppa.spotting
 
-import org.nanocan.savanah.plates.WellLayout
+import org.nanocan.savanah.plates.WellLayout as SavanahWellLayout
+import org.nanocan.rppa.layout.WellLayout as MiracleWellLayout
 import groovy.transform.InheritConstructors
 
 /**
@@ -12,23 +13,17 @@ import groovy.transform.InheritConstructors
 @InheritConstructors
 class LeftToRightSpotter extends Spotter{
 
-    def sorter = new SortRowWise()
     def currentSpottingRowUsed = true
 
-    private class SortRowWise implements Comparator<WellLayout>{
-
-        @Override
-        int compare(WellLayout one, WellLayout other) {
-            if(one.row < other.row) return -1
-            else if(one.row > other.row) return 1
-            else{
-                if(one.col < other.col) return -1
-                else if(one.col > other.col) return 1
-                else return 0
-            }
+    def sortClosure = { one, other ->
+        if(one.row < other.row) return -1
+        else if(one.row > other.row) return 1
+        else{
+            if(one.col < other.col) return -1
+            else if(one.col > other.col) return 1
+            else return 0
         }
     }
-
 
     @Override
     void nextSpot() {
@@ -45,7 +40,7 @@ class LeftToRightSpotter extends Spotter{
     }
 
     @Override
-    List<WellLayout> sortExtraction(List<WellLayout> extraction) {
-        return extraction.sort(sorter)
+    def sortExtraction(def extraction) {
+        return extraction.sort(sortClosure)
     }
 }

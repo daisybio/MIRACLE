@@ -139,20 +139,21 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate',
-           'org.nanocan.rppa'
-    warn   'org.nanocan.rppa'
-    info   'org.nanocan.rppa'
-    debug   'grails.plugins.springsecurity'
-    debug   'org.codehaus.groovy.grails.plugins.springsecurity'
-    debug   'org.springframework.security'
-    debug   'org.jasig.cas.client'
+           'org.nanocan'
+    warn   'org.nanocan'
+    info   'org.nanocan'
+    //debug   'grails.plugins.springsecurity'
+    //debug   'org.codehaus.groovy.grails.plugins.springsecurity'
+    //debug   'org.springframework.security'
+    //debug   'org.jasig.cas.client'
+    debug   'org.nanocan'
 
     appenders {
         rollingFile  name:'infoLog', file:'log/info.log', threshold: org.apache.log4j.Level.INFO, maxFileSize:1024
         rollingFile  name:'warnLog', file:'log/warn.log', threshold: org.apache.log4j.Level.WARN, maxFileSize:1024
         rollingFile  name:'errorLog', file:'log/error.log', threshold: org.apache.log4j.Level.ERROR, maxFileSize:1024
         rollingFile  name:'debugLog', file:'log/debug.log', threshold: org.apache.log4j.Level.DEBUG, maxFileSize:1024
-        console      name:'stdout', threshold: org.apache.log4j.Level.WARN
+        console      name:'stdout', threshold: org.apache.log4j.Level.DEBUG
     }
 }
 

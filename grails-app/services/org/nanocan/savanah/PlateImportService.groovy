@@ -12,7 +12,7 @@ class PlateImportService {
 
     def grailsApplication
 
-    def createMatchListsForSavanahLayouts(List<PlateLayout> plateLayouts) {
+    def createMatchListsForSavanahLayouts(List<org.nanocan.savanah.plates.PlateLayout> plateLayouts, boolean isImport) {
         def numberOfCellsSeededList = []
         def cellLineList = []
         def inducerList = []
@@ -20,6 +20,7 @@ class PlateImportService {
         def sampleList = []
 
         plateLayouts.each { playout ->
+            playout.attach()
             playout.wells.each {
                 if (it.numberOfCellsSeeded) numberOfCellsSeededList << it.numberOfCellsSeeded
                 if (it.cellLine) cellLineList << it.cellLine
@@ -35,11 +36,15 @@ class PlateImportService {
         treatmentList.unique()
         sampleList.unique()
 
-        def titles = plateLayouts.collect {it.name}
+        def result = [numberOfCellsSeededList: numberOfCellsSeededList, cellLineList: cellLineList,
+                inducerList: inducerList, treatmentList: treatmentList, sampleList: sampleList]
 
-        [numberOfCellsSeededList: numberOfCellsSeededList, cellLineList: cellLineList,
-                inducerList: inducerList, treatmentList: treatmentList, sampleList: sampleList,
-                titles: titles, plateLayouts: plateLayouts]
+        if(!isImport) return result
+        else{
+            result.put("titles", plateLayouts.collect{it.name})
+            result.put("plateLayouts", plateLayouts)
+            return result
+        }
     }
 
     def getPlateLayoutFromId(it, layouts) {
@@ -94,26 +99,26 @@ class PlateImportService {
         def spotter
         def matchingMaps = [:]
         matchingMaps.put("numberOfCellsSeeded", settings.numberOfCellsSeededMap?:[:])
-        matchingMaps.put("cellLineMap", settings.cellLineMap?:[:])
-        matchingMaps.put("inducerMap", settings.inducerMap?:[:])
-        matchingMaps.put("treatmentMap", settings.treatmentMap?:[:])
-        matchingMaps.put("sampleMap", settings.sampleMap?:[:])
+        matchingMaps.put("cellLine", settings.cellLineMap?:[:])
+        matchingMaps.put("inducer", settings.inducerMap?:[:])
+        matchingMaps.put("treatment", settings.treatmentMap?:[:])
+        matchingMaps.put("sample", settings.sampleMap?:[:])
 
         //spot top-to-bottom or left-to-right
-        if(settings.spottingOrientation == "left-to-right") spotter = new LeftToRightSpotter(grailsApplication: grailsApplication, maxSpottingColumns: settings.xPerBlock, matchingMaps: matchingMaps)
-        else if(settings.spottingOrientation == "top-to-bottom") spotter = new TopToBottomSpotter(grailsApplication: grailsApplication, maxSpottingRows: settings.xPerBlock, matchingMaps: matchingMaps)
+        if(settings.spottingOrientation == "left-to-right") spotter = new LeftToRightSpotter(grailsApplication: grailsApplication, maxSpottingColumns: settings.xPerBlock, matchingMaps: matchingMaps, defaultLysisBuffer: settings.defaultLysisBuffer, defaultSpotType: settings.defaultSpotType)
+        else if(settings.spottingOrientation == "top-to-bottom") spotter = new TopToBottomSpotter(grailsApplication: grailsApplication, maxSpottingRows: settings.xPerBlock, matchingMaps: matchingMaps, defaultLysisBuffer: settings.defaultLysisBuffer, defaultSpotType: settings.defaultSpotType)
 
         //iterate over plates
-        settings.layouts.each{ key, it ->
+        settings.selectedLayouts.eachWithIndex{ obj, i ->
 
-            log.debug "iterating plate ${it}"
+            log.debug "iterating plate ${settings.layouts[obj]}"
 
             //iterate over extractions
             def iterator
             int extractorRows = 4
             int extractorCols = 12
 
-            def plateLayout = it
+            def plateLayout = settings.layouts[obj]
             log.debug "Found plate layout ${plateLayout}"
 
             //if we use a 384 well plate we can use the default options (48 pins), but in case of 96 well plates
@@ -136,11 +141,11 @@ class PlateImportService {
             {
                 log.debug "iteration plate layout ${plateLayout}"
                 extractionIndex++
-                log.debug settings.extractions.get(key)
-                log.debug settings.extractions[key].get(extractionIndex)
+                log.debug settings.extractions.get((i+1).toString())
+                log.debug settings.extractions[(i+1).toString()].get(extractionIndex)
 
-                if(settings.extractions[key].get(extractionIndex) == true){
-                    log.debug "skipping extraction ${extractionIndex} of plate layout ${it}"
+                if(settings.extractions[(i+1).toString()].get(extractionIndex) == true){
+                    log.debug "skipping extraction ${extractionIndex} of plate layout ${plateLayout}"
                     iterator.next()
                     continue
                 }

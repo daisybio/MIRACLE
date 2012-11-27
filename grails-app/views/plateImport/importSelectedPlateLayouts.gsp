@@ -34,27 +34,15 @@
     <g:set var="backController" value="plateImport"/>
     <g:set var="backAction" value = "importSelectedPlateLayouts"/>
 
-    <g:if test="${onthefly==true}">
-        <g:set var="importAction" value="spotterSettings"/>
-    </g:if>
-    <g:else>
-        <g:set var="importAction" value="convertAndSavePlateLayout"/>
-    </g:else>
+    <g:set var="importAction" value="convertAndSavePlateLayout"/>
 
     <g:form name="propertyAssignmentForm" controller="plateImport" action="${importAction}">
-
-    <g:if test="${onthefly==true}">
-        <g:each in="${layouts}" var="layoutId">
-            <input type="hidden" name="layouts" value="${layoutId}"/>
-        </g:each>
-    </g:if>
 
     <g:each in="${plateLayouts}" var="plateLayout">
         <input type="hidden" name="plateLayouts" value="${plateLayout}"/>
     </g:each>
 
     <div id="accordion" style="margin: 25px; width: 90%;">
-       <g:if test="${onthefly!=true}">
         <h3><a href="#">Change Layout Names</a></h3>
         <div><ol class="property-list">
             <g:each in="${titles}" var="title">
@@ -66,7 +54,6 @@
                 </li>
             </g:each>
         </ol></div>
-       </g:if>
         <g:if test="${cellLineList.size() > 0}">
         <h3><a href="#">CellLine</a></h3>
         <div>

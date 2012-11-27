@@ -1,11 +1,10 @@
 package org.nanocan.rppa.spotting
 
 import org.nanocan.rppa.layout.SlideLayout
-import org.nanocan.savanah.plates.WellLayout
+import org.nanocan.savanah.plates.WellLayout as SavanahWellLayout
+import org.nanocan.rppa.layout.WellLayout
 import org.nanocan.rppa.layout.LayoutSpot
 import org.nanocan.rppa.layout.Dilution
-import org.nanocan.rppa.rnai.Sample
-import org.nanocan.rppa.layout.SpotType
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,6 +23,8 @@ abstract class Spotter {
     def currentSpottingColumn = 1
     def currentSpottingRow = 1
     def matchingMaps
+    def defaultSpotType
+    def defaultLysisBuffer
 
     Spotter(Map map)
     {
@@ -33,9 +34,11 @@ abstract class Spotter {
         this.maxExtractorColumns = map.maxExtractorColumns?:12
         this.maxExtractorRows = map.maxExtractorRows?:4
         this.matchingMaps = map.matchingMaps
+        this.defaultSpotType = map.defaultSpotType
+        this.defaultLysisBuffer = map.defaultLysisBuffer
     }
 
-    def spot384(List<WellLayout> extraction) {
+    def spot384(def extraction) {
 
         def extractionSorted = sortExtraction(extraction)
 
@@ -46,11 +49,11 @@ abstract class Spotter {
         nextSpot()
     }
 
-    def spot96as384(List<WellLayout> extraction){
+    def spot96as384(def extraction){
         spot96as384(extraction, null)
     }
 
-    def spot96as384(List<WellLayout> extraction, dilutionPattern) {
+    def spot96as384(def extraction, dilutionPattern) {
 
         def parseRow = {row -> 1 + (row - 1) * 2}
         def parseColumn = {col -> 1 + (col - 1) * 2}
@@ -76,7 +79,7 @@ abstract class Spotter {
 
     abstract void nextSpot()
 
-    abstract List<WellLayout> sortExtraction(List<WellLayout> extraction)
+    abstract def sortExtraction(def extraction)
 
     boolean isFull(){
         if (currentSpottingColumn > maxSpottingColumns || currentSpottingRow > maxSpottingRows) return true
@@ -105,29 +108,28 @@ abstract class Spotter {
         for(prop in ["cellLine", "inducer", "treatment", "numberOfCellsSeeded", "sample"])
         {
             def propInstance
+            wellLayout.attach()
 
             if (wellLayout."${prop}"){
 
-                def domainClass = grailsApplication.getClassForName("org.nanocan.rppa.layout." + prop.toString().capitalize())
-
                 //if this is a savanah well layout, we need to get the corresponding miracle properties from a match list
-                if (wellLayout instanceof org.nanocan.savanah.plates.WellLayout)
+                if (wellLayout instanceof SavanahWellLayout)
                 {
-                    propInstance = domainClass.findByName(matchingMaps[prop].get(wellLayout."${prop}".name))
+                    propInstance = matchingMaps[prop].get(wellLayout."${prop}".name)
                 }
 
-                else propInstance = domainClass.findByName(wellLayout."${prop}".name)
+                else propInstance = wellLayout."${prop}"
             }
 
             props.put(prop, propInstance)
         }
 
         //spot type
-        if (wellLayout instanceof org.nanocan.savanah.plates.WellLayout)
+        if (wellLayout instanceof SavanahWellLayout)
         {
             props.put("spotType", null)
         }
-        else
+        else if(wellLayout instanceof WellLayout)
         {
             props.put("spotType", wellLayout.spotType)
         }
@@ -136,7 +138,7 @@ abstract class Spotter {
 
         def newLayoutSpot = new LayoutSpot(block: calculateBlockFromRowAndCol(row, column),
                 cellLine: props.cellLine, dilutionFactor: dilutionFactor, col: currentSpottingColumn, row: currentSpottingRow, inducer: props.inducer,
-                treatment: props.treatment, numberOfCellsSeeded: props.numberOfCellsSeeded, spotType: props.spotType, sample: props.sample, layout: slideLayout)
+                lysisBuffer: defaultLysisBuffer, treatment: props.treatment, numberOfCellsSeeded: props.numberOfCellsSeeded, spotType: props.spotType?:defaultSpotType, sample: props.sample, layout: slideLayout)
 
         slideLayout.addToSampleSpots(newLayoutSpot)
     }

@@ -44,6 +44,8 @@ class SpottingController {
                     def layouts = [:]
                     boolean hasSavanahLayouts = false
 
+                    flow.selectedLayouts = selectedLayouts
+
                     selectedLayouts.each{
                         if(it.toString().startsWith("savanah")) hasSavanahLayouts = true
                         layouts = plateImportService.getPlateLayoutFromId(it, layouts)
@@ -61,13 +63,11 @@ class SpottingController {
 
         modelForMatchSavanahProperties{
             action {
-                def savanahLayouts = []
+                List<org.nanocan.savanah.plates.PlateLayout> savanahLayouts = new ArrayList<org.nanocan.savanah.plates.PlateLayout>()
                 flow.layouts.values().each {
                     if(it instanceof PlateLayout) savanahLayouts << it
                 }
-                def matchModel = plateImportService.createMatchListsForSavanahLayouts(savanahLayouts)
-                matchModel.put("onthefly", true)
-                matchModel.put("layouts", flow.layouts.keySet())
+                def matchModel = plateImportService.createMatchListsForSavanahLayouts(savanahLayouts, false)
                 matchModel
             }
             on("success").to "matchSavanahProperties"
@@ -132,6 +132,14 @@ class SpottingController {
                 flow.topLeftDilution = params.topLeftDilution
                 flow.topRightDilution = params.topRightDilution
                 flow.bottomRightDilution = params.bottomRightDilution
+                flow.defaultLysisBuffer = params.defaultLysisBuffer
+                flow.defaultSpotType = params.defaultSpotType
+
+                if(!(params.depositionPattern ==~ /\[([1-9],)+[1-9]\]/))
+                {
+                    flash.message = "The deposition pattern is invalid!"
+                    error()
+                }
 
                 if(!params.title || params.title == "")
                 {
@@ -151,20 +159,21 @@ class SpottingController {
         spotPlateLayouts{
             action {
                     def slideLayout
-                    try{
+                   // try{
                         slideLayout = plateImportService.importPlates(flow)
-                    } catch(Exception e)
+                    /*} catch(Exception e)
                     {
                         flash.message = "Import failed with exception: " + e.getMessage()
                         return spottingProperties()
-                    }
+                    } */
 
                     slideLayout.lastUpdatedBy = springSecurityService.currentUser
                     slideLayout.createdBy = springSecurityService.currentUser
 
                     if (slideLayout.save(flush: true, failOnError: true)) {
+                        flow.layoutId = slideLayout.id
                         flash.message = "Slide Layout successfully created"
-                        redirect(controller: "slideLayout", action: "show", id: slideLayout.id)
+                        success()
                     }
                     else{
                         flash.message = "import succeeded, but persisting the slide layout failed: " + slideLayout.errors.toString()
@@ -172,6 +181,11 @@ class SpottingController {
                     }
             }
             on("spottingProperties").to "spottingProperties"
+            on("success").to "showLayout"
+        }
+
+        showLayout{
+            redirect(controller: "slideLayout", action: "show", id: flow.layoutId)
         }
     }
 }

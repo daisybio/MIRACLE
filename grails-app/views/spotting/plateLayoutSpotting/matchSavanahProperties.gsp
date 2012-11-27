@@ -28,15 +28,10 @@
     <h1><g:message code="match.savanah.properties" /></h1>
     <div class="message" role="status">${message?:"Assign SAVANAH properties to MIRACLE properties or create new ones."}</div>
     <g:set var="backParams" value="${params.toQueryString()}"/>
-    <g:set var="backController" value="plateImport"/>
-    <g:set var="backAction" value = "importSelectedPlateLayouts"/>
+    <g:set var="backController" value="spotting"/>
+    <g:set var="backAction" value = "plateLayoutSpotting"/>
 
-    <g:if test="${onthefly==true}">
-        <g:set var="importAction" value="spotterSettings"/>
-    </g:if>
-    <g:else>
-        <g:set var="importAction" value="convertAndSavePlateLayout"/>
-    </g:else>
+    <g:set var="importAction" value="spotterSettings"/>
 
     <g:form>
 
@@ -123,7 +118,7 @@
         </g:if>
     </div>
     <div class="buttons">
-        <g:submitButton name="import plate" value="Continue"/>
+        <g:submitButton name="continue" value="Continue"/>
     </div>
     </g:form>
 </div>
