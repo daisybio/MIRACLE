@@ -1,6 +1,6 @@
 package org.nanocan.rppa.layout
 
-class SpotType {
+class SpotType implements Serializable {
 
     String name
     String type

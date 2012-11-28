@@ -18,7 +18,6 @@
                         modal: true,
                         resizable: false,
                         height:140,
-                        modal: true,
                         buttons: {
                             "Yes, add spots": function() {
                             window.location = "<g:createLink controller="slide" action="addSpots" id="${slideInstance.id}"></g:createLink>";
@@ -39,7 +38,6 @@
                         modal: true,
                         resizable: false,
                         height:230,
-                        modal: true,
                         buttons: {
                             "Yes, process image now": function() {
                                 $('#slideZoomPanel').text('Image is being processed in the background...');

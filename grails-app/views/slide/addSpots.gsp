@@ -23,7 +23,7 @@
     <h1>Add Spots</h1>
 
         <div id="updateDiv" class="message">Select a sheet and configuration</div>
-        <g:jprogressDialog message="Adding spots to database..." progressId="excelimport" trigger="buttonAddSpots" />
+        <g:jprogressDialog message="Adding spots to database..." progressId="pId${slideInstance.id}" trigger="buttonAddSpots" />
         <div id="formDiv">
         <g:form>
 

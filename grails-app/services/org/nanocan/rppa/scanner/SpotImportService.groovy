@@ -73,19 +73,19 @@ class SpotImportService {
     }
 
     //keep track of the progress, but update only every 1% to reduce the overhead
-    def initializeProgressBar = { spots ->
-        progressService.setProgressBarValue("excelimport", 0)
+    def initializeProgressBar = { spots, progressId ->
+        progressService.setProgressBarValue(progressId, 0)
         def numberOfSpots = spots.size()
 
         onePercent = (int) (numberOfSpots / 100)
         return onePercent
     }
 
-    def updateProgressBar = { nextStep, currentSpotIndex ->
+    def updateProgressBar = { nextStep, currentSpotIndex, progressId ->
         if(currentSpotIndex == nextStep)
         {
             nextStep += onePercent
-            progressService.setProgressBarValue("excelimport", currentPercent++)
+            progressService.setProgressBarValue(progressId, currentPercent++)
         }
 
         return nextStep
@@ -108,18 +108,18 @@ class SpotImportService {
     /**
      * Main method
      */
-    def processResultFile(def slideInstance, String sheetName, ResultFileConfig rfc)
+    def processResultFile(def slideInstance, String sheetName, ResultFileConfig rfc, def progressId)
     {
         def spots = importSpotsFromExcel(slideInstance.resultFile.filePath, sheetName, rfc)
 
-        nextStep = initializeProgressBar(spots)
+        nextStep = initializeProgressBar(spots, progressId)
 
         //create an sql instance for direct inserts via groovy sql
         def sql = Sql.newInstance(dataSourceUnproxied)
 
         //insert spots
         try{
-            performSqlBatchInsert(sql, spots, slideInstance)
+            performSqlBatchInsert(sql, spots, slideInstance, progressId)
         }catch(NoMatchingLayoutException nmle)
         {
             return "No matching layout found for spot ${nmle.obj}"
@@ -135,7 +135,7 @@ class SpotImportService {
     }
 
     //use hibernate batch with prepared statements for max performance
-    def performSqlBatchInsert(sql, spots, slideInstance){
+    def performSqlBatchInsert(sql, spots, slideInstance, progressId){
         //config
         def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
         def batchSize = grailsApplication.config.rppa.jdbc.batchSize?:150
@@ -171,7 +171,7 @@ class SpotImportService {
                 newSpot.slide = slideInstance
                 newSpot.save()
 
-                nextStep = updateProgressBar(nextStep, currentSpotIndex)
+                nextStep = updateProgressBar(nextStep, currentSpotIndex, progressId)
             }
         }
 
@@ -187,7 +187,7 @@ class SpotImportService {
                     //add insert statement to batch
                     stmt.addBatch(0, obj.BG, obj.FG, obj.block, obj.col, obj.diameter, obj.flag, currentLayoutSpot.id, obj.row, slideInstance.id, obj.x, obj.y, obj.FG-obj.BG)
 
-                    nextStep = updateProgressBar(nextStep, currentSpotIndex)
+                    nextStep = updateProgressBar(nextStep, currentSpotIndex, progressId)
                 }
             }
         }

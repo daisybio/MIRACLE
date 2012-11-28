@@ -22,6 +22,7 @@
     </style>
 </head>
 <body>
+<div id="body">
 <div class="navbar">
     <div class="navbar-inner">
         <div class="container">
@@ -34,10 +35,13 @@
 <div id="show-plateImport" class="content scaffold-show" role="main">
     <h1><g:message code="spotting.properties"/></h1>
     <div class="message" role="status">${message?:"Select extraction and define settings. Per default all extractions are used."}</div>
-    <g:form>
+
+    <g:formRemote update="body" name="spottingFlowForm" url="[controller: 'spotting', action:'plateLayoutSpotting', params: '']">
     <g:set var="numOfExtractions" value="${8}"/>
     <g:hiddenField name="numOfExtractions" value="${numOfExtractions}"/>
-
+    <g:hiddenField name="execution" value="${request.flowExecutionKey}"/>
+    <g:hiddenField name="progressId" value="pId${request.flowExecutionKey}"/>
+    <g:hiddenField name="_eventId" value="continue"/>
     <div id="accordion" style="margin: 25px; width: 90%;">
 
         <h3><a href="#">Spotter settings</a></h3>
@@ -49,11 +53,11 @@
             </li>
             <li class="fieldcontain">
                 <span class="property-label">Default Spot Type for spotting:</span>
-                <span class="property-value"><g:select from="${SpotType.list()}" value="${defaultSpotType}" name="defaultSpotType"/></span>
+                <span class="property-value"><g:select from="${SpotType.list()}" value="${defaultSpotType}" optionKey="id" noSelection="['':'']" name="defaultSpotType"/></span>
             </li>
             <li class="fieldcontain">
                 <span class="property-label">Default Lysis Buffer for spotting:</span>
-                <span class="property-value"><g:select from="${LysisBuffer.list()}" value="${defaultLysisBuffer}" name="defaultLysisBuffer"/></span>
+                <span class="property-value"><g:select from="${LysisBuffer.list()}" value="${defaultLysisBuffer}" optionKey="id" noSelection="['':'']" name="defaultLysisBuffer"/></span>
             </li>
             <li class="fieldcontain">
                 <span class="property-label">Traverse settings for Extractor:</span>
@@ -106,6 +110,7 @@
             <h3><a href="#">Exclude extractions in layout ${layouts[layout]}</a></h3>
        <div>
            <ol class="myselectable" id="${counter}ExtractionFilter">
+
                     <g:hiddenField name="layouts" value="${counter}"/>
                     <g:each in="${1..numOfExtractions}" var="extraction">
                         <g:set var="extractionId" value="Plate_${counter}|Extraction_${extraction}"/>
@@ -139,8 +144,9 @@
         </g:each>
     </div>
 
+    <g:jprogressDialog progressId="pId${request.flowExecutionKey}" message="Virtual spotting of slide layout in progress..." trigger="_eventId_continue"/>
     <div class="buttons"><g:submitButton class="save" name="continue" value="Continue"/></div>
-    </g:form>
-
+    </g:formRemote>
+</div>
 </body>
 </html>

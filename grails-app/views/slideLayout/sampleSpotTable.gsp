@@ -36,33 +36,20 @@
     });
 </script>
 
-<div class="navbar">
-    <div class="navbar-inner">
-        <div class="container">
-            <ul class="nav">
-                <g:render template="/templates/navmenu"></g:render>
-        <li><g:link class="list" action="show" id="${slideLayout?.id}">Back to Layout</g:link></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-
 <g:jprogressDialog message="Updating layout information..." progressId="update${slideLayout.id}" trigger="layoutUpdateButton"/>
 
-<h1 style="padding-left:20px;">Modify ${sampleProperty.toString().capitalize()} for layout "${slideLayout}" </h1>
-
-<div class="message" id="message" role="status">${flash.message?:"Select cells to change the layout"}</div>
+<div class="message" id="message" role="status" style="padding:0px;margin:0px;margin-bottom:10px;">${flash.message?:"Select cells to change the layout"}</div>
 
 <g:if test="${sampleProperty == 'sample'}" >
     <div class="errors">Warning: Colors are not unique for samples! Make sure you know what you are doing!</div>
 </g:if>
 
-<g:formRemote onSuccess="window.onbeforeunload = null;" name="${sampleProperty}form" update="message" url="[controller: 'slideLayout', action: 'updateSpotProperty']">
+<g:formRemote onSuccess="window.onbeforeunload = null;unsavedChanges=false" name="spotPropertiesForm" update="message" url="[controller: 'slideLayout', action: 'updateSpotProperty']">
+    <div class="buttons" style="margin-top:5px; margin-bottom:10px;"><input type="submit" value="Save changes" name="layoutUpdateButton"/></div>
     <input name="spotProperty" type="hidden" value="${sampleProperty}"/>
     <input name="slideLayout" type="hidden" value="${slideLayout.id}"/>
 
-<div id = "blockTabs" style="overflow: auto; height:700px;">
+<div id = "blockTabs" style="overflow: auto;">
  <ul>
  <g:each var="i" in="${1..tabsNeeded}">
   <g:set var="tab" value="${((i-1) * blocksPerRow)+1}"/>
@@ -119,7 +106,6 @@
     </div>
  </g:each>
 </div>
-<input type="submit" value="Save changes" name="layoutUpdateButton"/>
 </g:formRemote>
 
 <r:script>
@@ -131,6 +117,7 @@
     var buttondown = -1
     var cellstartr, cellstartc, cellendr, cellendc
     var tableName
+    var unsavedChanges
 
     function registerHandlers(tN) {
         tableName = tN
@@ -197,6 +184,7 @@
                              cell.firstChild.setAttribute("value", selId);
                              $('#message').html("Please save your changes!") ;
                             window.onbeforeunload = unloadPage;
+                            unsavedChanges = true
                         }
                     }
                 }

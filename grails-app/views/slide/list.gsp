@@ -27,19 +27,19 @@
 			<table>
 				<thead>
 					<tr>
-                        <th><g:message code="slide.title.label" default="Title" /></th>
+                        <g:sortableColumn property="title" title="Title" titleKey="slide.title.label"><g:message code="slide.title.label" default="Title" /></g:sortableColumn>
 					
-						<th><g:message code="slide.antibody.label" default="Antibody" /></th>
+						<g:sortableColumn property="antibody.name" title="Antibody" titleKey="slide.antibody.label"><g:message code="slide.antibody.label" default="Antibody" /></g:sortableColumn>
 					
 						<g:sortableColumn property="dateOfStaining" title="${message(code: 'slide.dateOfStaining.label', default: 'Date Of Staining')}" />
 					
-						<th><g:message code="slide.experimenter.label" default="Experimenter" /></th>
+						<g:sortableColumn property="experimenter.username" title="Experimenter" titleKey="slide.experimenter.label"><g:message code="slide.experimenter.label" default="Experimenter" /></g:sortableColumn>
 					
 						<g:sortableColumn property="laserWavelength" title="${message(code: 'slide.laserWavelength.label', default: '~')}" />
 
                         <g:sortableColumn property="photoMultiplierTube" title="${message(code: 'slide.photoMultiplierTube.label', default: 'PMT')}" />
 					
-						<th><g:message code="slide.resultFile.label" default="Result File" /></th>
+						<g:sortableColumn property="resultFile.fileName" title="Result File" titleKey="slide.resultFile.label"><g:message code="slide.resultFile.label" default="Result File" /></g:sortableColumn>
 					
 					</tr>
 				</thead>
