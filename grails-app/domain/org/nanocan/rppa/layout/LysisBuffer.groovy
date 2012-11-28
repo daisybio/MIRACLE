@@ -1,6 +1,6 @@
 package org.nanocan.rppa.layout
 
-class LysisBuffer {
+class LysisBuffer implements Serializable{
 
     String name
     Double concentration

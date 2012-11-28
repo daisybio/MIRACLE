@@ -224,6 +224,7 @@ class SlideController {
     def processResultFile = {
 
         def slideInstance = Slide.get(params.id)
+        def progressId = "pId" + params.id
 
         if (progressService.retrieveProgressBarValue("excelimport") != 0)
             render "an import process is already running. please try again later!"
@@ -242,9 +243,9 @@ class SlideController {
 
         else
         {
-            def result = spotImportService.processResultFile(slideInstance, params.sheet, ResultFileConfig.get(params.config))
+            def result = spotImportService.processResultFile(slideInstance, params.sheet, ResultFileConfig.get(params.config), progressId)
 
-            progressService.setProgressBarValue("excelimport", 100)
+            progressService.setProgressBarValue(progressId, 100)
 
             if(!(result instanceof Slide)) render result
 

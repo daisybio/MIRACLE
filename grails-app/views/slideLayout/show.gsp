@@ -7,6 +7,7 @@
 		<g:set var="entityName" value="${message(code: 'slideLayout.label', default: 'SlideLayout')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 
+        <r:require module="colorPicker"/>
         <r:script>$(function() {
             $("#accordion").accordion({
                 collapsible:true,
@@ -120,19 +121,43 @@
                             lastUpdated: slideLayoutInstance.lastUpdated,
                             lastUpdatedBy: slideLayoutInstance.lastUpdatedBy]"/>
                 </div>
+                <h3><a href="#">Spot Properties</a></h3>
+                <div>
+                    <div>
+                            Select a property: <g:select name="sampleProperty" optionKey="key" optionValue="value" value="${sampleProperty}"
+                                                         from="${["cellLine":"CellLine", "inducer":"Inducer", "lysisBuffer":"Lysis Buffer", "spotType": "Spot Type", "treatment":"Treatment", "numberOfCellsSeeded":"Number of cells seeded", "sample":"Sample"]}"
+                                                         onchange="
+                                                   var selectValue = this.value;
+                                                   if(unsavedChanges){
+                                                             jQuery('#dialog-spot-confirm').dialog({
+                                                                 resizable: false,
+                                                                 height:140,
+                                                                 modal: true,
+                                                                 buttons: {
+                                                                    'Save now': function() {
+                                                                        jQuery.ajax({type:'POST',data:jQuery('#spotPropertiesForm').serialize(), url:'/MIRACLE/slideLayout/updateSpotProperty',success:function(data,textStatus){jQuery('#message').html(data);window.onbeforeunload = null;unsavedChanges=false;},error:function(XMLHttpRequest,textStatus,errorThrown){}});
+                                                                        ${remoteFunction(update: 'spotProperties', action:'sampleSpotTable', id: slideLayoutInstance?.id, params: "\'nobanner=true&sampleProperty=\'+selectValue")};
+                                                                        jQuery(this).dialog( 'close' );
+                                                                    },
+                                                                    'Ignore': function() {
+                                                                        unsavedChanges = false;
+                                                                        ${remoteFunction(update: 'spotProperties', action:'sampleSpotTable', id: slideLayoutInstance?.id, params: "\'nobanner=true&sampleProperty=\'+selectValue")};
+                                                                        jQuery( this ).dialog( 'close' );
+                                                                    }
+                                                               }
+                                                            });
+                                                   }
+                                                   else ${remoteFunction(update: 'spotProperties', action:'sampleSpotTable', id: slideLayoutInstance?.id, params: "\'nobanner=true&sampleProperty=\'+selectValue")};"
+                        />
+                    </div>
+                    <div id="dialog-spot-confirm" title="You have unsaved changes!" style="display: none;">
+                        <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>You have unsaved changes. What do you want to do?</p>
+                    </div>
+                    <div id="spotProperties">
+                        <g:include action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'cellLine']}"/>
+                    </div>
+                </div>
             </div>
-
-            <h1>Change Spot Properties</h1>
-            <ul style="padding:20px;padding-left:100px;">
-                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'cellLine']}"> Cellline </g:link></li>
-                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'dilutionFactor']}"> Dilution </g:link></li>
-                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'inducer']}"> Inducer </g:link></li>
-                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'lysisBuffer']}"> Lysis Buffer </g:link></li>
-                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'numberOfCellsSeeded']}"> Number of Cells Seeded </g:link></li>
-                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'sample']}"> Sample Information </g:link></li>
-                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'spotType']}"> Spot Type </g:link></li>
-                <li><g:link action="sampleSpotTable" id="${slideLayoutInstance?.id}" params="${[sampleProperty: 'treatment']}"> Treatment </g:link></li>
-            </ul>
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${slideLayoutInstance?.id}" />

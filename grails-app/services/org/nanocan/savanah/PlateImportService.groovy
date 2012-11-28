@@ -11,6 +11,7 @@ import org.nanocan.rppa.layout.PlateLayout
 class PlateImportService {
 
     def grailsApplication
+    def progressService
 
     def createMatchListsForSavanahLayouts(List<org.nanocan.savanah.plates.PlateLayout> plateLayouts, boolean isImport) {
         def numberOfCellsSeededList = []
@@ -108,6 +109,10 @@ class PlateImportService {
         if(settings.spottingOrientation == "left-to-right") spotter = new LeftToRightSpotter(grailsApplication: grailsApplication, maxSpottingColumns: settings.xPerBlock, matchingMaps: matchingMaps, defaultLysisBuffer: settings.defaultLysisBuffer, defaultSpotType: settings.defaultSpotType)
         else if(settings.spottingOrientation == "top-to-bottom") spotter = new TopToBottomSpotter(grailsApplication: grailsApplication, maxSpottingRows: settings.xPerBlock, matchingMaps: matchingMaps, defaultLysisBuffer: settings.defaultLysisBuffer, defaultSpotType: settings.defaultSpotType)
 
+        //percentage for progress bar
+        def totalExtractions = settings.extractionCount
+        def currentExtraction = 0
+
         //iterate over plates
         settings.selectedLayouts.eachWithIndex{ obj, i ->
 
@@ -139,6 +144,9 @@ class PlateImportService {
 
             while(iterator.hasNext())
             {
+                //update progress bar
+                progressService.setProgressBarValue(settings.progressId, (((currentExtraction++) / totalExtractions) * 100))
+
                 log.debug "iteration plate layout ${plateLayout}"
                 extractionIndex++
                 log.debug settings.extractions.get((i+1).toString())

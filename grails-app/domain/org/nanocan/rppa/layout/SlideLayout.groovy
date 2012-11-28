@@ -2,7 +2,7 @@ package org.nanocan.rppa.layout
 
 import org.nanocan.rppa.security.Person
 
-class SlideLayout{
+class SlideLayout implements Serializable{
 
     Date dateCreated
     Date lastUpdated

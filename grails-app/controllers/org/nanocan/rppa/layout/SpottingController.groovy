@@ -10,6 +10,7 @@ class SpottingController {
 
     def plateImportService
     def springSecurityService
+    def progressService
 
     def index() {
         redirect(action: "plateLayoutSpotting")
@@ -107,19 +108,25 @@ class SpottingController {
         spottingProperties{
             on("continue"){
 
+                flash.nobanner = true
+
                 def extractions = [:]
                 def excludedPlateExtractionsMap = [:]
+                def extractionCount = 0
 
                 params.list("layouts").each{
 
                     def excludedPlateExtractions = []
                     for(int extraction in 1..params.int("numOfExtractions")){
                         def extractionExcluded = "Plate_"+it.toString()+"|Extraction_"+extraction+"|Field"
-                        excludedPlateExtractions << params.boolean(extractionExcluded)
+                        boolean excludeThisExtraction = params.boolean(extractionExcluded)
+                        excludedPlateExtractions << excludeThisExtraction
+                        if(!excludeThisExtraction) extractionCount++
                         excludedPlateExtractionsMap.put(extractionExcluded, params.boolean(extractionExcluded))
                     }
                     extractions.put(it, excludedPlateExtractions)
                 }
+                flow.extractionCount = extractionCount
                 flow.extractions = extractions
                 flow.excludedPlateExtractions = excludedPlateExtractionsMap
 
@@ -132,45 +139,54 @@ class SpottingController {
                 flow.topLeftDilution = params.topLeftDilution
                 flow.topRightDilution = params.topRightDilution
                 flow.bottomRightDilution = params.bottomRightDilution
-                flow.defaultLysisBuffer = params.defaultLysisBuffer
-                flow.defaultSpotType = params.defaultSpotType
+                if(params.defaultLysisBuffer) flow.defaultLysisBuffer = LysisBuffer.get(params.defaultLysisBuffer)
+                if(params.defaultSpotType) flow.defaultSpotType = SpotType.get(params.defaultSpotType)
 
                 if(!(params.depositionPattern ==~ /\[([1-9],)+[1-9]\]/))
                 {
+                    progressService.setProgressBarValue(params.progressId, 100)
                     flash.message = "The deposition pattern is invalid!"
                     error()
                 }
 
                 if(!params.title || params.title == "")
                 {
+                    progressService.setProgressBarValue(params.progressId, 100)
                     flash.message = "You have to give a title to this layout!"
                     error()
                 }
                 //check if title is taken
                 else if(SlideLayout.findByTitle(params.title))
                 {
+                    progressService.setProgressBarValue(params.progressId, 100)
                     flash.message = "Please select another title (this one already exists)."
                     error()
                 }
-                else success()
+                else
+                {
+                    flow.progressId = params.progressId
+                    success()
+                }
             }.to "spotPlateLayouts"
         }
 
         spotPlateLayouts{
             action {
-                    def slideLayout
-                   // try{
+
+                   def slideLayout
+                   try{
                         slideLayout = plateImportService.importPlates(flow)
-                    /*} catch(Exception e)
+                    } catch(Exception e)
                     {
                         flash.message = "Import failed with exception: " + e.getMessage()
                         return spottingProperties()
-                    } */
+                    }
 
                     slideLayout.lastUpdatedBy = springSecurityService.currentUser
                     slideLayout.createdBy = springSecurityService.currentUser
 
                     if (slideLayout.save(flush: true, failOnError: true)) {
+                        progressService.setProgressBarValue(flow.progressId, 100)
                         flow.layoutId = slideLayout.id
                         flash.message = "Slide Layout successfully created"
                         success()
@@ -185,7 +201,7 @@ class SpottingController {
         }
 
         showLayout{
-            redirect(controller: "slideLayout", action: "show", id: flow.layoutId)
+            redirect(controller: "slideLayout", action: "show", id: flow.layoutId, params: [nobanner: true])
         }
     }
 }
