@@ -5,6 +5,16 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'protein.concentration', default: 'Protein Concentration Estimation')}" />
     <title><g:message code="default.edit.label" args="[entityName]" /></title>
+
+    <r:script>$(function() {
+        $("#accordion").accordion({
+            collapsible:true,
+            autoHeight: false
+        });
+
+    });
+    </r:script>
+
 </head>
 <body>
 
@@ -33,24 +43,31 @@
 
     <g:formRemote name="plotProtConc" url="[controller:'R', id: id, action: 'plotProteinConcentration']" update="[success:'plotArea', failure:'messageBox']">
 
-        <table>
-            <tr>
-                <td>Sample (x-axis)</td>
-                <td><g:select multiple="${true}" from="${layoutProperties}" value="${[:]}" name="sample" size="${layoutProperties.size()}"/></td>
-                <td>Fill (Color Separation)</td>
-                <td><g:select multiple="${true}" from="${layoutProperties}" value="${[:]}" name="fill" size="${layoutProperties.size()}"/></td>
-            </tr>
-            <tr>
-                <td>Category A</td>
-                <td><g:select multiple="${true}" from="${layoutProperties}" value="${[:]}" name="A" size="${layoutProperties.size()}"/></td>
-                <td>Category B</td>
-                <td><g:select multiple="${true}" from="${layoutProperties}" value="${[:]}" name="B" size="${layoutProperties.size()}"/></td>
-            </tr>
-            <tr>
+        <g:select from="${['SerialDilutionCurve', 'SuperCurve']}" name="method" value="SerialDilutionCurve"/>
+        <div id="accordion" style="margin: 25px; width: 90%;">
+
+        <h3><a href="#">Categories</a></h3>
+            <div>
+                <table>
+                    <tr>
+                        <td>Sample (x-axis)</td>
+                        <td><g:select multiple="${true}" from="${layoutProperties}" value="${[:]}" name="sample" size="${layoutProperties.size()}"/></td>
+                                <td>Fill (Color Separation)</td>
+                                <td><g:select multiple="${true}" from="${layoutProperties}" value="${[:]}" name="fill" size="${layoutProperties.size()}"/></td>
+                    </tr>
+                    <tr>
+                            <td>Category A</td>
+                            <td><g:select multiple="${true}" from="${layoutProperties}" value="${[:]}" name="A" size="${layoutProperties.size()}"/></td>
+                            <td>Category B</td>
+                            <td><g:select multiple="${true}" from="${layoutProperties}" value="${[:]}" name="B" size="${layoutProperties.size()}"/></td>
+                    </tr>
+                    <tr>
 
 
-            </tr>
-        </table>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <g:submitButton name="Plot"/>
     </g:formRemote>
 

@@ -125,7 +125,7 @@
                 <div>
                     <div>
                             Select a property: <g:select name="sampleProperty" optionKey="key" optionValue="value" value="${sampleProperty}"
-                                                         from="${["cellLine":"CellLine", "inducer":"Inducer", "lysisBuffer":"Lysis Buffer", "spotType": "Spot Type", "treatment":"Treatment", "numberOfCellsSeeded":"Number of cells seeded", "sample":"Sample"]}"
+                                                         from="${["cellLine":"CellLine", "dilutionFactor":"Dilution Factor", "inducer":"Inducer", "lysisBuffer":"Lysis Buffer", "spotType": "Spot Type", "treatment":"Treatment", "numberOfCellsSeeded":"Number of cells seeded", "sample":"Sample"]}"
                                                          onchange="
                                                    var selectValue = this.value;
                                                    if(unsavedChanges){

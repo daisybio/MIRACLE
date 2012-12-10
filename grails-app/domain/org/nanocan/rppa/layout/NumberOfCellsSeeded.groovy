@@ -6,6 +6,7 @@ class NumberOfCellsSeeded implements Serializable{
     String color
 
     static constraints = {
+        name unique: true
         color unique:  true, validator:  {val, obj -> val != "#ffffff"}, nullable: false, blank: false
     }
 

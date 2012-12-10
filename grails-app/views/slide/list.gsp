@@ -27,11 +27,13 @@
 			<table>
 				<thead>
 					<tr>
+                        <g:sortableColumn property="barcode" title="Barcode" titleKey="slide.barcode.label"><g:message code="slide.barcode.label" default="Barcode" /></g:sortableColumn>
+
                         <g:sortableColumn property="title" title="Title" titleKey="slide.title.label"><g:message code="slide.title.label" default="Title" /></g:sortableColumn>
 					
 						<g:sortableColumn property="antibody.name" title="Antibody" titleKey="slide.antibody.label"><g:message code="slide.antibody.label" default="Antibody" /></g:sortableColumn>
 					
-						<g:sortableColumn property="dateOfStaining" title="${message(code: 'slide.dateOfStaining.label', default: 'Date Of Staining')}" />
+						<g:sortableColumn property="dateOfStaining" title="${message(code: 'slide.dateOfStaining.label', default: 'Date')}" />
 					
 						<g:sortableColumn property="experimenter.username" title="Experimenter" titleKey="slide.experimenter.label"><g:message code="slide.experimenter.label" default="Experimenter" /></g:sortableColumn>
 					
@@ -46,6 +48,8 @@
 				<tbody>
 				<g:each in="${slideInstanceList}" status="i" var="slideInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                        <td><g:link action="show" id="${slideInstance.id}">${slideInstance?.barcode}</g:link></td>
 
                         <td><g:link action="show" id="${slideInstance.id}">${slideInstance?.toString()}</g:link></td>
 

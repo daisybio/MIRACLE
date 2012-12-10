@@ -134,7 +134,7 @@ abstract class Spotter {
             props.put("spotType", wellLayout.spotType)
         }
 
-        if (dilutionFactor) dilutionFactor = Dilution.findByDilutionFactor(dilutionFactor as Double)
+        if (dilutionFactor) dilutionFactor = Dilution.get(dilutionFactor)
 
         def newLayoutSpot = new LayoutSpot(block: calculateBlockFromRowAndCol(row, column),
                 cellLine: props.cellLine, dilutionFactor: dilutionFactor, col: currentSpottingColumn, row: currentSpottingRow, inducer: props.inducer,

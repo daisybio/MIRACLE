@@ -112,6 +112,15 @@
                 <div>
                     <ol class="property-list slide">
 
+                        <g:if test="${slideInstance?.barcode}">
+                            <li class="fieldcontain">
+                                <span id="barcode-label" class="property-label"><g:message code="slide.barcode.label" default="Title" /></span>
+
+                                <span class="property-value" aria-labelledby="barcode-label">${slideInstance.barcode}</span>
+
+                            </li>
+                        </g:if>
+
                         <g:if test="${slideInstance?.title}">
                             <li class="fieldcontain">
                                 <span id="title-label" class="property-label"><g:message code="slide.title.label" default="Title" /></span>

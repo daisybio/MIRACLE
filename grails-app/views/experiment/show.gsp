@@ -1,5 +1,5 @@
 
-<%@ page import="org.nanocan.savanah.experiment.Experiment" %>
+<%@ page import="org.nanocan.rppa.project.Experiment" %>
 <!doctype html>
 <html>
 	<head>
@@ -15,6 +15,7 @@
                     <ul class="nav">
                         <g:render template="/templates/navmenu"></g:render>
                         <li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+                        <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
                     </ul>
                 </div>
             </div>
@@ -26,29 +27,11 @@
 			</g:if>
 			<ol class="property-list experiment">
 			
-				<g:if test="${experimentInstance?.name}">
+				<g:if test="${experimentInstance?.title}">
 				<li class="fieldcontain">
-					<span id="name-label" class="property-label"><g:message code="experiment.name.label" default="Name" /></span>
+					<span id="title-label" class="property-label"><g:message code="experiment.title.label" default="Title" /></span>
 					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${experimentInstance}" field="name"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${experimentInstance?.experimenter}">
-				<li class="fieldcontain">
-					<span id="experimenter-label" class="property-label"><g:message code="experiment.experimenter.label" default="Experimenter" /></span>
-					
-						<span class="property-value" aria-labelledby="experimenter-label"><g:link controller="person" action="show" id="${experimentInstance?.experimenter?.id}">${experimentInstance?.experimenter?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${experimentInstance?.dateOfExperiment}">
-				<li class="fieldcontain">
-					<span id="dateOfExperiment-label" class="property-label"><g:message code="experiment.dateOfExperiment.label" default="Date Of Experiment" /></span>
-					
-						<span class="property-value" aria-labelledby="dateOfExperiment-label"><g:formatDate date="${experimentInstance?.dateOfExperiment}" /></span>
+						<span class="property-value" aria-labelledby="title-label"><g:fieldValue bean="${experimentInstance}" field="title"/></span>
 					
 				</li>
 				</g:if>
@@ -71,6 +54,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${experimentInstance?.description}">
+				<li class="fieldcontain">
+					<span id="description-label" class="property-label"><g:message code="experiment.description.label" default="Description" /></span>
+					
+						<span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${experimentInstance}" field="description"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${experimentInstance?.lastUpdated}">
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="experiment.lastUpdated.label" default="Last Updated" /></span>
@@ -89,18 +81,56 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${experimentInstance?.plates}">
+				<g:if test="${experimentInstance?.layouts}">
 				<li class="fieldcontain">
-					<span id="plates-label" class="property-label"><g:message code="experiment.plates.label" default="Plates" /></span>
+					<span id="layouts-label" class="property-label"><g:message code="experiment.layouts.label" default="Layouts" /></span>
 					
-						<g:each in="${experimentInstance.plates}" var="p">
-						<span class="property-value" aria-labelledby="plates-label"><g:link controller="plate" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
+						<g:each in="${experimentInstance.layouts}" var="l">
+						<span class="property-value" aria-labelledby="layouts-label"><g:link controller="slideLayout" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link></span>
+						</g:each>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${experimentInstance?.plateLayouts}">
+				<li class="fieldcontain">
+					<span id="plateLayouts-label" class="property-label"><g:message code="experiment.plateLayouts.label" default="Plate Layouts" /></span>
+					
+						<g:each in="${experimentInstance.plateLayouts}" var="p">
+						<span class="property-value" aria-labelledby="plateLayouts-label"><g:link controller="plateLayout" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
+						</g:each>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${experimentInstance?.project}">
+				<li class="fieldcontain">
+					<span id="project-label" class="property-label"><g:message code="experiment.project.label" default="Project" /></span>
+					
+						<span class="property-value" aria-labelledby="project-label"><g:link controller="project" action="show" id="${experimentInstance?.project?.id}">${experimentInstance?.project?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${experimentInstance?.slides}">
+				<li class="fieldcontain">
+					<span id="slides-label" class="property-label"><g:message code="experiment.slides.label" default="Slides" /></span>
+					
+						<g:each in="${experimentInstance.slides}" var="s">
+						<span class="property-value" aria-labelledby="slides-label"><g:link controller="slide" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>
 				</g:if>
 			
 			</ol>
+			<g:form>
+				<fieldset class="buttons">
+					<g:hiddenField name="id" value="${experimentInstance?.id}" />
+					<g:link class="edit" action="edit" id="${experimentInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+				</fieldset>
+			</g:form>
 		</div>
 	</body>
 </html>
