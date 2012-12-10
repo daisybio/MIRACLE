@@ -13,6 +13,7 @@ class Slide{
     Person createdBy
     Person lastUpdatedBy
 
+    String barcode
     Person experimenter
     int laserWavelength
     int photoMultiplierTube
@@ -33,6 +34,7 @@ class Slide{
     }
 
     static constraints = {
+         barcode nullable: true
          laserWavelength min: 1, max: 1000
          protocol nullable: true
          resultImage nullable: true

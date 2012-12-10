@@ -35,6 +35,14 @@
     </r:script>
 </head>
 
+<div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'barcode', 'error')} required">
+    <label for="barcode">
+        <g:message code="slide.barcode.label" default="Barcode" />
+        <span class="required-indicator">*</span>
+    </label>
+    <g:textField name="barcode" value="${slideInstance.barcode}"></g:textField>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'title', 'error')} required">
     <label for="title">
         <g:message code="slide.title.label" default="Title" />

@@ -22,7 +22,6 @@ class RController {
     }
 
     def heatmap(){
-        println params
         [slideId: params.id]
     }
 
@@ -41,6 +40,7 @@ class RController {
 
         def stringenize = { return (it.collect{ x -> ("\"" + x.toString() + "\"")})}
         def vectorize = { String s = stringenize(it).toString(); return("c(" + s.substring(1, s.length()-1) + ")")}
+        def method = params.method
 
         def sample = params.sample?vectorize(params.list("sample")):"NA"
         def A = params.A?vectorize(params.list("A")):"NA"
@@ -48,11 +48,14 @@ class RController {
         def fill = params.fill?vectorize(params.list("fill")):"NA"
 
         def images
+        def quantCommand
+        if(method == "SuperCurve") quantCommand = "result <- rppa.superCurve(spots, select.columns.sample=${sample}, select.columns.A=${A}, select.columns.B=${B}, select.columns.fill=${fill}, interactive=F)"
+        else quantCommand = "result <- rppa.serialDilution(spots, select.columns.sample=${sample}, select.columns.A=${A}, select.columns.B=${B}, select.columns.fill=${fill})"
 
         images = plot(params.id as Integer, [
                 [
                     "spots\$DilutionFactor <- as.double(spots\$DilutionFactor)",
-                    "result <- rppa.superCurve(spots, select.columns.sample=${sample}, select.columns.A=${A}, select.columns.B=${B}, select.columns.fill=${fill}, interactive=F)"
+                    quantCommand
                 ],
                 [   "rppa.proteinConc.plot(result, error.bars=F, horizontal.line=F)"    ]
             ])

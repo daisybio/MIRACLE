@@ -1,7 +1,7 @@
 <%@ page import="org.nanocan.rppa.project.Project" %>
 <li class="dropdown" id="main.menu">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#main.menu">
-        <g:message code="default.menu.label" default="Projects"/>
+        <g:message code="default.menu.label" default="Organize"/>
         <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
@@ -11,6 +11,13 @@
         <li>
             <g:link class="create" controller="project" action="create">Create New Project</g:link>
         </li>
+        <li>
+            <g:link class="list" controller="experiment" action="list">List Experiments</g:link>
+        </li>
+        <li>
+            <g:link class="create" controller="experiment" action="create">Create New Experiment</g:link>
+        </li>
+
     </ul>
 </li>
 <li class="dropdown" id="plate.menu">
@@ -57,6 +64,9 @@
         </li>
         <li>
             <g:link class="slide_layout" controller="lysisBuffer" action="list">Lysis Buffers</g:link>
+        </li>
+        <li>
+            <g:link class="slide_layout" controller="numberOfCellsSeeded" action="list">Number of Cells Seeded</g:link>
         </li>
         <li>
             <g:link class="slide_layout" controller="spotType" action="list">Spot Types</g:link>

@@ -192,7 +192,7 @@ class SlideController {
             //remove from all projects
             projectService.updateProjects(slideInstance, [])
             //delete spots first, saves a lot of time
-            spotImportService.deleteSpots()
+            if (slideInstance?.spots?.size() > 0) spotImportService.deleteSpots()
 
             slideInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'slide.label', default: 'Slide'), params.id])
@@ -216,7 +216,8 @@ class SlideController {
     }
 
     def deleteSpots = {
-        spotImportService.deleteSpots(params.id)
+        if(Slide.get(params.id)?.spots?.size() > 0)
+            spotImportService.deleteSpots(params.id)
 
         redirect(action: "show", id: params.id)
     }
