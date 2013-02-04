@@ -32,6 +32,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
     dependencies {
+        compile "org.grails:grails-webflow:$grailsVersion"
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         // runtime 'mysql:mysql-connector-java:5.1.16'
@@ -49,7 +50,12 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.4"
 
         build ":tomcat:$grailsVersion"
-        test ":spock:0.6"
-        compile ":webflow:2.0.0"
+        test(":spock:0.7") {
+            exclude "spock-grails-support"
+        }
+        compile ":searchable:0.6.4"
+        compile(":webflow:2.0.0") {
+            exclude 'grails-webflow'
+        }
     }
 }
