@@ -101,7 +101,6 @@
                     <ul>
                         <li>App version: <g:meta name="app.version"/></li>
                         <li>Grails version: <g:meta name="app.grails.version"/></li>
-                        <li>Groovy version: ${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</li>
                         <li>JVM version: ${System.getProperty('java.version')}</li>
                         <li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>   <br/>
                         <li>Slides in the database: ${org.nanocan.rppa.scanner.Slide.count()}</li>
