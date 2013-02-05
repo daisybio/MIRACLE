@@ -3,6 +3,12 @@ package org.nanocan.rppa.scanner
 import groovy.sql.Sql
 import org.nanocan.rppa.layout.LayoutSpot
 import org.nanocan.rppa.layout.NoMatchingLayoutException
+import org.springsource.loaded.SystemClassReflectionInvestigator
+import org.apache.poi.xssf.eventusermodel.XSSFReader
+import org.apache.poi.openxml4j.opc.OPCPackage
+import org.apache.commons.io.FilenameUtils
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.WorkbookFactory
 
 /**
  * This service handles the extraction from spot information from an excel sheet using the excel-import plugin.
@@ -24,17 +30,8 @@ class SpotImportService {
     def getSheets(def slideInstance)
     {
         def resultFile = slideInstance.resultFile
-
-        ResultFileImporter importer = new ResultFileImporter()
-
-        def fis = new FileInputStream(resultFile.filePath)
-
-        importer.readFromStream(fis)
-        def sheets = importer.getSheets()
-
-        fis.close();
-
-        return sheets
+        def filePath = resultFile.filePath
+        return ResultFileImporter.getSheets(filePath)
     }
 
     /**
@@ -44,16 +41,16 @@ class SpotImportService {
 
         //config
         def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
+        def slideInstance = Slide.get(slideInstanceId)
 
         if(groovySql)
         {
             def sql = Sql.newInstance(dataSourceUnproxied)
             sql.execute('delete from spot where slide_id = ?', slideInstanceId)
             sql.close()
-            Slide.get(slideInstanceId).refresh()
         }
 
-        else Slide.get(slideInstanceId).spots.clear()
+        else slideInstance.spots.clear()
     }
 
     /**
@@ -63,11 +60,9 @@ class SpotImportService {
     def importSpotsFromExcel(String filePath, String sheetName, ResultFileConfig rfc) {
 
         ResultFileImporter importer = new ResultFileImporter()
-        def fis = new FileInputStream(filePath)
-        importer.readFromStream(fis)
+        importer.customRead(filePath)
 
         def spots = importer.getSpots(sheetName, rfc)
-        fis.close()
 
         return(spots)
     }
@@ -123,6 +118,11 @@ class SpotImportService {
         }catch(NoMatchingLayoutException nmle)
         {
             return "No matching layout found for spot ${nmle.obj}"
+        }catch(MissingMethodException e)
+        {
+            log.error e.getMessage();
+        } finally{
+            sql.close()
         }
 
         //clean up
@@ -230,5 +230,4 @@ class SpotImportService {
         layoutColumn++
         return layoutColumn
     }
-
 }

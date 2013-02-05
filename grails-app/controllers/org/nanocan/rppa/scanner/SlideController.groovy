@@ -248,6 +248,9 @@ class SlideController {
 
             progressService.setProgressBarValue(progressId, 100)
 
+            //clean up memory since apache poi creates an enormous memory footprint
+            System.gc()
+
             if(!(result instanceof Slide)) render result
 
             else render "${slideInstance.spots.size()} spots have been added to the database and linked to the layout."
