@@ -4,10 +4,12 @@ import groovy.sql.Sql
 import org.nanocan.rppa.layout.LayoutSpot
 import org.nanocan.rppa.layout.NoMatchingLayoutException
 
-import org.nanocan.rppa.scanner.ResultFileImporter
 import org.nanocan.rppa.scanner.Slide
 import org.nanocan.rppa.scanner.ResultFileConfig
 import org.nanocan.rppa.scanner.Spot
+import org.apache.commons.io.FilenameUtils
+import org.apache.commons.io.FileUtils
+import org.apache.commons.lang.StringUtils
 
 /**
  * This service handles the extraction from spot information from an excel sheet using the excel-import plugin.
@@ -31,13 +33,96 @@ class SpotImportService {
     {
         def resultFile = slideInstance.resultFile
         def filePath = resultFile.filePath
-        return ResultFileImporter.getSheets(filePath)
+        return xlsxImportService.getSheets(filePath)
+    }
+
+    def convertCSV2(String content)
+    {
+        content = StringUtils.replace(content, ".", "")
+        content = StringUtils.replace(content, ",", ".")
+        content = StringUtils.replace(content, ";", ",")
+
+        return content
+    }
+
+    /**
+     * Skip lines and read header, then parse it to array
+     * @param content
+     * @return
+     */
+    def extractHeader(def content, def skipLines)
+    {
+        Scanner scanner = new Scanner(content)
+
+        //skipping lines
+
+        for( int i = 0; i < skipLines; i++ )
+        {
+            if(scanner.hasNext()) scanner.nextLine()
+        }
+
+        //reading and parsing header
+        def header = scanner.nextLine()
+
+        scanner.close()
+
+        header = header.split(',')
+        header = Arrays.asList(header)
+
+        return (header)
+    }
+
+    def createMatchingMap(ResultFileConfig resultFileCfg, List<String> header) {
+        def matchingMap = [:]
+
+        if (resultFileCfg) {
+
+            for (String colName : header) {
+                def trimmedColName = colName
+
+                //remote leading and tailing quote
+                if (colName.startsWith("\"") && colName.endsWith("\""))
+                    trimmedColName = colName.substring(1, colName.length() - 1);
+
+
+                switch (trimmedColName) {
+                    case resultFileCfg.blockCol:
+                        matchingMap.put(colName, "block")
+                        break
+                    case resultFileCfg.rowCol:
+                        matchingMap.put(colName, "row")
+                        break
+                    case resultFileCfg.columnCol:
+                        matchingMap.put(colName, "column")
+                        break
+                    case resultFileCfg.fgCol:
+                        matchingMap.put(colName, "FG")
+                        break
+                    case resultFileCfg.bgCol:
+                        matchingMap.put(colName, "BG")
+                        break
+                    case resultFileCfg.flagCol:
+                        matchingMap.put(colName, "flag")
+                        break
+                    case resultFileCfg.diameterCol:
+                        matchingMap.put(colName, "diameter")
+                        break
+                    case resultFileCfg.xCol:
+                        matchingMap.put(colName, "X")
+                        break
+                    case resultFileCfg.yCol:
+                        matchingMap.put(colName, "Y")
+                        break
+                }
+            }
+        }
+        matchingMap
     }
 
     /**
      * Efficiently delete all spots that belong to a slide
      */
-    def deleteSpots = { slideInstanceId ->
+    def deleteSpots (slideInstanceId) {
 
         //config
         def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
@@ -57,8 +142,17 @@ class SpotImportService {
      * Import excel file using a fileinputstream
      * ResultFileConfig is a map of column letters to domain class properties, e.g. Signal is in column F, ...
      */
-    def importSpotsFromExcel(String filePath, String sheetName) {
-        return xlsxImportService.parseXLSXSheetToCSV(filePath, "2")
+    def importSpotsFromFile(String filePath, int sheetIndex, int minNumOfCols) {
+
+        def fileEnding = FilenameUtils.getExtension(filePath)
+
+        if(fileEnding == "xlsx")
+            return xlsxImportService.parseXLSXSheetToCSV(filePath, sheetIndex.toString(), minNumOfCols)
+        else if(fileEnding == "xls")
+            return xlsxImportService.parseXLSSheetToCSV(filePath, sheetIndex.toString(), minNumOfCols)
+        else {
+            return FileUtils.readFileToString(new File(filePath))
+        }
     }
 
     //keep track of the progress, but update only every 1% to reduce the overhead
@@ -83,11 +177,6 @@ class SpotImportService {
     /*
      * Some global variables
      */
-    //we want to keep track of the last layout spot to reduce the database load
-    int lastBlock = -1
-    int lastRow = -1
-    int lastCol = -1
-    def lastLayoutSpot
 
     //global variables for progress bar
     def currentPercent = 0
@@ -97,7 +186,7 @@ class SpotImportService {
     /**
      * Main method
      */
-    def processResultFile(slideInstance, sheetContent, columnMap, skipLines, progressId)
+    def processResultFile(def slideInstance, String sheetContent, def columnMap, int skipLines, String progressId)
     {
         Scanner scanner = new Scanner(sheetContent)
 
@@ -117,7 +206,6 @@ class SpotImportService {
 
             try
             {
-
                 def newSpot = [:]
 
                 newSpot.BG = Double.valueOf(currentLine[columnMap.BG])
@@ -131,6 +219,7 @@ class SpotImportService {
                 newSpot.flag = Double.valueOf(currentLine[columnMap.flag] )
 
                 spots << newSpot
+
             }catch(ArrayIndexOutOfBoundsException)
             {
                 log.info "could not parse line, assuming the end is reached."
@@ -204,7 +293,7 @@ class SpotImportService {
                 newSpot.slide = slideInstance
                 newSpot.save()
 
-                nextStep = updateProgressBar(nextStep, currentSpotIndex, progressId)
+                //nextStep = updateProgressBar(nextStep, currentSpotIndex, progressId)
             }
         }
 
@@ -220,7 +309,7 @@ class SpotImportService {
                     //add insert statement to batch
                     stmt.addBatch(0, obj.BG, obj.FG, obj.block, obj.col, obj.diameter, obj.flag, currentLayoutSpot.id, obj.row, slideInstance.id, obj.x, obj.y, obj.FG-obj.BG)
 
-                    nextStep = updateProgressBar(nextStep, currentSpotIndex, progressId)
+                    //nextStep = updateProgressBar(nextStep, currentSpotIndex, progressId)
                 }
             }
         }

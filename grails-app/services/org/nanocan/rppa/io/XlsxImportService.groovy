@@ -12,6 +12,10 @@ import javax.xml.parsers.SAXParserFactory
 import org.apache.poi.xssf.eventusermodel.ReadOnlySharedStringsTable
 import org.apache.poi.xssf.eventusermodel.XSSFReader
 import org.nanocan.excelimport.MyXLSXHandler
+import org.apache.commons.io.FilenameUtils
+import org.apache.poi.ss.usermodel.WorkbookFactory
+import org.apache.poi.poifs.filesystem.POIFSFileSystem
+import org.nanocan.excelimport.MyXLStoCSVConverter
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +27,38 @@ import org.nanocan.excelimport.MyXLSXHandler
 class XlsxImportService {
 
 
-    def parseXLSXSheetToCSV(filePath, sheetIndex) {
+    def getSheets(filePath){
+
+        def fileEnding = FilenameUtils.getExtension(filePath)
+        def sheets = []
+
+        if(fileEnding == "xlsx")
+        {
+            OPCPackage pkg = OPCPackage.open(filePath, PackageAccess.READ);
+
+            XSSFReader r = new XSSFReader(pkg)
+            XSSFReader.SheetIterator iterator = (XSSFReader.SheetIterator) r.getSheetsData()
+
+            while(iterator.hasNext())
+            {
+                iterator.next()
+                sheets << iterator.getSheetName()
+            }
+        }
+
+        else if (fileEnding == "xls"){
+            def workbook = WorkbookFactory.create(new File(filePath));
+            def numOfSheets = workbook.getNumberOfSheets()
+            for (int i = 0; i < numOfSheets; i++)
+            {
+                sheets << workbook.getSheetName(i)
+            }
+        }
+
+        return sheets
+    }
+
+    def parseXLSXSheetToCSV(filePath, sheetIndex, minColNum) {
 
         OPCPackage xlsxPackage = OPCPackage.open(filePath, PackageAccess.READ)
 
@@ -40,11 +75,30 @@ class XlsxImportService {
         ByteArrayOutputStream baos = new ByteArrayOutputStream()
         PrintStream ps = new PrintStream(baos)
 
-        ContentHandler handler = new MyXLSXHandler(styles, strings, 5, ps)
+        ContentHandler handler = new MyXLSXHandler(styles, strings, minColNum, ps)
         sheetParser.setContentHandler(handler)
         sheetParser.parse(sheetSource)
 
         instream.close()
+        ps.close()
+
+        def result = baos.toString()
+        baos.close()
+
+        return result
+    }
+
+    def parseXLSSheetToCSV(filePath, sheetIndex, minColNum) {
+
+        def fileInputStream = new FileInputStream(filePath)
+        def fileSystem = new POIFSFileSystem(fileInputStream)
+        def baos = new ByteArrayOutputStream()
+        def ps = new PrintStream(baos)
+
+        def converter = new MyXLStoCSVConverter(fileSystem, ps, minColNum, Integer.parseInt(sheetIndex))
+        converter.process()
+
+        fileInputStream.close()
         ps.close()
 
         def result = baos.toString()

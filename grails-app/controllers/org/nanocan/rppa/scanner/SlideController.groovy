@@ -209,110 +209,81 @@ class SlideController {
      */
 
     /* Add and delete spots, import from result file */
-    def addSpots = {
+    def addSpots() {
         def slideInstance = Slide.get(params.id)
 
-        [slideInstance: slideInstance, configs: ResultFileConfig.list(), sheets: spotImportService.getSheets(slideInstance)]
+        def index = 1
+
+        def fileEnding = FilenameUtils.getExtension(slideInstance.resultFile.filePath)
+
+        def sheets = spotImportService.getSheets(slideInstance).collect{
+            [index: index++, name: it]
+        }
+
+        [slideInstance: slideInstance, configs: ResultFileConfig.list(), fileEnding: fileEnding, sheets: sheets]
     }
 
     final ArrayList<String> spotProperties = ["block", "column", "row", "FG", "BG", "flag", "X", "Y", "diameter"]
 
 
-    def readInputFile = {
+    def readInputFile(){
         def slideInstance = Slide.get(params.id)
-        println params
 
         //read sheet / file
-        String sheetContent = spotImportService.importSpotsFromExcel(slideInstance.resultFile.filePath, params.sheet)
-        Scanner scanner = new Scanner(sheetContent)
+        def sheetContent
+        try{
+            sheetContent = spotImportService.importSpotsFromFile(slideInstance.resultFile.filePath, params.int("sheet")?:0, params.int("minColRead")?:1)
+        }catch(IOException e)
+        {
+            render "<div class='message'>Could not read file</div>"
+            return
+        }
+
+        //convert CSV2 to CSV:
+        if (params.csvType == "CSV2") sheetContent = spotImportService.convertCSV2(sheetContent)
 
         //read config
         def resultFileCfg
 
         if(!params.config.equals("")){
             resultFileCfg = ResultFileConfig.get(params.config)
+            slideInstance.lastConfig = resultFileCfg
+            slideInstance.save()
         }
-
-        //skipping lines
-        def skipLines = resultFileCfg?resultFileCfg.skipLines:0
-
+        def skipLines = resultFileCfg?.skipLines?:0
         if (params.skipLines == "on") skipLines = params.int("howManyLines")
 
-        for( int i = 0; i < skipLines; i++ )
-        {
-            if(scanner.hasNext()) scanner.nextLine()
-        }
+        println skipLines
 
-        //reading and parsing header
-        def header = scanner.nextLine()
+        def header
+
+        try{
+            header = spotImportService.extractHeader(sheetContent, skipLines)
+        }catch(NoSuchElementException e) {
+            render "<div class='message'>Could not read header!</div>"
+            return
+        }
 
         //keeping content for later
         flash.totalSkipLines = ++skipLines
         flash.sheetContent = sheetContent
 
-        scanner.close()
-
-        header = header.split(',')
-        header = Arrays.asList(header)
-
         //matching properties
 
-        def matchingMap = [:]
+        def matchingMap = spotImportService.createMatchingMap(resultFileCfg, header)
 
-        if(resultFileCfg){
-
-            for(String colName : header)
-            {
-                def trimmedColName
-
-                //remote leading and tailing quote
-                if (colName.startsWith("\"") && colName.endsWith("\""))
-                    trimmedColName = colName.substring(1, colName.length() - 1);
-
-
-                switch(trimmedColName){
-                    case resultFileCfg.blockCol:
-                        matchingMap.put(colName, "block")
-                        break
-                    case resultFileCfg.rowCol:
-                        matchingMap.put(colName, "row")
-                        break
-                    case resultFileCfg.columnCol:
-                        matchingMap.put(colName, "column")
-                        break
-                    case resultFileCfg.fgCol:
-                        matchingMap.put(colName, "FG")
-                        break
-                    case resultFileCfg.bgCol:
-                        matchingMap.put(colName, "BG")
-                        break
-                    case resultFileCfg.flagCol:
-                        matchingMap.put(colName, "flag")
-                        break
-                    case resultFileCfg.diameterCol:
-                        matchingMap.put(colName, "diameter")
-                        break
-                    case resultFileCfg.xCol:
-                        matchingMap.put(colName, "X")
-                        break
-                    case resultFileCfg.yCol:
-                        matchingMap.put(colName, "Y")
-                        break
-                }
-            }
-        }
-
-        render view: "assignFields", model: [header: header, spotProperties: spotProperties, matchingMap: matchingMap]
+        render view: "assignFields", model: [progressId: "pId${params.id}", header: header, spotProperties: spotProperties, matchingMap: matchingMap]
     }
 
-    def deleteSpots = {
+
+    def deleteSpots() {
         if(Slide.get(params.id)?.spots?.size() > 0)
             spotImportService.deleteSpots(params.id)
 
         redirect(action: "show", id: params.id)
     }
 
-    def processResultFile = {
+    def processResultFile() {
 
         def columnMap = [:]
 
@@ -323,14 +294,16 @@ class SlideController {
         def slideInstance = Slide.get(params.id)
         def progressId = "pId" + params.id
 
-        if (progressService.retrieveProgressBarValue("excelimport") != 0) {
+        if (progressService.retrieveProgressBarValue(progressId) != 0) {
             render "an import process is already running. please try again later!"
             return
         }
         else if (slideInstance.spots.size() > 0) {
             render "this slide already contains spots. please delete them first!"
+            progressService.setProgressBarValue(progressId, 100)
             return
         }
+        println flash.totalSkipLines
 
         def result = spotImportService.processResultFile(slideInstance, flash.sheetContent, columnMap, flash.totalSkipLines, progressId)
 
@@ -342,7 +315,7 @@ class SlideController {
     }
 
     /* block shifts */
-    def addBlockShifts = {
+    def addBlockShifts () {
         def slideInstance = Slide.get(params.id)
 
         def hblockShifts = slideInstance.blockShifts.sort{ it.blockNumber }.collect{ it.horizontalShift }
@@ -351,7 +324,7 @@ class SlideController {
         [slideInstance: slideInstance, hblockShifts: hblockShifts, vblockShifts: vblockShifts]
     }
 
-    def saveBlockShiftPattern = {
+    def saveBlockShiftPattern () {
         def slideInstance = Slide.get(params.id)
 
         def vshift = params.findAll{it.toString().startsWith("vshift")}
