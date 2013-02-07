@@ -2,6 +2,7 @@ package org.nanocan.rppa.scanner
 
 import grails.plugin.spock.UnitSpec
 import spock.lang.Shared
+import org.nanocan.rppa.io.SpotImportService
 
 /**
  * Created by IntelliJ IDEA.

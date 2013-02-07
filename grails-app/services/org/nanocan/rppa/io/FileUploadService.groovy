@@ -1,10 +1,12 @@
-package org.nanocan.rppa.scanner
+package org.nanocan.rppa.io
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import liquibase.util.file.FilenameUtils
 import org.apache.commons.io.FilenameUtils
 import org.apache.commons.io.FileUtils
+import org.nanocan.rppa.scanner.ResultFile
+import org.nanocan.rppa.scanner.Slide
 
 /**
  * Service takes files out of the request and persists them in the appropriate fashion.
