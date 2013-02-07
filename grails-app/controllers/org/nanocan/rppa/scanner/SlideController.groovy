@@ -215,6 +215,96 @@ class SlideController {
         [slideInstance: slideInstance, configs: ResultFileConfig.list(), sheets: spotImportService.getSheets(slideInstance)]
     }
 
+    final ArrayList<String> spotProperties = ["block", "column", "row", "FG", "BG", "flag", "X", "Y", "diameter"]
+
+
+    def readInputFile = {
+        def slideInstance = Slide.get(params.id)
+        println params
+
+        //read sheet / file
+        String sheetContent = spotImportService.importSpotsFromExcel(slideInstance.resultFile.filePath, params.sheet)
+        Scanner scanner = new Scanner(sheetContent)
+
+        //read config
+        def resultFileCfg
+
+        if(!params.config.equals("")){
+            resultFileCfg = ResultFileConfig.get(params.config)
+        }
+
+        //skipping lines
+        def skipLines = resultFileCfg?resultFileCfg.skipLines:0
+
+        if (params.skipLines == "on") skipLines = params.int("howManyLines")
+
+        for( int i = 0; i < skipLines; i++ )
+        {
+            if(scanner.hasNext()) scanner.nextLine()
+        }
+
+        //reading and parsing header
+        def header = scanner.nextLine()
+
+        //keeping content for later
+        flash.totalSkipLines = ++skipLines
+        flash.sheetContent = sheetContent
+
+        scanner.close()
+
+        header = header.split(',')
+        header = Arrays.asList(header)
+
+        //matching properties
+
+        def matchingMap = [:]
+
+        if(resultFileCfg){
+
+            for(String colName : header)
+            {
+                def trimmedColName
+
+                //remote leading and tailing quote
+                if (colName.startsWith("\"") && colName.endsWith("\""))
+                    trimmedColName = colName.substring(1, colName.length() - 1);
+
+
+                switch(trimmedColName){
+                    case resultFileCfg.blockCol:
+                        matchingMap.put(colName, "block")
+                        break
+                    case resultFileCfg.rowCol:
+                        matchingMap.put(colName, "row")
+                        break
+                    case resultFileCfg.columnCol:
+                        matchingMap.put(colName, "column")
+                        break
+                    case resultFileCfg.fgCol:
+                        matchingMap.put(colName, "FG")
+                        break
+                    case resultFileCfg.bgCol:
+                        matchingMap.put(colName, "BG")
+                        break
+                    case resultFileCfg.flagCol:
+                        matchingMap.put(colName, "flag")
+                        break
+                    case resultFileCfg.diameterCol:
+                        matchingMap.put(colName, "diameter")
+                        break
+                    case resultFileCfg.xCol:
+                        matchingMap.put(colName, "X")
+                        break
+                    case resultFileCfg.yCol:
+                        matchingMap.put(colName, "Y")
+                        break
+                }
+            }
+        }
+
+        render view: "assignFields", model: [header: header, spotProperties: spotProperties, matchingMap: matchingMap]
+    }
+
     def deleteSpots = {
         if(Slide.get(params.id)?.spots?.size() > 0)
             spotImportService.deleteSpots(params.id)
@@ -224,37 +314,31 @@ class SlideController {
 
     def processResultFile = {
 
+        def columnMap = [:]
+
+        params.keySet().each{
+            if(it.toString().startsWith("column")) columnMap.put(params.get(it), Integer.parseInt(it.toString().split('_')[1]))
+        }
+
         def slideInstance = Slide.get(params.id)
         def progressId = "pId" + params.id
 
-        if (progressService.retrieveProgressBarValue("excelimport") != 0)
+        if (progressService.retrieveProgressBarValue("excelimport") != 0) {
             render "an import process is already running. please try again later!"
-
-        else if (slideInstance.spots.size() > 0)
-            render "this slide already contains spots. please delete them first!"
-
-        else if(!slideInstance.resultFile)
-            render ("no result file found for ${slideInstance}")
-
-        else if (!params.sheet)
-            render "please select a sheet."
-
-        else if (!params.config)
-            render "please select a column map config to assign property columns correctly."
-
-        else
-        {
-            def result = spotImportService.processResultFile(slideInstance, params.sheet, ResultFileConfig.get(params.config), progressId)
-
-            progressService.setProgressBarValue(progressId, 100)
-
-            //clean up memory since apache poi creates an enormous memory footprint
-            System.gc()
-
-            if(!(result instanceof Slide)) render result
-
-            else render "${slideInstance.spots.size()} spots have been added to the database and linked to the layout."
+            return
         }
+        else if (slideInstance.spots.size() > 0) {
+            render "this slide already contains spots. please delete them first!"
+            return
+        }
+
+        def result = spotImportService.processResultFile(slideInstance, flash.sheetContent, columnMap, flash.totalSkipLines, progressId)
+
+        progressService.setProgressBarValue(progressId, 100)
+
+        if(!(result instanceof Slide)) render result
+
+        else render "${slideInstance.spots.size()} spots have been added to the database and linked to the layout."
     }
 
     /* block shifts */

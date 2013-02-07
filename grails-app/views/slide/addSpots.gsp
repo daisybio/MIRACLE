@@ -30,18 +30,34 @@
             <g:hiddenField name="id" value="${slideInstance.id}"></g:hiddenField>
 
             <ol class="property-list">
-            <li class="fieldcontain">
-                <span class="property-label">Select the sheet with the scanner results of the slide: </span>
-                <span class="property-value"><g:select name="sheet" from="${sheets}" optionKey="value" optionValue="value"></g:select>
-                </span>
-            </li>
-            <li class="fieldcontain">
-                <span class="property-label">Select a suitable mapping of column names to spot properties:</span>
-                <span class="property-value"><g:select name="config" from="${configs}" optionKey="id"></g:select></span>
-            </li>
+                <li class="fieldcontain">
+                    <span class="property-label">Select the sheet with the scanner results of the slide: </span>
+                    <span class="property-value"><g:select name="sheet" from="${sheets}"></g:select>
+                    </span>
+                </li>
+
+                <li class="fieldcontain">
+                    <span class="property-label">Select a suitable mapping of column names to spot properties (optional):</span>
+                    <span class="property-value"><g:select name="config" noSelection="['':'']" from="${configs}" optionKey="id"></g:select></span>
+                </li>
+
+                <li class="fieldcontain">
+                    <span class="property-label">Skip lines (overrules config if checked):</span>
+
+                    <span class="property-value">
+                        <g:checkBox name="skipLines" value="${false}"/>
+                        <g:field name="howManyLines" value="${0}" type="number"/>
+                    </span>
+                </li>
             </ol>
 
-            <fieldset class="buttons"><g:submitToRemote onLoading="\$('#formDiv').hide() ; \$('#updateDiv').hide();" onSuccess="\$('#updateDiv').show();" update="updateDiv" action="processResultFile" name="buttonAddSpots" value="Add spots from selected sheet to slide"/></fieldset>
+            <fieldset class="buttons">
+                <!--<g:submitToRemote onLoading="\$('#formDiv').hide() ; \$('#updateDiv').hide();" onSuccess="\$('#updateDiv').show();"
+                                  update="updateDiv" action="processResultFile" name="buttonAddSpots" value="Add spots from selected sheet to slide"/>       -->
+                <g:submitToRemote update="headerSelection" action="readInputFile" name="buttonReadInputFile" value="Read selected sheet"/>
+            </fieldset>
+
+            <div id="headerSelection"/>
         </g:form>
         </div>
     </div>

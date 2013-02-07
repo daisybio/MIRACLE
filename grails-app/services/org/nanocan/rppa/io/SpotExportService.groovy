@@ -1,10 +1,13 @@
-package org.nanocan.rppa.scanner
+package org.nanocan.rppa.io
 
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import org.hibernate.ScrollableResults
 import org.hibernate.ScrollMode
 import grails.converters.deep.JSON
+import org.nanocan.rppa.scanner.Slide
+import org.nanocan.rppa.scanner.Spot
+import org.nanocan.rppa.scanner.BlockShift
 
 /**
  * Service handles the composition of all relevant spot information to create a CSV output file

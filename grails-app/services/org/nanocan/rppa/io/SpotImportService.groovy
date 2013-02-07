@@ -1,14 +1,13 @@
-package org.nanocan.rppa.scanner
+package org.nanocan.rppa.io
 
 import groovy.sql.Sql
 import org.nanocan.rppa.layout.LayoutSpot
 import org.nanocan.rppa.layout.NoMatchingLayoutException
-import org.springsource.loaded.SystemClassReflectionInvestigator
-import org.apache.poi.xssf.eventusermodel.XSSFReader
-import org.apache.poi.openxml4j.opc.OPCPackage
-import org.apache.commons.io.FilenameUtils
-import org.apache.poi.hssf.usermodel.HSSFWorkbook
-import org.apache.poi.ss.usermodel.WorkbookFactory
+
+import org.nanocan.rppa.scanner.ResultFileImporter
+import org.nanocan.rppa.scanner.Slide
+import org.nanocan.rppa.scanner.ResultFileConfig
+import org.nanocan.rppa.scanner.Spot
 
 /**
  * This service handles the extraction from spot information from an excel sheet using the excel-import plugin.
@@ -21,6 +20,7 @@ class SpotImportService {
     def depositionService
     def dataSourceUnproxied
     def grailsApplication
+    def xlsxImportService
 
     /**
      * Get name of sheets of an excel file
@@ -57,14 +57,8 @@ class SpotImportService {
      * Import excel file using a fileinputstream
      * ResultFileConfig is a map of column letters to domain class properties, e.g. Signal is in column F, ...
      */
-    def importSpotsFromExcel(String filePath, String sheetName, ResultFileConfig rfc) {
-
-        ResultFileImporter importer = new ResultFileImporter()
-        importer.customRead(filePath)
-
-        def spots = importer.getSpots(sheetName, rfc)
-
-        return(spots)
+    def importSpotsFromExcel(String filePath, String sheetName) {
+        return xlsxImportService.parseXLSXSheetToCSV(filePath, "2")
     }
 
     //keep track of the progress, but update only every 1% to reduce the overhead
@@ -103,9 +97,48 @@ class SpotImportService {
     /**
      * Main method
      */
-    def processResultFile(def slideInstance, String sheetName, ResultFileConfig rfc, def progressId)
+    def processResultFile(slideInstance, sheetContent, columnMap, skipLines, progressId)
     {
-        def spots = importSpotsFromExcel(slideInstance.resultFile.filePath, sheetName, rfc)
+        Scanner scanner = new Scanner(sheetContent)
+
+        //skip lines including header this time
+        for(int i = 0; i < skipLines; i++)
+        {
+            if(scanner.hasNextLine()) scanner.nextLine()
+        }
+
+        def spots = []
+
+        while(scanner.hasNextLine())
+        {
+            def currentLine = scanner.nextLine()
+
+            currentLine = currentLine.split(',')
+
+            try
+            {
+
+                def newSpot = [:]
+
+                newSpot.BG = Double.valueOf(currentLine[columnMap.BG])
+                newSpot.FG = Double.valueOf(currentLine[columnMap.FG])
+                newSpot.block = Integer.valueOf(currentLine[columnMap.block])
+                newSpot.row = Integer.valueOf(currentLine[columnMap.row])
+                newSpot.col = Integer.valueOf(currentLine[columnMap.column])
+                newSpot.x = Integer.valueOf(currentLine[columnMap.X])
+                newSpot.y = Integer.valueOf(currentLine[columnMap.Y])
+                newSpot.diameter = Double.valueOf(currentLine[columnMap.diameter] )
+                newSpot.flag = Double.valueOf(currentLine[columnMap.flag] )
+
+                spots << newSpot
+            }catch(ArrayIndexOutOfBoundsException)
+            {
+                log.info "could not parse line, assuming the end is reached."
+            }
+        }
+
+        //clean up
+        scanner.close()
 
         nextStep = initializeProgressBar(spots, progressId)
 
