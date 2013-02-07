@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/MIRACLE.iml" filepath="$PROJECT_DIR$/MIRACLE.iml" />
       <module fileurl="file://$PROJECT_DIR$/MIRACLE-grailsPlugins.iml" filepath="$PROJECT_DIR$/MIRACLE-grailsPlugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/Rconnect-inplacePlugin.iml" filepath="$PROJECT_DIR$/Rconnect-inplacePlugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/excelimport-inplacePlugin.iml" filepath="$PROJECT_DIR$/excelimport-inplacePlugin.iml" />
     </modules>
   </component>
 </project>

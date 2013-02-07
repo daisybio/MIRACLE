@@ -23,6 +23,7 @@ class Slide{
     SlideLayout layout
     String title
     String comments
+    ResultFileConfig lastConfig
 
     static hasMany = [spots: Spot, blockShifts: BlockShift]
 
@@ -34,6 +35,7 @@ class Slide{
     }
 
     static constraints = {
+         lastConfig nullable: true
          barcode nullable: true
          laserWavelength min: 1, max: 1000
          protocol nullable: true

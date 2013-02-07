@@ -12,7 +12,7 @@ class Antibody {
     static constraints = {
         name()
         concentration nullable:true
-        concentrationUnit inList: ["µg / ml", "mM"], nullable:true
+        concentrationUnit inList: ["µg/ml", "mM"], nullable:true
         comments nullable: true
     }
 

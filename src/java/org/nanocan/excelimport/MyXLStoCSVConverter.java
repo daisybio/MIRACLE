@@ -57,7 +57,9 @@ public class MyXLStoCSVConverter implements HSSFListener {
     private FormatTrackingHSSFListener formatListener;
 
     /** So we known which sheet we're on */
-    private int sheetIndex = -1;
+    private int sheetIndex = 0;
+    private int wantedSheet = 1;
+    private boolean printingEnabled = false;
     private BoundSheetRecord[] orderedBSRs;
     private ArrayList boundSheetRecords = new ArrayList();
 
@@ -72,24 +74,11 @@ public class MyXLStoCSVConverter implements HSSFListener {
      * @param output The PrintStream to output the CSV to
      * @param minColumns The minimum number of columns to output, or -1 for no minimum
      */
-    public MyXLStoCSVConverter(POIFSFileSystem fs, PrintStream output, int minColumns) {
+    public MyXLStoCSVConverter(POIFSFileSystem fs, PrintStream output, int minColumns, int sheetIndex) {
         this.fs = fs;
         this.output = output;
         this.minColumns = minColumns;
-    }
-
-    /**
-     * Creates a new XLS -> CSV converter
-     * @param filename The file to process
-     * @param minColumns The minimum number of columns to output, or -1 for no minimum
-     * @throws IOException
-     * @throws FileNotFoundException
-     */
-    public MyXLStoCSVConverter(String filename, int minColumns) throws IOException, FileNotFoundException {
-        this(
-                new POIFSFileSystem(new FileInputStream(filename)),
-                System.out, minColumns
-        );
+        this.wantedSheet = sheetIndex;
     }
 
     /**
@@ -139,14 +128,20 @@ public class MyXLStoCSVConverter implements HSSFListener {
                     //  their BOFRecords, and then knowing that we
                     //  process BOFRecords in byte offset order
                     sheetIndex++;
+
+                    if(sheetIndex == wantedSheet) printingEnabled = true;
+                    else printingEnabled = false;
+
                     if(orderedBSRs == null) {
                         orderedBSRs = BoundSheetRecord.orderByBofPosition(boundSheetRecords);
                     }
+
+                    /*
                     output.println();
                     output.println(
                             orderedBSRs[sheetIndex].getSheetname() +
                                     " [" + (sheetIndex+1) + "]:"
-                    );
+                    );*/
                 }
                 break;
 
@@ -261,7 +256,7 @@ public class MyXLStoCSVConverter implements HSSFListener {
         }
 
         // If we got something to print out, do so
-        if(thisStr != null) {
+        if(thisStr != null && printingEnabled) {
             if(thisColumn > 0) {
                 output.print(',');
             }
@@ -289,7 +284,7 @@ public class MyXLStoCSVConverter implements HSSFListener {
             lastColumnNumber = -1;
 
             // End the row
-            output.println();
+            if(printingEnabled) output.println();
         }
     }
 }

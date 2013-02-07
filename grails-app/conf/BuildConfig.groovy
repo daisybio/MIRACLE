@@ -6,8 +6,8 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 grails.project.war.file = "target/${appName}.war"
 
+
 grails.plugin.location.Rconnect = "../Rconnect/"
-grails.plugin.location.excelimport = "../grails-excel-import"
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -35,6 +35,11 @@ grails.project.dependency.resolution = {
     dependencies {
         compile "org.grails:grails-webflow:$grailsVersion"
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
+
+        //xls file support
+        compile (group:'org.apache.poi', name:'poi', version:'3.9')
+        //xlxs file support
+        compile (group:'org.apache.poi', name:'poi-ooxml', version:'3.9')
 
         // runtime 'mysql:mysql-connector-java:5.1.16'
     }
