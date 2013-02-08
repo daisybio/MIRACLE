@@ -1,5 +1,3 @@
-
-<body>
 <g:if test="${sampleProperty != 'sample'}">
     <g:render template="colorLegend" model="${[sampleProperty: sampleProperty]}"></g:render>
 </g:if>
@@ -108,40 +106,43 @@
 </div>
 </g:formRemote>
 
-<r:script>
-
+<script type="text/javascript">
     var allTDs
-    var selColor
-    var selName
-    var selId
-    var buttondown = -1
-    var cellstartr, cellstartc, cellendr, cellendc
+    var selColor = "";
+    var selName = "";
+    var selId = "";
+    var buttondown = -1;
+    var cellstartr, cellstartc, cellendr, cellendc;
     var tableName
-    var unsavedChanges
+    var unsavedChanges = false;
     var selectionMode = "normal";
+    var sampleProperty = "${sampleProperty.toString().capitalize()}";
 
     $("td").bind("mouseover", function(event) {
-         if(true) {
-             var spot = $(this);
-             var timer = window.setTimeout(function() {
-                 var id = spot.find("input").attr("name");
-                 ${remoteFunction(controller: "slideLayout", action: "showSpotTooltip",
+        if(true) {
+            var spot = $(this);
+            var timer = window.setTimeout(function() {
+                var id = spot.find("input").attr("name");
+                ${remoteFunction(controller: "slideLayout", action: "showSpotTooltip",
             params: "\'id=\' + id", update: "draggableSpotTooltip")}
 
-                 $("#draggableSpotTooltip").show();
-             }, 800)
+                $("#draggableSpotTooltip").show();
+            }, 800)
             spot.data('timerid', timer);
         }
     }).bind("mouseout", function() {
-        if(true) {
-            var timerid = $(this).data('timerid');
-            if(timerid != null)
-            {
-                window.clearTimeout(timerid);
-            }
-            $("#draggableSpotTooltip").hide();
-        }
-    });
+                if(true) {
+                    var timerid = $(this).data('timerid');
+                    if(timerid != null)
+                    {
+                        window.clearTimeout(timerid);
+                    }
+                    $("#draggableSpotTooltip").hide();
+                }
+            });
+</script>
+
+<r:script>
 
     function updateSelectionMode(newValue)
     {
@@ -178,7 +179,7 @@
     function mouseUpHandler(e) {
 
         if (!selColor) {
-            alert('Please select a ${sampleProperty.toString().capitalize()} first!')
+            alert('Please select a ' + sampleProperty +  ' first!')
         }
 
         else {
@@ -244,6 +245,3 @@
     }
 
 </r:script>
-
-</body>
-</html>
