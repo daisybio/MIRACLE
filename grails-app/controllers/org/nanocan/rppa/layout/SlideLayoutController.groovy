@@ -20,6 +20,10 @@ class SlideLayoutController {
         redirect(action: "list", params: params)
     }
 
+    def showSpotTooltip(){
+        render template: "spotPreview", model: [layoutSpotInstance: LayoutSpot.get(params.long("id"))]
+    }
+
     def list() {
         //deal with max
         if(!params.max && session.maxSlideLayout) params.max = session.maxSlideLayout

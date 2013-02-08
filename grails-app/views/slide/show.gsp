@@ -10,6 +10,7 @@
         <g:set var="spotsDetected" value="${slideInstance.spots.size()}"/>
 
 
+
         <g:if test="${spotsDetected == 0}">
             <r:script>
                 $(function() {
@@ -186,7 +187,7 @@
 
                         <g:if test="${slideInstance?.photoMultiplierTube}">
                             <li class="fieldcontain">
-                                <span id="photoMultiplierTube-label" class="property-label"><g:message code="slide.photoMultiplierTube.label" default="Laser Wavelength" /></span>
+                                <span id="photoMultiplierTube-label" class="property-label"><g:message code="slide.photoMultiplierTube.label" default="Photo Multiplier Tube (PMT)" /></span>
 
                                 <span class="property-value" aria-labelledby="photoMultiplierTube-label"><g:fieldValue bean="${slideInstance}" field="photoMultiplierTube"/></span>
 

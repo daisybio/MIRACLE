@@ -1,5 +1,5 @@
 
-<%@ page import="org.nanocan.rppa.layout.SlideLayout" %>
+<%@ page import="org.nanocan.rppa.scanner.Slide; org.nanocan.rppa.layout.SlideLayout" %>
 <!doctype html>
 <html>
 	<head>
@@ -8,6 +8,7 @@
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 
         <r:require module="colorPicker"/>
+
         <r:script>$(function() {
             $("#accordion").accordion({
                 collapsible:true,
@@ -120,6 +121,16 @@
                             dateCreated: slideLayoutInstance.dateCreated,
                             lastUpdated: slideLayoutInstance.lastUpdated,
                             lastUpdatedBy: slideLayoutInstance.lastUpdatedBy]"/>
+                </div>
+                <h3><a href="#">Slides using this layout</a></h3>
+                <div>
+                    <ul>
+                        <g:each in="${Slide.findByLayout(slideLayoutInstance)}" var="slide">
+                            <li>
+                                <g:link controller="slide" action="show" id="${slide.id}">${slide}</g:link>
+                            </li>
+                        </g:each>
+                    </ul>
                 </div>
                 <h3><a href="#">Spot Properties</a></h3>
                 <div>
