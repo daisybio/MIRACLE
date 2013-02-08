@@ -156,7 +156,7 @@ class SpotImportService {
     }
 
     //keep track of the progress, but update only every 1% to reduce the overhead
-    def initializeProgressBar = { spots, progressId ->
+    def initializeProgressBar(spots, progressId){
         progressService.setProgressBarValue(progressId, 0)
         def numberOfSpots = spots.size()
 
@@ -164,7 +164,7 @@ class SpotImportService {
         return onePercent
     }
 
-    def updateProgressBar = { nextStep, currentSpotIndex, progressId ->
+    def updateProgressBar(nextStep, currentSpotIndex, progressId){
         if(currentSpotIndex == nextStep)
         {
             nextStep += onePercent
@@ -243,6 +243,9 @@ class SpotImportService {
         }catch(MissingMethodException e)
         {
             log.error e.getMessage();
+        }catch(java.sql.BatchUpdateException bue){
+            log.error bue.getMessage()
+            return "Could not add spots: ${bue.getMessage()}"
         } finally{
             sql.close()
         }
@@ -293,7 +296,7 @@ class SpotImportService {
                 newSpot.slide = slideInstance
                 newSpot.save()
 
-                //nextStep = updateProgressBar(nextStep, currentSpotIndex, progressId)
+                nextStep = updateProgressBar(nextStep, currentSpotIndex, progressId)
             }
         }
 
@@ -309,7 +312,7 @@ class SpotImportService {
                     //add insert statement to batch
                     stmt.addBatch(0, obj.BG, obj.FG, obj.block, obj.col, obj.diameter, obj.flag, currentLayoutSpot.id, obj.row, slideInstance.id, obj.x, obj.y, obj.FG-obj.BG)
 
-                    //nextStep = updateProgressBar(nextStep, currentSpotIndex, progressId)
+                    nextStep = updateProgressBar(nextStep, currentSpotIndex, progressId)
                 }
             }
         }
