@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff76e78a-24e9-4a09-a6b2-f99514bc63a9" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/_spotPreview.gsp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/_spotTooltip.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Spot.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Spot.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/io/SpotImportService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/io/SpotImportService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy" afterPath="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slide/show.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slide/show.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp" afterPath="$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp" />
     </list>
     <ignored path="RPPAscanner.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -72,103 +74,249 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="SlideController.groovy" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy">
+          <file leaf-file-name="show.gsp" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="303" column="43" selection-start="10753" selection-end="10753" vertical-scroll-proportion="0.41422594">
+                <state line="145" column="30" selection-start="7800" selection-end="7800" vertical-scroll-proportion="-3.3611112">
                   <folding>
-                    <element signature="e#34#96#0" expanded="true" />
+                    <marker date="1360325383000" expanded="true" signature="410:546" placeholder="{...}" />
+                    <marker date="1360325383000" expanded="true" signature="450:533" placeholder="{&quot;collapsible&quot;: true...}" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Spot.groovy" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Spot.groovy">
+          <file leaf-file-name="sampleSpotTable.gsp" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="9" column="9" selection-start="238" selection-end="238" vertical-scroll-proportion="-1.875">
+                  <folding>
+                    <marker date="1360325523000" expanded="true" signature="4914:4992" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="4896:4915" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5194:5651" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5214:5645" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5303:5588" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5681:5921" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5681:5921" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5681:5921" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5681:5921" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5681:5921" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5700:5915" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5797:5858" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="5972:6013" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="6049:6376" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="6411:6601" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="6444:6595" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="6636:6931" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="6963:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="6989:7086" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:9234" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9107" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7496:9234" placeholder="&lt;xml/&gt;" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7715:9234" placeholder="&lt;xml/&gt;" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="7840:7874" placeholder="/*...*/" />
+                    <marker date="1360325523000" expanded="true" signature="7936:8036" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8050:8080" placeholder="/*...*/" />
+                    <marker date="1360325523000" expanded="true" signature="8131:8265" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8304:9234" placeholder="&lt;xml/&gt;" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8379:9049" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8471:9031" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="8646:9009" placeholder="{...}" />
+                    <marker date="1360325523000" expanded="true" signature="9134:9234" placeholder="{...}" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SlideLayout.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy">
               <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
                 <state />
               </provider>
               <provider selected="true" editor-type-id="text-editor">
-                <state line="20" column="19" selection-start="332" selection-end="332" vertical-scroll-proportion="-6.4772725">
+                <state line="7" column="31" selection-start="159" selection-end="159" vertical-scroll-proportion="-2.3863637">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="_colorLegend.gsp" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="15" column="4" selection-start="725" selection-end="751" vertical-scroll-proportion="-3.8297873">
+                  <folding>
+                    <marker date="1359984810000" expanded="true" signature="628:687" placeholder="{...}" />
+                    <marker date="1359984810000" expanded="true" signature="2554:3094" placeholder="{&quot;color&quot;: ' fpwmx8th2p8v2 '...}" />
+                    <marker date="1359984810000" expanded="true" signature="2644:2752" placeholder="{...}" />
+                    <marker date="1359984810000" expanded="true" signature="2800:2909" placeholder="{...}" />
+                    <marker date="1359984810000" expanded="true" signature="2966:3076" placeholder="{...}" />
+                    <marker date="1359984810000" expanded="true" signature="3232:3306" placeholder="{...}" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="_spotTooltip.gsp" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_spotTooltip.gsp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="12" column="5" selection-start="355" selection-end="355" vertical-scroll-proportion="-3.8297873">
+                  <folding>
+                    <marker date="1360318379000" expanded="true" signature="277:333" placeholder="{...}" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="main.css" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web-app/css/main.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="198" column="32" selection-start="3823" selection-end="3823" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SpotController.groovy" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SpotController.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="5" column="45" selection-start="126" selection-end="126" vertical-scroll-proportion="-3.2608695">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SlideLayoutController.groovy" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="19" column="18" selection-start="510" selection-end="510" vertical-scroll-proportion="0.26058632">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="_spotPreview.gsp" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_spotPreview.gsp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="17" column="39" selection-start="921" selection-end="921" vertical-scroll-proportion="-5.425532">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
           <file leaf-file-name="show.gsp" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/grails-app/views/slide/show.gsp">
+            <entry file="file://$PROJECT_DIR$/grails-app/views/layoutSpot/show.gsp">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="116" column="134" selection-start="5480" selection-end="5480" vertical-scroll-proportion="-3.5106382">
-                  <folding>
-                    <marker date="1360275571000" expanded="true" signature="460:1146" placeholder="{...}" />
-                    <marker date="1360275571000" expanded="true" signature="513:1126" placeholder="{&quot;position&quot;: 'top'...}" />
-                    <marker date="1360275571000" expanded="true" signature="704:1104" placeholder="{...}" />
-                    <marker date="1360275571000" expanded="true" signature="763:935" placeholder="{...}" />
-                    <marker date="1360275571000" expanded="true" signature="990:1078" placeholder="{...}" />
-                    <marker date="1360275571000" expanded="true" signature="1323:2248" placeholder="{...}" />
-                    <marker date="1360275571000" expanded="true" signature="1383:2228" placeholder="{&quot;position&quot;: 'top'...}" />
-                    <marker date="1360275571000" expanded="true" signature="1574:2206" placeholder="{...}" />
-                    <marker date="1360275571000" expanded="true" signature="1641:2037" placeholder="{...}" />
-                    <marker date="1360275571000" expanded="true" signature="2092:2180" placeholder="{...}" />
-                    <marker date="1360275571000" expanded="true" signature="2327:2463" placeholder="{...}" />
-                    <marker date="1360275571000" expanded="true" signature="2367:2450" placeholder="{&quot;collapsible&quot;: true...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AntibodyController.groovy" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/AntibodyController.groovy">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="5" column="6" selection-start="110" selection-end="110" vertical-scroll-proportion="-3.2608695">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="_form.gsp" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/grails-app/views/antibody/_form.gsp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="17" column="27" selection-start="548" selection-end="548" vertical-scroll-proportion="-5.425532">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Antibody.groovy" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Antibody.groovy">
-              <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-                <state />
-              </provider>
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="14" column="39" selection-start="290" selection-end="290" vertical-scroll-proportion="-4.7727275">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="addSpots.gsp" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/grails-app/views/slide/addSpots.gsp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="35" column="79" selection-start="1295" selection-end="1295" vertical-scroll-proportion="-6.9574466">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="XlsxImportService.groovy" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/io/XlsxImportService.groovy">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="18" column="53" selection-start="710" selection-end="710" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="BuildConfig.groovy" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="37" column="37" selection-start="1529" selection-end="1529" vertical-scroll-proportion="0.0">
+                <state line="135" column="27" selection-start="6685" selection-end="6685" vertical-scroll-proportion="-8.152778">
                   <folding />
                 </state>
               </provider>
@@ -178,13 +326,14 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="SpotImportService.groovy" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/io/SpotImportService.groovy">
+          <file leaf-file-name="LayoutSpot.groovy" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy">
+              <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+                <state />
+              </provider>
               <provider selected="true" editor-type-id="text-editor">
-                <state line="248" column="49" selection-start="7826" selection-end="7826" vertical-scroll-proportion="0.664825">
-                  <folding>
-                    <element signature="e#29#50#0" expanded="true" />
-                  </folding>
+                <state line="15" column="34" selection-start="354" selection-end="354" vertical-scroll-proportion="0.21989529">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -214,22 +363,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/java/org/nanocan/excelimport/MyXLSXHandler.java" />
-        <option value="$PROJECT_DIR$/src/groovy/org/nanocan/rppa/scanner/ResultFileImporter.groovy" />
-        <option value="$PROJECT_DIR$/application.properties" />
-        <option value="$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/slide/assignFields.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Slide.groovy" />
-        <option value="$PROJECT_DIR$/src/java/org/nanocan/excelimport/MyXLStoCSVConverter.java" />
-        <option value="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/io/XlsxImportService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/slide/addSpots.gsp" />
         <option value="$PROJECT_DIR$/grails-app/views/antibody/_form.gsp" />
         <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Antibody.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/slide/show.gsp" />
         <option value="$PROJECT_DIR$/grails-app/conf/hibernate/hibernate.cfg.xml" />
         <option value="$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Spot.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/io/SpotImportService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SpotController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/slide/show.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/layouts/main.gsp" />
+        <option value="$PROJECT_DIR$/web-app/css/main.css" />
+        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/_spotTooltip.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/_spotPreview.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy" />
       </list>
     </option>
   </component>
@@ -331,44 +480,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="MIRACLE" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MIRACLE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MIRACLE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MIRACLE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MIRACLE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MIRACLE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MIRACLE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -752,21 +863,21 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41234085" sideWeight="0.50053364" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15421557" sideWeight="0.21969697" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31902438" sideWeight="0.49786553" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15208112" sideWeight="0.58926827" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15208112" sideWeight="0.6809756" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.6809756" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15421557" sideWeight="0.21969697" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15208112" sideWeight="0.4517073" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39967984" sideWeight="0.6809756" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.58617425" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24546425" sideWeight="0.5921951" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40780488" sideWeight="0.49573106" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24546425" sideWeight="0.5921951" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40780488" sideWeight="0.49573106" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -836,61 +947,12 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="119" selection-start="282" selection-end="282" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/assignFields.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="68" selection-start="162" selection-end="162" vertical-scroll-proportion="-0.9574468">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Slide.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Spot.groovy">
       <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="36" selection-start="904" selection-end="904" vertical-scroll-proportion="0.6369427">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/org/nanocan/excelimport/MyXLStoCSVConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="64" selection-start="2279" selection-end="2279" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="37" selection-start="1529" selection-end="1529" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///opt/java/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2160" column="18" selection-start="85241" selection-end="85241" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/addSpots.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="79" selection-start="1295" selection-end="1295" vertical-scroll-proportion="-6.9574466">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/io/XlsxImportService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="53" selection-start="710" selection-end="710" vertical-scroll-proportion="0.0">
+        <state line="20" column="19" selection-start="332" selection-end="332" vertical-scroll-proportion="-6.4772725">
           <folding />
         </state>
       </provider>
@@ -919,58 +981,248 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/slide/show.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/main.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="134" selection-start="5480" selection-end="5480" vertical-scroll-proportion="-3.5106382">
-          <folding>
-            <marker date="1360275571000" expanded="true" signature="460:1146" placeholder="{...}" />
-            <marker date="1360275571000" expanded="true" signature="513:1126" placeholder="{&quot;position&quot;: 'top'...}" />
-            <marker date="1360275571000" expanded="true" signature="704:1104" placeholder="{...}" />
-            <marker date="1360275571000" expanded="true" signature="763:935" placeholder="{...}" />
-            <marker date="1360275571000" expanded="true" signature="990:1078" placeholder="{...}" />
-            <marker date="1360275571000" expanded="true" signature="1323:2248" placeholder="{...}" />
-            <marker date="1360275571000" expanded="true" signature="1383:2228" placeholder="{&quot;position&quot;: 'top'...}" />
-            <marker date="1360275571000" expanded="true" signature="1574:2206" placeholder="{...}" />
-            <marker date="1360275571000" expanded="true" signature="1641:2037" placeholder="{...}" />
-            <marker date="1360275571000" expanded="true" signature="2092:2180" placeholder="{...}" />
-            <marker date="1360275571000" expanded="true" signature="2327:2463" placeholder="{...}" />
-            <marker date="1360275571000" expanded="true" signature="2367:2450" placeholder="{&quot;collapsible&quot;: true...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/target/ddl.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="347" selection-start="7071" selection-end="7071" vertical-scroll-proportion="0.50898206">
+        <state line="26" column="34" selection-start="1526" selection-end="1526" vertical-scroll-proportion="-10.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/scanner/Spot.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_colorLegend.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="4" selection-start="725" selection-end="751" vertical-scroll-proportion="-3.8297873">
+          <folding>
+            <marker date="1359984810000" expanded="true" signature="628:687" placeholder="{...}" />
+            <marker date="1359984810000" expanded="true" signature="2554:3094" placeholder="{&quot;color&quot;: ' fpwmx8th2p8v2 '...}" />
+            <marker date="1359984810000" expanded="true" signature="2644:2752" placeholder="{...}" />
+            <marker date="1359984810000" expanded="true" signature="2800:2909" placeholder="{...}" />
+            <marker date="1359984810000" expanded="true" signature="2966:3076" placeholder="{...}" />
+            <marker date="1359984810000" expanded="true" signature="3232:3306" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_spotTooltip.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="5" selection-start="355" selection-end="355" vertical-scroll-proportion="-3.8297873">
+          <folding>
+            <marker date="1360318379000" expanded="true" signature="277:333" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="198" column="32" selection-start="3823" selection-end="3823" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/_spotPreview.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="39" selection-start="921" selection-end="921" vertical-scroll-proportion="-5.425532">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/LayoutSpot.groovy">
       <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="19" selection-start="332" selection-end="332" vertical-scroll-proportion="-6.4772725">
+        <state line="15" column="34" selection-start="354" selection-end="354" vertical-scroll-proportion="0.21989529">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SlideController.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/scanner/SpotController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="303" column="43" selection-start="10753" selection-end="10753" vertical-scroll-proportion="0.41422594">
+        <state line="5" column="45" selection-start="126" selection-end="126" vertical-scroll-proportion="-3.2608695">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/layoutSpot/show.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="135" column="27" selection-start="6685" selection-end="6685" vertical-scroll-proportion="-8.152778">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/show.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="145" column="30" selection-start="7800" selection-end="7800" vertical-scroll-proportion="-3.3611112">
           <folding>
-            <element signature="e#34#96#0" expanded="true" />
+            <marker date="1360325383000" expanded="true" signature="410:546" placeholder="{...}" />
+            <marker date="1360325383000" expanded="true" signature="450:533" placeholder="{&quot;collapsible&quot;: true...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/org/nanocan/rppa/io/SpotImportService.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/slideLayout/sampleSpotTable.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="248" column="49" selection-start="7826" selection-end="7826" vertical-scroll-proportion="0.664825">
+        <state line="9" column="9" selection-start="238" selection-end="238" vertical-scroll-proportion="-1.875">
           <folding>
-            <element signature="e#29#50#0" expanded="true" />
+            <marker date="1360325523000" expanded="true" signature="4914:4992" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="4896:4915" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5194:5651" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5214:5645" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5303:5588" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5681:5921" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5681:5921" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5681:5921" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5681:5921" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5681:5921" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5700:5915" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5797:5858" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="5972:6013" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="6049:6376" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="6411:6601" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="6444:6595" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="6636:6931" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="6963:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="6989:7086" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:9234" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7001:7086" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9107" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7101:9101" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7496:9234" placeholder="&lt;xml/&gt;" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7520:7607" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7715:9234" placeholder="&lt;xml/&gt;" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7739:7826" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="7840:7874" placeholder="/*...*/" />
+            <marker date="1360325523000" expanded="true" signature="7936:8036" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8050:8080" placeholder="/*...*/" />
+            <marker date="1360325523000" expanded="true" signature="8131:8265" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8304:9234" placeholder="&lt;xml/&gt;" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8320:9063" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8379:9049" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8471:9031" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="8646:9009" placeholder="{...}" />
+            <marker date="1360325523000" expanded="true" signature="9134:9234" placeholder="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/nanocan/rppa/layout/SlideLayout.groovy">
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="31" selection-start="159" selection-end="159" vertical-scroll-proportion="-2.3863637">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/nanocan/rppa/layout/SlideLayoutController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="18" selection-start="510" selection-end="510" vertical-scroll-proportion="0.26058632">
+          <folding />
         </state>
       </provider>
     </entry>

@@ -10,6 +10,7 @@
 <g:else>
     <g:render template="sampleLegend" model="${[layoutId: slideLayout.id]}"></g:render>
 </g:else>
+    <g:render template="spotTooltip"/>
 
 <g:set var="spot" value="${0}"/>
 <g:set var="spotList" value="${spots.toList()}"/>
@@ -45,7 +46,10 @@
 </g:if>
 
 <g:formRemote onSuccess="window.onbeforeunload = null;unsavedChanges=false" name="spotPropertiesForm" update="message" url="[controller: 'slideLayout', action: 'updateSpotProperty']">
-    <div class="buttons" style="margin-top:5px; margin-bottom:10px;"><input type="submit" value="Save changes" name="layoutUpdateButton"/></div>
+    <div class="buttons" style="margin-top:5px; margin-bottom:10px;">
+        <input type="submit" value="Save changes" name="layoutUpdateButton"/>
+        Selection Mode: <g:select name="selectionMode" from="${['normal', 'whole rows', 'whole columns']}" onchange="updateSelectionMode(this.value);"/>
+    </div>
     <input name="spotProperty" type="hidden" value="${sampleProperty}"/>
     <input name="slideLayout" type="hidden" value="${slideLayout.id}"/>
 
@@ -118,6 +122,35 @@
     var cellstartr, cellstartc, cellendr, cellendc
     var tableName
     var unsavedChanges
+    var selectionMode = "normal";
+
+    $("td").bind("mouseover", function(event) {
+         if(true) {
+             var spot = $(this);
+             var timer = window.setTimeout(function() {
+                 var id = spot.find("input").attr("name");
+                 ${remoteFunction(controller: "slideLayout", action: "showSpotTooltip",
+            params: "\'id=\' + id", update: "draggableSpotTooltip")}
+
+                 $("#draggableSpotTooltip").show();
+             }, 800)
+            spot.data('timerid', timer);
+        }
+    }).bind("mouseout", function() {
+        if(true) {
+            var timerid = $(this).data('timerid');
+            if(timerid != null)
+            {
+                window.clearTimeout(timerid);
+            }
+            $("#draggableSpotTooltip").hide();
+        }
+    });
+
+    function updateSelectionMode(newValue)
+    {
+        selectionMode = newValue;
+    }
 
     function registerHandlers(tN) {
         tableName = tN
@@ -173,6 +206,20 @@
                 colstart = cellendc
                 colend = cellstartc
             }
+
+            /*whole columns selection style */
+            if(selectionMode == "whole columns")
+            {
+                rowstart = 1;
+                rowend = ${slideLayout.rowsPerBlock}+1
+            }
+
+            /*whole rows selection mode */
+            else if(selectionMode == "whole rows"){
+                colstart = 1;
+                colend = ${slideLayout.columnsPerBlock * (slideLayout.blocksPerRow?:12)}
+            }
+
             for (var i = rowstart; i <= rowend; i++) {
                 for (var j = colstart; j <= colend; j++) {
                     if(j != 0) //protect row names from color changes
