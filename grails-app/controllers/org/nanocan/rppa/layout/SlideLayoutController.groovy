@@ -81,6 +81,7 @@ class SlideLayoutController {
         params.remove("controller")
         params.remove("spotProperty")
         params.remove("slideLayout")
+        params.remove("selectionMode")
 
         if(params.size() == 0) render "Nothing to do"
 
