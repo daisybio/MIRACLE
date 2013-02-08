@@ -253,8 +253,6 @@ class SlideController {
         def skipLines = resultFileCfg?.skipLines?:0
         if (params.skipLines == "on") skipLines = params.int("howManyLines")
 
-        println skipLines
-
         def header
 
         try{
@@ -292,18 +290,16 @@ class SlideController {
         }
 
         def slideInstance = Slide.get(params.id)
+
         def progressId = "pId" + params.id
 
-        if (progressService.retrieveProgressBarValue(progressId) != 0) {
-            render "an import process is already running. please try again later!"
-            return
-        }
-        else if (slideInstance.spots.size() > 0) {
+        progressService.setProgressBarValue(progressId, 0)
+
+        if (slideInstance.spots.size() > 0) {
             render "this slide already contains spots. please delete them first!"
             progressService.setProgressBarValue(progressId, 100)
             return
         }
-        println flash.totalSkipLines
 
         def result = spotImportService.processResultFile(slideInstance, flash.sheetContent, columnMap, flash.totalSkipLines, progressId)
 

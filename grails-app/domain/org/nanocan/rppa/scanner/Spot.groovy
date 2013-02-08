@@ -25,6 +25,7 @@ class Spot {
     static belongsTo = [slide: Slide, layoutSpot: LayoutSpot]
 
     static constraints = {
+        slide(unique: ['col', 'row', 'block'])
         layoutSpot nullable: true
     }
 

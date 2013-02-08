@@ -114,7 +114,7 @@
 
                         <g:if test="${slideInstance?.barcode}">
                             <li class="fieldcontain">
-                                <span id="barcode-label" class="property-label"><g:message code="slide.barcode.label" default="Title" /></span>
+                                <span id="barcode-label" class="property-label"><g:message code="slide.barcode.label" default="Barcode" /></span>
 
                                 <span class="property-value" aria-labelledby="barcode-label">${slideInstance.barcode}</span>
 
