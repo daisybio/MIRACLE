@@ -1,8 +1,4 @@
-<!doctype html>
-<html>
-<head>
-    <meta name="layout" content="main">
-</head>
+
 <body>
 <g:if test="${sampleProperty != 'sample'}">
     <g:render template="colorLegend" model="${[sampleProperty: sampleProperty]}"></g:render>
@@ -219,12 +215,15 @@
                 colstart = 1;
                 colend = ${slideLayout.columnsPerBlock * (slideLayout.blocksPerRow?:12)}
             }
+            //alert("rstart: " + rowstart + "|rend:" + rowend + "|cstart:" + colstart + "|cend:" + colend);
 
-            for (var i = rowstart; i <= rowend; i++) {
-                for (var j = colstart; j <= colend; j++) {
-                    if(j != 0) //protect row names from color changes
+            for (var currRow = parseInt(rowstart); currRow <= parseInt(rowend); currRow++) {
+                //alert("current row:" + currRow);
+                for (var currCol = parseInt(colstart); currCol <= parseInt(colend); currCol++) {
+                    //alert("current column:" + currCol);
+                    if(currCol != 0) //protect row names from color changes
                     {
-                        var cell = document.getElementById(tableName).rows[i].cells[j];
+                        var cell = document.getElementById(tableName).rows[currRow].cells[currCol];
                         if(cell.style.backgroundColor != "")
                         {
                              cell.style.backgroundColor = selColor;
