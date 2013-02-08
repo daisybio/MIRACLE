@@ -33,7 +33,7 @@
 </head>
 <body>
 
-    <div id="draggableLegend">
+    <div id="draggableLegend" style="position: fixed;">
 
         Select a sample: <g:textField id="sampleSelection" name="sampleSelection"/>
 

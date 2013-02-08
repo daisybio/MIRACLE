@@ -13,7 +13,7 @@
     </r:script>
 </head>
 <body>
-    <div id="draggableLegend">
+    <div id="draggableLegend" style="position: fixed;">
 
     <table>
     <g:if test="${sampleProperty == 'cellLine'}"><g:set var="samplePropertyList" value="${CellLine.list()}"/></g:if>
