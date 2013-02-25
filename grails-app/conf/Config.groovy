@@ -142,10 +142,10 @@ log4j = {
            'org.nanocan'
     warn   'org.nanocan'
     info   'org.nanocan'
-    //debug   'grails.plugins.springsecurity'
-    //debug   'org.codehaus.groovy.grails.plugins.springsecurity'
-    //debug   'org.springframework.security'
-    //debug   'org.jasig.cas.client'
+    /*debug   'grails.plugins.springsecurity'
+    debug   'org.codehaus.groovy.grails.plugins.springsecurity'
+    debug   'org.springframework.security'
+    debug   'org.jasig.cas.client'*/
     debug   'org.nanocan'
 
     appenders {

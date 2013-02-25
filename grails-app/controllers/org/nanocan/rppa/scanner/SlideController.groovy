@@ -5,6 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import org.apache.commons.io.FilenameUtils
 import grails.plugins.springsecurity.Secured
 import org.nanocan.rppa.project.Project
+import org.hibernate.StaleObjectStateException
 
 @Secured(['ROLE_USER'])
 class SlideController {
@@ -26,6 +27,11 @@ class SlideController {
      */
     def index() {
         redirect(action: "list", params: params)
+    }
+
+    def customCSV(){
+        if(params.selectedType == "custom") render template: "customCSV"
+        else render ""
     }
 
     def list() {
@@ -192,9 +198,11 @@ class SlideController {
             //remove from all projects
             projectService.updateProjects(slideInstance, [])
             //delete spots first, saves a lot of time
-            if (slideInstance?.spots?.size() > 0) spotImportService.deleteSpots()
+            if (slideInstance?.spots?.size() > 0) spotImportService.deleteSpots(params.id)
 
-            slideInstance.delete(flush: true)
+            slideInstance.discard()
+            Slide.get(params.id).delete(flush: true)
+
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'slide.label', default: 'Slide'), params.id])
             redirect(action: "list")
         }
@@ -241,6 +249,9 @@ class SlideController {
 
         //convert CSV2 to CSV:
         if (params.csvType == "CSV2") sheetContent = spotImportService.convertCSV2(sheetContent)
+
+        //convert custom CSV format to standard CSV:
+        else if (params.csvType == "custom") sheetContent = spotImportService.convertCustomCSV(sheetContent, params.columnSeparator, params.decimalSeparator, params.thousandSeparator)
 
         //read config
         def resultFileCfg

@@ -103,6 +103,10 @@
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/spring-security-core-1.2.7.3/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/spring-security-core-1.2.7.3/grails-app/taglib" isTestSource="false" />
     </content>
+    <content url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/spring-security-eventlog-0.2">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/spring-security-eventlog-0.2/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/spring-security-eventlog-0.2/grails-app/domain" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/tomcat-2.2.0" />
     <content url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/webflow-2.0.0" />
     <content url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/webxml-1.4.1">

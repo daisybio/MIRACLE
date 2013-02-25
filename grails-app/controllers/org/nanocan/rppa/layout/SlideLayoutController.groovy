@@ -4,6 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import org.nanocan.rppa.scanner.Spot
 import grails.plugins.springsecurity.Secured
 import org.nanocan.rppa.project.Project
+import org.nanocan.rppa.scanner.Slide
 
 @Secured(['ROLE_USER'])
 class SlideLayoutController {
@@ -186,6 +187,12 @@ class SlideLayoutController {
         if (!slideLayoutInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'slideLayout.label', default: 'SlideLayout'), params.id])
             redirect(action: "list")
+            return
+        }
+
+        else if(Slide.findByLayout(slideLayoutInstance)){
+            flash.message = "Cannot delete layout while there is still a slide using it."
+            redirect(action: "show", id: params.id)
             return
         }
 
