@@ -41,6 +41,7 @@ grails.project.dependency.resolution = {
         //xlxs file support
         compile (group:'org.apache.poi', name:'poi-ooxml', version:'3.9')
 
+
         // runtime 'mysql:mysql-connector-java:5.1.16'
     }
 
@@ -49,6 +50,11 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.7.1"
         runtime ":resources:1.1.6"
         runtime ":database-migration:1.1"
+
+        //security
+        compile ":spring-security-core:1.2.7.3"
+        compile ":spring-security-cas:1.0.5"
+        compile ":spring-security-eventlog:0.2"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"

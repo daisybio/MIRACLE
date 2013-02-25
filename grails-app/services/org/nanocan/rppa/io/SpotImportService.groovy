@@ -45,6 +45,39 @@ class SpotImportService {
         return content
     }
 
+    def convertCustomCSV(String content, String columnSeparator, String decimalSeparator, String thousandSeparator)
+    {
+        switch(columnSeparator){
+        case "comma":
+            columnSeparator = ","
+            break
+        case "semicolon":
+            columnSeparator = ";"
+            break
+        case "tab":
+            columnSeparator = "\t"
+            break
+        }
+
+        //remove thousand separator
+        if(thousandSeparator != "")
+        content = StringUtils.replace(content, thousandSeparator, "")
+
+        //temporarily substitute column separator with tab to avoid comma confusion with decimal separator
+        if(columnSeparator != "\t")
+        {
+            content = StringUtils.replace(content, columnSeparator, "\t")
+        }
+
+        //replace decimal separator
+        content = StringUtils.replace(content, decimalSeparator, ".")
+
+        //(re-)substitute column separator
+        content = StringUtils.replace(content, "\t", ",")
+
+        return (content)
+    }
+
     /**
      * Skip lines and read header, then parse it to array
      * @param content
@@ -126,7 +159,6 @@ class SpotImportService {
 
         //config
         def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
-        def slideInstance = Slide.get(slideInstanceId)
 
         if(groovySql)
         {
@@ -135,7 +167,10 @@ class SpotImportService {
             sql.close()
         }
 
-        else slideInstance.spots.clear()
+        else{
+            def slideInstance = Slide.get(slideInstanceId)
+            slideInstance.spots.clear()
+        }
     }
 
     /**
