@@ -248,14 +248,14 @@ class SpotImportService {
                 newSpot.block = Integer.valueOf(currentLine[columnMap.block])
                 newSpot.row = Integer.valueOf(currentLine[columnMap.row])
                 newSpot.col = Integer.valueOf(currentLine[columnMap.column])
-                newSpot.x = Integer.valueOf(currentLine[columnMap.X])
-                newSpot.y = Integer.valueOf(currentLine[columnMap.Y])
+                newSpot.x = (int) Double.valueOf(currentLine[columnMap.X])
+                newSpot.y = (int) Double.valueOf(currentLine[columnMap.Y])
                 newSpot.diameter = Double.valueOf(currentLine[columnMap.diameter] )
                 newSpot.flag = Double.valueOf(currentLine[columnMap.flag] )
 
                 spots << newSpot
 
-            }catch(ArrayIndexOutOfBoundsException)
+            }catch(ArrayIndexOutOfBoundsException e)
             {
                 log.info "could not parse line, assuming the end is reached."
             }
