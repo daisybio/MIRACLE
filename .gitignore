@@ -8,3 +8,4 @@ web-app/imagezoom
 log
 .idea/workspace.xml
 devDb*
+*.db

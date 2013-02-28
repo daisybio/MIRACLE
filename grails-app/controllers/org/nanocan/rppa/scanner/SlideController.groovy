@@ -297,7 +297,7 @@ class SlideController {
         def columnMap = [:]
 
         params.keySet().each{
-            if(it.toString().startsWith("column")) columnMap.put(params.get(it), Integer.parseInt(it.toString().split('_')[1]))
+            if(it.toString().startsWith("column") && it.toString() != "columnSeparator") columnMap.put(params.get(it), Integer.parseInt(it.toString().split('_')[1]))
         }
 
         def slideInstance = Slide.get(params.id)
