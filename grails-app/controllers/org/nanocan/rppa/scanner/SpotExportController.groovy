@@ -35,6 +35,18 @@ class SpotExportController {
         render Slide.get(params.id).layout.blocksPerRow
     }
 
+    def getTitle = {
+        render Slide.get(params.id).title
+    }
+
+    def getIdFromBarcode = {
+        render Slide.findByBarcode(params.id).id
+    }
+
+    def getAntibody = {
+        render Slide.get(params.id).antibody.toString()
+    }
+
     def createUrlForR = {
 
         //if we don't remove this, it'll override the action setting below

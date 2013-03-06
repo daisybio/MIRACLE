@@ -45,7 +45,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="MIRACLE-grailsPlugins" />
     <orderEntry type="library" scope="PROVIDED" name="grails-2.1.1" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="grails-2.2.0" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grails-2.2.1" level="application" />
     <orderEntry type="module-library">
       <library name="Grails User Library (Rconnect-inplacePlugin)">
         <CLASSES>

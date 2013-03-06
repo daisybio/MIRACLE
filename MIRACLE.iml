@@ -77,7 +77,7 @@
     <orderEntry type="module" module-name="Rconnect-inplacePlugin" exported="" />
     <orderEntry type="module" module-name="MIRACLE-grailsPlugins" />
     <orderEntry type="library" name="grails-2.1.1" level="application" />
-    <orderEntry type="library" name="grails-2.2.0" level="application" />
+    <orderEntry type="library" name="grails-2.2.1" level="application" />
   </component>
 </module>
 
