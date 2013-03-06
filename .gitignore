@@ -10,3 +10,4 @@ log
 devDb*
 *.db
 savanahDb*
+*.iml
