@@ -14,6 +14,7 @@ class SlideLayoutController {
     def slideLayoutService
     def projectService
     def progressService
+	def clipboardParsingService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -22,6 +23,7 @@ class SlideLayoutController {
     }
 
     def showSpotTooltip(){
+
         render template: "spotPreview", model: [layoutSpotInstance: LayoutSpot.get(params.long("id"))]
     }
 
@@ -66,6 +68,19 @@ class SlideLayoutController {
 
         [slideLayout:  slideLayoutInstance, spots: slideLayoutInstance.sampleSpots, sampleProperty: params.sampleProperty]
     }
+	
+	
+	def parseClipboardData(){
+		println params					//params is an object with all the parameters from the view.
+		def slideLayoutInstance = SlideLayout.get(params.id)
+		
+		def spots = clipboardParsingService.parse(params.excelPasteBin, slideLayoutInstance)
+		println params.spotProperty
+		def model = [sampleProperty: params.spotProperty, blocksPerRow : slideLayoutInstance.blocksPerRow,columnsPerBlock : slideLayoutInstance.columnsPerBlock, 
+			rowsPerBlock : slideLayoutInstance.rowsPerBlock,spots:spots, numberOfBlocks: slideLayoutInstance.numberOfBlocks]
+		render template: "tableTemplate", model: model
+	}
+	
 
     def updateSpotProperty()
     {
