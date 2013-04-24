@@ -71,11 +71,11 @@ class SlideLayoutController {
 	
 	
 	def parseClipboardData(){
-		println params					//params is an object with all the parameters from the view.
+		//println params					params is an object with all the parameters from the view.
 		def slideLayoutInstance = SlideLayout.get(params.id)
 		
 		def spots = clipboardParsingService.parse(params.excelPasteBin, slideLayoutInstance)
-		println params.spotProperty
+		//println params.spotProperty
 		def model = [sampleProperty: params.spotProperty, blocksPerRow : slideLayoutInstance.blocksPerRow,columnsPerBlock : slideLayoutInstance.columnsPerBlock, 
 			rowsPerBlock : slideLayoutInstance.rowsPerBlock,spots:spots, numberOfBlocks: slideLayoutInstance.numberOfBlocks]
 		render template: "tableTemplate", model: model
