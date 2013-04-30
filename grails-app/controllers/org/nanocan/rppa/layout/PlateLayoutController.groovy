@@ -9,6 +9,7 @@ class PlateLayoutController {
 
     def plateLayoutService
     def progressService
+	def clipboardParsingService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -52,6 +53,16 @@ class PlateLayoutController {
         [plateLayoutInstance: new PlateLayout(params)]
     }
 
+	def parseClipboardData(){
+		//println params					params is an object with all the parameters from the view.
+		//def slideLayoutInstance = SlideLayout.get(params.id)
+		def plateLayoutInstance = PlateLayout.get(params.id)
+		def spots = clipboardParsingService.parsePlate(params.excelPasteBin, plateLayoutInstance)
+		//println params.spotProperty
+		def model = [wellProperty:wellProperty,plateLayout:plateLayout]
+		render template: "tableTemplate", model: model
+	}
+	
     def save() {
         def plateLayoutInstance = new PlateLayout(params)
         if (!plateLayoutInstance.save(flush: true)) {

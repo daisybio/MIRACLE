@@ -1,10 +1,11 @@
 <g:if test="${sampleProperty != 'sample'}">
-    <g:render template="colorLegend" model="${[sampleProperty: sampleProperty]}"></g:render>
+	<g:render template="colorLegend"
+		model="${[sampleProperty: sampleProperty]}"></g:render>
 </g:if>
 <g:else>
-    <g:render template="sampleLegend" model="${[layoutId: slideLayout.id]}"></g:render>
+	<g:render template="sampleLegend" model="${[layoutId: slideLayout.id]}"></g:render>
 </g:else>
-    <g:render template="spotTooltip"/>
+<g:render template="spotTooltip" />
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -13,32 +14,47 @@
     });
 </script>
 
-<g:jprogressDialog message="Updating layout information..." progressId="update${slideLayout.id}" trigger="layoutUpdateButton"/>
+<g:jprogressDialog message="Updating layout information..."
+	progressId="update${slideLayout.id}" trigger="layoutUpdateButton" />
 
-<div class="message" id="message" role="status" style="padding:0px;margin:0px;margin-bottom:10px;">${flash.message?:"Select cells to change the layout"}</div>
+<div class="message" id="message" role="status"
+	style="padding: 0px; margin: 0px; margin-bottom: 10px;">
+	${flash.message?:"Select cells to change the layout"}
+</div>
 
-<g:if test="${sampleProperty == 'sample'}" >
-    <div class="errors">Warning: Colors are not unique for samples! Make sure you know what you are doing!</div>
+<g:if test="${sampleProperty == 'sample'}">
+	<div class="errors">Warning: Colors are not unique for samples!
+		Make sure you know what you are doing!</div>
 </g:if>
 
-<g:formRemote name="excelPasteBinForm" onSuccess="jQuery(function() {jQuery('#blockTabs').tabs() });registerHandlers('blockTable1');" update="blockTabs" url="${["controller":"slideLayout", action:"parseClipboardData"]}"> 
-    <g:hiddenField name="id" value="${slideLayout.id}"/>
-    <g:textArea name="excelPasteBin" rows="5" cols="14"/>
-    <g:hiddenField name="spotProperty" value="${sampleProperty}"/>
-    <g:submitButton name="parse"/>
+<g:formRemote name="excelPasteBinForm"
+	onSuccess="jQuery(function() {jQuery('#blockTabs').tabs() });registerHandlers('blockTable1');"
+	update="blockTabs"
+	url="${["controller":"slideLayout", action:"parseClipboardData"]}">
+	<g:hiddenField name="id" value="${slideLayout.id}" />
+	<g:textArea name="excelPasteBin" rows="5" cols="14" />
+	<g:hiddenField name="spotProperty" value="${sampleProperty}" />
+	<g:submitButton name="parse" />
 </g:formRemote>
 
-<g:formRemote onSuccess="window.onbeforeunload = null;unsavedChanges=false" name="spotPropertiesForm" update="message" url="[controller: 'slideLayout', action: 'updateSpotProperty']">
-    <div class="buttons" style="margin-top:5px; margin-bottom:10px;">
-        <input type="submit" value="Save changes" name="layoutUpdateButton"/>
-        Selection Mode: <g:select name="selectionMode" from="${['normal', 'whole rows', 'whole columns']}" onchange="updateSelectionMode(this.value);"/>
-    </div>
-    <input name="spotProperty" type="hidden" value="${sampleProperty}"/>
-    <input name="slideLayout" type="hidden" value="${slideLayout.id}"/>
+<g:formRemote
+	onSuccess="window.onbeforeunload = null;unsavedChanges=false"
+	name="spotPropertiesForm" update="message"
+	url="[controller: 'slideLayout', action: 'updateSpotProperty']">
+	<div class="buttons" style="margin-top: 5px; margin-bottom: 10px;">
+		<input type="submit" value="Save changes" name="layoutUpdateButton" />
+		Selection Mode:
+		<g:select name="selectionMode"
+			from="${['normal', 'whole rows', 'whole columns']}"
+			onchange="updateSelectionMode(this.value);" />
+	</div>
+	<input name="spotProperty" type="hidden" value="${sampleProperty}" />
+	<input name="slideLayout" type="hidden" value="${slideLayout.id}" />
 
-<div id = "blockTabs" style="overflow: auto;">
-	<g:render template="tableTemplate" model="${[blocksPerRow:blocksPerRow,columnsPerBlock:slideLayout.columnsPerBlock,rowsPerBlock:slideLayout.rowsPerBlock,spots:spots, numberOfBlocks: slideLayout.numberOfBlocks]}"></g:render>
-</div>
+	<div id="blockTabs" style="overflow: auto;">
+		<g:render template="tableTemplate"
+			model="${[blocksPerRow:blocksPerRow,columnsPerBlock:slideLayout.columnsPerBlock,rowsPerBlock:slideLayout.rowsPerBlock,spots:spots, numberOfBlocks: slideLayout.numberOfBlocks]}"></g:render>
+	</div>
 </g:formRemote>
 
 <script type="text/javascript">
