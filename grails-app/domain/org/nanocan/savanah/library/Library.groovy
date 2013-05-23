@@ -1,8 +1,10 @@
 package org.nanocan.savanah.library
 
+import java.io.Serializable;
+
 import org.nanocan.savanah.security.Person
 
-class Library {
+class Library implements Serializable{
 
     String name
     String type

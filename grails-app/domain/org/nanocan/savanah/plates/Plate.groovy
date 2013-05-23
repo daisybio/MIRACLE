@@ -1,8 +1,10 @@
 package org.nanocan.savanah.plates
 
+import java.io.Serializable;
+
 import org.nanocan.savanah.library.Library
 
-class Plate {
+class Plate implements Serializable{
 
     PlateType plateType
     String format

@@ -1,6 +1,8 @@
 package org.nanocan.savanah.plates
 
-class PlateType {
+import java.io.Serializable;
+
+class PlateType implements Serializable{
 
     String name
     String vendor

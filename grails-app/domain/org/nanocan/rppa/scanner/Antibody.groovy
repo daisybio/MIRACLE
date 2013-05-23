@@ -1,6 +1,8 @@
 package org.nanocan.rppa.scanner
 
-class Antibody {
+import java.io.Serializable;
+
+class Antibody implements Serializable{
 
     String name
     Double concentration

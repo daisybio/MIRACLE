@@ -69,5 +69,10 @@ grails.project.dependency.resolution = {
         compile(":webflow:2.0.0") {
             exclude 'grails-webflow'
         }
+		compile ":codenarc:0.18.1"
     }
+	CodeNarc.properties = {
+		GrailsPublicControllerMethod.enabled = false
+		EmptyIfStatement.priority = 1
+	}
 }

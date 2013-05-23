@@ -1,6 +1,8 @@
 package org.nanocan.rppa.scanner
 
-class ResultFileConfig {
+import java.io.Serializable;
+
+class ResultFileConfig implements Serializable{
 
     String name
 

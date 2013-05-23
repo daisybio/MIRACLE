@@ -1,6 +1,8 @@
 package org.nanocan.savanah.security
 
-class Person {
+import java.io.Serializable;
+
+class Person implements Serializable{
 
     String username
 

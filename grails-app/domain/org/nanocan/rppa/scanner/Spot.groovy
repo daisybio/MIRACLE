@@ -1,8 +1,10 @@
 package org.nanocan.rppa.scanner
 
+import java.io.Serializable;
+
 import org.nanocan.rppa.layout.LayoutSpot
 
-class Spot {
+class Spot implements Serializable{
 
     double FG
     double BG

@@ -1,9 +1,11 @@
 package org.nanocan.rppa.scanner
 
+import java.io.Serializable;
+
 import org.nanocan.rppa.layout.SlideLayout
 import org.nanocan.rppa.security.Person
 
-class Slide{
+class Slide implements Serializable{
 
     Date dateOfStaining
 

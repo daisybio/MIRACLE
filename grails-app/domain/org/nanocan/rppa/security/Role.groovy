@@ -1,6 +1,8 @@
 package org.nanocan.rppa.security
 
-class Role {
+import java.io.Serializable;
+
+class Role implements Serializable{
 
 	String authority
 

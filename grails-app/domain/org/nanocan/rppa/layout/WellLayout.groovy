@@ -1,8 +1,10 @@
 package org.nanocan.rppa.layout
 
+import java.io.Serializable;
+
 import org.nanocan.rppa.rnai.Sample
 
-class WellLayout implements Comparable{
+class WellLayout implements Comparable,Serializable{
 
     int col
     int row

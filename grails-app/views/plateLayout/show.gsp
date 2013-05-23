@@ -66,5 +66,5 @@
         </fieldset>
     </g:form>
 </div>
-</body>
-</html>
+	</body>
+	</html>

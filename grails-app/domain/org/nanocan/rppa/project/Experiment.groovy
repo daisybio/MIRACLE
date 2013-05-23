@@ -1,11 +1,13 @@
 package org.nanocan.rppa.project
 
+import java.io.Serializable;
+
 import org.nanocan.rppa.security.Person
 import org.nanocan.rppa.layout.SlideLayout
 import org.nanocan.rppa.scanner.Slide
 import org.nanocan.rppa.layout.PlateLayout
 
-class Experiment {
+class Experiment implements Serializable{
 
     String title
     String description

@@ -1,8 +1,10 @@
 package org.nanocan.rppa.security
 
+import java.io.Serializable;
+
 import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor
 
-class Person {
+class Person implements Serializable{
 
 	transient springSecurityService
     transient hasBeforeUpdate = false

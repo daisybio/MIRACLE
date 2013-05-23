@@ -1,6 +1,8 @@
 package org.nanocan.rppa.scanner
 
-class BlockShift {
+import java.io.Serializable;
+
+class BlockShift implements Serializable{
 
     int horizontalShift
     int verticalShift
