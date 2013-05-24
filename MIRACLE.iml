@@ -68,6 +68,7 @@
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi-ooxml-schemas/jars/poi-ooxml-schemas-3.9.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi-ooxml/jars/poi-ooxml-3.9.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi/jars/poi-3.9.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.eclipse.jdt.core.compiler/ecj/jars/ecj-3.7.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -78,6 +79,7 @@
     <orderEntry type="module" module-name="MIRACLE-grailsPlugins" />
     <orderEntry type="library" name="grails-2.1.1" level="application" />
     <orderEntry type="library" name="grails-2.2.1" level="application" />
+    <orderEntry type="library" name="grails-2.2.2" level="application" />
   </component>
 </module>
 

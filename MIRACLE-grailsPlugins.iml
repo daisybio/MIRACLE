@@ -4,20 +4,23 @@
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/jquery-1.7.1/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/famfamfam-1.0.1/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/database-migration-1.1/grails-app/views" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/jquery-ui-1.8.15/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/searchable-0.6.4/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/searchable-0.6.4/grails-app/views" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/jprogress-0.2/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/jprogress-0.2/grails-app/views" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/mail-1.0/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/mail-1.0/grails-app/views" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/joda-time-1.4/grails-app/views" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/build-test-data-2.0.2/web-app" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/imagezoom-0.3.5/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/mail-1.0/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/mail-1.0/grails-app/views" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jquery-1.7.1/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/famfamfam-1.0.1/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jquery-ui-1.8.15/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/build-test-data-2.0.2/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/searchable-0.6.4/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/searchable-0.6.4/grails-app/views" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jprogress-0.2/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jprogress-0.2/grails-app/views" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/database-migration-1.1/grails-app/views" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/imagezoom-0.3.5/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/joda-time-1.4/grails-app/views" relative="/" />
         </webroots>
+        <sourceRoots>
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/hibernate-2.2.2/grails-app/i18n" />
+        </sourceRoots>
       </configuration>
     </facet>
     <facet type="hibernate" name="Hibernate">
@@ -31,16 +34,99 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/build-test-data-2.0.2">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/build-test-data-2.0.2/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/build-test-data-2.0.2/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/build-test-data-2.0.2/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/build-test-data-2.0.2/grails-app/services" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/database-migration-1.1">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/database-migration-1.1/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/database-migration-1.1/grails-app/controllers" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/famfamfam-1.0.1">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/famfamfam-1.0.1/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/grails-melody-1.14">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/grails-melody-1.14/src/groovy" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/hibernate-2.2.2">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/hibernate-2.2.2/grails-app/i18n" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/imagezoom-0.3.5">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/imagezoom-0.3.5/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/imagezoom-0.3.5/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/imagezoom-0.3.5/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/joda-time-1.4">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/joda-time-1.4/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/joda-time-1.4/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jprogress-0.2">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jprogress-0.2/grails-app/controllers" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jprogress-0.2/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jprogress-0.2/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jquery-1.7.1">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jquery-1.7.1/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jquery-1.7.1/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jquery-1.7.1/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jquery-1.7.1/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jquery-ui-1.8.15">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jquery-ui-1.8.15/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/jquery-ui-1.8.15/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/mail-1.0">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/mail-1.0/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/mail-1.0/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/mail-1.0/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/mail-1.0/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/resources-1.1.6">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/resources-1.1.6/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/resources-1.1.6/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/resources-1.1.6/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/resources-1.1.6/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/searchable-0.6.4">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/searchable-0.6.4/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/searchable-0.6.4/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/searchable-0.6.4/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/searchable-0.6.4/grails-app/controllers" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/searchable-0.6.4/grails-app/services" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spock-0.7" />
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-cas-1.0.5">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-cas-1.0.5/src/java" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-core-1.2.7.3">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-core-1.2.7.3/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-core-1.2.7.3/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-core-1.2.7.3/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-core-1.2.7.3/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-core-1.2.7.3/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-eventlog-0.2">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-eventlog-0.2/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/spring-security-eventlog-0.2/grails-app/domain" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/tomcat-2.2.2" />
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/webflow-2.0.0" />
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/webxml-1.4.1">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/webxml-1.4.1/src/groovy" isTestSource="false" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="grails-2.1.1" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="grails-2.2.1" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grails-2.2.2" level="application" />
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (MIRACLE-grailsPlugins)">
         <CLASSES>
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/searchable-0.6.4/lib" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/joda-time-1.4/lib" />
-          <root url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/imagezoom-0.3.5/lib" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/searchable-0.6.4/lib" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/imagezoom-0.3.5/lib" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/joda-time-1.4/lib" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/jboss/javassist/jars/javassist-3.7.ga.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/com.lowagie/itext/jars/itext-2.1.7.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.jrobin/jrobin/jars/jrobin-1.5.9.jar!/" />
@@ -57,12 +143,13 @@
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi-ooxml-schemas/jars/poi-ooxml-schemas-3.9.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi-ooxml/jars/poi-ooxml-3.9.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi/jars/poi-3.9.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.eclipse.jdt.core.compiler/ecj/jars/ecj-3.7.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/imagezoom-0.3.5/lib" recursive="false" />
-        <jarDirectory url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/joda-time-1.4/lib" recursive="false" />
-        <jarDirectory url="file://$USER_HOME$/.grails/2.2.0/projects/MIRACLE/plugins/searchable-0.6.4/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/imagezoom-0.3.5/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/joda-time-1.4/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME$/.grails/2.2.2/projects/MIRACLE/plugins/searchable-0.6.4/lib" recursive="false" />
       </library>
     </orderEntry>
   </component>
