@@ -78,6 +78,10 @@ class SpotExportService {
             if ("SampleType" in props) spotPropList << (spot.layoutSpot.sample?.type ?: "NA")
             if ("TargetGene" in props) spotPropList << (spot.layoutSpot.sample?.targetGene ?: "NA")
             if ("NumberOfCellsSeeded" in props) spotPropList << (spot.layoutSpot.numberOfCellsSeeded ?: "NA")
+            if ("Replicate" in props) spotPropList << (spot.layoutSpot.replicate ?:"NA")
+            if ("PlateRow" in props) spotPropList << (spot.layoutSpot.wellLayout.row ?: "NA")
+            if ("PlateCol" in props) spotPropList << (spot.layoutSpot.wellLayout.col ?: "NA")
+            if ("PlateLayout" in props) spotPropList << (spot.layoutSpot.wellLayout.id ?: "NA")
         }
 
         return result

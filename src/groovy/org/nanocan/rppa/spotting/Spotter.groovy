@@ -43,7 +43,7 @@ abstract class Spotter {
         def extractionSorted = sortExtraction(extraction)
 
         extractionSorted.each{
-            createLayoutSpot(it, null, it.row, it.col)
+            createLayoutSpot(it, java.util.UUID.randomUUID(), null, it.row, it.col)
         }
 
         nextSpot()
@@ -64,12 +64,13 @@ abstract class Spotter {
 
             def row = parseRow(it.row)
             def col = parseColumn(it.col)
+            String replicate = java.util.UUID.randomUUID()
 
             for(int subCol in 0..1)
             {
                 for(int subRow in 0..1)
                 {
-                    createLayoutSpot(it, dilutionPattern[subRow][subCol], (row + subRow), (col + subCol))
+                    createLayoutSpot(it, replicate, dilutionPattern[subRow][subCol], (row + subRow), (col + subCol))
                 }
             }
         }
@@ -99,7 +100,7 @@ abstract class Spotter {
         (((modRow - 1) * maxExtractorColumns) + modCol)
     }
 
-    def createLayoutSpot(wellLayout, dilutionFactor, row, column){
+    def createLayoutSpot(wellLayout, replicate, dilutionFactor, row, column){
 
         if (isFull()) throw new Exception("Layout is full. Can not add ${wellLayout}.")
 
@@ -124,19 +125,23 @@ abstract class Spotter {
             props.put(prop, propInstance)
         }
 
+        def wellLayoutMiracle
+
         //spot type
         if (wellLayout instanceof SavanahWellLayout)
         {
             props.put("spotType", null)
+
         }
         else if(wellLayout instanceof WellLayout)
         {
+            wellLayoutMiracle = wellLayout
             props.put("spotType", wellLayout.spotType)
         }
 
         if (dilutionFactor) dilutionFactor = Dilution.get(dilutionFactor)
 
-        def newLayoutSpot = new LayoutSpot(block: calculateBlockFromRowAndCol(row, column),
+        def newLayoutSpot = new LayoutSpot(wellLayout: wellLayoutMiracle, replicate: replicate, block: calculateBlockFromRowAndCol(row, column),
                 cellLine: props.cellLine, dilutionFactor: dilutionFactor, col: currentSpottingColumn, row: currentSpottingRow, inducer: props.inducer,
                 lysisBuffer: defaultLysisBuffer, treatment: props.treatment, numberOfCellsSeeded: props.numberOfCellsSeeded, spotType: props.spotType?:defaultSpotType, sample: props.sample, layout: slideLayout)
 
