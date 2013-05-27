@@ -25,6 +25,7 @@ abstract class Spotter {
     def matchingMaps
     def defaultSpotType
     def defaultLysisBuffer
+    def replicateCounter = 0
 
     Spotter(Map map)
     {
@@ -43,7 +44,8 @@ abstract class Spotter {
         def extractionSorted = sortExtraction(extraction)
 
         extractionSorted.each{
-            createLayoutSpot(it, java.util.UUID.randomUUID(), null, it.row, it.col)
+            createLayoutSpot(it, replicateCounter.toString(), null, it.row, it.col)
+            replicateCounter++
         }
 
         nextSpot()
@@ -64,13 +66,13 @@ abstract class Spotter {
 
             def row = parseRow(it.row)
             def col = parseColumn(it.col)
-            String replicate = java.util.UUID.randomUUID()
+            int replicate = this.replicateCounter++
 
             for(int subCol in 0..1)
             {
                 for(int subRow in 0..1)
                 {
-                    createLayoutSpot(it, replicate, dilutionPattern[subRow][subCol], (row + subRow), (col + subCol))
+                    createLayoutSpot(it, replicate.toString(), dilutionPattern[subRow][subCol], (row + subRow), (col + subCol))
                 }
             }
         }
@@ -125,7 +127,7 @@ abstract class Spotter {
             props.put(prop, propInstance)
         }
 
-        def wellLayoutMiracle
+        def wellLayoutMiracle = null
 
         //spot type
         if (wellLayout instanceof SavanahWellLayout)

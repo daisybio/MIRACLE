@@ -45,6 +45,17 @@
 
 <h1 style="padding-left:20px;">Modify ${sampleProperty.toString().capitalize()} for layout ${plateLayout}</h1>
 
+
+<g:message code="slideLayout.experiments.label" default="Experiments" />
+    <ul class="property-list">
+        <g:each in="${selectedExperiments}">
+            <li>
+                <g:link controller="experiment" action="show" id="${it.id}">${it.title}</g:link>
+            </li>
+        </g:each>
+    </ul>
+    <g:select name="addToExperiment" from="${experiments.removeAll(selectedExperiments)}"/>
+
 <div class="message" id="message" role="status">${flash.message?:"Select cells to change the layout"}</div>
 
 <g:if test="${sampleProperty == 'sample'}" >

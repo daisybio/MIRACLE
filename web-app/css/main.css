@@ -10,6 +10,14 @@ h1, h2, h3, h4, h5, h6 {
 
 /* BASE LAYOUT */
 
+.sticky {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    border-top: 0;
+}
+
 html {
 	background-color: #ddd;
 	background-image: -moz-linear-gradient(center top, #aaa, #ddd);

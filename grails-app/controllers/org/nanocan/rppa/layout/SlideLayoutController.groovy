@@ -3,8 +3,9 @@ package org.nanocan.rppa.layout
 import org.springframework.dao.DataIntegrityViolationException
 import org.nanocan.rppa.scanner.Spot
 import grails.plugins.springsecurity.Secured
-import org.nanocan.rppa.project.Project
 import org.nanocan.rppa.scanner.Slide
+import org.nanocan.rppa.project.Experiment
+import org.nanocan.rppa.project.Project
 
 @Secured(['ROLE_USER'])
 class SlideLayoutController {
@@ -12,7 +13,7 @@ class SlideLayoutController {
     //dependencies
     def springSecurityService
     def slideLayoutService
-    def projectService
+    def experimentService
     def progressService
 	def clipboardParsingService
 
@@ -42,13 +43,18 @@ class SlideLayoutController {
 
         if(session.projectSelected)
         {
-            slideLayoutInstanceList = Project.get(session.projectSelected as Long).layouts
-            slideLayoutInstanceListTotal = slideLayoutInstanceList.size()
+            slideLayoutInstanceList = Experiment.findByProject(Project.get(session.projectSelected as Long))?.layouts
+            slideLayoutInstanceListTotal = slideLayoutInstanceList?.size()?:0
 
-            int rangeMin = Math.min(slideLayoutInstanceListTotal, params.int('offset'))
-            int rangeMax = Math.min(slideLayoutInstanceListTotal, (params.int('offset') + params.int('max')))
+            if(params.int('offset') >= slideLayoutInstanceListTotal) params.offset = 0
 
-            slideLayoutInstanceList = slideLayoutInstanceList.asList().subList(rangeMin, rangeMax)
+            if(slideLayoutInstanceListTotal > 0)
+            {
+                int rangeMin = Math.min(slideLayoutInstanceListTotal, params.int('offset'))
+                int rangeMax = Math.min(slideLayoutInstanceListTotal, (params.int('offset') + params.int('max')))
+
+                slideLayoutInstanceList = slideLayoutInstanceList.asList().subList(rangeMin, rangeMax)
+            }
         }
         else
         {
@@ -60,7 +66,7 @@ class SlideLayoutController {
     }
 
     def create() {
-        [slideLayoutInstance: new SlideLayout(params), projects: Project.list()]
+        [slideLayoutInstance: new SlideLayout(params), experiments: Experiment.list()]
     }
 
     def sampleSpotTable(){
@@ -120,7 +126,7 @@ class SlideLayoutController {
         }
         slideLayoutService.createSampleSpots(slideLayoutInstance)
 
-        projectService.addToProject(slideLayoutInstance, params.projectsSelected)
+        experimentService.addToExperiment(slideLayoutInstance, params.experimentsSelected)
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'slideLayout.label', default: 'SlideLayout'), slideLayoutInstance.id])
         redirect(action: "show", id: slideLayoutInstance.id)
@@ -134,7 +140,7 @@ class SlideLayoutController {
             return
         }
 
-        [slideLayoutInstance: slideLayoutInstance, projects: projectService.findProject(slideLayoutInstance)]
+        [slideLayoutInstance: slideLayoutInstance, experiments: experimentService.findExperiment(slideLayoutInstance)]
     }
 
     def sampleList(){
@@ -155,9 +161,9 @@ class SlideLayoutController {
             return
         }
 
-        def projects = projectService.findProject(slideLayoutInstance)
+        def experiments = experimentService.findExperiment(slideLayoutInstance)
 
-        [slideLayoutInstance: slideLayoutInstance, projects: Project.list(), selectedProjects: projects]
+        [slideLayoutInstance: slideLayoutInstance, experiments: Experiment.list(), selectedExperiments: experiments]
     }
 
 
@@ -186,12 +192,12 @@ class SlideLayoutController {
         slideLayoutInstance.properties = params
 
         if (!slideLayoutInstance.save(flush: true)) {
-            render(view: "edit", model: [slideLayoutInstance: slideLayoutInstance, projects: Project.list(),
-                    selectedProjects: slideLayoutService.findProject(slideLayoutInstance)])
+            render(view: "edit", model: [slideLayoutInstance: slideLayoutInstance, experiments: Experiment.list(),
+                    selectedExperiments: slideLayoutService.findExperiment(slideLayoutInstance)])
             return
         }
 
-        projectService.updateProjects(slideLayoutInstance, params.projectsSelected)
+        experimentService.updateExperiments(slideLayoutInstance, params.experimentsSelected)
 
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'slideLayout.label', default: 'SlideLayout'), slideLayoutInstance.id])
         redirect(action: "show", id: slideLayoutInstance.id)
@@ -212,7 +218,7 @@ class SlideLayoutController {
         }
 
         try {
-            projectService.updateProjects(slideLayoutInstance, [])
+            experimentService.updateExperiments(slideLayoutInstance, [])
             slideLayoutInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'slideLayout.label', default: 'SlideLayout'), params.id])
             redirect(action: "list")

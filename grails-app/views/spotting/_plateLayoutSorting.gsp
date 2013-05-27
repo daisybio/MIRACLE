@@ -5,6 +5,20 @@
 </style>
 
 <div style="margin:10px; float:left;">
+    <b>Plate Layouts Selected For Spotting</b><br/><br/>
+    <div class="stickable">
+        <div>
+            <ul id="selectedPlates" class="connectedSortable connectedWaste"/>
+            Drop here
+        </div>  <br/>        <br/>
+        <span>
+            <ul id="wasteBin" class="connectedWaste"/>
+            Trash Bin
+        </span>
+    </div>
+</div>
+
+<div style="margin:10px; float:left;">
     <b>SAVANAH Plate Layouts</b> <br/> <br/>
     Select a project:
     <div>
@@ -34,16 +48,6 @@
     <div id="miraclePlateLayoutsDiv">
         <g:render template="plateLayoutList" model="${[layouts: session.projectSelected?miracleProjects.find{it.id == session.projectSelected as Long}.plateLayouts:miracleLayouts, prefix: 'layout_miracle', ulid: 'unselectedMiraclePlateLayouts']}" />
     </div>
-</div>
-
-<div style="margin:10px; float:left;">
-    <b>Plate Layouts Selected For Spotting</b><br/><br/>
-    <ul id="selectedPlates" class="connectedSortable connectedWaste"/>
-</div>
-
-<div style="margin:10px; float:right;">
-    Trash Bin <br/>
-    <ul id="wasteBin" class="connectedWaste"/>
 </div>
 
 <r:script>

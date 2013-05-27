@@ -54,6 +54,22 @@
             </li>
         </g:if>
 
+        <g:if test="${experiments}">
+            <li class="fieldcontain">
+                <span id="experiments-label" class="property-label"><g:message code="slideLayout.experiments.label" default="Experiments" /></span>
+
+                <span class="property-value" aria-labelledby="experiments-label">
+                    <ul class="property-list">
+                        <g:each in="${experiments}">
+                            <li>
+                                <g:link controller="experiment" action="show" id="${it.id}">${it.title}</g:link>
+                            </li>
+                        </g:each>
+                    </ul>
+                </span>
+            </li>
+        </g:if>
+
     </ol>
     <g:form>
         <fieldset class="buttons">

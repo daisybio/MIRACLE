@@ -109,10 +109,10 @@
 </div>
 
 <div class="fieldcontain">
-    <label for="projects">
-        <g:message code="slideLayout.projects.label" default="Projects" />
+    <label for="experiments">
+        <g:message code="slideLayout.experiments.label" default="Experiments" />
     </label>
-    <g:select name="projectsSelected" multiple="${true}" size="10" from="${projects}" optionKey="id"/>
+    <g:select name="experimentsSelected" multiple="${true}" size="10" from="${experiments}" optionKey="id"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'resultFile', 'error')} required">

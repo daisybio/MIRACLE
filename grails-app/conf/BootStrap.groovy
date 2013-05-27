@@ -78,9 +78,9 @@ class BootStrap {
             returnArray['SpotClass'] = it.layoutSpot?.spotType?.type?:"NA"
             returnArray['NumberOfCellsSeeded'] = it.layoutSpot?.numberOfCellsSeeded?.name?:"NA"
             returnArray['Replicate'] = it.layoutSpot?.replicate?:"NA"
-            returnArray['PlateRow'] = it.layoutSpot?.plateLayout.row?:"NA"
-            returnArray['PlateCol'] = it.layoutSpot?.plateLayout.col?:"NA"
-            returnArray['PlateLayout'] = it.layoutSpot?.plateLayout.id?:"NA"
+            returnArray['PlateRow'] = it.layoutSpot?.wellLayout?.row?:"NA"
+            returnArray['PlateCol'] = it.layoutSpot?.wellLayout?.col?:"NA"
+            returnArray['PlateLayout'] = it.layoutSpot?.wellLayout?.plateLayout?.id?:"NA"
             returnArray['Flag'] = it.flag
             returnArray['Diameter'] = it.diameter
 

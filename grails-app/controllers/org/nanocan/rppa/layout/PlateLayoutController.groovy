@@ -3,12 +3,14 @@ package org.nanocan.rppa.layout
 import grails.plugins.springsecurity.Secured
 import org.springframework.dao.DataIntegrityViolationException
 import org.nanocan.rppa.project.Project
+import org.nanocan.rppa.project.Experiment
 
 @Secured(['ROLE_USER'])
 class PlateLayoutController {
 
     def plateLayoutService
     def progressService
+    def experimentService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -31,13 +33,18 @@ class PlateLayoutController {
 
         if(session.projectSelected)
         {
-            plateLayoutInstanceList = Project.get(session.projectSelected as Long).layouts
-            plateLayoutInstanceListTotal = plateLayoutInstanceList.size()
+            plateLayoutInstanceList = Experiment.findByProject(Project.get(session.projectSelected as Long)).plateLayouts
+            plateLayoutInstanceListTotal = plateLayoutInstanceList?.size()?:0
 
-            int rangeMin = Math.min(plateLayoutInstanceListTotal, params.int('offset'))
-            int rangeMax = Math.min(plateLayoutInstanceListTotal, (params.int('offset') + params.int('max')))
+            if(params.int('offset') >= plateLayoutInstanceListTotal) params.offset = 0
 
-            plateLayoutInstanceList = plateLayoutInstanceList.asList().subList(rangeMin, rangeMax)
+            if (plateLayoutInstanceListTotal > 0)
+            {
+                int rangeMin = Math.min(plateLayoutInstanceListTotal, params.int('offset'))
+                int rangeMax = Math.min(plateLayoutInstanceListTotal, (params.int('offset') + params.int('max')))
+
+                plateLayoutInstanceList = plateLayoutInstanceList.asList().subList(rangeMin, rangeMax)
+            }
         }
         else
         {
@@ -49,7 +56,7 @@ class PlateLayoutController {
     }
 
     def create() {
-        [plateLayoutInstance: new PlateLayout(params)]
+        [plateLayoutInstance: new PlateLayout(params), experiments: Experiment.list()]
     }
 
     def save() {
@@ -60,6 +67,7 @@ class PlateLayoutController {
         }
 
         plateLayoutService.createWellLayouts(plateLayoutInstance)
+        experimentService.addToExperiment(plateLayoutInstance, params.experimentsSelected)
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), plateLayoutInstance.id])
         redirect(action: "show", id: plateLayoutInstance.id)
@@ -84,7 +92,9 @@ class PlateLayoutController {
             return
         }
 
-        [plateLayoutInstance: plateLayoutInstance]
+        def experiments = experimentService.findExperiment(plateLayoutInstance)
+
+        [plateLayoutInstance: plateLayoutInstance, experiments: Experiment.list(), selectedExperiments: experiments]
     }
 
     def update() {
@@ -113,6 +123,8 @@ class PlateLayoutController {
             return
         }
 
+        experimentService.updateExperiments(plateLayoutInstance, params.experimentsSelected)
+
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), plateLayoutInstance.id])
         redirect(action: "show", id: plateLayoutInstance.id)
     }
@@ -126,6 +138,7 @@ class PlateLayoutController {
         }
 
         try {
+            experimentService.updateExperiments(plateLayoutInstance, [])
             plateLayoutInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), params.id])
             redirect(action: "list")
@@ -146,8 +159,9 @@ class PlateLayoutController {
 
     def editAttributes(){
         def plateLayoutInstance = PlateLayout.get(params.id)
+        def experiments = experimentService.findExperiment(plateLayoutInstance)
 
-        [plateLayout:  plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty]
+        [plateLayout:  plateLayoutInstance, wells: plateLayoutInstance.wells, experiments: Experiment.list(), selectedExperiments: experiments, sampleProperty: params.sampleProperty]
     }
 
     def showAttributes(){
