@@ -88,6 +88,9 @@
         <li>
             <g:link class="list" controller="slide" action="list">List Slide Results</g:link>
         </li>
+        <li>
+            <g:link class="create" controller="slide" action="create">Create Slide Result</g:link>
+        </li>
         <li class="divider"></li>
         <li>
             <g:link class="slide" controller="antibody" action="list">Antibodies</g:link>

@@ -4,15 +4,16 @@ import org.springframework.dao.DataIntegrityViolationException
 
 import org.apache.commons.io.FilenameUtils
 import grails.plugins.springsecurity.Secured
-import org.nanocan.rppa.project.Project
+import org.nanocan.rppa.project.Experiment
 import org.hibernate.StaleObjectStateException
+import org.nanocan.rppa.project.Project
 
 @Secured(['ROLE_USER'])
 class SlideController {
 
     //dependencies
     def springSecurityService
-    def projectService
+    def experimentService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -49,13 +50,18 @@ class SlideController {
 
         if(session.projectSelected)
         {
-            slideInstanceList = Project.get(session.projectSelected as Long).slides
-            slideInstanceListTotal = slideInstanceList.size()
+            slideInstanceList = Experiment.findByProject(Project.get(session.projectSelected as Long)).slides
+            slideInstanceListTotal = slideInstanceList?.size()?:0
 
-            int rangeMin = Math.min(slideInstanceListTotal, params.int('offset'))
-            int rangeMax = Math.min(slideInstanceListTotal, (params.int('offset') + params.int('max')))
+            if (params.int('offset') > slideInstanceListTotal) params.offset = 0
 
-            slideInstanceList = slideInstanceList.asList().subList(rangeMin, rangeMax)
+            if(slideInstanceListTotal > 0)
+            {
+                int rangeMin = Math.min(slideInstanceListTotal, params.int('offset'))
+                int rangeMax = Math.min(slideInstanceListTotal, (params.int('offset') + params.int('max')))
+
+                slideInstanceList = slideInstanceList.asList().subList(rangeMin, rangeMax)
+            }
         }
 
         else
@@ -69,7 +75,7 @@ class SlideController {
 
     def create() {
         params.experimenter = springSecurityService.currentUser
-        [slideInstance: new Slide(params), projects: Project.list()]
+        [slideInstance: new Slide(params), experiments: Experiment.list()]
     }
 
     def save() {
@@ -83,7 +89,7 @@ class SlideController {
         if (!slideInstance.save(flush: true, failOnError: true)) {
             render(view: "create", model: [slideInstance: slideInstance])
         }
-        projectService.addToProject(slideInstance, params.projectsSelected)
+        experimentService.addToExperiment(slideInstance, params.experimentsSelected)
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'slide.label', default: 'Slide'), slideInstance.id])
         redirect(action: "show", id: slideInstance.id)
@@ -106,7 +112,7 @@ class SlideController {
             imagezoomFolderExists = new File(grailsApplication.config.rppa.imagezoom.directory + "/" + fileUploadService.getImagezoomFolder(slideInstance?.resultImage?.filePath)).exists()
         }
 
-        [slideInstance: slideInstance,imagezoomFolderExists: imagezoomFolderExists, imagezoomFolder: imagezoomFolder, projects:  projectService.findProject(slideInstance)]
+        [slideInstance: slideInstance,imagezoomFolderExists: imagezoomFolderExists, imagezoomFolder: imagezoomFolder, experiments:  experimentService.findExperiment(slideInstance)]
     }
 
     def edit() {
@@ -117,7 +123,7 @@ class SlideController {
             return
         }
 
-        [slideInstance: slideInstance, projects: Project.list(), selectedProjects: projectService.findProject(slideInstance)]
+        [slideInstance: slideInstance, experiments: Experiment.list(), selectedExperiments: experimentService.findExperiment(slideInstance)]
     }
 
     def zoomifyImage() {
@@ -180,7 +186,7 @@ class SlideController {
             return
         }
 
-        projectService.updateProjects(slideInstance, params.projectsSelected)
+        experimentService.updateExperiments(slideInstance, params.experimentsSelected)
 
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'slide.label', default: 'Slide'), slideInstance.id])
         redirect(action: "show", id: slideInstance.id)
@@ -195,8 +201,8 @@ class SlideController {
         }
 
         try {
-            //remove from all projects
-            projectService.updateProjects(slideInstance, [])
+            //remove from all experiments
+            experimentService.updateExperiments(slideInstance, [])
             //delete spots first, saves a lot of time
             if (slideInstance?.spots?.size() > 0) spotImportService.deleteSpots(params.id)
 
