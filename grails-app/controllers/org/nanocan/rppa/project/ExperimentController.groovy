@@ -59,6 +59,15 @@ class ExperimentController {
         [experimentInstance: experimentInstance]
     }
 
+    /*
+    * Add a parameter to session to keep track of the selected experiment
+    */
+    def updateSelectedExperiment() {
+        session.experimentSelected = params.experimentSelect
+
+        redirect(url: params.returnPage, absolute: false)
+    }
+
     def edit() {
         def experimentInstance = Experiment.get(params.id)
         if (!experimentInstance) {

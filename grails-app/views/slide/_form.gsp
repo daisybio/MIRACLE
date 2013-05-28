@@ -64,7 +64,7 @@
 		<g:message code="slide.dateOfStaining.label" default="Date Of Staining" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:datePicker name="dateOfStaining" precision="day"  value="${slideInstance?.dateOfStaining}"  />
+	<g:jqDatePicker name="dateOfStaining" value="${slideInstance?.dateOfStaining}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'experimenter', 'error')} required">

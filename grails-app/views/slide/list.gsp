@@ -49,13 +49,13 @@
 				<g:each in="${slideInstanceList}" status="i" var="slideInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                        <td><g:link action="show" id="${slideInstance.id}">${slideInstance?.barcode}</g:link></td>
+                        <td><g:link action="show" id="${slideInstance?.id}">${slideInstance?.barcode}</g:link></td>
 
                         <td><g:link action="show" id="${slideInstance.id}">${slideInstance?.toString()}</g:link></td>
 
 						<td>${fieldValue(bean: slideInstance, field: "antibody")}</td>
 					
-						<td><g:formatDate type="date" date="${slideInstance.dateOfStaining}" /></td>
+						<td><g:formatDate type="date" date="${slideInstance?.dateOfStaining}" /></td>
 					
 						<td>${fieldValue(bean: slideInstance, field: "experimenter")}</td>
 

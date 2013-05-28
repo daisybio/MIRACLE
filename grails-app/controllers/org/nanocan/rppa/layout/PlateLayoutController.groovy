@@ -18,6 +18,18 @@ class PlateLayoutController {
         redirect(action: "list", params: params)
     }
 
+    def updateControlPlate(){
+        def plateLayoutInstance = PlateLayout.get(params.id)
+        def isControlPlate = false
+
+        if (params.controlPlate == "on") isControlPlate = true
+
+        plateLayoutInstance.controlPlate = isControlPlate
+
+        plateLayoutInstance.save(flush:true)
+        render "OK"
+    }
+
     def list() {
         //deal with max
         if(!params.max && session.maxPlateLayout) params.max = session.maxPlateLayout
@@ -31,25 +43,35 @@ class PlateLayoutController {
         def plateLayoutInstanceList
         def plateLayoutInstanceListTotal
 
-        if(session.projectSelected)
+        if (session.experimentSelected)
         {
-            plateLayoutInstanceList = Experiment.findByProject(Project.get(session.projectSelected as Long)).plateLayouts
+            plateLayoutInstanceList = Experiment.get(session.experimentSelected).plateLayouts
+        }
+        else if(session.projectSelected)
+        {
+            plateLayoutInstanceList = Experiment.findByProject(Project.get(session.projectSelected)).plateLayouts
+        }
+        else
+        {
+            plateLayoutInstanceList = PlateLayout.list(params)
+            plateLayoutInstanceListTotal = PlateLayout.count()
+        }
+
+        //fix offset when necessary
+        if(params.int('offset') >= plateLayoutInstanceListTotal) params.offset = 0
+
+        //create subset of list
+        if (session.experimentSelected || session.projectSelected)
+        {
             plateLayoutInstanceListTotal = plateLayoutInstanceList?.size()?:0
 
-            if(params.int('offset') >= plateLayoutInstanceListTotal) params.offset = 0
-
-            if (plateLayoutInstanceListTotal > 0)
+            if(plateLayoutInstanceListTotal > 0)
             {
                 int rangeMin = Math.min(plateLayoutInstanceListTotal, params.int('offset'))
                 int rangeMax = Math.min(plateLayoutInstanceListTotal, (params.int('offset') + params.int('max')))
 
                 plateLayoutInstanceList = plateLayoutInstanceList.asList().subList(rangeMin, rangeMax)
             }
-        }
-        else
-        {
-            plateLayoutInstanceList = PlateLayout.list(params)
-            plateLayoutInstanceListTotal = PlateLayout.count()
         }
 
         [plateLayoutInstanceList: plateLayoutInstanceList, plateLayoutInstanceTotal: plateLayoutInstanceListTotal]
@@ -95,6 +117,16 @@ class PlateLayoutController {
         def experiments = experimentService.findExperiment(plateLayoutInstance)
 
         [plateLayoutInstance: plateLayoutInstance, experiments: Experiment.list(), selectedExperiments: experiments]
+    }
+
+    def addToExperiment(){
+        experimentService.addToExperiment(PlateLayout.get(params.id), [params.long("experiment")])
+        redirect(action: "editAttributes", id: params.id)
+    }
+
+    def removeFromExperiment(){
+        experimentService.removeFromExperiment(PlateLayout.get(params.id), [params.long("experiment")])
+        redirect(action: "editAttributes", id: params.id)
     }
 
     def update() {
@@ -159,9 +191,11 @@ class PlateLayoutController {
 
     def editAttributes(){
         def plateLayoutInstance = PlateLayout.get(params.id)
-        def experiments = experimentService.findExperiment(plateLayoutInstance)
+        def selectedExperiments = experimentService.findExperiment(plateLayoutInstance)
+        def experiments = Experiment.list()
+        experiments.removeAll(selectedExperiments)
 
-        [plateLayout:  plateLayoutInstance, wells: plateLayoutInstance.wells, experiments: Experiment.list(), selectedExperiments: experiments, sampleProperty: params.sampleProperty]
+        [plateLayout:  plateLayoutInstance, wells: plateLayoutInstance.wells, experiments: experiments, selectedExperiments: selectedExperiments, sampleProperty: params.sampleProperty?:"cellLine"]
     }
 
     def showAttributes(){

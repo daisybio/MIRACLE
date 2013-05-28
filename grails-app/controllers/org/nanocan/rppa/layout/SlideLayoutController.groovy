@@ -41,12 +41,27 @@ class SlideLayoutController {
         def slideLayoutInstanceList
         def slideLayoutInstanceListTotal
 
-        if(session.projectSelected)
+        if(session.experimentSelected)
+        {
+            slideLayoutInstanceList = Experiment.get(session.experimentSelected).layouts
+        }
+        else if(session.projectSelected)
         {
             slideLayoutInstanceList = Experiment.findByProject(Project.get(session.projectSelected as Long))?.layouts
-            slideLayoutInstanceListTotal = slideLayoutInstanceList?.size()?:0
+        }
+        else
+        {
+            slideLayoutInstanceList = SlideLayout.list(params)
+            slideLayoutInstanceListTotal = SlideLayout.count()
+        }
 
-            if(params.int('offset') >= slideLayoutInstanceListTotal) params.offset = 0
+        //fix offset
+        if(params.int('offset') >= slideLayoutInstanceListTotal) params.offset = 0
+
+        //create subset of list
+        if(session.experimentSelected || session.projectSelected)
+        {
+            slideLayoutInstanceListTotal = slideLayoutInstanceList?.size()?:0
 
             if(slideLayoutInstanceListTotal > 0)
             {
@@ -55,11 +70,6 @@ class SlideLayoutController {
 
                 slideLayoutInstanceList = slideLayoutInstanceList.asList().subList(rangeMin, rangeMax)
             }
-        }
-        else
-        {
-            slideLayoutInstanceList = SlideLayout.list(params)
-            slideLayoutInstanceListTotal = SlideLayout.count()
         }
 
         [slideLayoutInstanceList: slideLayoutInstanceList, slideLayoutInstanceTotal: slideLayoutInstanceListTotal]

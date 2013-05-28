@@ -36,6 +36,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${experimentInstance?.firstDayOfTheExperiment}">
+				<li class="fieldcontain">
+					<span id="firstDayOfTheExperiment-label" class="property-label"><g:message code="experiment.firstDayOfTheExperiment.label" default="First Day Of The Experiment" /></span>
+					
+						<span class="property-value" aria-labelledby="firstDayOfTheExperiment-label"><g:formatDate type="date" date="${experimentInstance?.firstDayOfTheExperiment}" /></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${experimentInstance?.createdBy}">
 				<li class="fieldcontain">
 					<span id="createdBy-label" class="property-label"><g:message code="experiment.createdBy.label" default="Created By" /></span>
@@ -49,7 +58,7 @@
 				<li class="fieldcontain">
 					<span id="dateCreated-label" class="property-label"><g:message code="experiment.dateCreated.label" default="Date Created" /></span>
 					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${experimentInstance?.dateCreated}" /></span>
+						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate type="date" date="${experimentInstance?.dateCreated}" /></span>
 					
 				</li>
 				</g:if>
@@ -67,7 +76,7 @@
 				<li class="fieldcontain">
 					<span id="lastUpdated-label" class="property-label"><g:message code="experiment.lastUpdated.label" default="Last Updated" /></span>
 					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${experimentInstance?.lastUpdated}" /></span>
+						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate type="date" date="${experimentInstance?.lastUpdated}" /></span>
 					
 				</li>
 				</g:if>

@@ -1,4 +1,4 @@
-<%@ page import="org.nanocan.rppa.project.Project" %>
+<%@ page import="org.nanocan.rppa.project.Experiment; org.nanocan.rppa.project.Project" %>
 <li class="dropdown" id="main.menu">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#main.menu">
         <g:message code="default.menu.label" default="Organize"/>
@@ -31,9 +31,6 @@
         </li>
         <li>
             <g:link class="create" controller="plateLayout" action="create">Create New Layout</g:link>
-        </li>
-        <li>
-            <g:link class="create" controller="plateImport" action="plateLayoutImport">Import Layout from SAVANAH</g:link>
         </li>
     </ul>
 </li>
@@ -108,10 +105,22 @@
 
 </li>
 <li class="divider-vertical"></li>
-<li><g:form class="navbar-form" name="projectForm" controller="project" action="updateSelectedProject">
-    <g:hiddenField name="returnPage" value="${createLink(action:actionName, params:params, absolute: true)}"/>
-    <g:select from="${Project.list()}" value="${session.projectSelected?:""}" optionKey="id" noSelection="['':'All projects']" name="projectSelect" onchange="\$('#projectForm').submit();"/>
-</g:form></li>
-<li class="divider-horizontal"></li>
+<li class="dropdown" id="filter.menu">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#filter.menu">
+        <g:message code="default.slide.menu.label" default="Filter"/>
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li style="padding:20px;">Filter project: <g:form class="navbar-form" name="projectForm" controller="project" action="updateSelectedProject">
+            <g:hiddenField name="returnPage" value="${createLink(action:actionName, params:params, absolute: true)}"/>
+            <g:select from="${Project.list()}" value="${session.projectSelected?:""}" optionKey="id" noSelection="['':'All projects']" name="projectSelect" onchange="\$('#projectForm').submit();"/>
+        </g:form></li>
+        <li style="padding:20px;">Filter experiment: <g:form class="navbar-form" name="experimentForm" controller="experiment" action="updateSelectedExperiment">
+            <g:hiddenField name="returnPage" value="${createLink(action:actionName, params:params, absolute: true)}"/>
+            <g:select from="${session.projectSelected?Experiment.findAllByProject(Project.get(session.projectSelected)):Experiment.list()}" value="${session.experimentSelected?:""}" optionKey="id" noSelection="['':'All experiments']" name="experimentSelect" onchange="\$('#experimentForm').submit();"/>
+        </g:form></li>
+    </ul>
+</li>
+<li class="divider-vertical"></li>
 </ul>
 <ul class="nav nav-pills">

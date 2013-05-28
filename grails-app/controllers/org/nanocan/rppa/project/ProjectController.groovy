@@ -98,6 +98,11 @@ class ProjectController {
      */
     def updateSelectedProject() {
         session.projectSelected = params.projectSelect
+
+        //if selected experiment is not in the currently selected project reset selected experiment
+        if (session.experimentSelected && !Experiment.findByProject(Project.get(params.projectSelect)))
+            session.experimentSelected == null
+
         redirect(url: params.returnPage, absolute: false)
     }
 
