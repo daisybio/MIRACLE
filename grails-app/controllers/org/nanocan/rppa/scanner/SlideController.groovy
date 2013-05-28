@@ -7,6 +7,7 @@ import grails.plugins.springsecurity.Secured
 import org.nanocan.rppa.project.Experiment
 import org.hibernate.StaleObjectStateException
 import org.nanocan.rppa.project.Project
+import org.nanocan.rppa.layout.SlideLayout
 
 @Secured(['ROLE_USER'])
 class SlideController {
@@ -48,12 +49,33 @@ class SlideController {
         def slideInstanceList
         def slideInstanceListTotal
 
-        if(session.projectSelected)
+        if(session.slideLayoutSelected)
         {
-            slideInstanceList = Experiment.findByProject(Project.get(session.projectSelected as Long)).slides
-            slideInstanceListTotal = slideInstanceList?.size()?:0
+            slideInstanceList = Slide.findAllByLayout(SlideLayout.get(session.slideLayoutSelected))
+        }
+        else if(session.experimentSelected)
+        {
+            slideInstanceList = Experiment.get(session.experimentSelected).slides
+        }
+        else if(session.projectSelected)
+        {
+            slideInstanceList = []
+            def experiments = Experiment.findAllByProject(Project.get(session.projectSelected as Long))
+            experiments.each{
+                slideInstanceList.addAll(it.slides)
+            }
+        }
+        else
+        {
+            slideInstanceList = Slide.list(params)
+            slideInstanceListTotal = Slide.count()
+        }
 
-            if (params.int('offset') > slideInstanceListTotal) params.offset = 0
+        if (params.int('offset') > slideInstanceListTotal) params.offset = 0
+
+        if (session.experimentSelected || session.projectSelected)
+        {
+            slideInstanceListTotal = slideInstanceList?.size()?:0
 
             if(slideInstanceListTotal > 0)
             {
@@ -62,12 +84,6 @@ class SlideController {
 
                 slideInstanceList = slideInstanceList.asList().subList(rangeMin, rangeMax)
             }
-        }
-
-        else
-        {
-            slideInstanceList = Slide.list(params)
-            slideInstanceListTotal = Slide.count()
         }
 
         [slideInstanceList: slideInstanceList, slideInstanceTotal: slideInstanceListTotal]

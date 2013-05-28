@@ -45,16 +45,26 @@
 
 <h1 style="padding-left:20px;">Modify ${sampleProperty.toString().capitalize()} for layout ${plateLayout}</h1>
 
-
-<g:message code="slideLayout.experiments.label" default="Experiments" />
+<div style="margin-left: 20px; margin-right:20px; padding:10px; background-color: #e0e0e0">
+    <g:message code="slideLayout.controlPlate.label" default="Control plate?" />
+    <g:checkBox name="controlPlate" value="${plateLayout.controlPlate}" onchange="${remoteFunction(controller:'plateLayout', action:'updateControlPlate', id: plateLayout.id, params:'\'controlPlate=\'+this.value')}"/>
+    <br/> <br/>
+    <g:message code="slideLayout.experiments.label" default="Experiments:" />
     <ul class="property-list">
         <g:each in="${selectedExperiments}">
             <li>
                 <g:link controller="experiment" action="show" id="${it.id}">${it.title}</g:link>
+                <g:link controller="plateLayout" action="removeFromExperiment" id="${plateLayout.id}" params="${['experiment': it.id]}"> (remove)</g:link>
             </li>
         </g:each>
     </ul>
-    <g:select name="addToExperiment" from="${experiments.removeAll(selectedExperiments)}"/>
+
+    <g:form name="addToExperiment" url="${[controller: 'plateLayout', action: 'addToExperiment']}">
+        <g:hiddenField name="id" value="${plateLayout.id}"/>
+        <g:select name="experiment" from="${experiments}" optionKey="id" optionValue="title"/>
+        <g:submitButton name="add" value="add"/>
+    </g:form>
+</div>
 
 <div class="message" id="message" role="status">${flash.message?:"Select cells to change the layout"}</div>
 

@@ -52,27 +52,6 @@
         $('.dropdown-toggle').dropdown();
     </r:script>
 
-    <r:script>
-        $(document).ready(function() {
-            var stickyTop = $('.stickable').offset().top;
-
-            var sticky = function(){
-                var scrollTop = $(window).scrollTop();
-
-                if (scrollTop > stickyTop) {
-                    $('.stickable').addClass('sticky');
-                } else {
-                    $('.stickable').removeClass('sticky');
-                }
-            };
-
-            sticky();
-
-            $(window).scroll(function() {
-                sticky();
-            });
-        });
-    </r:script>
         <r:layoutResources />
 	</body>
 </html>

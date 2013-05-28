@@ -1,9 +1,8 @@
 package org.nanocan.rppa.layout
 
 import org.springframework.security.access.annotation.Secured
-import org.nanocan.savanah.experiment.Experiment
-import org.nanocan.savanah.plates.PlateLayout
-import org.nanocan.savanah.experiment.Project
+import org.nanocan.rppa.project.Experiment
+import org.nanocan.rppa.project.Project
 
 @Secured(['ROLE_USER'])
 class SpottingController {
@@ -20,15 +19,36 @@ class SpottingController {
 
         modelForPlateLayouts{
             action {
-                [experiments: Experiment.list(), savanahProjects: Project.list(),
-                        miracleProjects: org.nanocan.rppa.project.Project.list(),
-                        savanahLayouts: PlateLayout.list(),
-                        miracleLayouts: org.nanocan.rppa.layout.PlateLayout.list()]
+
+                def layouts
+
+                if(session.experimentSelected)
+                {
+                    layouts = Experiment.get(session.experimentSelected as Long).plateLayouts
+                }
+                else if(session.projectSelected)
+                {
+                    def experiments = Experiment.findAllByProject(Project.get(session.projectSelected as Long))
+                    layouts = []
+                    experiments.each{
+                        layouts.addAll(it.plateLayouts)
+                    }
+                }
+                else
+                {
+                    layouts = PlateLayout.list()
+                }
+
+                def controlPlateLayouts = layouts.findAll{ it.controlPlate }
+                if(controlPlateLayouts) layouts.removeAll(controlPlateLayouts)
+
+                [layouts: layouts, controlPlateLayouts: controlPlateLayouts]
             }
             on("success").to "selectPlateLayouts"
         }
 
         selectPlateLayouts{
+            on("refresh").to "modelForPlateLayouts"
             on("plateLayoutsOrdered").to "plateLayoutsOrdered"
         }
 
@@ -50,7 +70,6 @@ class SpottingController {
                     selectedLayouts.each{
                         if(it.toString().startsWith("savanah")) hasSavanahLayouts = true
                         layouts = plateImportService.getPlateLayoutFromId(it, layouts)
-                        layouts = layouts
                     }
                     flow.layouts = layouts
                     if(hasSavanahLayouts) matchSavanahProperties()

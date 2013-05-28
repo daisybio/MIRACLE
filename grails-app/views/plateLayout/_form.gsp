@@ -18,4 +18,16 @@
 	<g:select name="format" from="${plateLayoutInstance.constraints.format.inList}" required="" value="${plateLayoutInstance?.format}" valueMessagePrefix="plateLayout.format"/>
 </div>
 
+<div class="fieldcontain">
+    <label for="experiments">
+        <g:message code="slideLayout.experiments.label" default="Experiments" />
+    </label>
+    <g:select name="experimentsSelected" multiple="${true}" size="10" from="${experiments}" optionKey="id"/>
+</div>
 
+<div class="fieldcontain">
+    <label for="controlPlate">
+        <g:message code="slideLayout.controlPlate.label" default="Control Plate?" />
+    </label>
+    <g:checkBox name="controlPlate"/>
+</div>

@@ -5,13 +5,14 @@ import org.nanocan.rppa.layout.SlideLayout
 import org.nanocan.rppa.scanner.Slide
 import org.nanocan.rppa.layout.PlateLayout
 
-class Experiment {
+class Experiment implements Serializable{
 
     String title
     String description
 
     Date dateCreated
     Date lastUpdated
+    Date firstDayOfTheExperiment
 
     Person createdBy
     Person lastUpdatedBy
@@ -22,10 +23,13 @@ class Experiment {
     static constraints = {
 
         title unique:true
+        firstDayOfTheExperiment nullable: true
     }
 
     String toString()
     {
-        title
+        if(firstDayOfTheExperiment)
+            return ("${firstDayOfTheExperiment.toString()} - ${title}")
+        else return title
     }
 }

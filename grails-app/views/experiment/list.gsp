@@ -30,6 +30,8 @@
 					
 						<g:sortableColumn property="title" title="${message(code: 'experiment.title.label', default: 'Title')}" />
 					
+						<g:sortableColumn property="firstDayOfTheExperiment" title="${message(code: 'experiment.firstDayOfTheExperiment.label', default: 'First Day Of The Experiment')}" />
+					
 						<th><g:message code="experiment.createdBy.label" default="Created By" /></th>
 					
 						<g:sortableColumn property="dateCreated" title="${message(code: 'experiment.dateCreated.label', default: 'Date Created')}" />
@@ -37,8 +39,6 @@
 						<g:sortableColumn property="description" title="${message(code: 'experiment.description.label', default: 'Description')}" />
 					
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'experiment.lastUpdated.label', default: 'Last Updated')}" />
-					
-						<th><g:message code="experiment.lastUpdatedBy.label" default="Last Updated By" /></th>
 					
 					</tr>
 				</thead>
@@ -48,15 +48,15 @@
 					
 						<td><g:link action="show" id="${experimentInstance.id}">${fieldValue(bean: experimentInstance, field: "title")}</g:link></td>
 					
+						<td><g:formatDate type="date" date="${experimentInstance.firstDayOfTheExperiment}" /></td>
+					
 						<td>${fieldValue(bean: experimentInstance, field: "createdBy")}</td>
 					
-						<td><g:formatDate date="${experimentInstance.dateCreated}" /></td>
+						<td><g:formatDate type="date" date="${experimentInstance.dateCreated}" /></td>
 					
 						<td>${fieldValue(bean: experimentInstance, field: "description")}</td>
 					
-						<td><g:formatDate date="${experimentInstance.lastUpdated}" /></td>
-					
-						<td>${fieldValue(bean: experimentInstance, field: "lastUpdatedBy")}</td>
+						<td><g:formatDate type="date" date="${experimentInstance.lastUpdated}" /></td>
 					
 					</tr>
 				</g:each>

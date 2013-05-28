@@ -8,7 +8,10 @@ class PlateLayout implements Serializable{
     int cols
     int rows
 
+    Boolean controlPlate = false
+
     static constraints = {
+        controlPlate nullable: true
         name blank: false, unique:  true
         format inList: ["96-well", "384-well"], blank: false, editable: false
     }
