@@ -171,9 +171,9 @@ class SlideLayoutController {
             return
         }
 
-        def experiments = experimentService.findExperiment(slideLayoutInstance)
+        def selectedExperiments = experimentService.findExperiment(slideLayoutInstance)
 
-        [slideLayoutInstance: slideLayoutInstance, experiments: Experiment.list(), selectedExperiments: experiments]
+        [slideLayoutInstance: slideLayoutInstance, experiments: Experiment.list(), selectedExperiments: selectedExperiments]
     }
 
 
@@ -229,7 +229,15 @@ class SlideLayoutController {
 
         try {
             experimentService.updateExperiments(slideLayoutInstance, [])
-            slideLayoutInstance.delete(flush: true)
+
+            if (slideLayoutInstance.sampleSpots.size() > 0){
+                slideLayoutService.deleteLayoutSpots(slideLayoutInstance.id)
+                slideLayoutInstance.discard()
+                slideLayoutInstance = SlideLayout.get(params.id)
+            }
+
+            slideLayoutInstance.delete(flush:true)
+
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'slideLayout.label', default: 'SlideLayout'), params.id])
             redirect(action: "list")
         }

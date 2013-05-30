@@ -3,6 +3,7 @@ package org.nanocan.rppa.layout
 import groovy.sql.Sql
 import org.hibernate.util.ConfigHelper
 import org.nanocan.rppa.project.Project
+import org.nanocan.rppa.scanner.Slide
 
 /**
  * This service handles additional operations regarding the slide layout
@@ -83,6 +84,27 @@ class SlideLayoutService {
 
             progressService.setProgressBarValue("update${slideLayout}", (currentSpot / numberOfSpots * 100))
             currentSpot++
+        }
+    }
+
+    /**
+     * Attempts to delete layout spots efficiently
+     * @param slideLayoutId
+     */
+    def deleteLayoutSpots(slideLayoutId){
+        //config
+        def groovySql = grailsApplication?.config?.rppa?.jdbc?.groovySql?.toString()?.toBoolean()?:true
+
+        if(groovySql)
+        {
+            def sql = Sql.newInstance(dataSourceUnproxied)
+            sql.execute('delete from layout_spot where layout_id = ?', slideLayoutId)
+            sql.close()
+        }
+
+        else{
+            def layoutInstance = SlideLayout.get(slideLayoutId)
+            layoutInstance.spots.clear()
         }
     }
 }

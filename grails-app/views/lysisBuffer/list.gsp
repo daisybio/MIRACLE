@@ -30,17 +30,15 @@
     <table>
         <thead>
         <tr>
-
-            <g:sortableColumn property="concentrationUnit"
-                              title="${message(code: 'lysisBuffer.concentrationUnit.label', default: 'Concentration Unit')}"/>
+            <g:sortableColumn property="name" title="${message(code: 'lysisBuffer.name.label', default: 'Name')}"/>
 
             <g:sortableColumn property="color" title="${message(code: 'lysisBuffer.color.label', default: 'Color')}"/>
-
-            <g:sortableColumn property="name" title="${message(code: 'lysisBuffer.name.label', default: 'Name')}"/>
 
             <g:sortableColumn property="concentration"
                               title="${message(code: 'lysisBuffer.concentration.label', default: 'Concentration')}"/>
 
+            <g:sortableColumn property="concentrationUnit"
+                              title="${message(code: 'lysisBuffer.concentrationUnit.label', default: 'Concentration Unit')}"/>
         </tr>
         </thead>
         <tbody>

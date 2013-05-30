@@ -8,6 +8,7 @@ class LysisBuffer implements Serializable{
     String color
 
     static constraints = {
+        concentration  min: new Double(0)
         concentrationUnit inList: ["mM", "nM", "pM" ,"µM"]
         color unique:  true, validator:  {val, obj -> val != "#ffffff"}, nullable: false, blank: false
         name unique: true, blank: false, nullable:  false

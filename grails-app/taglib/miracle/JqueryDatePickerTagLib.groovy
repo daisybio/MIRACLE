@@ -10,10 +10,10 @@ class JqueryDatePickerTagLib {
         def showDay = attrs.showDay
 
         //Create date text field and supporting hidden text fields need by grails
-        out.println "<input type=\"text\" name=\"${name}\" id=\"${id}\" />"
-        out.println "<input type=\"hidden\" name=\"${name}_day\" id=\"${id}_day\" />"
-        out.println "<input type=\"hidden\" name=\"${name}_month\" id=\"${id}_month\" />"
-        out.println "<input type=\"hidden\" name=\"${name}_year\" id=\"${id}_year\" />"
+        out.println "<input type=\"text\" name=\"${name}\" id=\"${id}\" value=\"${attrs.value?.getDateString()?:''}\" />"
+        out.println "<input type=\"hidden\" name=\"${name}_day\" value=\"${attrs.value?.getDate()?:''}\" id=\"${id}_day\" />"
+        out.println "<input type=\"hidden\" name=\"${name}_month\" value=\"${(attrs.value?.getMonth()?:0) + 1}\" id=\"${id}_month\" />"
+        out.println "<input type=\"hidden\" name=\"${name}_year\" value=\"${(attrs.value?.getYear()?:0) + 1900}\" id=\"${id}_year\" />"
 
         //Code to parse selected date into hidden fields required by grails
         out.println "<script type=\"text/javascript\"> \$(document).ready(function(){"

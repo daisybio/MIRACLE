@@ -39,7 +39,7 @@ class SpottingController {
                     layouts = PlateLayout.list()
                 }
 
-                def controlPlateLayouts = layouts.findAll{ it.controlPlate }
+                def controlPlateLayouts = PlateLayout.findAllByControlPlate(true)
                 if(controlPlateLayouts) layouts.removeAll(controlPlateLayouts)
 
                 [layouts: layouts, controlPlateLayouts: controlPlateLayouts]

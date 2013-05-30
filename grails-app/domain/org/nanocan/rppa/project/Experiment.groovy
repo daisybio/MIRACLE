@@ -28,8 +28,8 @@ class Experiment implements Serializable{
 
     String toString()
     {
-        if(firstDayOfTheExperiment)
+        /*if(firstDayOfTheExperiment)
             return ("${firstDayOfTheExperiment.toString()} - ${title}")
-        else return title
+        else */return title
     }
 }
