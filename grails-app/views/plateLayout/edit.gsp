@@ -43,11 +43,28 @@
         <g:hiddenField name="version" value="${plateLayoutInstance?.version}"/>
         <fieldset class="form">
             <div class="fieldcontain ${hasErrors(bean: plateLayoutInstance, field: 'name', 'error')} required">
-                <label for="name">
-                    <g:message code="plateLayout.name.label" default="Name" />
-                    <span class="required-indicator">*</span>
-                </label>
-                <g:textField name="name" required="" value="${plateLayoutInstance?.name}"/>
+                <div class="fieldcontain ${hasErrors(bean: plateLayoutInstance, field: 'name', 'error')} required">
+                    <label for="name">
+                        <g:message code="plateLayout.name.label" default="Name" />
+                        <span class="required-indicator">*</span>
+                    </label>
+                    <g:textField name="name" required="" value="${plateLayoutInstance?.name}"/>
+                </div>
+
+                <div class="fieldcontain">
+                    <label for="experiments">
+                        <g:message code="slideLayout.experiments.label" default="Experiments" />
+                    </label>
+                    <g:select name="experimentsSelected" multiple="${true}" size="10" from="${experiments}" value="${selectedExperiments}" optionKey="id"/>
+                </div>
+
+                <div class="fieldcontain">
+                    <label for="controlPlate">
+                        <g:message code="slideLayout.controlPlate.label" default="Control Plate?" />
+                    </label>
+                    <g:checkBox name="controlPlate" value="${plateLayoutInstance?.controlPlate}"/>
+                </div>
+
             </div>
         </fieldset>
         <fieldset class="buttons">

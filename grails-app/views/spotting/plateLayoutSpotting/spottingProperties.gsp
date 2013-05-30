@@ -61,7 +61,7 @@
             </li>
             <li class="fieldcontain">
                 <span class="property-label">Traverse settings for Extractor:</span>
-                <span class="property-value"><g:select from="${['row-wise', 'column-wise']}" value="${extractorOperationMode?:'row-wise'}" name="extractorOperationMode"/></span>
+                <span class="property-value"><g:select from="${['row-wise', 'column-wise']}" value="${extractorOperationMode?:'column-wise'}" name="extractorOperationMode"/></span>
             </li>
             <li class="fieldcontain">
                 <span class="property-label">Block spotting orientation: </span>

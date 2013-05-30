@@ -158,7 +158,7 @@ class SpotImportService {
     def deleteSpots (slideInstanceId) {
 
         //config
-        def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
+        def groovySql = grailsApplication?.config?.rppa?.jdbc?.groovySql?.toString()?.toBoolean()?:true
 
         if(groovySql)
         {

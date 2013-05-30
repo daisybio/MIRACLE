@@ -18,7 +18,7 @@ class RppaService {
         roperationsService.setWorkingDirectory(rConnection, tempDir)
 
         rConnection.eval("rm(list=ls())")
-        boolean rppaLoaded = rConnection.eval("require(rppa)")
+        boolean rppaLoaded = rConnection.eval("require(miracle)")
 
         if(!rppaLoaded){
             rConnection.close()
