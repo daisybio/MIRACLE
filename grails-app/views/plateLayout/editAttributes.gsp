@@ -1,111 +1,136 @@
 <!doctype html>
 <html>
 <head>
-    <meta name="layout" content="main">
-    <g:set var="entityName" value="${message(code: 'plateLayout.label', default: 'PlateLayout')}"/>
-    <title><g:message code="default.show.label" args="[entityName]"/></title>
+<meta name="layout" content="main">
+<g:set var="entityName"
+	value="${message(code: 'plateLayout.label', default: 'PlateLayout')}" />
+<title><g:message code="default.show.label" args="[entityName]" /></title>
 </head>
 <body>
-<g:if test="${sampleProperty != 'sample'}">
-    <g:render template="colorLegend" model="${[sampleProperty: sampleProperty]}"></g:render>
-</g:if>
-<g:else>
-    <g:render template="sampleLegend" model="${[layoutId: plateLayout.id]}"></g:render>
-</g:else>
+	<g:if test="${sampleProperty != 'sample'}">
+		<g:render template="colorLegend"
+			model="${[sampleProperty: sampleProperty]}"></g:render>
+	</g:if>
+	<g:else>
+		<g:render template="sampleLegend"
+			model="${[layoutId: plateLayout.id]}"></g:render>
+	</g:else>
 
-<g:set var="well" value="${0}"/>
-<g:set var="wellList" value="${wells.toList()}"/>
+	<g:set var="well" value="${0}" />
+	<g:set var="wellList" value="${wells.toList()}" />
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
     $(document).ready(function() {
         registerHandlers("plateLayoutTable");
     });
 </script>
 
 
-<a href="#show-plateLayout" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
-                                                                  default="Skip to content&hellip;"/></a>
+	<a href="#show-plateLayout" class="skip" tabindex="-1"><g:message
+			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 
-<div class="navbar">
-    <div class="navbar-inner">
-        <div class="container">
-            <ul class="nav">
-                <g:render template="/templates/navmenu"></g:render>
-                <li><g:link class="list" action="list"><g:message code="default.list.label"
-                                                                  args="[entityName]"/></g:link></li>
-                <li><g:link class="create" action="create"><g:message code="default.new.label"
-                                                                      args="[entityName]"/></g:link></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<g:jprogressDialog message="Updating layout information..." progressId="update${plateLayout.id}" trigger="layoutUpdateButton"/>
-
-<h1 style="padding-left:20px;">Modify ${sampleProperty.toString().capitalize()} for layout ${plateLayout}</h1>
-
-<div class="message" id="message" role="status">${flash.message?:"Select cells to change the layout"}</div>
-
-<g:if test="${sampleProperty == 'sample'}" >
-    <div class="errors">Warning: Colors are not unique for samples! Make sure you know what you are doing!</div>
-</g:if>
-
-<div style="float:left; padding-left:20px;">
-    <g:form name="changeAttribute" action="editAttributes">
-        <g:hiddenField name="id" value="${plateLayout?.id}"/>
-        Select a property: <g:select name="sampleProperty" optionKey="key" optionValue="value" value="${sampleProperty}"
-                  from="${["cellLine":"CellLine", "inducer":"Inducer", "spotType": "Spot Type", "treatment":"Treatment", "numberOfCellsSeeded":"Number of cells seeded", "sample":"Sample"]}"
-                  onchange="document.forms['changeAttribute'].submit();"
-        />
-    </g:form> <br/>
-    <b>Copy this layout:</b> <br/> <br/>
-    <g:form name="createCopy" action="createLayoutCopy">
-        <g:hiddenField name="id" value="${plateLayout?.id}"/>
-        <g:hiddenField name="sampleProperty" value="${sampleProperty}"/>
-        New title: <g:textField name="name" value="${plateLayout.name} (copy)"/><br/>
-        <span><g:submitButton name="submit" value="Create copy of this layout"/> </span>
-    </g:form>
-    <br/><br/>
-    <b>Clear this sheet and save</b><br/> <br/>
-    <g:form name="clearSheet" action="clearProperty">
-    <g:hiddenField name="id" value="${plateLayout?.id}"/>
-    <g:hiddenField name="sampleProperty" value="${sampleProperty}"/>
-    <g:submitButton onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" name="Clear"/>
-    </g:form>
-</div>
-
-<!-- Pastebin form fore parsing txt to platelayout -->
-<g:formRemote name="excelPasteBinForm" onSuccess="jQuery(function() {jQuery('#blockTabs').tabs() });registerHandlers('blockTable1');" update="blockTabs" url="${["controller":"plateLayout", action:"parseClipboardData"]}"> 
-    <g:hiddenField name="id" value="${plateLayout?.id}"/>
-    <g:textArea name="excelPasteBin" rows="5" cols="14"/>
-    <g:hiddenField name="spotProperty" value="${sampleProperty}"/>
-    <g:submitButton name="parse"/>
-</g:formRemote>
-<!-- Template for rendering the tables in plateLayout -->
-<g:formRemote onSuccess="window.onbeforeunload = null;" name="${sampleProperty}form" update="message" url="[controller: 'plateLayout', action: 'updateWellProperty']">
-    <input name="wellProperty" type="hidden" value="${sampleProperty}"/>
-    <input name="plateLayout" type="hidden" value="${plateLayout.id}"/>
-	<div id="blockTabs" style="overflow: auto;">
-		<g:render template="tableTemplate"
-			model="${[wellProperty:wellProperty,plateLayout:plateLayout]}"></g:render>
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<ul class="nav">
+					<g:render template="/templates/navmenu"></g:render>
+					<li><g:link class="list" action="list">
+							<g:message code="default.list.label" args="[entityName]" />
+						</g:link></li>
+					<li><g:link class="create" action="create">
+							<g:message code="default.new.label" args="[entityName]" />
+						</g:link></li>
+				</ul>
+			</div>
+		</div>
 	</div>
 
-</g:formRemote>
-<!--  -->
+	<g:jprogressDialog message="Updating layout information..."
+		progressId="update${plateLayout.id}" trigger="layoutUpdateButton" />
 
-<g:form>
-    <fieldset class="buttons">
-        <g:hiddenField name="id" value="${plateLayout?.id}"/>
-        <g:link class="edit" action="edit" id="${plateLayout?.id}"><g:message
-                code="default.button.edit.label" default="Edit"/></g:link>
-        <g:actionSubmit class="delete" action="delete"
-                        value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-                        onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-    </fieldset>
-</g:form>
+	<h1 style="padding-left: 20px;">
+		Modify
+		${sampleProperty.toString().capitalize()}
+		for layout
+		${plateLayout}
+	</h1>
 
-<r:script>
+	<div class="message" id="message" role="status">
+		${flash.message?:"Select cells to change the layout"}
+	</div>
+
+	<g:if test="${sampleProperty == 'sample'}">
+		<div class="errors">Warning: Colors are not unique for samples!
+			Make sure you know what you are doing!</div>
+	</g:if>
+
+	<div style="float: left; padding-left: 20px;">
+		<g:form name="changeAttribute" action="editAttributes">
+			<g:hiddenField name="id" value="${plateLayout?.id}" />
+        Select a property: <g:select name="sampleProperty"
+				optionKey="key" optionValue="value" value="${sampleProperty}"
+				from="${["cellLine":"CellLine", "inducer":"Inducer", "spotType": "Spot Type", "treatment":"Treatment", "numberOfCellsSeeded":"Number of cells seeded", "sample":"Sample"]}"
+				onchange="document.forms['changeAttribute'].submit();" />
+		</g:form>
+		<br /> <b>Copy this layout:</b> <br /> <br />
+		<g:form name="createCopy" action="createLayoutCopy">
+			<g:hiddenField name="id" value="${plateLayout?.id}" />
+			<g:hiddenField name="sampleProperty" value="${sampleProperty}" />
+        New title: <g:textField name="name"
+				value="${plateLayout.name} (copy)" />
+			<br />
+			<span><g:submitButton name="submit"
+					value="Create copy of this layout" /> </span>
+		</g:form>
+		<br />
+		<br /> <b>Clear this sheet and save</b><br /> <br />
+		<g:form name="clearSheet" action="clearProperty">
+			<g:hiddenField name="id" value="${plateLayout?.id}" />
+			<g:hiddenField name="sampleProperty" value="${sampleProperty}" />
+			<g:submitButton
+				onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"
+				name="Clear" />
+		</g:form>
+	</div>
+
+	<!-- Pastebin form fore parsing txt to platelayout -->
+	<g:formRemote name="excelPasteBinForm"
+		onSuccess="jQuery(function() {jQuery('#blockTabs').tabs() });registerHandlers('blockTable1');"
+		update="blockTabs"
+		url="${["controller":"plateLayout", action:"parseClipboardData"]}">
+		<g:hiddenField name="id" value="${plateLayout?.id}" />
+		<g:textArea name="excelPasteBin" rows="5" cols="14" />
+		<g:hiddenField name="spotProperty" value="${sampleProperty}" />
+		<g:submitButton name="parse" />
+	</g:formRemote>
+	<!-- Template for rendering the tables in plateLayout -->
+	<g:formRemote onSuccess="window.onbeforeunload = null;"
+		name="${sampleProperty}form" update="message"
+		url="[controller: 'plateLayout', action: 'updateWellProperty']">
+		<input name="wellProperty" type="hidden" value="${sampleProperty}" />
+		<input name="plateLayout" type="hidden" value="${plateLayout.id}" />
+		<div id="blockTabs" style="overflow: auto;">
+			<g:render template="tableTemplate"
+				model="${[wellProperty:wellProperty,plateLayout:plateLayout]}"></g:render>
+		</div>
+
+	</g:formRemote>
+	<!--  -->
+
+	<g:form>
+		<fieldset class="buttons">
+			<g:hiddenField name="id" value="${plateLayout?.id}" />
+			<g:link class="edit" action="edit" id="${plateLayout?.id}">
+				<g:message code="default.button.edit.label" default="Edit" />
+			</g:link>
+			<g:actionSubmit class="delete" action="delete"
+				value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+				onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+		</fieldset>
+	</g:form>
+
+	<r:script>
 
     var allTDs
     var selColor

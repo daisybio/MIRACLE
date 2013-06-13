@@ -18,7 +18,6 @@ class WellLayout implements Comparable,Serializable{
 
     static belongsTo = [plateLayout: PlateLayout]
 
-
     static constraints = {
         cellLine nullable: true
         inducer nullable:  true

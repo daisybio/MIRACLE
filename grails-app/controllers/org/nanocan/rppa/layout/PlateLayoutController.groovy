@@ -6,52 +6,53 @@ import org.nanocan.rppa.project.Project
 
 @Secured(['ROLE_USER'])
 class PlateLayoutController {
-
-    def plateLayoutService
-    def progressService
+	def springSecurityService
+	def plateLayoutService
+	def progressService
 	def clipboardParsingService
+	def flowPlateLayoutService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    def index() {
-        redirect(action: "list", params: params)
-    }
+	def index() {
+		redirect(action: "list", params: params)
+	}
 
-    def list() {
-        //deal with max
-        if(!params.max && session.maxPlateLayout) params.max = session.maxPlateLayout
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        session.maxPlateLayout = params.max
+	def list() {
+		//deal with max
+		if(!params.max && session.maxPlateLayout) params.max = session.maxPlateLayout
+		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		session.maxPlateLayout = params.max
 
-        //deal with offset
-        params.offset = params.offset?:(session.offsetPlateLayout?:0)
-        session.offsetPlateLayout = params.offset
+		//deal with offset
+		params.offset = params.offset?:(session.offsetPlateLayout?:0)
+		session.offsetPlateLayout = params.offset
 
-        def plateLayoutInstanceList
-        def plateLayoutInstanceListTotal
+		def plateLayoutInstanceList
+		def plateLayoutInstanceListTotal
 
-        if(session.projectSelected)
-        {
-            plateLayoutInstanceList = Project.get(session.projectSelected as Long).layouts
-            plateLayoutInstanceListTotal = plateLayoutInstanceList.size()
+		if(session.projectSelected)
+		{
+			plateLayoutInstanceList = Project.get(session.projectSelected as Long).layouts
+			plateLayoutInstanceListTotal = plateLayoutInstanceList.size()
 
-            int rangeMin = Math.min(plateLayoutInstanceListTotal, params.int('offset'))
-            int rangeMax = Math.min(plateLayoutInstanceListTotal, (params.int('offset') + params.int('max')))
+			int rangeMin = Math.min(plateLayoutInstanceListTotal, params.int('offset'))
+			int rangeMax = Math.min(plateLayoutInstanceListTotal, (params.int('offset') + params.int('max')))
 
-            plateLayoutInstanceList = plateLayoutInstanceList.asList().subList(rangeMin, rangeMax)
-        }
-        else
-        {
-            plateLayoutInstanceList = PlateLayout.list(params)
-            plateLayoutInstanceListTotal = PlateLayout.count()
-        }
+			plateLayoutInstanceList = plateLayoutInstanceList.asList().subList(rangeMin, rangeMax)
+		}
+		else
+		{
+			plateLayoutInstanceList = PlateLayout.list(params)
+			plateLayoutInstanceListTotal = PlateLayout.count()
+		}
 
-        [plateLayoutInstanceList: plateLayoutInstanceList, plateLayoutInstanceTotal: plateLayoutInstanceListTotal]
-    }
+		[plateLayoutInstanceList: plateLayoutInstanceList, plateLayoutInstanceTotal: plateLayoutInstanceListTotal]
+	}
 
-    def create() {
-        [plateLayoutInstance: new PlateLayout(params)]
-    }
+	def create() {
+		[plateLayoutInstance: new PlateLayout(params)]
+	}
 
 	def parseClipboardData(){
 		//println params					params is an object with all the parameters from the view.
@@ -62,158 +63,175 @@ class PlateLayoutController {
 		def model = [wellProperty:wellProperty,plateLayout:plateLayout]
 		render template: "tableTemplate", model: model
 	}
-	
-    def save() {
-        def plateLayoutInstance = new PlateLayout(params)
-        if (!plateLayoutInstance.save(flush: true)) {
-            render(view: "create", model: [plateLayoutInstance: plateLayoutInstance])
-            return
-        }
 
-        plateLayoutService.createWellLayouts(plateLayoutInstance)
+	def save() {
+		def plateLayoutInstance = new PlateLayout(params)
+		if (!plateLayoutInstance.save(flush: true)) {
+			render(view: "create", model: [plateLayoutInstance: plateLayoutInstance])
+			return
+		}
+
+		plateLayoutService.createWellLayouts(plateLayoutInstance)
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), plateLayoutInstance.id])
-        redirect(action: "show", id: plateLayoutInstance.id)
-    }
+		redirect(action: "show", id: plateLayoutInstance.id)
+	}
 
-    def show() {
-        def plateLayoutInstance = PlateLayout.get(params.id)
-        if (!plateLayoutInstance) {
+	def show() {
+		def plateLayoutInstance = PlateLayout.get(params.id)
+		if (!plateLayoutInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), params.id])
-            redirect(action: "list")
-            return
-        }
+			redirect(action: "list")
+			return
+		}
 
-        redirect(action: "editAttributes", id:  plateLayoutInstance.id, params: params << [sampleProperty: "cellLine"])
-    }
+		redirect(action: "editAttributes", id:  plateLayoutInstance.id, params: params << [sampleProperty: "cellLine"])
+	}
 
-    def edit() {
-        def plateLayoutInstance = PlateLayout.get(params.id)
-        if (!plateLayoutInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), params.id])
-            redirect(action: "list")
-            return
-        }
+	def edit() {
+		def plateLayoutInstance = PlateLayout.get(params.id)
+		if (!plateLayoutInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), params.id])
+			redirect(action: "list")
+			return
+		}
 
-        [plateLayoutInstance: plateLayoutInstance]
-    }
+		[plateLayoutInstance: plateLayoutInstance]
+	}
 
-    def update() {
-        def plateLayoutInstance = PlateLayout.get(params.id)
-        if (!plateLayoutInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), params.id])
-            redirect(action: "list")
-            return
-        }
+	def update() {
+		def plateLayoutInstance = PlateLayout.get(params.id)
+		if (!plateLayoutInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), params.id])
+			redirect(action: "list")
+			return
+		}
 
-        if (params.version) {
-            def version = params.version.toLong()
-            if (plateLayoutInstance.version > version) {
-                plateLayoutInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                          [message(code: 'plateLayout.label', default: 'PlateLayout')] as Object[],
-                          "Another user has updated this PlateLayout while you were editing")
-                render(view: "edit", model: [plateLayoutInstance: plateLayoutInstance])
-                return
-            }
-        }
+		if (params.version) {
+			def version = params.version.toLong()
+			if (plateLayoutInstance.version > version) {
+				plateLayoutInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+						[message(code: 'plateLayout.label', default: 'PlateLayout')] as Object[],
+						"Another user has updated this PlateLayout while you were editing")
+				render(view: "edit", model: [plateLayoutInstance: plateLayoutInstance])
+				return
+			}
+		}
 
-        plateLayoutInstance.properties = params
+		plateLayoutInstance.properties = params
 
-        if (!plateLayoutInstance.save(flush: true)) {
-            render(view: "edit", model: [plateLayoutInstance: plateLayoutInstance])
-            return
-        }
+		if (!plateLayoutInstance.save(flush: true)) {
+			render(view: "edit", model: [plateLayoutInstance: plateLayoutInstance])
+			return
+		}
 
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), plateLayoutInstance.id])
-        redirect(action: "show", id: plateLayoutInstance.id)
-    }
+		redirect(action: "show", id: plateLayoutInstance.id)
+	}
 
-    def delete() {
-        def plateLayoutInstance = PlateLayout.get(params.id)
-        if (!plateLayoutInstance) {
+	def delete() {
+		def plateLayoutInstance = PlateLayout.get(params.id)
+		if (!plateLayoutInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), params.id])
-            redirect(action: "list")
-            return
-        }
+			redirect(action: "list")
+			return
+		}
 
-        try {
-            plateLayoutInstance.delete(flush: true)
+		try {
+			plateLayoutInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), params.id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
+			redirect(action: "list")
+		}
+		catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'plateLayout.label', default: 'PlateLayout'), params.id])
-            redirect(action: "show", id: params.id)
-        }
-    }
+			redirect(action: "show", id: params.id)
+		}
+	}
 
-    /* methods for changing attributes */
-    def sampleList(){
-        def plateLayoutInstance = PlateLayout.get(params.id)
-        def samples = plateLayoutInstance.wells.collect{it.sample}
+	/* methods for changing attributes */
+	def sampleList(){
+		def plateLayoutInstance = PlateLayout.get(params.id)
+		def samples = plateLayoutInstance.wells.collect{it.sample}
 
-        [samples: samples.unique()]
-    }
+		[samples: samples.unique()]
+	}
 
-    def editAttributes(){
-        def plateLayoutInstance = PlateLayout.get(params.id)
+	def editAttributes(){
+		def plateLayoutInstance = PlateLayout.get(params.id)
 
-        [plateLayout:  plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty]
-    }
+		[plateLayout:  plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty]
+	}
 
-    def showAttributes(){
-        def plateLayoutInstance = PlateLayout.get(params.id)
+	def showAttributes(){
+		def plateLayoutInstance = PlateLayout.get(params.id)
 
-        [plateLayout:  plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty]
-    }
+		[plateLayout:  plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty]
+	}
 
-    def updateWellProperty()
-    {
-        def wellProp = params.wellProperty
+	def updateWellProperty()
+	{
+		println "im getting into the platelayout controllers update well property"
+		
+		def wellProp = params.wellProperty
 
-        def plateLayout = params.plateLayout
+		
+		println "Well properties: " + wellProp
 
-        params.remove("action")
-        params.remove("controller")
-        params.remove("wellProperty")
-        params.remove("plateLayout")
+		
+		def plateLayout = params.plateLayout
 
-        if(params.size() == 0) render "Nothing to do"
+		println "plateLayoutcontroller plateLayout: " + plateLayout
+		
+		params.remove("action")
+		params.remove("controller")
+		params.remove("wellProperty")
+		params.remove("plateLayout")
 
-        plateLayoutService.updateWellProperties(params, wellProp, plateLayout)
+		if(params.size() == 0) render "Nothing to do"
+				
+		if(springSecurityService.isLoggedIn()){
+			println "is logged in"
+			plateLayoutService.updateWellProperties(params, wellProp, plateLayout)
+		}
+		else{
+			println "is not logged in"
+			flowPlateLayoutService.updateWellProperties(params, wellProp, plateLayout)
+		}
 
-        progressService.setProgressBarValue("update${plateLayout}", 100)
-        render "Save successful"
-    }
 
-    def createLayoutCopy() {
-        def plateLayoutInstance = PlateLayout.get(params.id)
+		progressService.setProgressBarValue("update${plateLayout}", 100)
+		render "Save successful"
 
-        def newPlateLayout = plateLayoutService.deepClone(plateLayoutInstance)
-        newPlateLayout.name = params.name
+	}
 
-        if(newPlateLayout.save(flush: true, failOnError: true)){
-            flash.message = "Copy created successfully. Be aware: you are now working on the copy!"
-            render (view:  "editAttributes", model: [plateLayout: newPlateLayout, wells: newPlateLayout.wells, sampleProperty: params.sampleProperty])
-        }
+	def createLayoutCopy() {
+		def plateLayoutInstance = PlateLayout.get(params.id)
 
-        else{
-            flash.message = "Could not create copy: " + newPlateLayout.errors.toString()
-            render(view: "editAttributes", model: [plateLayout: plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty])
-        }
-    }
+		def newPlateLayout = plateLayoutService.deepClone(plateLayoutInstance)
+		newPlateLayout.name = params.name
 
-    def clearProperty() {
-        def plateLayoutInstance = PlateLayout.get(params.id)
-        plateLayoutInstance.wells.each{
-            it."${params.sampleProperty}" = null
-            if(!it.save(flush:true, failOnError: true))
-                flash.message = "Could not clear sheet"
-        }
-        render(view: "editAttributes", model: [plateLayout: plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty])
-    }
+		if(newPlateLayout.save(flush: true, failOnError: true)){
+			flash.message = "Copy created successfully. Be aware: you are now working on the copy!"
+			render (view:  "editAttributes", model: [plateLayout: newPlateLayout, wells: newPlateLayout.wells, sampleProperty: params.sampleProperty])
+		}
 
-    def importLayout() {
+		else{
+			flash.message = "Could not create copy: " + newPlateLayout.errors.toString()
+			render(view: "editAttributes", model: [plateLayout: plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty])
+		}
+	}
 
-    }
+	def clearProperty() {
+		def plateLayoutInstance = PlateLayout.get(params.id)
+		plateLayoutInstance.wells.each{
+			it."${params.sampleProperty}" = null
+			if(!it.save(flush:true, failOnError: true))
+				flash.message = "Could not clear sheet"
+		}
+		render(view: "editAttributes", model: [plateLayout: plateLayoutInstance, wells: plateLayoutInstance.wells, sampleProperty: params.sampleProperty])
+	}
+
+	def importLayout() {
+
+	}
 }

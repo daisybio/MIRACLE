@@ -1,17 +1,33 @@
-package org.nanocan.rppa.project
+package org.nanocan.rppa.webflow
 
-import org.nanocan.rppa.layout.SlideLayout
-import org.nanocan.rppa.scanner.Slide
 import org.nanocan.rppa.layout.PlateLayout
+import org.nanocan.rppa.layout.SlideLayout
+import org.nanocan.rppa.layout.CellLine
+import org.nanocan.rppa.project.Project
+import org.nanocan.rppa.scanner.Slide
 
 
 class WebflowController {
+	def flowPlateLayoutService
+	def idCountingService
 
 	def rppaFlow = {
+		init{
+			action{
+				//creates list of PlateLayouts in flow object, if it doesn't already exist
+				flow.listOfPlateLayouts = [:]
+				flow.listOfSlideLayouts = new ArrayList<SlideLayout>()
+				flow.listOfSlides = new ArrayList<Slide>()
 
+			}
+			on('success').to('overView')
+		}
 		overView {
 			on('addPlatelayouts').to('plateLayoutModel')
-			on('editPlateLayout'){flow.selectedPlateLayout = params.id}.to('editPlateLayoutModel')
+			on('editPlateLayout'){
+				flow.plateLayoutInstance = flow.listOfPlateLayouts.get(params.int("id"))
+				flow.plateLayoutInstance.id = params.int("id")
+			}.to('editAttributesModel')
 			on('addSlidelayout').to('slideLayoutModel')
 			on('addSlide').to('slideModel')
 			on('add Spots').to('spotModel')
@@ -26,35 +42,53 @@ class WebflowController {
 			}
 			on('success').to('plateLayoutState')
 		}
+
 		plateLayoutState {
 			on('save'){PlateLayout plateLayout ->
 				if(plateLayout.hasErrors()) {
 					flash.message = "Validation error"
 					return error()
 				}
-				if(!flow.listOfPlateLayouts)
-					flow.listOfPlateLayouts = [:]
-				flow.listOfPlateLayouts.put(plateLayout.id, plateLayout)
+
+				//uses the idCounting service to generate unique id value for the object.
+				def newId = idCountingService.getId("PlateLayout")
+				plateLayout.id = newId
+
+				//attaches the right number of rows and colums, depending on the format of the plateLayout selected
+				plateLayout.beforeInsert()
+
+				//creates weels for new platelayout
+				flowPlateLayoutService.createWellLayouts(plateLayout)
+
+				//add's the new plateLayout to list of plateLayout's in the flow object
+				flow.listOfPlateLayouts.put(newId, plateLayout)
+
+				//persists the plateLayout in the flow for the editAttributeState to know what object to work on
+				flow.plateLayoutInstance = plateLayout
 			}.to('overView')
-			on('addSlidelayout').to('slideLayoutState')
-			on('Overview').to('overView')
-			on('addSlide').to('slideModel')
-			//on('add Spots').to('spotState')
-			//on('add Block Shifts').to('blockShiftState')
-			//on('do analysis').to('analysisState')
+			on('Continue').to('editAttributesModel')
+			on('cancel').to('finish')
+		}
+		editAttributesModel{
+			action{
+				[plateLayout:flow.plateLayoutInstance, wells: flow.plateLayoutInstance.wells, sampleProperty:"cellLine"]
+			}
+			on('success').to('editAttributesState')
+		}
+		editAttributesState{
+			on('save'){PlateLayout plateLayout ->
+				if(plateLayout.hasErrors()) {
+					flash.message = "Validation error"
+					return error()
+				}
+				plateLayout.id = flow.plateLayoutInstance.id
+			}.to('overView')
+			on('success').to('overView')
 			on('cancel').to('finish')
 		}
 		editPlateLayoutModel{
 			action{
-				if (!params)
-				{
-					flash.message = "No plate layouts have been selected"
-					noSelection()
-				}
-				else
-				
-				println "plateLayout:" + flow.selectedPlateLayout.toString()
-				[plateLayoutInstance:PlateLayout.get[flow.selectedPlateLayout.id]]
+				[plateLayoutInstance:flow.plateLayoutInstance]
 			}
 			on("success").to("editPlateLayoutState")
 		}
@@ -64,12 +98,13 @@ class WebflowController {
 					flash.message = "Validation error"
 					return error()
 				}
-				
-				flow.listOfPlateLayouts.remove(plateLayout.id)
-				flow.listOfPlateLayouts.put(plateLayout.id, plateLayout)
+				plateLayout.id = flow.plateLayoutInstance.id
+				flow.listOfPlateLayouts.put((int)plateLayout.id, plateLayout)
+				println "test: " + flow.listOfPlateLayouts
 			}.to('overView')
 			on('cancel').to('finish')
 		}
+
 		
 		slideLayoutModel{
 			action{
@@ -83,8 +118,7 @@ class WebflowController {
 					flash.message = "Validation error"
 					return error()
 				}
-				if(!flow.listOfSlideLayouts)
-				flow.listOfSlideLayouts = new ArrayList<SlideLayout>()
+				
 				flow.listOfSlideLayouts.add(slideLayout)
 			}.to('overView')
 			on('addSlide').to('slideState')
@@ -103,8 +137,7 @@ class WebflowController {
 		}
 		slideState{
 			on('save'){Slide slide ->
-				if(!flow.listOfSlides)
-				flow.listOfSlides = new ArrayList<Slide>()
+
 				def listOfSlides = flow.listOfSlides
 				listOfSlides.add(slide)
 			}.to('overView')
@@ -226,8 +259,7 @@ class WebflowController {
 
 		modelForPlateLayouts{
 			action {
-				[//experiments: flow.Experiment.list(), savanahProjects: flow.Project.list(),miracleProjects: org.nanocan.rppa.project.Project.list(), savanahLayouts: PlateLayout.list(),
-					miracleLayouts: flow.listOfPlateLayouts]
+				[miracleLayouts: flow.listOfPlateLayouts]
 			}
 			on("success").to "selectPlateLayouts"
 		}
@@ -244,7 +276,7 @@ class WebflowController {
 				}
 				else
 				{
-					
+
 					def selectedLayouts = params["plateLayoutOrder"].split("&").collect{it.split("=")[1]}
 					def layouts = [:]
 					//boolean hasSavanahLayouts = false
@@ -340,7 +372,7 @@ class WebflowController {
 
 				//slideLayout.lastUpdatedBy = springSecurityService.currentUser
 				//slideLayout.createdBy = springSecurityService.currentUser
-				
+
 				if (slideLayout.save(flush: true, failOnError: true)) {
 					progressService.setProgressBarValue(flow.progressId, 100)
 					flow.layoutId = slideLayout.id
