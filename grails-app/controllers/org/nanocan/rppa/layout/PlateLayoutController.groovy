@@ -170,8 +170,6 @@ class PlateLayoutController {
 
 	def updateWellProperty()
 	{
-		println "im getting into the platelayout controllers update well property"
-		
 		def wellProp = params.wellProperty
 
 		
@@ -189,17 +187,10 @@ class PlateLayoutController {
 
 		if(params.size() == 0) render "Nothing to do"
 				
-		if(springSecurityService.isLoggedIn()){
-			println "is logged in"
-			plateLayoutService.updateWellProperties(params, wellProp, plateLayout)
-		}
-		else{
-			println "is not logged in"
-			flowPlateLayoutService.updateWellProperties(params, wellProp, plateLayout)
-		}
-
-
-		progressService.setProgressBarValue("update${plateLayout}", 100)
+		
+		plateLayoutService.updateWellProperties(params, wellProp, plateLayout)
+		
+				progressService.setProgressBarValue("update${plateLayout}", 100)
 		render "Save successful"
 
 	}

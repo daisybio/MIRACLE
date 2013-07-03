@@ -18,6 +18,7 @@ class WebflowController {
 				flow.listOfPlateLayouts = [:]
 				flow.listOfSlideLayouts = new ArrayList<SlideLayout>()
 				flow.listOfSlides = new ArrayList<Slide>()
+				flow.plateLayoutInstance = new PlateLayout()
 
 			}
 			on('success').to('overView')
@@ -59,30 +60,37 @@ class WebflowController {
 
 				//creates weels for new platelayout
 				flowPlateLayoutService.createWellLayouts(plateLayout)
-
+				
 				//add's the new plateLayout to list of plateLayout's in the flow object
 				flow.listOfPlateLayouts.put(newId, plateLayout)
 
 				//persists the plateLayout in the flow for the editAttributeState to know what object to work on
 				flow.plateLayoutInstance = plateLayout
+				
 			}.to('overView')
 			on('Continue').to('editAttributesModel')
 			on('cancel').to('finish')
 		}
 		editAttributesModel{
 			action{
-				[plateLayout:flow.plateLayoutInstance, wells: flow.plateLayoutInstance.wells, sampleProperty:"cellLine"]
+				[plateLayout:flow.plateLayoutInstance,wells: flow.plateLayoutInstance.wells, sampleProperty:"cellLine"]
 			}
 			on('success').to('editAttributesState')
 		}
 		editAttributesState{
-			on('save'){PlateLayout plateLayout ->
-				if(plateLayout.hasErrors()) {
+			on('saveChanges'){PlateLayout plateLayout ->
+				/*if(plateLayout.hasErrors()) {
 					flash.message = "Validation error"
 					return error()
-				}
-				plateLayout.id = flow.plateLayoutInstance.id
-			}.to('overView')
+				}*/
+				println "Entering the Matrix"
+				println "pl ID: " + plateLayout.id + " name " + plateLayout
+				println "fplI ID: " + flow.plateLayoutInstance.id + " name " + flow.plateLayoutInstance
+				
+				//flowPlateLayoutService.updateWellProperties(params, plateLayout)
+				//flow.plateLayoutInstance = plateLayout
+				//flow.plateLayoutInstance.id = plateLayout.id
+			}.to('editAttributesState')
 			on('success').to('overView')
 			on('cancel').to('finish')
 		}

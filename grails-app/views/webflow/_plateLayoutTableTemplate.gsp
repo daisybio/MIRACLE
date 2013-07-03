@@ -10,7 +10,6 @@
 				</g:each>
 
 			</tr>
-
 		</thead>
 		<tbody>
 			<g:each in="${1..(plateLayout.rows)}" var="row">
@@ -25,14 +24,9 @@
 						</td>
 						<g:set var="well" value="${++well}" />
 					</g:each>
-
 				</tr>
 			</g:each>
-
 		</tbody>
-
 	</table>
 </div>
-<div style="padding-left: 20px; padding-bottom: 20px;">
-	<input type="submit" value="Save changes" name="layoutUpdateButton" />
-</div>
+

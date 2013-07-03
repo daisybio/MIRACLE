@@ -32,7 +32,8 @@
 	<a href="#show-plateLayout" class="skip" tabindex="-1"><g:message
 			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 
-	<!-- here it was -->
+	<g:jprogressDialog message="Updating layout information..."
+		progressId="update${plateLayout.id}" trigger="layoutUpdateButton" />
 
 	<h1 style="padding-left: 20px;">
 		Modify
@@ -90,19 +91,20 @@
 	</g:formRemote>
 
 	<!-- Template for rendering the tables in plateLayout -->
-
-	<g:formRemote onSuccess="window.onbeforeunload = null;"
-		name="${sampleProperty}form" update="message"
-		url="[controller: 'PlateLayout', action: 'updateWellProperty']">
+	<g:form onSuccess="window.onbeforeunload = null;"
+		name="${sampleProperty}form"
+		update="blockTabs"
+		url="[controller: 'webflow', action: 'rppa']">
 		<input name="wellProperty" type="hidden" value="${sampleProperty}" />
 		<input name="plateLayout" type="hidden" value="${plateLayout.id}" />
 		<div id="blockTabs" style="overflow: auto;">
 			<g:render template="plateLayoutTableTemplate"
-				model="${[wellProperty:wellProperty,plateLayout:plateLayout]}">
-			</g:render>
+				model="${[wellProperty:wellProperty,plateLayout:plateLayout]}"></g:render>
+			<div style="padding-left: 20px; padding-bottom: 20px;">
+				<g:submitButton name="saveChanges" value="Save Changes" model="${[plateLayout:plateLayout, wells: plateLayout.wells, sampleProperty:"cellLine"] }"/>
+			</div>
 		</div>
-	</g:formRemote>
-
+	</g:form>
 
 	<g:form>
 		<fieldset class="buttons">
