@@ -16,11 +16,11 @@
     <div id="draggableLegend">
 
     <table>
-    <g:if test="${sampleProperty == 'cellLine'}"><g:set var="samplePropertyList" value="${CellLine.list()}"/></g:if>
-    <g:elseif test="${sampleProperty == 'inducer'}"><g:set var="samplePropertyList" value="${Inducer.list()}"/></g:elseif>
-    <g:elseif test="${sampleProperty == 'treatment'}"><g:set var="samplePropertyList" value="${Treatment.list()}"/></g:elseif>
-    <g:elseif test="${sampleProperty == 'numberOfCellsSeeded'}"><g:set var="samplePropertyList" value="${NumberOfCellsSeeded.list()}"/></g:elseif>
-    <g:elseif test="${sampleProperty == 'spotType'}"><g:set var="samplePropertyList" value="${SpotType.list()}"/></g:elseif>
+    <g:if test="${sampleProperty == 'cellLine'}"><g:set var="samplePropertyList" value="${cellLineList}"/></g:if>
+    <g:elseif test="${sampleProperty == 'inducer'}"><g:set var="samplePropertyList" value="${inducerList}"/></g:elseif>
+    <g:elseif test="${sampleProperty == 'treatment'}"><g:set var="samplePropertyList" value="${treatmentList}"/></g:elseif>
+    <g:elseif test="${sampleProperty == 'numberOfCellsSeeded'}"><g:set var="samplePropertyList" value="${numberOfCellsSeededList}"/></g:elseif>
+    <g:elseif test="${sampleProperty == 'spotType'}"><g:set var="samplePropertyList" value="${spotTypeList}"/></g:elseif>
     <thead>
     <tr><th>${sampleProperty.toString().capitalize()}</th><th>Color</th></tr>
     </thead>

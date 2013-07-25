@@ -12,7 +12,7 @@ import org.nanocan.rppa.layout.Treatment
 import org.nanocan.rppa.project.Project
 import org.nanocan.rppa.scanner.Slide
 import org.nanocan.rppa.scanner.Antibody
-import org.nanocan.savanah.attributes.Sample
+import org.nanocan.rppa.rnai.Sample
 
 
 class WebflowController {
@@ -95,8 +95,7 @@ class WebflowController {
 		editAttributesModel{
 			action{
 				//println "well 5 = " + flow.plateLayoutInstance.wells.toList().get(5).id
-				[plateLayout:flow.plateLayoutInstance,wells: flow.plateLayoutInstance.wells, sampleProperty:"cellLine"]
-
+				[plateLayout:flow.plateLayoutInstance,wells: flow.plateLayoutInstance.wells, sampleProperty:"cellLine",cellLineList:flow.listOfCellLines?.values()?.toList(),inducerList:flow.listOfInducers?.values()?.toList(),treatmentList:flow.listOfTreatments?.values()?.toList(),numberOfCellsSeededList:flow.listOfNumberOfCellsSeeded?.values()?.toList(),spotTypeList:flow.listOfSpotTypes?.values()?.toList()]
 			}
 			on('success').to('editAttributesState')
 		}
@@ -338,8 +337,6 @@ class WebflowController {
 		 flow.listOfSamples.put(newId, sample)
 		 }.to('overView')
 		 }
-		 
-		 
 		 spotState{
 		 on('add more Spots'){Spot spot ->
 		 if(command.hasErrors()) {
