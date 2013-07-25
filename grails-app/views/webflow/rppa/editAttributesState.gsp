@@ -96,13 +96,14 @@
 		update="blockTabs"
 		url="[controller: 'webflow', action: 'rppa']">
 		<input name="wellProperty" type="hidden" value="${sampleProperty}" />
-		<input name="plateLayout" type="hidden" value="${plateLayout.id}" />
+		<input name="plateLayout" type="hidden" value="${plateLayout}" />
 		<div id="blockTabs" style="overflow: auto;">
 			<g:render template="plateLayoutTableTemplate"
-				model="${[wellProperty:wellProperty,plateLayout:plateLayout]}"></g:render>
-			<div style="padding-left: 20px; padding-bottom: 20px;">
-				<g:submitButton name="saveChanges" value="Save Changes" model="${[plateLayout:plateLayout, wells: plateLayout.wells, sampleProperty:"cellLine"] }"/>
-			</div>
+				model="${[wellProperty:wellProperty,plateLayout:plateLayout]}">
+			</g:render>
+		</div>
+		<div style="padding-left: 20px; padding-bottom: 20px;">
+				<g:submitButton name="saveChanges" value="Save Changes" model="${[wellProperty:wellProperty,plateLayout:plateLayout,sampleProperty:"cellLine"]}"/>
 		</div>
 	</g:form>
 

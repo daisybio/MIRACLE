@@ -3,7 +3,7 @@
 		code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 <div id="list-cellLine" class="content scaffold-list" role="main">
 	<h1>
-		<g:message code="default.list.label" args="[entityName]" />
+		List of CellLine's
 	</h1>
 	<g:if test="${flash.message}">
 		<div class="message" role="status">

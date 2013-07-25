@@ -3,7 +3,7 @@
 		code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 <div id="list-dilution" class="content scaffold-list" role="main">
 	<h1>
-		<g:message code="default.list.label" args="[entityName]" />
+		List of Dilution-Factor's
 	</h1>
 	<g:if test="${flash.message}">
 		<div class="message" role="status">

@@ -3,7 +3,7 @@
 		code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 <div id="list-lysisBuffer" class="content scaffold-list" role="main">
 	<h1>
-		<g:message code="default.list.label" args="[entityName]" />
+		List of Lysis Buffer's
 	</h1>
 	<g:if test="${flash.message}">
 		<div class="message" role="status">

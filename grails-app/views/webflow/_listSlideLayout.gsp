@@ -5,7 +5,7 @@
 
 <div id="list-slideLayout" class="content scaffold-list" role="main">
 	<h1>
-		<g:message code="default.list.label" args="[entityName]" />
+		List of Slide-Layout's	<!-- g:message code="default.list.label" args="[entityName]" / -->
 	</h1>
 	<g:if test="${flash.message}">
 		<div class="message" role="status">
