@@ -24,7 +24,7 @@
     $(document).ready(function() {
         registerHandlers("plateLayoutTable");
     });
-</script>
+	</script>
 
 
 	<a href="#show-plateLayout" class="skip" tabindex="-1"><g:message

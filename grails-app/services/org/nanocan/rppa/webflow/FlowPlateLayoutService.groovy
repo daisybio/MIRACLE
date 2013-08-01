@@ -2,11 +2,13 @@ package org.nanocan.rppa.webflow
 
 import org.nanocan.rppa.layout.PlateLayout
 import org.nanocan.rppa.layout.WellLayout
+import org.nanocan.rppa.layout.CellLine
 
 class FlowPlateLayoutService {
 	def progressService
 	def idCountingService
-	
+	def grailsApplication
+
 	def createWellLayouts(PlateLayout plateLayout) {
 		for (int col = 1; col <= plateLayout.cols; col++) {
 			for (int row = 1; row <= plateLayout.rows; row++) {
@@ -17,12 +19,12 @@ class FlowPlateLayoutService {
 		}
 		return null
 	}
-	def updateWellProperty(params){
+	def updateWellProperty(params, plateLayout, cellLines){
 		def wellProp = params.wellProperty
 
 		println "Well properties: " + wellProp
 
-		def plateLayout = params.plateLayout
+		//def plateLayout = params.plateLayout
 
 		println "plateLayoutcontroller plateLayout: " + plateLayout
 
@@ -33,39 +35,44 @@ class FlowPlateLayoutService {
 
 		if(params.size() == 0) render "Nothing to do"
 
-		println params.keySet().sort()
-		println params.keySet().size()
-		
+		println "size: " + params.keySet().size()
+
+
 		params.each{key, value ->
-			if (value != "") {
-				println "key: " + key + "value: " + value
+			if (value != "" && key.toString().length() < 5) {
+				println "Key: " + key + " Value: " + value
 			}
 		}
-		//updateWellProperties(params, wellProp, plateLayout)
+
+
+		updateWellProperties(params, wellProp, plateLayout, cellLines)
 
 		//progressService.setProgressBarValue("update${plateLayout}", 100)
 		//render "Save successful"
-		
+
 	}
-	
-	def updateWellProperties(params, wellProp, plateLayout){
+
+	def updateWellProperties(params, wellProp, plateLayout, cellLines){
 		def numberOfWells = params.keySet().size()
 		def currentWell = 0
-		params.each {key, value ->
-			if (value != "") {
-				def well = WellLayout.get(key as Long)
+		def wells = plateLayout.wells.toList()
+		println "wells: " + wells.each {this.id}
+		println "cellLine List: " + cellLines
+		println "c: " + cellLines[1]
+		
+		params.each{key, value ->
+			if (value != "" && key.toString().length() < 5) {
+				def well = wells.get(key as int)
 
-				def classPrefix = "org.nanocan.rppa.layout."
-				if(wellProp == "sample") classPrefix = "org.nanocan.rppa.rnai."
 				if (value as Long == -1) well.properties[wellProp] = null
-				else well.properties[wellProp] = grailsApplication.getDomainClass(classPrefix + wellProp.toString().capitalize()).clazz.get(value as Long)
-				
-				//well.save()
+				else{ 
+					well.properties[wellProp] = cellLines[value as int]
+					plateLayout.wells.toList().set(key as int, well)
+					
+					println "wellpop: " + well.properties[wellProp]
+					println "cellline from list : " + cellLines[value as int]
+				}
 			}
-
-			progressService.setProgressBarValue("update${plateLayout}", (currentWell / numberOfWells * 100))
-			currentWell++
-
 		}
 	}
 }

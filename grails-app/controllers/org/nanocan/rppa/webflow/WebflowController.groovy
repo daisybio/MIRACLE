@@ -101,20 +101,25 @@ class WebflowController {
 		}
 		editAttributesState{
 			on('saveChanges'){PlateLayout plateLayout ->
-				/*if(plateLayout.hasErrors()) {
+				 /*if(plateLayout.hasErrors()) {
 				 flash.message = "Validation error"
 				 return error()
 				 }*/
-				println params
-				//platelayout = flow.listOfPlatelayouts.get(platelayout)
-				println "Entering the Matrix"
-				//println "pl ID: " + params.plateLayout.id + " name " + params.plateLayout + "\n\r Params: "
+				
+				//println params
+				plateLayout = flow.plateLayoutInstance
+				def cellLines = flow.listOfCellLines
+				
+				println cellLines[1].name
+				
+				println "Entering the Matrix "
+				println "pl ID: " + plateLayout.id + " name " + plateLayout 
 				//println "fplI ID: " + flow.plateLayoutInstance.id + " name " + flow.plateLayoutInstance
 
-				flowPlateLayoutService.updateWellProperty(params) //params, plateLayout
+				flowPlateLayoutService.updateWellProperty(params,plateLayout,cellLines) //params, plateLayout
 				//flow.plateLayoutInstance = plateLayout
 				//flow.plateLayoutInstance.id = plateLayout.id
-			}.to('editAttributesState')
+			}.to('overView')
 			on('success').to('overView')
 			on('cancel').to('finish')
 		}

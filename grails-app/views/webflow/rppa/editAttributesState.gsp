@@ -20,7 +20,7 @@
 	</g:else>
 
 	<g:set var="well" value="${0}" />
-	<g:set var="wellList" value="${wells?.toList()}" />
+	<g:set var="wellList" value="${wells.toList()}" />
 
 
 	<script type="text/javascript">
@@ -92,8 +92,7 @@
 
 	<!-- Template for rendering the tables in plateLayout -->
 	<g:form onSuccess="window.onbeforeunload = null;"
-		name="${sampleProperty}form"
-		update="blockTabs"
+		name="${sampleProperty}form" update="blockTabs"
 		url="[controller: 'webflow', action: 'rppa']">
 		<input name="wellProperty" type="hidden" value="${sampleProperty}" />
 		<input name="plateLayout" type="hidden" value="${plateLayout}" />
@@ -103,7 +102,7 @@
 			</g:render>
 		</div>
 		<div style="padding-left: 20px; padding-bottom: 20px;">
-				<g:submitButton name="saveChanges" value="Save Changes" model="${[wellProperty:wellProperty,plateLayout:plateLayout,sampleProperty:"cellLine"]}"/>
+			<g:submitButton name="saveChanges" value="Save Changes" model="${[wellProperty:wellProperty,plateLayout:plateLayout]}"/>
 		</div>
 	</g:form>
 
@@ -189,9 +188,9 @@
                     {
                         var cell = document.getElementById(tableName).rows[i].cells[j];
                         cell.style.backgroundColor = selColor;
-                        cell.firstChild.setAttribute("value", selId);
+                        cell.children[0].setAttribute("value", selId);						//here javascript error, it thinks the table entry is text and it cannot update its value
                         $('#message').html("Please save your changes!") ;
-
+						//alert(cell.children[0].name);							alert is used to get output from javascript
                         window.onbeforeunload = unloadPage;
                     }
                 }
