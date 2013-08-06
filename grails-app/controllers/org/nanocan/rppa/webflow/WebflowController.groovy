@@ -110,8 +110,6 @@ class WebflowController {
 				plateLayout = flow.plateLayoutInstance
 				def cellLines = flow.listOfCellLines
 				
-				println cellLines[1].name
-				
 				println "Entering the Matrix "
 				println "pl ID: " + plateLayout.id + " name " + plateLayout 
 				//println "fplI ID: " + flow.plateLayoutInstance.id + " name " + flow.plateLayoutInstance
