@@ -1,7 +1,5 @@
 package org.nanocan.savanah.extraction
 
-import org.nanocan.savanah.plates.WellLayout
-
 /**
  * Created by IntelliJ IDEA.
  * User: mlist
@@ -45,24 +43,13 @@ class ExtractionIteratorBase {
 
         def extraction
 
-        if(plateLayout instanceof org.nanocan.savanah.plates.PlateLayout)
-        {
-            extraction = WellLayout.withCriteria{
-                plateLayout{
-                    eq("id", plateLayout.id)
-                }
-                between("row", startRow, endRow)
-                between("col", startColumn, endColumn)
+
+        extraction = org.nanocan.rppa.layout.WellLayout.withCriteria{
+            plateLayout{
+                eq("id", plateLayout.id)
             }
-        }
-        else {
-            extraction = org.nanocan.rppa.layout.WellLayout.withCriteria{
-                plateLayout{
-                    eq("id", plateLayout.id)
-                }
-                between("row", startRow, endRow)
-                between("col", startColumn, endColumn)
-            }
+            between("row", startRow, endRow)
+            between("col", startColumn, endColumn)
         }
 
         return(extraction)

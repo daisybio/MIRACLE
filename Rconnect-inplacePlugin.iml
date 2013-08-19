@@ -41,6 +41,8 @@
     <orderEntry type="library" scope="PROVIDED" name="grails-2.1.1" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="grails-2.2.1" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="grails-2.2.2" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grails-2.2.2" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grails-2.2.3" level="application" />
     <orderEntry type="module-library">
       <library name="Grails User Library (Rconnect-inplacePlugin)">
         <CLASSES>
@@ -62,6 +64,8 @@
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi-ooxml/jars/poi-ooxml-3.9.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.poi/poi/jars/poi-3.9.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.eclipse.jdt.core.compiler/ecj/jars/ecj-3.7.2.jar!/" />
+          <root url="jar:///media/sf_D/Projects/Java/MIRACLE/lib/sqljdbc4.jar!/" />
+          <root url="jar:///media/sf_D/Projects/Java/MIRACLE/lib/jtds-1.2.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

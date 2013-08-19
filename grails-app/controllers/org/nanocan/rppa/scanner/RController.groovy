@@ -18,7 +18,7 @@ class RController {
         def rConnection = rconnectService.getConnection()
         rConnection.voidEval("download.file(\"${grailsApplication.config.grails.serverURL}/rlib/rppa_1.0.tar.gz\", \"rppa.tar.gz\")")
         rConnection.voidEval("install.packages(\"rppa.tar.gz\", repos = NULL, type = \"source\")")
-        render(rConnection.eval("require(rppa)").toDebugString())
+        render(rConnection.eval("require(Rmiracle)").toDebugString())
     }
 
     def heatmap(){

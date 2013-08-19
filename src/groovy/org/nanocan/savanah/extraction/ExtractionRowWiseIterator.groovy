@@ -1,6 +1,5 @@
 package org.nanocan.savanah.extraction
 
-import org.nanocan.savanah.plates.Plate
 import groovy.transform.InheritConstructors
 
 /**

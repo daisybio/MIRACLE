@@ -40,7 +40,7 @@ class SpotExportController {
     }
 
     def getIdFromBarcode = {
-        render Slide.findByBarcode(params.id).id
+        render Slide.findAllByBarcode(params.id).id
     }
 
     def getAntibody = {

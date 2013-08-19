@@ -77,51 +77,7 @@ class SpottingController {
                 }
             }
             on("noSelection").to "modelForPlateLayouts"
-            on("matchSavanahProperties").to "modelForMatchSavanahProperties"
             on("spottingProperties").to "spottingProperties"
-        }
-
-        modelForMatchSavanahProperties{
-            action {
-                List<org.nanocan.savanah.plates.PlateLayout> savanahLayouts = new ArrayList<org.nanocan.savanah.plates.PlateLayout>()
-                flow.layouts.values().each {
-                    if(it instanceof PlateLayout) savanahLayouts << it
-                }
-                def matchModel = plateImportService.createMatchListsForSavanahLayouts(savanahLayouts, false)
-                matchModel
-            }
-            on("success").to "matchSavanahProperties"
-        }
-
-        matchSavanahProperties{
-            on("continue").to "createSavanahMatchingMaps"
-        }
-
-        createSavanahMatchingMaps{
-            action {
-                def numberOfCellsSeededMap = [:]
-                def cellLineMap = [:]
-                def inducerMap = [:]
-                def treatmentMap = [:]
-                def sampleMap = [:]
-
-                params.each{k,v ->
-                    def indexOfSeparator = k.toString().indexOf('_') + 1
-
-                    if(k.toString().startsWith("numberOfCellsSeeded")) numberOfCellsSeededMap.put(k.toString().substring(indexOfSeparator), NumberOfCellsSeeded.findByName(v))
-                    else if(k.toString().startsWith("cellline")) cellLineMap.put(k.toString().substring(indexOfSeparator), CellLine.findByName(v))
-                    else if(k.toString().startsWith("inducer")) inducerMap.put(k.toString().substring(indexOfSeparator), Inducer.findByName(v))
-                    else if(k.toString().startsWith("treatment")) treatmentMap.put(k.toString().substring(indexOfSeparator), Treatment.findByName(v))
-                    else if(k.toString().startsWith("sample")) sampleMap.put(k.toString().substring(indexOfSeparator), org.nanocan.rppa.rnai.Sample.findByName(v))
-                }
-
-                flow.numberOfCellsSeededMap = numberOfCellsSeededMap
-                flow.cellLineMap = cellLineMap
-                flow.inducerMap = inducerMap
-                flow.treatmentMap = treatmentMap
-                flow.sampleMap = sampleMap
-            }
-            on("success").to "spottingProperties"
         }
 
         spottingProperties{

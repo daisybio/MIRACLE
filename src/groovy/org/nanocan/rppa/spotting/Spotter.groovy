@@ -1,7 +1,6 @@
 package org.nanocan.rppa.spotting
 
 import org.nanocan.rppa.layout.SlideLayout
-import org.nanocan.savanah.plates.WellLayout as SavanahWellLayout
 import org.nanocan.rppa.layout.WellLayout
 import org.nanocan.rppa.layout.LayoutSpot
 import org.nanocan.rppa.layout.Dilution
@@ -113,16 +112,7 @@ abstract class Spotter {
             def propInstance
             wellLayout.attach()
 
-            if (wellLayout."${prop}"){
-
-                //if this is a savanah well layout, we need to get the corresponding miracle properties from a match list
-                if (wellLayout instanceof SavanahWellLayout)
-                {
-                    propInstance = matchingMaps[prop].get(wellLayout."${prop}".name)
-                }
-
-                else propInstance = wellLayout."${prop}"
-            }
+            if (wellLayout."${prop}")  propInstance = wellLayout."${prop}"
 
             props.put(prop, propInstance)
         }
@@ -130,12 +120,7 @@ abstract class Spotter {
         def wellLayoutMiracle = null
 
         //spot type
-        if (wellLayout instanceof SavanahWellLayout)
-        {
-            props.put("spotType", null)
-
-        }
-        else if(wellLayout instanceof WellLayout)
+        if(wellLayout instanceof WellLayout)
         {
             wellLayoutMiracle = wellLayout
             props.put("spotType", wellLayout.spotType)
