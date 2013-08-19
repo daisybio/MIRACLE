@@ -1,7 +1,5 @@
 package org.nanocan.rppa.spotting
 
-import org.nanocan.savanah.plates.WellLayout as SavanahWellLayout
-import org.nanocan.rppa.layout.WellLayout as MiracleWellLayout
 import groovy.transform.InheritConstructors
 
 /**

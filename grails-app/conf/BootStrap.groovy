@@ -19,9 +19,6 @@ import org.nanocan.rppa.project.Project
 import grails.converters.JSON
 import org.nanocan.rppa.scanner.Spot
 import org.nanocan.rppa.scanner.BlockShift
-import org.nanocan.savanah.plates.PlateLayout
-import org.nanocan.savanah.plates.WellLayout
-import org.nanocan.savanah.plates.Plate
 
 class BootStrap {
 
@@ -36,7 +33,6 @@ class BootStrap {
 
                 initUserbase()
                 //initMIRACLE()
-                //initSAVANAH()
 
                 break
 
@@ -95,41 +91,6 @@ class BootStrap {
             returnArray['vshift'] = it.verticalShift
 
             return returnArray
-        }
-    }
-
-    private void initSAVANAH(){
-        def cellLineA = new org.nanocan.savanah.attributes.CellLine(color: "#aa0000", name: "MCF7").save(flush: true, failOnError: true)
-        def cellLineB = new org.nanocan.savanah.attributes.CellLine(color: "#00aa00", name: "MCF12").save(flush: true, failOnError: true)
-
-        def plateLayout96 = new PlateLayout(name: "test layout 96", format: "96-well", cols: 12, rows: 8)
-        plateLayout96.save()
-
-        for (int col = 1; col <= plateLayout96.cols; col++) {
-            for (int row = 1; row <= plateLayout96.rows; row++) {
-                plateLayout96.addToWells(new WellLayout(col: col, row: row, layout: plateLayout96, cellLine: cellLineA))
-            }
-        }
-        plateLayout96.save(flush:true, failOnError: true)
-
-        def plateLayout96b = new PlateLayout(name: "test layout 96b", format: "96-well", cols: 12, rows: 8)
-        plateLayout96b.save()
-
-        for (int col = 1; col <= plateLayout96b.cols; col++) {
-            for (int row = 1; row <= plateLayout96b.rows; row++) {
-                plateLayout96b.addToWells(new WellLayout(col: col, row: row, layout: plateLayout96b, cellLine: cellLineB))
-            }
-        }
-        plateLayout96b.save(flush:true, failOnError: true)
-
-        int i = 1
-
-        for(name in ["a", "b", "c", "d"]){
-            def plate96
-
-            if(i++ % 2 == 1) plate96 = new Plate(cols: 12, rows:  8, barcode: "${name}96bc", family: "daughter", format: "96-well", name: "${name}96", layout: plateLayout96)
-            else plate96 = new Plate(cols: 12, rows:  8, barcode: "${name}96bc", family: "daughter", format: "96-well", name: "${name}96", layout: plateLayout96b)
-            plate96.save(flush: true)
         }
     }
 

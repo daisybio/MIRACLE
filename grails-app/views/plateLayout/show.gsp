@@ -1,4 +1,4 @@
-<%@ page import="org.nanocan.savanah.plates.PlateLayout" %>
+<%@ page import="org.nanocan.rppa.layout.PlateLayout" %>
 <!doctype html>
 <html>
 <head>
