@@ -1,12 +1,11 @@
 package savanah
 
-import org.nanocan.savanah.plates.Plate
-import org.nanocan.savanah.plates.PlateLayout
-import org.nanocan.savanah.plates.WellLayout
-import org.nanocan.savanah.extraction.ExtractionRowWiseIterator
 import grails.plugin.spock.UnitSpec
 import grails.test.mixin.Mock
 import spock.lang.Shared
+import org.nanocan.rppa.layout.PlateLayout
+import org.nanocan.savanah.extraction.ExtractionRowWiseIterator
+import org.nanocan.rppa.layout.WellLayout
 
 /**
  * Created by IntelliJ IDEA.
