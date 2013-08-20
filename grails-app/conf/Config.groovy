@@ -1,3 +1,7 @@
+import org.apache.log4j.ConsoleAppender
+import org.apache.log4j.DailyRollingFileAppender
+import org.apache.log4j.Priority
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
@@ -13,12 +17,23 @@
 /* Default config to be overwritten in config files */
 grails.plugins.springsecurity.cas.active = false
 grails.logging.jul.usebridge = true
+
 rppa.upload.directory = "upload/"
+
 rppa.imagezoom.directory = "web-app/imagezoom"
 rppa.imagezoom.url = "web-app"
+
 grails.serverURL = 'http://localhost:8080/MIRACLE'
+
 rconnect.host = "localhost"
 rconnect.port = "6311"
+
+def miracleLogLevel = "ERROR"
+def miracleLogPattern = "%d{yyyy-MM-dd/HH:mm:ss.SSS} [%t] %x %-5p %c{2} - %m%n"
+def log4jFileName = System.properties.getProperty('catalina.base', '.') + "/logs/miracle.log"
+
+rppa.jdbc.batchSize = 150
+rppa.jdbc.groovySql = true
 
 /* Search for external config files */
 def ENV_NAME = "MIRACLE_CONFIG"
@@ -34,7 +49,7 @@ else if (System.getProperty(ENV_NAME)) {
     grails.config.locations << "file:" + System.getProperty(ENV_NAME)
 }
 else{
-    println "No config file found. Using defaults config."
+    println "No config file found. Using default config."
 }
 
 grails.project.groupId = MIRACLE // change this to alter the default package name and Maven publishing destination
@@ -122,12 +137,27 @@ log4j = {
     // Example of changing the log pattern for the default console
     // appender:
     //
-    //appenders {
+    appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
     //debug  'org.hibernate.SQL'
            /*'org.hibernate.transaction',
            'org.hibernate.jdbc' */
+
+        appender new DailyRollingFileAppender(name: "miracleLog",
+                threshold: Priority.toPriority(miracleLogLevel),
+                file: log4jFileName,
+                datePattern: "'.'yyyy-MM-dd",   //Rollover at midnight each day.
+                layout: pattern(conversionPattern: miracleLogPattern)
+        )
+        if (grails.util.Environment.current == grails.util.Environment.DEVELOPMENT || grails.util.Environment.current == grails.util.Environment.TEST) {
+            appender new ConsoleAppender(name: "console",
+                 threshold: Priority.toPriority(miracleLogLevel),
+                 layout: pattern(conversionPattern: miracleLogPattern)
+            )
+        }
+    }
+
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
@@ -146,21 +176,30 @@ log4j = {
     debug   'org.codehaus.groovy.grails.plugins.springsecurity'
     debug   'org.springframework.security'
     debug   'org.jasig.cas.client'*/
-    debug   'org.nanocan'
+    debug   'org.nanocan',
+            'grails.plugins.springsecurity',
+            'grails.plugin.springcache',
+            'org.codehaus.groovy.grails.plugins.springsecurity',
+            'org.apache.http.headers',
+            'grails.app.services',
+            'grails.app.domain',
+            'grails.app.controllers',
+            'grails.plugin.databasemigration',
+            'liquibase'
 
-    appenders {
-        rollingFile  name:'infoLog', file:'log/info.log', threshold: org.apache.log4j.Level.INFO, maxFileSize:1024
-        rollingFile  name:'warnLog', file:'log/warn.log', threshold: org.apache.log4j.Level.WARN, maxFileSize:1024
-        rollingFile  name:'errorLog', file:'log/error.log', threshold: org.apache.log4j.Level.ERROR, maxFileSize:1024
-        rollingFile  name:'debugLog', file:'log/debug.log', threshold: org.apache.log4j.Level.DEBUG, maxFileSize:1024
-        console      name:'stdout', threshold: org.apache.log4j.Level.DEBUG
+    List<String> loggers = []
+    loggers.add('miracleLog')
+    if (grails.util.Environment.current.name == "development" ||
+            grails.util.Environment.current.name == "test") {
+        loggers.add('console')
+    }
+    root {
+        error loggers as String[]
+        additivity = true
     }
 }
 
 grails.views.javascript.library="jquery"
-
-rppa.jdbc.batchSize = 150
-rppa.jdbc.groovySql = true
 
 // Added by the Spring Security Core plugin:
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.nanocan.rppa.security.Person'

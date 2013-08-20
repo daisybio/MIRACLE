@@ -27,7 +27,7 @@ if(!dataSource){
                 url = "jdbc:h2:file:testDb;MVCC=TRUE"
             }
         }
-        prod {
+        production {
             dataSource {
                 pooled = true
                 driverClassName = "org.h2.Driver"
@@ -40,15 +40,5 @@ if(!dataSource){
     }
 }
 
-if(!dataSource_SAVANAH)
-{
-    dataSource_SAVANAH{
-        pooled = true
-        driverClassName = "org.h2.Driver"
-        username = "sa"
-        password = ""
-        dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-        url = "jdbc:h2:file:savanahDb;MVCC=TRUE"
-    }
-}
+
 
