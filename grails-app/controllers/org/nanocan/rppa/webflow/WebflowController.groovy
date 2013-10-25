@@ -1,5 +1,8 @@
 package org.nanocan.rppa.webflow
 
+import org.apache.commons.collections.map.HashedMap;
+import org.codehaus.groovy.grails.web.json.JSONArray;
+import org.codehaus.groovy.grails.web.json.JSONObject;
 import org.nanocan.rppa.layout.CellLine
 import org.nanocan.rppa.layout.Dilution
 import org.nanocan.rppa.layout.Inducer
@@ -10,23 +13,29 @@ import org.nanocan.rppa.layout.SlideLayout
 import org.nanocan.rppa.layout.SpotType
 import org.nanocan.rppa.layout.Treatment
 import org.nanocan.rppa.project.Project
+import org.nanocan.rppa.rnai.Identifier
+import org.nanocan.rppa.rnai.Sample
 import org.nanocan.rppa.scanner.Slide
 import org.nanocan.rppa.scanner.Antibody
-import org.nanocan.rppa.rnai.Sample
+
+import grails.converters.JSON
+import grails.converters.XML
 
 
 class WebflowController {
 	def flowPlateLayoutService
+	def flowSlideLayoutService
 	def idCountingService
+	def IOService
 
 	def rppaFlow = {
 		init{
 			action{
 				//creates list of PlateLayouts in flow object, if it doesn't already exist
 				flow.listOfPlateLayouts = [:]
-				flow.listOfSlideLayouts = new ArrayList<SlideLayout>()
-				flow.listOfSlides = new ArrayList<Slide>()
-				flow.plateLayoutInstance = new PlateLayout()
+				flow.listOfSlideLayouts = [:]
+				flow.listOfSlides = [:]			//Not added marshaller
+				flow.plateLayoutInstance = [:]	// new PlateLayout()
 				flow.listOfCellLines = [:]
 				flow.listOfDilutionFactors = [:]
 				flow.listOfInducers = [:]
@@ -35,6 +44,8 @@ class WebflowController {
 				flow.listOfSpotTypes = [:]
 				flow.listOfTreatments = [:]
 				flow.listOfSamples = [:]
+				flow.listOfIdentifiers = [:]
+				flow.listOfAntibodys = [:]
 			}
 			on('success').to('overView')
 		}
@@ -45,6 +56,11 @@ class WebflowController {
 				flow.plateLayoutInstance.id = params.int("id")
 			}.to('editAttributesModel')
 			on('addSlidelayout').to('slideLayoutModel')
+			on('editSlideLayout'){
+				flow.slideLayoutInstance = flow.listOfSlideLayouts.get(params.int("id"))
+				flow.slideLayoutInstance.id = params.int("id")
+				println flow.slideLayoutInstance
+			}.to('editSlideLayoutModel')
 			on('addSlide').to('slideModel')
 			on('addCellLine').to('cellLineModel')
 			on('addDilution').to('dilutionFactorModel')
@@ -54,6 +70,64 @@ class WebflowController {
 			on('addSpotType').to('spotTypeModel')
 			on('addTreatment').to('treatmentModel')
 			on('addSample').to('sampleModel')
+			on('addIdentifier').to('identifierModel')
+			on('addAntibody').to('antibodyModel')
+			on('XMLgen'){
+				println flow.listOfSlides?.values()?.asList()
+				//grails.converters.xml.pretty.print(true)
+				//println "flow: " + flow
+
+				def res = IOService.exportFlowAsJSON(flow)
+
+				IOService.parseFileAsFlow(res, flow)
+
+
+				def userData = JSON.parse(res) as JSONArray
+				println "userData: " + userData
+
+
+
+				//res = "[{\"class\":\"org.nanocan.rppa.layout.CellLine\",\"id\":1,\"name\":\"ce1\",\"color\":\"#bd00bd\"},{\"class\":\"org.nanocan.rppa.layout.CellLine\",\"id\":2,\"name\":\"dse\",\"color\":\"#008be8\"},{\"class\":\"org.nanocan.rppa.layout.CellLine\",\"id\":1,\"name\":\"ce1\",\"color\":\"#bd00bd\"},{\"class\":\"org.nanocan.rppa.layout.CellLine\",\"id\":2,\"name\":\"dse\",\"color\":\"#008be8\"}]"
+
+
+				//println "json obj: " + res
+				//println "[:].class " + [:].class
+				//println "map: " + flow.listOfPlateLayouts
+
+				/*
+				 for(Object o in userData){
+				 println "Objects: " + o
+				 }
+				 */
+
+				//?.values()?.toList()
+
+				/*
+				 String result = flow.listOfPlateLayouts?.values()?.toList().encodeAsJSON()
+				 result += flow.listOfSlideLayouts.encodeAsJSON()
+				 result += flow.listOfSlides.encodeAsJSON()
+				 result += flow.listOfCellLines?.values()?.toList().encodeAsJSON()
+				 result += flow.listOfDilutionFactors.encodeAsJSON()
+				 result += flow.listOfInducers.encodeAsJSON()
+				 result += flow.listOfLysisBuffers.encodeAsJSON()
+				 result += flow.listOfNumberOfCellsSeeded.encodeAsJSON()
+				 result += flow.listOfSpotTypes.encodeAsJSON()
+				 result += flow.listOfTreatments.encodeAsJSON()
+				 flow.listOfPlateLayouts 
+				 flow.listOfSlideLayouts 
+				 flow.listOfSlides
+				 flow.listOfCellLines 
+				 flow.listOfDilutionFactors 
+				 flow.listOfInducers 
+				 flow.listOfLysisBuffers 
+				 flow.listOfNumberOfCellsSeeded
+				 flow.listOfSpotTypes 
+				 flow.listOfTreatments 
+				 flow.listOfSamples
+				 flow.listOfIdentifiers 
+				 flow.listOfAntibodys 
+				 */
+			}.to('overView')
 			//on('add Block Shifts').to('blockShiftState')
 			//on('do analysis').to('analysisState')
 			on('cancel').to('finish')
@@ -67,10 +141,10 @@ class WebflowController {
 
 		plateLayoutState {
 			on('save'){PlateLayout plateLayout ->
-				if(plateLayout.hasErrors()) {
-					flash.message = "Validation error"
-					return error()
-				}
+				/*if(plateLayout.hasErrors()) {
+				 flash.message = "Validation error"
+				 return error()
+				 }*/
 
 				//uses the idCounting service to generate unique id value for the object.
 				def newId = idCountingService.getId("PlateLayout")
@@ -95,30 +169,45 @@ class WebflowController {
 		editAttributesModel{
 			action{
 				//println "well 5 = " + flow.plateLayoutInstance.wells.toList().get(5).id
-				[plateLayout:flow.plateLayoutInstance,wells: flow.plateLayoutInstance.wells, sampleProperty:"cellLine",cellLineList:flow.listOfCellLines?.values()?.toList(),inducerList:flow.listOfInducers?.values()?.toList(),treatmentList:flow.listOfTreatments?.values()?.toList(),numberOfCellsSeededList:flow.listOfNumberOfCellsSeeded?.values()?.toList(),spotTypeList:flow.listOfSpotTypes?.values()?.toList()]
+				[plateLayout:flow.plateLayoutInstance,
+					wells: flow.plateLayoutInstance.wells, 
+					sampleProperty:params.sampleProperty?:"cellLine",
+					cellLineList:flow.listOfCellLines?.values()?.toList(),
+					inducerList:flow.listOfInducers?.values()?.toList(),
+					treatmentList:flow.listOfTreatments?.values()?.toList(),
+					numberOfCellsSeededList:flow.listOfNumberOfCellsSeeded?.values()?.toList(),
+					spotTypeList:flow.listOfSpotTypes?.values()?.toList()]
 			}
 			on('success').to('editAttributesState')
 		}
 		editAttributesState{
 			on('saveChanges'){PlateLayout plateLayout ->
-				 /*if(plateLayout.hasErrors()) {
+				/*if(plateLayout.hasErrors()) {
 				 flash.message = "Validation error"
 				 return error()
 				 }*/
-				
-				//println params
+
+				//Getting the desired PL and Lists necessary for editting attributes
 				plateLayout = flow.plateLayoutInstance
 				def cellLines = flow.listOfCellLines
-				
-				println "Entering the Matrix "
-				println "pl ID: " + plateLayout.id + " name " + plateLayout 
-				//println "fplI ID: " + flow.plateLayoutInstance.id + " name " + flow.plateLayoutInstance
+				def inducers = flow.listOfInducers
+				def spotTypes = flow.listOfSpotTypes
+				def treatments = flow.listOfTreatments
+				def numberOfCellsSeeded = flow.listOfNumberOfCellsSeeded
+				def samples = flow.listOfSamples
 
-				flowPlateLayoutService.updateWellProperty(params,plateLayout,cellLines) //params, plateLayout
-				//flow.plateLayoutInstance = plateLayout
-				//flow.plateLayoutInstance.id = plateLayout.id
-			}.to('overView')
-			on('success').to('overView')
+				println "Entering the Matrix "
+				println "pl ID: " + plateLayout.id + " name " + plateLayout
+
+
+				//Assigning the desired attribute's to the desired wells
+				flowPlateLayoutService.updateWellProperty(params,plateLayout,cellLines,inducers,spotTypes,treatments,numberOfCellsSeeded,samples)
+
+			}.to('editAttributesState')
+			on('changeAttribute'){
+				println "Neo, i want to be free of this matrix"
+			}.to('editAttributesModel')
+			on('finish').to('overView')
 			on('cancel').to('finish')
 		}
 		editPlateLayoutModel{
@@ -139,22 +228,18 @@ class WebflowController {
 			}.to('overView')
 			on('cancel').to('finish')
 		}
-
-
 		slideLayoutModel{
 			action{
-				[slideLayoutInstance: new SlideLayout(), projects: Project?.list()]
+				[slideLayoutInstance: new SlideLayout()]
 			}
 			on("success").to("slideLayoutState")
 		}
 		slideLayoutState{
 			on('save'){SlideLayout slideLayout ->
-				if(slideLayout.hasErrors()){
-					flash.message = "Validation error"
-					return error()
-				}
-
-				flow.listOfSlideLayouts.add(slideLayout)
+				flowSlideLayoutService.createSampleSpots(slideLayout)
+				def newId = idCountingService.getId("SlideLayout")
+				slideLayout.id = newId
+				flow.listOfSlideLayouts.put(newId as int, slideLayout)
 			}.to('overView')
 			on('addSlide').to('slideState')
 			on('Overview').to('overView')
@@ -164,17 +249,131 @@ class WebflowController {
 			//on('do analysis').to('analysisState')
 			on('cancel').to('finish')
 		}
+		editSlideLayoutModel{
+			action{
+				[slideLayoutInstance: flow.slideLayoutInstance,
+					CellLineList:flow.listOfCellLines?.values()?.toList(),
+					LysisBufferList:flow.listOfLysisBuffers?.values()?.toList(),
+					DilutionList:flow.listOfDilutionFactors?.values()?.toList(),
+					InducerList:flow.listOfInducers?.values()?.toList(),
+					SpotTypeList:flow.listOfSpotTypes?.values()?.toList(),
+					TreatmentList:flow.listOfTreatments?.values()?.toList(),
+					NumberOfCellsSeededList:flow.listOfNumberOfCellsSeeded?.values()?.toList(),
+					sampleProperty:params.sampleProperty?:'cellLine']
+			}
+			on("success").to("editSlideLayoutState")				//Make editSlideLayoutState editSlideLayoutState
+		}
+		editSlideLayoutState{
+			on('save'){SlideLayout slideLayoutInstance ->
+				/*
+				def CellLineList = flow.listOfCellLines?.values()?.toList()
+				def LysisBufferList = flow.listOfLysisBuffers?.values()?.toList()
+				def DilutionList = flow.listOfDilutionFactors?.values()?.toList()
+				def InducerList = flow.listOfInducers?.values()?.toList()
+				def SpotTypeList = flow.listOfSpotTypes?.values()?.toList()
+				def TreatmentList = flow.listOfTreatments?.values()?.toList()
+				def NumberOfCellsSeededList = flow.listOfNumberOfCellsSeeded?.values()?.toList()
+				*/
+				/*
+				 if (params.version) {
+				 def version = params.version.toLong()
+				 if (slideLayoutInstance.version > version) {
+				 slideLayoutInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+				 [message(code: 'slideLayout.label', default: 'SlideLayout')] as Object[],
+				 "Another user has updated this SlideLayout while you were editing")
+				 render(view: "edit", model: [slideLayoutInstance: slideLayoutInstance])
+				 return
+				 }
+				 }
+				 */
+
+				//redirect(action: "show", id: slideLayoutInstance.id)
+			}.to('overView')
+			on('Overview').to('overView')
+		}
 		slideModel{
 			action{
-				[slideInstance: new Slide(), projects: Project?.list()]
+				[slideInstance: new Slide(),antibodyList:flow.listOfAntibodys?.values()?.asList(),slideLayoutList:flow.listOfSlideLayouts?.values()?.asList()]
 			}
 			on("success").to("slideState")
 		}
 		slideState{
 			on('save'){Slide slide ->
 
-				def listOfSlides = flow.listOfSlides
-				listOfSlides.add(slide)
+
+				println "something is working"
+
+				def slideInstance = IOService.dealWithFileUploads(request, slide)
+
+				/*if (!slideInstance.save(flush: true, failOnError: true)) {
+				 render(view: "create", model: [slideInstance: slideInstance])
+				 }*/
+
+				//flash.message = message(code: 'default.created.message', args: [message(code: 'slide.label', default: 'Slide'), slideInstance.id])
+
+				//slide = slideInstance
+				def b = new FlowExportController()
+				b.exportSpotsAsJSONFile()
+
+				//println slide.layout.sampleSpots		//nothing happens because the samplespots dont get initiated
+				//println slide.spots
+
+				def newId = idCountingService.getId("Slide")
+				slide.id = newId
+				flow.slideInstance = slide
+				flow.listOfSlides.put(newId, slide)
+			}.to('showSlideModel')
+			on('Overview').to('overView')
+			on('add Platelayouts').to('plateLayoutState')
+			//on('add Spots').to('spotState')
+			//on('add Block Shifts').to('blockShiftState')
+			//on('do analysis').to('analysisState')
+			on('cancel').to('finish')
+		}
+		showSlideModel{
+			action{
+				[slideInstance: flow.slideInstance]
+			}
+			on("success").to("showSlideState")
+		}
+		showSlideState{
+			on('save'){Slide slide ->
+			}.to('overView')
+			on('addSpots'){Slide slideInstance ->
+				def index = 1
+
+				def fileEnding = FilenameUtils.getExtension(slideInstance.resultFile.filePath)
+
+				def sheets = spotImportService.getSheets(slideInstance).collect{
+					[index: index++, name: it]
+				}
+
+				[slideInstance: slideInstance, configs: ResultFileConfig.list(), fileEnding: fileEnding, sheets: sheets]
+			}.to('slideLayoutAddSpotsState')
+			on('addBlockShifts').to('addBlockShiftsModel')
+			on('Overview').to('overView')
+			on('add Platelayouts').to('plateLayoutState')
+			//on('add Block Shifts').to('blockShiftState')
+			//on('do analysis').to('analysisState')
+			on('cancel').to('finish')
+		}
+
+		addBlockShiftsModel{
+			action{
+				def hblockShifts = flow.slideInstance?.blockShifts?.sort{ it.blockNumber }.collect{ it.horizontalShift }
+				def vblockShifts = flow.slideInstance?.blockShifts?.sort{ it.blockNumber }.collect{ it.verticalShift }
+				[slideInstance: flow.slideInstance, hblockShifts: hblockShifts, vblockShifts: vblockShifts]
+			}
+			on("success").to("addBlockShiftsState")
+		}
+		addBlockShiftsState{
+			on('save'){Slide slide ->
+				/*
+				 def newId = idCountingService.getId("Slide")
+				 slide.id = newId
+				 flow.slideInstance = slide
+				 flow.listOfSlides.put(newId, slide)
+				 */
 			}.to('overView')
 			//on('add Spots').to('spotState')
 			on('Overview').to('overView')
@@ -183,6 +382,7 @@ class WebflowController {
 			//on('do analysis').to('analysisState')
 			on('cancel').to('finish')
 		}
+
 		cellLineModel{
 			action{
 				[cellLineInstance : new CellLine()]
@@ -209,10 +409,11 @@ class WebflowController {
 		}
 		dilutionFactorState{
 			on('save'){Dilution dilutionFactor->
-				if(dilutionFactor.hasErrors){
-					flash.message = "Validation error"
-					return error()
-				}
+				/*if(dilutionFactor.hasErrors){
+				 flash.message = "Validation error"
+				 return error()
+				 }
+				 */
 				def newId = idCountingService.getId("Dilution")
 				dilutionFactor.id = newId
 				flow.listOfDilutionFactors.put(newId, dilutionFactor)
@@ -226,10 +427,10 @@ class WebflowController {
 		}
 		inducerState{
 			on('save'){Inducer inducer->
-				if(dilutionFactor.hasErrors){
-					flash.message = "Validation error"
-					return error()
-				}
+				/*if(inducer.hasErrors){
+				 flash.message = "Validation error"
+				 return error()
+				 }*/
 				def newId = idCountingService.getId("Inducer")
 				inducer.id = newId
 				flow.listOfInducers.put(newId, inducer)
@@ -243,10 +444,12 @@ class WebflowController {
 		}
 		lysisBufferState{
 			on('save'){LysisBuffer lysisBuffer->
-				if(dilutionFactor.hasErrors){
-					flash.message = "Validation error"
-					return error()
-				}
+				/*
+				 if(dilutionFactor.hasErrors){
+				 flash.message = "Validation error"
+				 return error()
+				 }
+				 */
 				def newId = idCountingService.getId("LysisBuffer")
 				lysisBuffer.id = newId
 				flow.listOfLysisBuffers.put(newId, lysisBuffer)
@@ -260,10 +463,10 @@ class WebflowController {
 		}
 		numberOfCellsSeededState{
 			on('save'){NumberOfCellsSeeded numberOfCellsSeeded->
-				if(dilutionFactor.hasErrors){
-					flash.message = "Validation error"
-					return error()
-				}
+				/*if(numberOfCellsSeeded.hasErrors){
+				 flash.message = "Validation error"
+				 return error()
+				 }*/
 				def newId = idCountingService.getId("NumberOfCellsSeeded")
 				numberOfCellsSeeded.id = newId
 				flow.listOfNumberOfCellsSeeded.put(newId, numberOfCellsSeeded)
@@ -277,10 +480,10 @@ class WebflowController {
 		}
 		spotTypeState{
 			on('save'){SpotType spotType->
-				if(dilutionFactor.hasErrors){
-					flash.message = "Validation error"
-					return error()
-				}
+				/*if(spotType.hasErrors){
+				 flash.message = "Validation error"
+				 return error()
+				 }*/
 				def newId = idCountingService.getId("SpotType")
 				spotType.id = newId
 				flow.listOfSpotTypes.put(newId, spotType)
@@ -313,7 +516,7 @@ class WebflowController {
 		}
 		sampleState{
 			on('save'){Sample sample->
-				/*if(dilutionFactor.hasErrors){
+				/*if(sample.hasErrors){
 				 flash.message = "Validation error"
 				 return error()
 				 }*/
@@ -321,85 +524,45 @@ class WebflowController {
 				sample.id = newId
 				flow.listOfSamples.put(newId, sample)
 			}.to('overView')
+			on('add'){
+				[identifierInstance:new Identifier()]
+			}.to('identifierState')
 		}
-		/*
-		 AntibodyModel{
-		 action{
-		 [sampleInstance:new Sample()]
-		 }
-		 on('success').to('sampleState')
-		 }
-		 AntiBodyState{
-		 on('save'){Sample sample->
-		 if(dilutionFactor.hasErrors){
-		 flash.message = "Validation error"
-		 return error()
-		 }
-		 def newId = idCountingService.getId("Sample")
-		 sample.id = newId
-		 flow.listOfSamples.put(newId, sample)
-		 }.to('overView')
-		 }
-		 spotState{
-		 on('add more Spots'){Spot spot ->
-		 if(command.hasErrors()) {
-		 flash.message = "Validation error"
-		 return error()
-		 }
-		 if(!rppaFlow.listOfSpots)
-		 rppaFlow.listOfSpots = new ArrayList<Spot>()
-		 def listOfSpots = flow.listOfSlides
-		 listOfSlides.add(spot)
-		 }.to('spotState')
-		 on('add Block Shifts').to('blockShiftState')
-		 on('Overview').to('overView')
-		 on('add Platelayouts').to('plateLayoutState')
-		 on('add Slides').to('slideState')
-		 on('do analysis').to('analysisState')
-		 on('cancel').to('finish')
-		 on(Exception).to('error')
-		 }
-		 blockShiftState{
-		 on('add more Block Shifts'){BlockShift blockShift ->
-		 if(command.hasErrors()) {
-		 flash.message = "Validation error"
-		 return error()
-		 }
-		 if(!rppaFlow.listOfBlockShifts)
-		 rppaFlow.listOfBlockShifts = new ArrayList<BlockShift>()
-		 def listOfBlockShifts = flow.listOfBlockShifts
-		 blockShift.add(blockShift)
-		 [:]
-		 }.to('blockShiftState')
-		 on('do analysis').to('analysisState')
-		 on('Overview').to('overView')
-		 on('add Platelayouts').to('plateLayoutState')
-		 on('add Slides').to('slideState')
-		 on('add Spots').to('spotState')
-		 on('cancel').to('finish')
-		 on(Exception).to('error')
-		 }
-		 analysisState{
-		 on('more analysis').to('analysisState')
-		 on('finish').to('complete')
-		 on('Overview').to('overView')
-		 on('add Platelayouts').to('plateLayoutState')
-		 on('add Slides').to('slideState')
-		 on('add Spots').to('spotState')
-		 on('add Block Shifts').to('blockShiftState')
-		 on('cancel').to('finish')
-		 on(Exception).to('error')
-		 }
-		 complete {
-		 on('save local copy of work for later resumption').to('saveState')
-		 on('cancel').to('finish')
-		 on(Exception).to('error')
-		 }
-		 saveState{
-		 on('cancel').to('finish')
-		 on(Exception).to('error')
-		 }	*/
+		identifierModel{
+			action{
+				[identifierInstance:new Identifier(),sampleInstanceList:flow.listOfSamples?.values()?.asList()]
+			}
+			on('success').to('identifierState')
+		}
+		identifierState{
+			on('save'){Identifier identifier->
+				/*if(dilutionFactor.hasErrors){
+				 flash.message = "Validation error"
+				 return error()
+				 }*/
+				def newId = idCountingService.getId("Identifier")
+				identifier.id = newId
+				flow.listOfIdentifiers.put(newId, identifier)
+			}.to('overView')
+		}
+		antibodyModel{
+			action{
+				[antibodyInstance:new Antibody()]
+			}
+			on('success').to('antibodyState')
+		}
+		antibodyState{
+			on('save'){Antibody antibody->
+				/*if(dilutionFactor.hasErrors){
+				 flash.message = "Validation error"
+				 return error()
+				 }*/
 
+				def newId = idCountingService.getId("Antibody")
+				antibody.id = newId
+				flow.listOfAntibodys.put(newId, antibody)
+			}.to('overView')
+		}
 		finish {
 			redirect(controller: 'webflow')
 		}

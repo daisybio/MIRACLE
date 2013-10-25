@@ -14,109 +14,138 @@ class FlowPlateLayoutService {
 		for (int col = 1; col <= plateLayout.cols; col++) {
 			for (int row = 1; row <= plateLayout.rows; row++) {
 				def well = new WellLayout(col: col, row: row, layout: plateLayout)
-				well.id =  i
-			
-				plateLayout.addToWells(well)
-				//println "id: " + well.id + " Col: " + col + " Row: " + row
+				def newId = idCountingService.getId("WellLayout")
+				well.id =  newId
 				
+
+				plateLayout.addToWells(well)
+
 				i++
 			}
 		}
 		return null
 	}
-	def updateWellProperty(params, plateLayout, cellLines){
+	def updateWellProperty(params, plateLayout,cellLines,inducers,spotTypes,treatments,numberOfCellsSeeded,samples){
 		def wellProp = params.wellProperty
-
-		println "Well properties: " + wellProp
-
-		println "plateLayoutcontroller plateLayout: " + plateLayout
-
 		params.remove("action")
 		params.remove("controller")
-		params.remove("wellProperty")
+		//params.remove("wellProperty")
 		params.remove("plateLayout")
 
 		if(params.size() == 0) render "Nothing to do"
-
-		println "size: " + params.keySet().size()
 		
-		
-		
-		/*def x = 0
-		params.each{key, value ->
-			if (value != "" && key.toString().length() < 5) {
-				println "index: " + x + " Key: " + key + " Value: " + value
-			}
-			x++
-		}
-		*/
-
-		updateWellProperties(params, wellProp, plateLayout, cellLines)
-
-		//progressService.setProgressBarValue("update${plateLayout}", 100)
-		//render "Save successful"
-
-	}
-
-	def updateWellProperties(params, wellProp, plateLayout, cellLines){
 		def numberOfWells = params.keySet().size()
 		def currentWell = 0
 		def wells = plateLayout.wells.toList().sort()
-		 
+		println "wellProp: " + wellProp
 		println "cellLine List: " + cellLines
 		println "c: " + cellLines[1]
-
-		params.each{key, value ->
-			if (value != "" && key.toString().length() < 5) {				
-				for(int i = 0;i < wells.size();i++){
-					if(wells.get(i).id as int == key as int){
-						
-						println "index: " + i + " id: " + wells.get(i).id + " Value: " + wells.get(i)
-						
-						def well = wells.get(i)
-						if (value as Long == -1) well.properties[wellProp] = null
-						else{
-							def cellLine = cellLines[value as int]
-							println " CellLine" + cellLine
-							well.properties[wellProp] = cellLine
+		
+		if(wellProp == "cellLine"){
+			params.each{key, value ->
+				if (value != "" && key.toString().length() < 5) {
+					for(int i = 0;i < wells.size();i++){
+						if(wells.get(i).id as int == key as int){
+							def well = wells.get(i)
+							if (value as Long == -1) well.properties[wellProp] = null
+							else{
+								def cellLine = cellLines[value as int]
+								println " CellLine" + cellLine
+								well.properties[wellProp] = cellLine
+							}
+							plateLayout.wells.toList().sort().set(i, well)
 						}
-						plateLayout.wells.toList().sort().set(i, well)
 					}
 				}
-				
-				/*def i = 0
-				wells.each {
-					if(wells.get(i).id == key){
-						def well = wells.get(i)
-						println well
-						if (value as Long == -1) well.properties[wellProp] = null
-						else{
-							def x = 0
-							cellLines.t
-							if(i < cellLines.toList().size()){
-								if(cellLines[i].id == value){
-									def cellLine = cellLines[i]
-									println cellLine
-								}
-							}
-							well.properties[wellProp] = cellLine
-						}
-						plateLayout.wells.toList().sort().set(i, well)
-
-					}
-					i++
-				}*/
-	
-				 //def well = wells.get(key as int)
-				 //if (value as Long == -1) well.properties[wellProp] = null
-				 //else{ 
-				 //well.properties[wellProp] = cellLines[value as int]
-				 //plateLayout.wells.toList().sort().set(key as int, well)
-				 //println "wellpop: " + well.properties[wellProp]
-				 //println "cellline from list : " + cellLines[value as int]
-				 //}
-				 
 			}
 		}
+		else if (wellProp == "inducer"){
+			params.each{key, value ->
+				if (value != "" && key.toString().length() < 5) {
+					for(int i = 0;i < wells.size();i++){
+						if(wells.get(i).id as int == key as int){
+							def well = wells.get(i)
+							if (value as Long == -1) well.properties[wellProp] = null
+							else{
+								def inducer = inducers[value as int]
+								well.properties[wellProp] = inducer
+							}
+							plateLayout.wells.toList().sort().set(i, well)
+						}
+					}
+				}
+			}
+		}
+		else if (wellProp == "spotType"){
+			params.each{key, value ->
+				if (value != "" && key.toString().length() < 5) {
+					for(int i = 0;i < wells.size();i++){
+						if(wells.get(i).id as int == key as int){
+							def well = wells.get(i)
+							if (value as Long == -1) well.properties[wellProp] = null
+							else{
+								def spotType = spotTypes[value as int]
+								well.properties[wellProp] = spotType
+							}
+							plateLayout.wells.toList().sort().set(i, well)
+						}
+					}
+				}
+			}
+		}
+		else if (wellProp == "treatment"){
+			params.each{key, value ->
+				if (value != "" && key.toString().length() < 5) {
+					for(int i = 0;i < wells.size();i++){
+						if(wells.get(i).id as int == key as int){
+							def well = wells.get(i)
+							if (value as Long == -1) well.properties[wellProp] = null
+							else{
+								def treatment = treatments[value as int]
+								well.properties[wellProp] = treatment
+							}
+							plateLayout.wells.toList().sort().set(i, well)
+						}
+					}
+				}
+			}
+		}
+		else if (wellProp == "numberOfCellsSeeded"){
+			params.each{key, value ->
+				if (value != "" && key.toString().length() < 5) {
+					for(int i = 0;i < wells.size();i++){
+						if(wells.get(i).id as int == key as int){
+							def well = wells.get(i)
+							if (value as Long == -1) well.properties[wellProp] = null
+							else{
+								def numberOfCellsSeede = numberOfCellsSeeded[value as int]
+								well.properties[wellProp] = numberOfCellsSeede
+							}
+							plateLayout.wells.toList().sort().set(i, well)
+						}
+					}
+				}
+			}
+		}
+		else if (wellProp == "sample"){
+			params.each{key, value ->
+				if (value != "" && key.toString().length() < 5) {
+					for(int i = 0;i < wells.size();i++){
+						if(wells.get(i).id as int == key as int){
+							def well = wells.get(i)
+							if (value as Long == -1) well.properties[wellProp] = null
+							else{
+								def sample = samples[value as int]
+								well.properties[wellProp] = sample
+							}
+							plateLayout.wells.toList().sort().set(i, well)
+						}
+					}
+				}
+			}
+		}
+		
+		progressService.setProgressBarValue("update${plateLayout}", 100)
+		//render "Save successful"
 	}
 }

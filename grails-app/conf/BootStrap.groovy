@@ -23,6 +23,15 @@ import org.nanocan.savanah.plates.PlateLayout
 import org.nanocan.savanah.plates.WellLayout
 import org.nanocan.savanah.plates.Plate
 
+import org.nanocan.rppa.layout.PlateLayout
+import org.nanocan.rppa.layout.WellLayout
+import org.nanocan.rppa.layout.LayoutSpot
+import org.nanocan.rppa.layout.NumberOfCellsSeeded
+import org.nanocan.rppa.layout.Treatment
+import org.nanocan.rppa.rnai.Identifier
+//import org.springframework.webflow.core.collection.LocalAttributeMap
+
+
 class BootStrap {
 
     def slideLayoutService
@@ -58,7 +67,6 @@ class BootStrap {
 
         /* custom JSON output */
         JSON.registerObjectMarshaller(Spot) {
-
             def returnArray = [:]
             returnArray['FG'] = it.FG
             returnArray['BG'] = it.BG
@@ -92,6 +100,249 @@ class BootStrap {
 
             return returnArray
         }
+		
+		JSON.registerObjectMarshaller(PlateLayout) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['format'] = it.format
+			returnArray['cols'] = it.cols
+			returnArray['rows'] = it.rows
+			returnArray['wells'] = it.wells
+			
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(WellLayout) {
+			def returnArray = [:]
+			
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['col'] = it.col
+			returnArray['row'] = it.row
+			if((it.numberOfCellsSeeded?:"NA")!="NA") returnArray['NumberOfCellsSeeded'] = it.numberOfCellsSeeded
+			if((it.cellLine?:"NA")!="NA") 	returnArray['CellLine'] = it.cellLine
+			if((it.inducer?:"NA")!="NA") 	returnArray['Inducer'] = it.inducer
+			if((it.treatment?:"NA")!="NA") 	returnArray['Treatment'] = it.treatment
+			if((it.spotType?:"NA")!="NA") 	returnArray['SpotType'] = it.spotType
+			if((it.sample?:"NA")!="NA") 	returnArray['Sample'] = it.sample
+			
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(SlideLayout) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			
+			returnArray['dateCreated'] = it.dateCreated
+			returnArray['lastUpdated'] = it.lastUpdated
+			returnArray['createdBy'] = it.createdBy
+			returnArray['lastUpdatedBy'] = it.lastUpdatedBy
+			
+			returnArray['title'] = it.title
+			returnArray['columnsPerBlock'] = it.columnsPerBlock
+			returnArray['rowsPerBlock'] = it.rowsPerBlock
+			returnArray['numberOfBlocks'] = it.numberOfBlocks
+			returnArray['blocksPerRow'] = it.blocksPerRow
+			returnArray['depositionPattern'] = it.depositionPattern
+			returnArray['sampleSpots'] = it.sampleSpots
+			
+			
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(Slide) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['dateOfStaining'] = it.dateOfStaining
+			returnArray['dateCreated'] = it.dateCreated
+			
+			returnArray['lastUpdatedBy'] = it.lastUpdatedBy
+			returnArray['laserWavelength'] = it.laserWavelength
+			returnArray['photoMultiplierTube'] = it.photoMultiplierTube
+			returnArray['resultFile'] = it.resultFile
+			returnArray['layout'] = it.layout
+			returnArray['spots'] = it.spots
+			returnArray['blockShifts'] = it.blockShifts
+			returnArray['antibody'] = it.antibody
+			
+			
+			if((it.title?:"NA")!="NA") returnArray['title'] = it.title
+			if((it.lastUpdated?:"NA")!="NA") returnArray['lastUpdated'] = it.lastUpdated
+			if((it.createdBy?:"NA")!="NA") returnArray['createdBy'] = it.createdBy
+			if((it.experimenter?:"NA")!="NA") returnArray['experimenter'] = it.experimenter
+			if((it.protocol?:"NA")!="NA") returnArray['protocol'] = it.protocol
+			if((it.lastConfig?:"NA")!="NA") returnArray['lastConfig'] = it.lastConfig
+			if((it.barcode?:"NA")!="NA") returnArray['barcode'] = it.barcode
+			if((it.resultImage?:"NA")!="NA") returnArray['resultImage'] = it.resultImage
+			if((it.comments?:"NA")!="NA") returnArray['comments'] = it.comments
+			
+			
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(ResultFile) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['fileName'] = it.fileName
+			returnArray['filePath'] = it.filePath	
+			returnArray['dateUploaded'] = it.dateUploaded
+			returnArray['fileType'] = it.fileType
+			
+			
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(LayoutSpot) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['col'] = it.col
+			returnArray['row'] = it.row
+			returnArray['block'] = it.block
+			returnArray['belongsTo'] = it.belongsTo
+			
+			
+			if((it.cellLine?:"NA")!="NA") returnArray['cellLine'] = it.cellLine
+			if((it.lysisBuffer?:"NA")!="NA") 	returnArray['lysisBuffer'] = it.lysisBuffer
+			if((it.dilutionFactor?:"NA")!="NA") 	returnArray['dilutionFactor'] = it.dilutionFactor
+			if((it.inducer?:"NA")!="NA") 	returnArray['inducer'] = it.inducer
+			if((it.spotType?:"NA")!="NA") 	returnArray['spotType'] = it.spotType
+			if((it.sample?:"NA")!="NA") 	returnArray['sample'] = it.sample
+			if((it.treatment?:"NA")!="NA") 	returnArray['treatment'] = it.treatment
+			if((it.numberOfCellsSeeded?:"NA")!="NA") 	returnArray['numberOfCellsSeeded'] = it.numberOfCellsSeeded
+			
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(CellLine) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['color'] = it.color
+
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(Dilution) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['dilutionFactor'] = it.dilutionFactor
+			returnArray['color'] = it.color
+
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(Inducer) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['concentration'] = it.concentration
+			returnArray['concentrationUnit'] = it.concentrationUnit
+			returnArray['color'] = it.color
+
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(LysisBuffer) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['concentration'] = it.concentration
+			returnArray['concentrationUnit'] = it.concentrationUnit
+			returnArray['color'] = it.color
+
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(LysisBuffer) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['concentration'] = it.concentration
+			returnArray['concentrationUnit'] = it.concentrationUnit
+			returnArray['color'] = it.color
+
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(NumberOfCellsSeeded) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['color'] = it.color
+
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(SpotType) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['type'] = it.type
+			returnArray['color'] = it.color
+
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(Treatment) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['comments'] = it.comments
+			returnArray['color'] = it.color
+
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(Sample) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['type'] = it.type	
+			returnArray['targetGene'] = it.targetGene
+			returnArray['color'] = it.color
+
+			returnArray['identifiers'] = it.identifiers
+			
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(Identifier) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['accessionNumber'] = it.accessionNumber	
+			returnArray['type'] = it.type
+			returnArray['sample'] = it.sample
+			
+			return returnArray
+		}
+		
+		JSON.registerObjectMarshaller(Antibody) {
+			def returnArray = [:]
+			returnArray['class'] = it.class
+			returnArray['id'] = it.id
+			returnArray['name'] = it.name
+			returnArray['concentration'] = it.concentration?:"NA"
+			returnArray['concentrationUnit'] = it.concentrationUnit
+			returnArray['comments'] = it.comments?:"NA"
+			
+			return returnArray
+		}
     }
 
     private void initSAVANAH(){

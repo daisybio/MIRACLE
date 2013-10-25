@@ -21,7 +21,7 @@ class SlideLayout implements Serializable{
 
     SortedSet sampleSpots
 
-    static constraints = {
+    static constraints = {		
         title unique: true, blank: false
         columnsPerBlock min:  1
         rowsPerBlock min:  1

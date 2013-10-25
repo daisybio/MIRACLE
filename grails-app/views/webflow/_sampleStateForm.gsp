@@ -69,7 +69,7 @@
             <li><g:link controller="identifier" action="show" id="${i.id}">${i?.encodeAsHTML()}</g:link></li>
         </g:each>
         <li class="add">
-            <g:link controller="identifier" action="create"
+            <g:link controller="webflow" action="rppa"
                     params="['sample.id': sampleInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'identifier.label', default: 'Identifier')])}</g:link>
         </li>
     </ul>

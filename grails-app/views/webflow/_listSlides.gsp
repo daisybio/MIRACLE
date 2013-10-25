@@ -28,14 +28,6 @@
 					<g:message code="slide.antibody.label" default="Antibody" />
 				</g:sortableColumn>
 
-				<g:sortableColumn property="dateOfStaining"
-					title="${message(code: 'slide.dateOfStaining.label', default: 'Date')}" />
-
-				<g:sortableColumn property="experimenter.username"
-					title="Experimenter" titleKey="slide.experimenter.label">
-					<g:message code="slide.experimenter.label" default="Experimenter" />
-				</g:sortableColumn>
-
 				<g:sortableColumn property="laserWavelength"
 					title="${message(code: 'slide.laserWavelength.label', default: '~')}" />
 
@@ -63,13 +55,6 @@
 
 					<td>
 						${fieldValue(bean: slideInstance, field: "antibody")}
-					</td>
-
-					<td><g:formatDate type="date"
-							date="${slideInstance.dateOfStaining}" /></td>
-
-					<td>
-						${fieldValue(bean: slideInstance, field: "experimenter")}
 					</td>
 
 					<td>

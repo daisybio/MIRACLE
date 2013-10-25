@@ -70,6 +70,7 @@ grails.project.dependency.resolution = {
             exclude 'grails-webflow'
         }
 		compile ":codenarc:0.18.1"
+		compile ":create-domain-uml:0.5"
     }
 	CodeNarc.properties = {
 		GrailsPublicControllerMethod.enabled = false

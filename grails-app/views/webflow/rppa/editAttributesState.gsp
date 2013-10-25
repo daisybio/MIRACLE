@@ -52,12 +52,16 @@
 	</g:if>
 
 	<div style="float: left; padding-left: 20px;">
-		<g:form name="changeAttribute" action="editAttributes">
+		<g:form name="changeAttribute"
+			url="[controller: 'webflow', action: 'rppa']">
+			
 			<g:hiddenField name="id" value="${plateLayout?.id}" />
         Select a property: <g:select name="sampleProperty"
 				optionKey="key" optionValue="value" value="${sampleProperty}"
 				from="${["cellLine":"CellLine", "inducer":"Inducer", "spotType": "Spot Type", "treatment":"Treatment", "numberOfCellsSeeded":"Number of cells seeded", "sample":"Sample"]}"
 				onchange="document.forms['changeAttribute'].submit();" />
+		<g:hiddenField name="_eventId_changeAttribute" value="_eventId_changeAttribute" id="_eventId_changeAttribute"/>
+		
 		</g:form>
 		<br /> <b>Copy this layout:</b> <br /> <br />
 		<g:form name="createCopy" action="createLayoutCopy">
@@ -102,7 +106,11 @@
 			</g:render>
 		</div>
 		<div style="padding-left: 20px; padding-bottom: 20px;">
-			<g:submitButton name="saveChanges" value="Save Changes" model="${[wellProperty:wellProperty,plateLayout:plateLayout]}"/>
+			<g:submitButton name="saveChanges" value="Save Changes"
+				model="${[wellProperty:wellProperty,plateLayout:plateLayout]}" />
+				
+			<g:submitButton name="finish" class="finish"
+					value="${message(code: 'default.button.save.label', default: 'Overview')}" />
 		</div>
 	</g:form>
 

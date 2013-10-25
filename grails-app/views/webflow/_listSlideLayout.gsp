@@ -38,7 +38,7 @@
 				var="slideLayoutInstance">
 				<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-					<td><g:link action="show" id="${slideLayoutInstance.id}">
+					<td><g:link action="rppa" event="editSlideLayout" id="${slideLayoutInstance.id}">
 							${fieldValue(bean: slideLayoutInstance, field: "title")}
 						</g:link></td>
 

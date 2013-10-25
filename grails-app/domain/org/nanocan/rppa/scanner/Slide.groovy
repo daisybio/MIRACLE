@@ -37,6 +37,10 @@ class Slide implements Serializable{
     }
 
     static constraints = {
+		 createdBy nullable: true				//added by baban
+		 lastUpdatedBy nullable: true			//added by baban
+		 experimenter nullable:true				//added by baban
+		 
          lastConfig nullable: true
          barcode nullable: true
          laserWavelength min: 1, max: 1000

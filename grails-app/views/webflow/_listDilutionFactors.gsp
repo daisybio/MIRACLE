@@ -2,9 +2,7 @@
 <a href="#list-dilution" class="skip" tabindex="-1"><g:message
 		code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 <div id="list-dilution" class="content scaffold-list" role="main">
-	<h1>
-		List of Dilution-Factor's
-	</h1>
+	<h1>List of Dilution-Factor's</h1>
 	<g:if test="${flash.message}">
 		<div class="message" role="status">
 			${flash.message}

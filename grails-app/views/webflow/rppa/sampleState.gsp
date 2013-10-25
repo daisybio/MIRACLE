@@ -1,4 +1,6 @@
 <%@ page import="org.nanocan.rppa.rnai.Sample" %>
+<%@ page import="org.nanocan.rppa.rnai.Identifier" %>
+
 <!doctype html>
 <html>
 <head>

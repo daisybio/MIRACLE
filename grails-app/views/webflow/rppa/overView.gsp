@@ -13,6 +13,20 @@
 <body>
 	<g:form action="rppa">
 		<p>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<g:submitButton class="create" name="XMLgen"
+			value="XML filegen Test" />
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 		<div id="listOfPlateLayouts" style="overflow: auto;">
 			<g:render template="listPlateLayouts"
 				model="${[plateLayoutInstanceList: listOfPlateLayouts?.values()?.asList(), plateLayoutInstanceTotal: listOfPlateLayouts?.values()?.asList()?.size()?:0]}" />
@@ -23,10 +37,15 @@
 
 		<br>
 		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		
 
 		<div id="listOfSlideLayouts" style="overflow: auto;">
 			<g:render template="listSlideLayout"
-				model="${[slideLayoutInstanceList:listOfSlideLayouts,slideLayoutInstanceTotal: listOfSlideLayouts?.size()?:0] }" />
+				model="${[slideLayoutInstanceList:listOfSlideLayouts?.values()?.asList(),slideLayoutInstanceTotal: listOfSlideLayouts?.values()?.asList()?:0] }" />
 		</div>
 
 		<g:submitButton class="create" name="addSlidelayout"
@@ -34,16 +53,38 @@
 
 		<br>
 		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		
 
 		<div id="listOfSlides" style="overflow: auto;">
 			<g:render template="listSlides"
-				model="${[slideInsatanceList:listOfSlides,slideInstanceTotal:listOfSlides?.size()?:0] }" />
+				model="${[slideInstanceList:listOfSlides?.values()?.asList(),slideInstanceTotal:listOfSlides?.values()?.asList()?.size()?:0] }" />
 		</div>
 
-		<g:submitButton class="create" name="addSlide" value="Add slide" />
+		<g:submitButton class="create" name="addSlide" value="Add slide data" />
+		
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		
+		
+		<div id="listOfAntibodys" style="overflow: auto;">
+			<g:render template="listAntibodys"
+				model="${[antibodyInstanceList:listOfAntibodys?.values()?.asList(),antibodyInstanceTotal:listOfAntibodys?.values()?.asList()?.size()?:0]}" />
+		</div>
+
+		<g:submitButton class="create" name="addAntibody"
+			value="Add Antibody" />
 
 		<br>
 		<br>
+		
 
 		<div id="listOfBlockShifts" style="overflow: auto;">
 			<g:render template="listBlockShifts" />
@@ -140,6 +181,16 @@
 
 		<g:submitButton class="create" name="addSample"
 			value="Add Sample" />
+
+
+		<div id="listOfIdentifiers" style="overflow: auto;">
+			<g:render template="listIdentifiers"
+				model="${[identifierInstanceList:listOfIdentifiers?.values()?.asList(),identifierInstanceTotal:listOfIdentifiers?.values()?.asList()?.size()?:0]}" />
+		</div>
+
+		<g:submitButton class="create" name="addIdentifier"
+			value="Add Identifier" />
+	
 
 		<div id="saveLocalCopy" style="overflow: auto;"></div>
 	</g:form>

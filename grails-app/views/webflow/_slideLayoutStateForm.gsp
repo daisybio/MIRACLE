@@ -50,10 +50,5 @@
 	<g:textField name="depositionPattern" minSize="1" required="" value="${slideLayoutInstance?.depositionPattern?:'[4,4,2,2,1,1]'}"/>
 </div>
 
-<div class="fieldcontain">
-    <label for="projects">
-        <g:message code="slideLayout.projects.label" default="Projects" />
-    </label>
-    <g:select name="projectsSelected" multiple="${true}" size="10" from="${projects}" optionKey="id"/>
-</div>
+
 

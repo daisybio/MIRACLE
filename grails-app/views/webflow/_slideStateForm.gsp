@@ -67,14 +67,6 @@
 	<g:datePicker name="dateOfStaining" precision="day"  value="${slideInstance?.dateOfStaining}"  />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'experimenter', 'error')} required">
-	<label for="experimenter">
-		<g:message code="slide.experimenter.label" default="Experimenter" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="experimenter" name="experimenter.id" from="${Person.list()}" optionKey="id" required="" value="${slideInstance?.experimenter?.id}" class="many-to-one"/>
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'laserWavelength', 'error')} required">
 	<label for="laserWavelength">
 		<g:message code="slide.laserWavelength.label" default="Laser Wavelength (nm)" />
@@ -96,7 +88,7 @@
 		<g:message code="slide.antibody.label" default="Antibody" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="antibody" name="antibody.id" from="${Antibody.list()}" optionKey="id" required="" value="${slideInstance?.antibody?.id}" class="many-to-one"/>
+	<g:select id="antibody" name="antibody.id" from="${antibodyList}" optionKey="id" required="" value="${slideInstance?.antibody?.id}" class="many-to-one"/>
 </div>
 
 
@@ -105,14 +97,7 @@
         <g:message code="slide.layout.label" default="SlideLayout" />
         <span class="required-indicator">*</span>
     </label>
-    <g:select id="layout" name="layout.id" from="${SlideLayout.list()}" optionKey="id" required="" value="${slideInstance?.layout?.id}" class="many-to-one"/>
-</div>
-
-<div class="fieldcontain">
-    <label for="projects">
-        <g:message code="slideLayout.projects.label" default="Projects" />
-    </label>
-    <g:select name="projectsSelected" multiple="${true}" size="10" from="${projects}" optionKey="id"/>
+    <g:select id="layout" name="layout.id" from="${slideLayoutList}" optionKey="id" required="" value="${slideInstance?.layout?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'resultFile', 'error')} required">
@@ -140,7 +125,6 @@
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'protocol', 'error')} ">
     <label for="protocol">
         <g:message code="slide.protocol.label" default="Experiment Protocol" />
-        <span class="required-indicator">*</span>
     </label>
     <div style="float:right; padding-right: 120px;"><table><tr><td>Choose existing file: </td>
         <td> <input type="text" id="protocolAjax"></td></tr>
