@@ -21,13 +21,6 @@
     <div class="errors">Warning: Colors are not unique for samples! Make sure you know what you are doing!</div>
 </g:if>
 
-<g:formRemote name="excelPasteBinForm" onSuccess="jQuery(function() {jQuery('#blockTabs').tabs() });registerHandlers('blockTable1');" update="blockTabs" url="${["controller":"slideLayout", action:"parseClipboardData"]}"> 
-    <g:hiddenField name="id" value="${slideLayout.id}"/>
-    <g:textArea name="excelPasteBin" rows="5" cols="14"/>
-    <g:hiddenField name="spotProperty" value="${sampleProperty}"/>
-    <g:submitButton name="parse"/>
-</g:formRemote>
-
 <g:formRemote onSuccess="window.onbeforeunload = null;unsavedChanges=false" name="spotPropertiesForm" update="message" url="[controller: 'slideLayout', action: 'updateSpotProperty']">
     <div class="buttons" style="margin-top:5px; margin-bottom:10px;">
         <input type="submit" value="Save changes" name="layoutUpdateButton"/>

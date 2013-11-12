@@ -24,10 +24,12 @@ class PlateLayoutService {
         log.debug "using groovy sql instead of GORM:" + useGroovySql
 
         def insertLoop = { stmt ->
-            for (int col = 1; col <= plateLayout.cols; col++) {
-                for (int row = 1; row <= plateLayout.rows; row++) {
-                    if (useGroovySql) stmt.addBatch(0, col, plateLayout.id, row)
-                    else new WellLayout(col: col, row: row, layout: plateLayout).save()
+            for(int col = 1; col <= plateLayout.cols; col++) {
+                for(int row = 1; row <= plateLayout.rows; row++) {
+                    if(useGroovySql) stmt.addBatch(0, col, plateLayout.id, row)
+                    else{
+                        new WellLayout(col: col, row: row, layout: plateLayout).save()
+                    }
                 }
             }
         }
