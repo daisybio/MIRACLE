@@ -7,9 +7,9 @@ import org.nanocan.rppa.project.Project
 @Secured(['ROLE_USER'])
 class SpottingController {
 
-    def plateImportService
     def springSecurityService
     def progressService
+    def virtualSpottingService
 
     def index() {
         redirect(action: "plateLayoutSpotting")
@@ -63,17 +63,15 @@ class SpottingController {
                 {
                     def selectedLayouts = params["plateLayoutOrder"].split("&").collect{it.split("=")[1]}
                     def layouts = [:]
-                    boolean hasSavanahLayouts = false
 
                     flow.selectedLayouts = selectedLayouts
 
                     selectedLayouts.each{
-                        if(it.toString().startsWith("savanah")) hasSavanahLayouts = true
-                        layouts = plateImportService.getPlateLayoutFromId(it, layouts)
+                        def layout = org.nanocan.rppa.layout.PlateLayout.get(it.toString().substring(7))
+                        layouts.put(it, layout)
                     }
                     flow.layouts = layouts
-                    if(hasSavanahLayouts) matchSavanahProperties()
-                    else spottingProperties()
+                    spottingProperties()
                 }
             }
             on("noSelection").to "modelForPlateLayouts"
@@ -150,7 +148,7 @@ class SpottingController {
 
                    def slideLayout
                    try{
-                        slideLayout = plateImportService.importPlates(flow)
+                        slideLayout = virtualSpottingService.importPlates(flow)
                     } catch(Exception e)
                     {
                         flash.message = "Import failed with exception: " + e.getMessage()
