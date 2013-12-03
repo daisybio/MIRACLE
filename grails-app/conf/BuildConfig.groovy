@@ -8,6 +8,7 @@ grails.project.war.file = "target/${appName}.war"
 
 
 grails.plugin.location.Rconnect = "../Rconnect/"
+grails.plugin.location.OpenSeaDragon = "../OpenSeadragon/"
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -48,8 +49,9 @@ grails.project.dependency.resolution = {
     plugins {
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.7.1"
-        runtime ":resources:1.1.6"
+        runtime ":resources:1.2.1"
         runtime ":database-migration:1.1"
+        runtime ":webxml:1.4.1"
 
         //security
         compile ":spring-security-core:1.2.7.3"

@@ -13,12 +13,10 @@
 		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'rppa-fav-icon.png')}" type="image/x-icon">
 		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'rppa-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'rppa-touch-icon-retina.png')}">
-        <imagezoom:resources player="openzoom" />
 
         <r:require module="jquery-ui"/>
         <r:require module="bootstrap"/>
-
-        <g:javascript library="application"/>
+        <r:require module="openseadragon"/>
         <g:layoutHead/>
         <r:layoutResources />
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">

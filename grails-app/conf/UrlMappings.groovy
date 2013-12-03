@@ -1,7 +1,9 @@
 class UrlMappings {
 
 	static mappings = {
-		"/$controller/$action?/$id?"{
+		"/img/getTiles/$imageFolder/$imageLevel/$imageFile" (controller: "img", action: "getTiles")
+
+        "/$controller/$action?/$id?"{
 			constraints {
 				// apply constraints here
 			}
