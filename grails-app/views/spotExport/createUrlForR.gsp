@@ -26,10 +26,11 @@
 
     <div style="margin: 20px;">In order to import this slide into R copy the following command and paste it in the R command line interface</div>
 
-    <pre class="brush: r">rppa.load(baseUrl="${baseUrl.toString()}", slideIndex=${slideInstanceId})</pre>
+    <pre class="brush: r">connection <- rppa.authenticate(baseUrl="${baseUrl.toString()}", user="<sec:username/>", password="xxx")
+rppa.load(connection, baseUrl="${baseUrl.toString()}", slideIndex=${slideInstanceId})</pre>
 
     <div style="margin: 20px;">Double click on the command (not on the link, but next to it) to select it, then use CTRL+C to copy to the clipboard and
-    paste in the R console. <br/>You can assign your data to a variable like this:
+    paste in the R console. Make sure you replace 'xxx' with your password.<br/>You can assign your data to a variable like this:
     </div>
 
     <pre class="brush: r">myDataName <- rppa.load(...) //above command</pre>

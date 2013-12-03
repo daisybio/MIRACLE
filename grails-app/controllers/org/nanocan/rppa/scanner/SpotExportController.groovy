@@ -17,7 +17,7 @@ class SpotExportController {
     def exportAsJSON = {
 
         def slideInstance = Slide.get(params.id)
-        def spots = Spot.findAllBySlide(slideInstance, [readOnly:true])
+        def spots = slideInstance.spots
 
         render spots as JSON
     }
