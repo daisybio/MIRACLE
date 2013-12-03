@@ -1,7 +1,9 @@
 package org.nanocan.rppa.scanner
 
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
+@Secured(['ROLE_USER'])
 class SpotExportController {
 
     def spotExportService

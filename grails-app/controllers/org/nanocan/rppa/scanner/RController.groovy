@@ -5,6 +5,7 @@ import javax.imageio.ImageIO
 import grails.plugins.springsecurity.Secured
 import org.apache.commons.codec.binary.Base64
 
+@Secured(['ROLE_USER'])
 class RController {
 
     def rppaService
