@@ -13,8 +13,8 @@ import org.nanocan.rppa.scanner.Slide
  */
 class FileUploadService {
 
-    def imageConvertService
     def grailsApplication
+    def imageProcessingService
 
     /*
      * Creates the actual result file on the hard drive + a corresponding domain object
@@ -31,6 +31,19 @@ class FileUploadService {
 
             def newResultFile = new ResultFile(fileType: type, fileName: (resultFile.originalFilename as String), filePath: filePath, dateUploaded:  currentDate as Date)
 
+            if(type == "Image")
+            {
+                try
+                {
+                    Thread.start{
+                        imageProcessingService.convertToDeepZoom(newResultFile.filePath, grailsApplication.config.openseadragon.tilesFolder)
+                    }
+                }catch(Exception e)
+                {
+                   log.error "Could not process image to create tiles for image zoom. ${filePath}"
+                }
+            }
+
             if(newResultFile.save(flush: true))
             {
                 log.info "saving of file ${filePath} was successful"
@@ -45,67 +58,9 @@ class FileUploadService {
         }
     }
 
-    /*
-     * Creates tiles for the imagezoom plugin and does some image processing
-     * depends on having graphicsmagick on the path
-     */
-    def zoomifyImage(String filePath) {
-        Runtime rt = Runtime.getRuntime()
-
-        //fomat path
-        def formattedPath = makePathURLSafe(filePath)
-        //def exactOriginalPath = FilenameUtils.separatorsToSystem(filePath)
-        def exactFormattedPath = FilenameUtils.separatorsToSystem(formattedPath)
-
-        //create a "safe filename" copy
-        def tempFile = new File("${exactFormattedPath}.tif")
-        FileUtils.copyFile(new File(filePath), tempFile)
-
-        // on windows we need to use cmd /c before we can execute any program
-        def graphicsMagickCommand
-        if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
-            graphicsMagickCommand = "cmd /c gm convert ${exactFormattedPath}.tif -recolor \"1 1 1, 0 0 0, 0 0 0\" -rotate \"-90<\" -normalize ${exactFormattedPath}.jpg"
-        else graphicsMagickCommand = ["gm", "convert", exactFormattedPath + ".tif", "-recolor", "1 1 1, 0 0 0, 0 0 0", "-rotate", "-90<", "-normalize", exactFormattedPath+".jpg"] as String[]
-
-        try{
-        //String
-
-        //put all color information into the red channel and rotate if height > width by -90 degrees.
-        Process pr = rt.exec(graphicsMagickCommand)
-        int result = pr.waitFor()
-
-        log.info "graphicsMagick command exit with status " + result
-
-        def convertSettings = [:]
-        convertSettings.numCPUCores = -1 //use all cores
-        convertSettings.imgLib = "im4java-gm" // use graphics magick (alternative to im = imagemagick)
-
-        def imagezoomFolder = grailsApplication.config.rppa.imagezoom.directory
-
-        //create tiles
-        imageConvertService.createZoomifyImage(imagezoomFolder, exactFormattedPath + ".jpg", convertSettings)
-
-        //clean up
-        new File(formattedPath+".jpg").delete()
-        tempFile.delete()
-
-        } catch(FileNotFoundException e)
-        {
-            log.error "There was an error during image processing. A file was not found:" + e.getMessage()
-            println e.stackTrace
-        }
-    }
 
     def makePathURLSafe(String filePath) {
         return FilenameUtils.getFullPath(filePath) + FilenameUtils.getBaseName(filePath).split("_")[0]
-    }
-
-    def getImagezoomTarget(def filePath) {
-        return "imagezoom/" + getImagezoomFolder(filePath)
-    }
-
-    def getImagezoomFolder(def filePath) {
-        return FilenameUtils.removeExtension(FilenameUtils.getName(makePathURLSafe(filePath)))
     }
 
     /**

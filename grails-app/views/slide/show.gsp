@@ -1,5 +1,5 @@
 
-<%@ page import="org.nanocan.rppa.scanner.Slide" %>
+<%@ page import="liquibase.util.file.FilenameUtils; org.nanocan.rppa.scanner.Slide" %>
 <!doctype html>
 <html>
 	<head>
@@ -31,29 +31,6 @@
                 });
             </r:script>
         </g:if>
-        <g:elseif test="${!imagezoomFolderExists && slideInstance?.resultImage}">
-            <r:script>
-                $(function() {
-                     $( "#image-process-confirm" ).dialog({
-                        position: 'top',
-                        modal: true,
-                        resizable: false,
-                        height:230,
-                        buttons: {
-                            "Yes, process image now": function() {
-                                $('#slideZoomPanel').text('Image is being processed in the background...');
-                                <g:remoteFunction action="zoomifyImage" id="${slideInstance.id}" update="slideZoomPanel"/>;
-                                $( this ).dialog( "close" );
-                                $('#image-process-confirm').hide(true);
-                            },
-                            "No, thanks": function() {
-                            $( this ).dialog( "close" );
-                            }
-                        }
-                    });
-                });
-            </r:script>
-        </g:elseif>
 
         <r:script>$(function() {
             $("#accordion").accordion({
@@ -73,11 +50,6 @@
         </div>
     </g:if>
 
-    <g:elseif test="${!imagezoomFolderExists && slideInstance?.resultImage}">
-        <div id="image-process-confirm" title="Would you like to process the image file?">
-            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>The image file for this slide has not yet been processed. Proceed now?</p>
-        </div>
-    </g:elseif>
 
     <div class="navbar">
         <div class="navbar-inner">
@@ -258,22 +230,6 @@
                             lastUpdated: slideInstance.lastUpdated,
                             lastUpdatedBy: slideInstance.lastUpdatedBy]"/>
                 </div>
-
-                <g:if test="${slideInstance?.resultImage}">
-                    <h3><a href="#">Slide Image</a></h3>
-                    <div id="slideZoomPanel">
-                        <g:if test="${imagezoomFolderExists}">
-                            <g:render template="slideZoom" model="${[imagezoomFolder: imagezoomFolder]}"/>
-                        </g:if>
-                        <g:else>
-                            It seems that the image file of this slide has not been processed yet.
-
-                            <g:remoteLink action="zoomifyImage" id="${slideInstance?.id}"
-                              before="\$('#slideZoomPanel').html('Image processing is running in the background and will take a while. This page will update when the process is complete. You can also navigate away and return later if you do not wish to wait.');"
-                              update="slideZoomPanel">Process now</g:remoteLink>
-                        </g:else>
-                    </div>
-                </g:if>
             </div>
 
 			<g:form>
@@ -283,6 +239,13 @@
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
+
+            <br/><h1>Slide Viewer</h1>
+
+            <g:if test="${slideInstance.resultImage}">
+                <div id="zoomable" style="height:400px;"/>
+                <g:openSeaDragon file="${slideInstance.resultImage.filePath}" target="zoomable" showNavigator="true"/>
+            </g:if>
 
 		</div>
 	</body>

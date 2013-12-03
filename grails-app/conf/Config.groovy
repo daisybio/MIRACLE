@@ -19,12 +19,7 @@ grails.plugins.springsecurity.cas.active = false
 grails.logging.jul.usebridge = true
 
 rppa.upload.directory = "upload/"
-
-rppa.imagezoom.directory = "web-app/imagezoom"
-rppa.imagezoom.url = "web-app"
-
 grails.serverURL = 'http://localhost:8080/MIRACLE'
-
 rconnect.host = "localhost"
 rconnect.port = "6311"
 
@@ -124,13 +119,6 @@ grails.exceptionresolver.params.exclude = ['password']
 // enable query caching by default
 grails.hibernate.cache.queries = true
 
-// set per-environment serverURL stem for creating absolute links
-environments {
-    standalone {
-        rppa.upload.directory = "upload/"
-        rppa.imagezoom.directory = "imagezoom"
-    }
-}
 
 // log4j configuration
 log4j = {

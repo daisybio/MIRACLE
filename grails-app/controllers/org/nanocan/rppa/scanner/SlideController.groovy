@@ -119,16 +119,7 @@ class SlideController {
             return
         }
 
-        def imagezoomFolder
-        boolean imagezoomFolderExists
-
-        if(slideInstance?.resultImage)
-        {
-            imagezoomFolder = fileUploadService.getImagezoomTarget(slideInstance?.resultImage?.filePath)
-            imagezoomFolderExists = new File(grailsApplication.config.rppa.imagezoom.directory + "/" + fileUploadService.getImagezoomFolder(slideInstance?.resultImage?.filePath)).exists()
-        }
-
-        [slideInstance: slideInstance,imagezoomFolderExists: imagezoomFolderExists, imagezoomFolder: imagezoomFolder, experiments:  experimentService.findExperiment(slideInstance)]
+        [slideInstance: slideInstance, experiments:  experimentService.findExperiment(slideInstance)]
     }
 
     def edit() {
@@ -140,20 +131,6 @@ class SlideController {
         }
 
         [slideInstance: slideInstance, experiments: Experiment.list(), selectedExperiments: experimentService.findExperiment(slideInstance)]
-    }
-
-    def zoomifyImage() {
-        def slideInstance = Slide.get(params.id)
-        fileUploadService.zoomifyImage(slideInstance.resultImage.filePath)
-
-        def imagezoomFolder
-
-        if(slideInstance?.resultImage)
-        {
-            imagezoomFolder = fileUploadService.getImagezoomTarget(slideInstance?.resultImage?.filePath)
-        }
-
-        render template: "slideZoom", model: [imagezoomFolder: imagezoomFolder]
     }
 
     def update() {
