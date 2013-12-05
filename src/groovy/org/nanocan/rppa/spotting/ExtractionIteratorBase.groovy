@@ -1,4 +1,4 @@
-package org.nanocan.savanah.extraction
+package org.nanocan.rppa.spotting
 
 /**
  * Created by IntelliJ IDEA.
