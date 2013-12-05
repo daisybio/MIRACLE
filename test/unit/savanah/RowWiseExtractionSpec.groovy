@@ -4,7 +4,7 @@ import grails.plugin.spock.UnitSpec
 import grails.test.mixin.Mock
 import spock.lang.Shared
 import org.nanocan.rppa.layout.PlateLayout
-import org.nanocan.savanah.extraction.ExtractionRowWiseIterator
+import org.nanocan.rppa.spotting.ExtractionRowWiseIterator
 import org.nanocan.rppa.layout.WellLayout
 
 /**

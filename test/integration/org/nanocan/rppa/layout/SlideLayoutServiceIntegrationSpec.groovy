@@ -2,6 +2,7 @@ package org.nanocan.rppa.layout
 
 import grails.plugin.spock.IntegrationSpec
 import org.codehaus.groovy.grails.commons.cfg.ConfigurationHelper
+import org.nanocan.layout.SlideLayout
 
 /**
  * Created by IntelliJ IDEA.

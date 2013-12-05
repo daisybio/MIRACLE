@@ -1,4 +1,4 @@
-<%@ page import="org.nanocan.rppa.project.Experiment; org.nanocan.rppa.project.Project" %>
+<%@ page import="org.nanocan.project.Experiment; org.nanocan.project.Project" %>
 <li class="dropdown" id="main.menu">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#main.menu">
         <g:message code="default.menu.label" default="Organize"/>

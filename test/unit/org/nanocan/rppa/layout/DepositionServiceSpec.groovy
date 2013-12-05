@@ -1,6 +1,7 @@
 package org.nanocan.rppa.layout
 
 import grails.plugin.spock.UnitSpec
+import org.nanocan.layout.SlideLayout
 
 class DepositionServiceSpec extends UnitSpec{
 

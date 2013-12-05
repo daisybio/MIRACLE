@@ -1,21 +1,22 @@
+import org.nanocan.file.ResultFile
+import org.nanocan.file.ResultFileConfig
 import org.nanocan.rppa.scanner.Antibody
-import org.nanocan.rppa.scanner.ResultFileConfig
 
 import org.nanocan.rppa.scanner.Slide
-import org.nanocan.rppa.scanner.ResultFile
-import org.nanocan.rppa.layout.SlideLayout
-import org.nanocan.rppa.layout.CellLine
-import org.nanocan.rppa.layout.LysisBuffer
-import org.nanocan.rppa.layout.Dilution
 
-import org.nanocan.rppa.layout.SpotType
-import org.nanocan.rppa.layout.Inducer
-import org.nanocan.rppa.rnai.Sample
+import org.nanocan.layout.SlideLayout
+import org.nanocan.layout.CellLine
+import org.nanocan.layout.LysisBuffer
+import org.nanocan.layout.Dilution
+
+import org.nanocan.layout.SpotType
+import org.nanocan.layout.Inducer
+import org.nanocan.layout.Sample
 import grails.util.GrailsUtil
-import org.nanocan.rppa.security.Role
-import org.nanocan.rppa.security.Person
-import org.nanocan.rppa.security.PersonRole
-import org.nanocan.rppa.project.Project
+import org.nanocan.security.Role
+import org.nanocan.security.Person
+import org.nanocan.security.PersonRole
+import org.nanocan.project.Project
 import grails.converters.JSON
 import org.nanocan.rppa.scanner.Spot
 import org.nanocan.rppa.scanner.BlockShift
@@ -23,7 +24,6 @@ import org.nanocan.rppa.scanner.BlockShift
 class BootStrap {
 
     def slideLayoutService
-    def depositionService
     def grailsApplication
 
     def init = { servletContext ->
@@ -48,9 +48,6 @@ class BootStrap {
                 initUserbase()
                 break
         }
-
-        String imagezoomFolder = grailsApplication.config.rppa.imagezoom.directory
-        new File(imagezoomFolder).mkdir()
 
         /* custom JSON output */
         JSON.registerObjectMarshaller(Spot) {

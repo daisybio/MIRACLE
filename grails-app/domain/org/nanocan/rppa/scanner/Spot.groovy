@@ -1,6 +1,6 @@
 package org.nanocan.rppa.scanner
 
-import org.nanocan.rppa.layout.LayoutSpot
+import org.nanocan.layout.LayoutSpot
 
 class Spot {
 

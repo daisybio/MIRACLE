@@ -1,16 +1,5 @@
 package org.nanocan.rppa.scanner
 
-import org.nanocan.rppa.layout.LayoutSpot
-import org.nanocan.rppa.layout.SlideLayout
-import org.hibernate.FetchMode
-import org.springframework.web.multipart.commons.CommonsMultipartFile
-import org.springframework.web.multipart.MultipartHttpServletRequest
-import java.text.DecimalFormatSymbols
-import java.text.DecimalFormat
-import org.hibernate.criterion.Restrictions
-import org.hibernate.StatelessSession
-import org.hibernate.Transaction
-
 class SlideService {
 
     def persistBlockShiftPattern(Slide slideInstance, Map hshift, Map vshift) {
