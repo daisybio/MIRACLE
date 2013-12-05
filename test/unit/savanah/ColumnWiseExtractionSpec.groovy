@@ -3,9 +3,9 @@ package savanah
 import grails.plugin.spock.UnitSpec
 import grails.test.mixin.Mock
 import spock.lang.Shared
-import org.nanocan.rppa.layout.PlateLayout
-import org.nanocan.savanah.extraction.ExtractionColumnWiseIterator
-import org.nanocan.rppa.layout.WellLayout
+import org.nanocan.layout.PlateLayout
+import org.nanocan.rppa.spotting.ExtractionColumnWiseIterator
+import org.nanocan.layout.WellLayout
 
 /**
  * Created by IntelliJ IDEA.

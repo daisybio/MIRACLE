@@ -1,9 +1,9 @@
 package org.nanocan.rppa.spotting
 
-import org.nanocan.rppa.layout.SlideLayout
-import org.nanocan.rppa.layout.WellLayout
-import org.nanocan.rppa.layout.LayoutSpot
-import org.nanocan.rppa.layout.Dilution
+import org.nanocan.layout.SlideLayout
+import org.nanocan.layout.WellLayout
+import org.nanocan.layout.LayoutSpot
+import org.nanocan.layout.Dilution
 
 /**
  * Created by IntelliJ IDEA.

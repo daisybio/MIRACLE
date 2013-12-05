@@ -9,6 +9,7 @@ grails.project.war.file = "target/${appName}.war"
 
 grails.plugin.location.Rconnect = "../Rconnect/"
 grails.plugin.location.OpenSeaDragon = "../OpenSeadragon/"
+grails.plugin.location.HtsBackend = "../HtsBackend/"
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -42,7 +43,8 @@ grails.project.dependency.resolution = {
         //xlxs file support
         compile (group:'org.apache.poi', name:'poi-ooxml', version:'3.9')
 
-
+        //database
+        runtime "net.sourceforge.jtds:jtds:1.3.1" //MS-SQL
         // runtime 'mysql:mysql-connector-java:5.1.16'
     }
 

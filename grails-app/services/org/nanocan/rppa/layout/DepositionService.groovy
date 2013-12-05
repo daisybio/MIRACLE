@@ -1,5 +1,6 @@
 package org.nanocan.rppa.layout
 
+import org.nanocan.layout.SlideLayout
 import org.nanocan.rppa.scanner.Spot
 
 /**

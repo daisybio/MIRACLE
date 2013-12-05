@@ -1,11 +1,12 @@
 package org.nanocan.rppa.io
 
 import groovy.sql.Sql
-import org.nanocan.rppa.layout.LayoutSpot
+import org.nanocan.file.ResultFileConfig
+import org.nanocan.layout.LayoutSpot
 import org.nanocan.rppa.layout.NoMatchingLayoutException
 
 import org.nanocan.rppa.scanner.Slide
-import org.nanocan.rppa.scanner.ResultFileConfig
+
 import org.nanocan.rppa.scanner.Spot
 import org.apache.commons.io.FilenameUtils
 import org.apache.commons.io.FileUtils

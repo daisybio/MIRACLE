@@ -1,7 +1,9 @@
 package org.nanocan.rppa.scanner
 
-import org.nanocan.rppa.layout.SlideLayout
-import org.nanocan.rppa.security.Person
+import org.nanocan.file.ResultFile
+import org.nanocan.file.ResultFileConfig
+import org.nanocan.layout.SlideLayout
+import org.nanocan.security.Person
 
 class Slide{
 

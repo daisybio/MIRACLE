@@ -23,4 +23,8 @@ modules = {
         resource url: 'js/bootstrap.js'
         resource url: 'css/bootstrap.css'
     }
+
+    polychart2 {
+        resource url: 'js/polychart2.standalone.js'
+    }
 }

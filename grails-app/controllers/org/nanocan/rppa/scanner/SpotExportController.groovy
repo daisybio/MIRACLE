@@ -22,6 +22,19 @@ class SpotExportController {
         render spots as JSON
     }
 
+    def exportSpotsAsJSON = {
+
+        def slideInstance = Slide.get(params.id)
+        def spots = slideInstance.spots
+
+        render(contentType: "text/json"){[
+            'Signal': spots.collect{it.signal},
+            'Block' : spots.collect{it.block},
+            'Row'   : spots.collect{it.row},
+            'Column': spots.collect{it.col}
+        ]}
+    }
+
     def exportShiftsAsJSON = {
         def slideInstance = Slide.get(params.id)
         def shifts = BlockShift.findAllBySlide(slideInstance)

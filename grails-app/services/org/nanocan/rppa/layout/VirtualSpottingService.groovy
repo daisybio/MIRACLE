@@ -2,8 +2,8 @@ package org.nanocan.rppa.layout
 
 import org.nanocan.rppa.spotting.LeftToRightSpotter
 import org.nanocan.rppa.spotting.TopToBottomSpotter
-import org.nanocan.savanah.extraction.ExtractionRowWiseIterator
-import org.nanocan.savanah.extraction.ExtractionColumnWiseIterator
+import org.nanocan.rppa.spotting.ExtractionRowWiseIterator
+import org.nanocan.rppa.spotting.ExtractionColumnWiseIterator
 
 class VirtualSpottingService {
 

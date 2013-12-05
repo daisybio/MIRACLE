@@ -4,10 +4,9 @@ import org.springframework.dao.DataIntegrityViolationException
 
 import org.apache.commons.io.FilenameUtils
 import grails.plugins.springsecurity.Secured
-import org.nanocan.rppa.project.Experiment
-import org.hibernate.StaleObjectStateException
-import org.nanocan.rppa.project.Project
-import org.nanocan.rppa.layout.SlideLayout
+import org.nanocan.project.Experiment
+import org.nanocan.project.Project
+import org.nanocan.layout.SlideLayout
 
 @Secured(['ROLE_USER'])
 class SlideController {
@@ -348,5 +347,8 @@ class SlideController {
         redirect(action: "show", id: params.id)
     }
 
+    def heatmap() {
+        [slideId: params.id]
+    }
 
 }
