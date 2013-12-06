@@ -2,6 +2,7 @@ package org.nanocan.rppa.scanner
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import org.nanocan.layout.LayoutSpot
 
 @Secured(['ROLE_USER'])
 class SpotExportController {
@@ -22,17 +23,37 @@ class SpotExportController {
         render spots as JSON
     }
 
-    def exportSpotsAsJSON = {
+    def exportSpotsForHeatmapAsJSON = {
 
-        def slideInstance = Slide.get(params.id)
-        def spots = slideInstance.spots
+        def criteria = Spot.createCriteria()
+        def result = criteria.list {
+            eq("slide.id", params.long("id"))
+            projections {
+                property("id", "id")
+                property("signal", "Signal")
+                property("block", "Block")
+                property("row", "Row")
+                property("col", "Column")
+            }
+            order('block', 'asc')
+            order('row', 'desc')
+            order('col', 'asc')
+        }
 
-        render(contentType: "text/json"){[
-            'Signal': spots.collect{it.signal},
-            'Block' : spots.collect{it.block},
-            'Row'   : spots.collect{it.row},
-            'Column': spots.collect{it.col}
-        ]}
+        result = [ data: result, meta: [
+            "id": [type: "num"],
+            "Signal": [type: "num"],
+            "Block": [type: "cat"],
+            "Row": [type: "num"],
+            "Column": [type: "num"]
+        ]]
+
+        render result as JSON
+    }
+
+    def spotDetailsForHeatmap = {
+        def spot = Spot.get(params.id)
+        render spot as JSON
     }
 
     def exportShiftsAsJSON = {

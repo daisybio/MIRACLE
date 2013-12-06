@@ -17,7 +17,6 @@
     <r:require module="jquery-ui"/>
     <r:require module="bootstrap"/>
     <r:require module="openseadragon"/>
-    <r:require module="polychart2"/>
     <g:layoutHead/>
     <r:layoutResources />
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">

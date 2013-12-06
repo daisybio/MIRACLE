@@ -2,12 +2,17 @@
 <meta charset = 'utf-8'>
 <html>
 <head>
+    <r:require module="polychart2"/>
+    <r:require module="jquery"/>
+    <r:layoutResources />
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
+
     <style>
     .rChart {
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 1024px;
+        width: 1200px;
         height: 800px;
     }
     </style>
@@ -15,9 +20,11 @@
 </head>
 <body>
 <div id='dynamicHeatmap' class='rChart polycharts'></div>
+<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 
-<script type="text/javascript">
-    var dataUrl = "${g.createLink(controller:"spotExport", action: "exportSpotsAsJSON", id:slideId)};"
+
+<r:script>
+    var dataUrl = "${g.createLink(controller:"spotExport", action: "exportSpotsForHeatmapAsJSON", id:slideId)}";
     var polyjsData = polyjs.data.url(dataUrl);
 
     var chartParams = {
@@ -32,8 +39,8 @@
                 "facet": null,
                 "color": "Signal",
                 "type": "tile",
-                "height":    800//,
-                //"tooltip": function(item){return 'Sample: ' + item.SampleName + '\n' + 'Block: ' + item.Block + '\n' + 'Row: ' + item.Row + '\n' + 'Column: ' + item.Column + '\n' + 'Deposition: ' + item.Deposition + '\n' + 'CellLine: ' + item.CellLine + '\n' + 'NumberOfCellsSeeded: ' + item.NumberOfCellsSeeded + '\n' + 'Treatment: ' + item.Treatment + '\n' + 'LysisBuffer: ' + item.LysisBuffer + '\n' + 'Signal: ' + item.Signal + '\n' + 'FG: ' + item.FG + '\n' + 'BG: ' + item.BG}
+                "height":    800,
+                "tooltip": function(item){return item.Signal}
             }
                  ],
                 "facet": {
@@ -59,11 +66,10 @@
                 "coord": [],
                 "id": "dynamicHeatmap"
             }
-            /*_.each(chartParams.layers, function(el){
-                el.data = polyjs.data(el.data)
-            })*/
-        var graph_dynamicHeatmap = polyjs.chart(chartParams);
-</script>
 
+    polyjs.chart(chartParams);
+</r:script>
+
+<r:layoutResources />
 </body>
 </html>
