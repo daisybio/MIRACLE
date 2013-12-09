@@ -8,6 +8,7 @@ import org.nanocan.layout.LayoutSpot
 class SpotExportController {
 
     def spotExportService
+    def depositionService
 
     def exportAsCSV = {
         def separatorMap = ["\t":"tab", ";":"semicolon", ",": "comma"]
@@ -40,6 +41,15 @@ class SpotExportController {
             order('col', 'asc')
         }
 
+        //log2 transform and round signal
+        result.each{
+            if(it[1]==0) it[1]=null
+            else if (it[1]==null) return
+            else{
+               it[1] = Math.round(Math.log(it[1])/Math.log(2))
+            }
+        }
+
         result = [ data: result, meta: [
             "id": [type: "num"],
             "Signal": [type: "num"],
@@ -53,7 +63,9 @@ class SpotExportController {
 
     def spotDetailsForHeatmap = {
         def spot = Spot.get(params.id)
-        render spot as JSON
+        def layout = spot.layoutSpot
+        def depositionArray = depositionService.parseDepositions(spot.layoutSpot.layout.depositionPattern)
+        render "B/C/R: ${spot.block}/${spot.col}/${spot.row}\n Deposition: ${depositionService.getDeposition(spot, depositionArray)}\n CellLine: ${layout.cellLine}"
     }
 
     def exportShiftsAsJSON = {

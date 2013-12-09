@@ -40,8 +40,14 @@
                 "color": "Signal",
                 "type": "tile",
                 "height":    800,
-                "tooltip": function(item){return item.Signal}
-            }
+                "tooltip": function(item){
+                             return $.ajax({
+                                type: "GET",
+                                url: "${g.createLink(controller: "spotExport", action:"spotDetailsForHeatmap")}" + "/" + item.id,
+                                async: false
+                             }).responseText;
+                            }
+                    }
                  ],
                 "facet": {
                     "var": "Block",
@@ -57,9 +63,11 @@
                     },
                     "color": {
                         "scale": {
-                            "type": "gradient",
+                            "type": "gradient2",
                             "lower": "blue",
-                            "upper": "red"
+                            "middle": "yellow",
+                            "upper": "red",
+
                         }
                     }
                 },
