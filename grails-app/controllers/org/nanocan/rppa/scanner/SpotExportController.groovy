@@ -64,8 +64,16 @@ class SpotExportController {
     def spotDetailsForHeatmap = {
         def spot = Spot.get(params.id)
         def layout = spot.layoutSpot
-        def depositionArray = depositionService.parseDepositions(spot.layoutSpot.layout.depositionPattern)
-        render "B/C/R: ${spot.block}/${spot.col}/${spot.row}\n Deposition: ${depositionService.getDeposition(spot, depositionArray)}\n CellLine: ${layout.cellLine}"
+        def depositionArray = depositionService.getDepositionArray(spot.layoutSpot.layout)
+        render """B/C/R: ${spot.block}/${spot.col}/${spot.row}
+Deposition: ${depositionService.getDeposition(spot, depositionArray)}
+SampleName: ${layout.sample}
+CellLine: ${layout.cellLine}
+Inducer: ${layout.inducer}
+LysisBuffer: ${layout.lysisBuffer}
+Treatment: ${layout.treatment}
+SpotType: ${layout.spotType}
+"""
     }
 
     def exportShiftsAsJSON = {

@@ -33,8 +33,8 @@
         "height": "800",
         "layers": [
             {
-                "x": "bin(Column,1)",
-                "y": "bin(Row,1)",
+                "x": {"var":"bin(Column,1)"},
+                "y": {"var":"bin(Row,1)", sort:'Column', asc: false},
                 "data": polyjsData,
                 "facet": null,
                 "color": "Signal",
@@ -66,8 +66,7 @@
                             "type": "gradient2",
                             "lower": "blue",
                             "middle": "yellow",
-                            "upper": "red",
-
+                            "upper": "red"
                         }
                     }
                 },
