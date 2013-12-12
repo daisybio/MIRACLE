@@ -2,28 +2,159 @@ package org.nanocan.rppa.scanner
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import org.codehaus.jackson.map.ObjectMapper
+import org.json.simple.JSONArray
 import org.nanocan.layout.LayoutSpot
 
-@Secured(['ROLE_USER'])
 class SpotExportController {
 
     def spotExportService
     def depositionService
+    def springSecurityService
+    def securityTokenService
 
+    @Secured(['ROLE_USER'])
     def exportAsCSV = {
         def separatorMap = ["\t":"tab", ";":"semicolon", ",": "comma"]
 
         [slideInstanceId: params.id, separatorMap: separatorMap, slideProperties: csvHeader]
     }
 
-    def exportAsJSON = {
+    private def accessAllowed = { securityToken, uuid ->
+        //check if user is authenticated
+        if(!springSecurityService.isLoggedIn()){
+            //alternatively check if a security token is provided
+            if(!securityToken || securityToken != uuid){
+                return(false)
+            }
 
-        def slideInstance = Slide.get(params.id)
-        def spots = slideInstance.spots
-
-        render spots as JSON
+        }
+        return(true)
     }
 
+    def exportAsJSON = {
+        def start = System.currentTimeMillis()
+        def slideInstance = Slide.get(params.id)
+
+/*
+        returnArray['FG'] = it.FG
+        returnArray['BG'] = it.BG
+        returnArray['Signal'] = it.signal
+        returnArray['Block'] = it.block
+        returnArray['Row'] = it.row
+        returnArray['Column'] = it.col
+        returnArray['SampleName'] = it.layoutSpot?.sample?.name?:"NA"
+        returnArray['SampleType'] = it.layoutSpot?.sample?.type?:"NA"
+        returnArray['TargetGene'] = it.layoutSpot?.sample?.target?:"NA"
+        returnArray['CellLine'] = it.layoutSpot?.cellLine?.name?:"NA"
+        returnArray['LysisBuffer'] = it.layoutSpot?.lysisBuffer?.name?:"NA"
+        returnArray['DilutionFactor'] = it.layoutSpot?.dilutionFactor?.dilutionFactor?:"NA"
+        returnArray['Inducer'] = it.layoutSpot?.inducer?.name?:"NA"
+        returnArray['Treatment'] = it.layoutSpot?.treatment?.name?:"NA"
+        returnArray['SpotType'] = it.layoutSpot?.spotType?.name?:"NA"
+        returnArray['SpotClass'] = it.layoutSpot?.spotType?.type?:"NA"
+        returnArray['NumberOfCellsSeeded'] = it.layoutSpot?.numberOfCellsSeeded?.name?:"NA"
+        returnArray['Replicate'] = it.layoutSpot?.replicate?:"NA"
+        returnArray['PlateRow'] = it.layoutSpot?.wellLayout?.row?:"NA"
+        returnArray['PlateCol'] = it.layoutSpot?.wellLayout?.col?:"NA"
+        returnArray['PlateLayout'] = it.layoutSpot?.wellLayout?.plateLayout?.id?:"NA"
+        returnArray['Flag'] = it.flag
+        returnArray['Diameter'] = it.diameter*/
+
+        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+            //def spots = slideInstance.spots
+
+            def criteria = Spot.createCriteria()
+            def result = criteria.list {
+                eq("slide.id", params.long("id"))
+                projections {
+                    property "id"
+                    property "signal"
+                    property "block"
+                    property "row"
+                    property "col"
+                    property "FG"
+                    property "BG"
+                    property "flag"
+                    property "diameter"
+                    layoutSpot{
+                        sample{
+                            property "name"
+                            property "type"
+                            property "target"
+                        }
+                        cellLine{
+                            property "name"
+                        }
+                        lysisBuffer{
+                            property "name"
+                        }
+                        dilutionFactor{
+                            property "dilutionFactor"
+                        }
+                        inducer{
+                            property "name"
+                        }
+                        treatment{
+                            property "name"
+                        }
+                        spotType{
+                            property "name"
+                            property "type"
+                        }
+                        numberOfCellsSeeded{
+                            property "name"
+                        }
+                        property "replicate"
+                        wellLayout{
+                            property "row"
+                            property "col"
+                            property "plateLayout.id"
+                        }
+                    }
+                }
+                order('block', 'asc')
+                order('row', 'desc')
+                order('col', 'asc')
+            }
+            /*def spots = criteria.list {
+                eq("slide.id", params.long("id"))
+                createAlias("layoutSpot", "lspot")
+                order('block', 'asc')
+                order('row', 'desc')
+                order('col', 'asc')
+            } */
+
+            def end = System.currentTimeMillis()
+            println "dbtime: " + ((end - start) / 1000)
+
+            ObjectMapper mapper = new ObjectMapper()
+            def jsonResult = mapper.writeValueAsString(result)
+
+            //def result = spots.collect{ mapper.writeValueAsString(it) }
+
+            //println result
+            response.contentType = "text/json"
+            render jsonResult
+
+            /*
+            render(contentType: "text/json"){[
+                    meta: ["id", "Signal", "Block", "Row", "Column", "FG", "BG", "Flag", "Diameter",
+                            "SampleName", "SampleType", "TargetGene", "CellLine", "LysisBuffer", "DilutionFactor",
+                            "Inducer", "Treatment", "SpotType", "SpotClass", "NumberOfCellsSeeded", "Replicate", "PlateRow", "PlateCol", "PlateLayout"] as JSONArray,
+                    data: jsonResult,
+                    status : jsonResult ? "OK" : "Nothing present"
+            ]}*/
+
+            end = System.currentTimeMillis()
+            println "json parsing time: " + ((end - start) / 1000)
+        }
+        else{
+            render status: 403
+        }
+    }
+
+    @Secured(['ROLE_USER'])
     def exportSpotsForHeatmapAsJSON = {
 
         def criteria = Spot.createCriteria()
@@ -61,6 +192,7 @@ class SpotExportController {
         render result as JSON
     }
 
+    @Secured(['ROLE_USER'])
     def spotDetailsForHeatmap = {
         def spot = Spot.get(params.id)
         def layout = spot.layoutSpot
@@ -76,23 +208,62 @@ SpotType: ${layout.spotType}
 """
     }
 
+    def isSecurityTokenValid = {
+        if(Slide.findByUuid(params.id)) render true
+        else render false
+    }
+
+    def getSlideIdFromSecurityToken = {
+        def slideInstance = Slide.findByUuid(params.id)
+        if(slideInstance){
+            render slideInstance.id
+        }
+    }
+
     def exportShiftsAsJSON = {
         def slideInstance = Slide.get(params.id)
-        def shifts = BlockShift.findAllBySlide(slideInstance)
 
-        render shifts as JSON
+        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+            def shifts = BlockShift.findAllBySlide(slideInstance)
+
+            render shifts as JSON
+        }
+        else{
+            render status: 403
+        }
     }
 
     def getDepositionPattern = {
-        render Slide.get(params.id).layout.depositionPattern
+        def slideInstance = Slide.get(params.id)
+
+        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+            render slideInstance.layout.depositionPattern
+        }
+        else{
+            render status: 403
+        }
     }
 
     def getBlocksPerRow = {
-        render Slide.get(params.id).layout.blocksPerRow
+        def slideInstance = Slide.get(params.id)
+
+        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+            render slideInstance.layout.blocksPerRow
+        }
+        else{
+            render status: 403
+        }
     }
 
     def getTitle = {
-        render Slide.get(params.id).title
+        def slideInstance = Slide.get(params.id)
+
+        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+            render slideInstance.title
+        }
+        else{
+            render status: 403
+        }
     }
 
     def getIdFromBarcode = {
@@ -100,9 +271,17 @@ SpotType: ${layout.spotType}
     }
 
     def getAntibody = {
-        render Slide.get(params.id).antibody.toString()
+        def slideInstance = Slide.get(params.id)
+
+        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+            render slideInstance.antibody.toString()
+        }
+        else{
+            render status: 403
+        }
     }
 
+    @Secured(['ROLE_USER'])
     def createUrlForR = {
 
         //if we don't remove this, it'll override the action setting below
@@ -110,8 +289,9 @@ SpotType: ${layout.spotType}
 
         def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
         baseUrl = baseUrl.substring(0, baseUrl.size()-5)
+        def securityToken = securityTokenService.getSecurityToken(Slide.get(params.id))
 
-        [baseUrl: baseUrl, slideInstanceId: params.id]
+        [baseUrl: baseUrl, slideInstanceId: params.id, securityToken: securityToken]
     }
 
     def csvHeader = ["Block","Column","Row","FG","BG","Signal", "x","y","Diameter","Flag", "Deposition", "CellLine",
@@ -121,6 +301,7 @@ SpotType: ${layout.spotType}
     /*
      * action that triggers the actual creation of a csv file
      */
+    @Secured(['ROLE_USER'])
     def processExport = {
 
         def slideInstance = Slide.get(params.id)

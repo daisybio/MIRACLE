@@ -26,8 +26,9 @@ class Slide{
     String title
     String comments
     ResultFileConfig lastConfig
+    String uuid
 
-    static hasMany = [spots: Spot, blockShifts: BlockShift]
+    static hasMany = [spots: Spot, blockShifts: BlockShift, normalizeWith: Slide]
 
     Antibody antibody
 
@@ -37,6 +38,7 @@ class Slide{
     }
 
     static constraints = {
+         uuid nullable: true
          lastConfig nullable: true
          barcode nullable: true
          laserWavelength min: 1, max: 1000

@@ -34,7 +34,7 @@
         "layers": [
             {
                 "x": {"var":"bin(Column,1)"},
-                "y": {"var":"bin(Row,1)", sort:'Column', asc: false},
+                "y": {"var":"bin(Row,1)"},
                 "data": polyjsData,
                 "facet": null,
                 "color": "Signal",
@@ -52,7 +52,7 @@
                 "facet": {
                     "var": "Block",
                     "type": "wrap",
-                    "rows":      4
+                    "rows": ${blockRows}
                 },
                 "guides": {
                     "x": {

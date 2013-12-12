@@ -61,7 +61,7 @@ class BootStrap {
             returnArray['Column'] = it.col
             returnArray['SampleName'] = it.layoutSpot?.sample?.name?:"NA"
             returnArray['SampleType'] = it.layoutSpot?.sample?.type?:"NA"
-            returnArray['TargetGene'] = it.layoutSpot?.sample?.targetGene?:"NA"
+            returnArray['TargetGene'] = it.layoutSpot?.sample?.target?:"NA"
             returnArray['CellLine'] = it.layoutSpot?.cellLine?.name?:"NA"
             returnArray['LysisBuffer'] = it.layoutSpot?.lysisBuffer?.name?:"NA"
             returnArray['DilutionFactor'] = it.layoutSpot?.dilutionFactor?.dilutionFactor?:"NA"
