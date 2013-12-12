@@ -43,6 +43,10 @@ grails.project.dependency.resolution = {
         //xlxs file support
         compile (group:'org.apache.poi', name:'poi-ooxml', version:'3.9')
 
+        //jackson JSON parser
+        compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
+        compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+
         //database
         runtime "net.sourceforge.jtds:jtds:1.3.1" //MS-SQL
         // runtime 'mysql:mysql-connector-java:5.1.16'
