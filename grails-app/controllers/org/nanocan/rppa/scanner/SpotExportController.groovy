@@ -3,6 +3,7 @@ package org.nanocan.rppa.scanner
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 import org.codehaus.jackson.map.ObjectMapper
+import org.hibernate.criterion.CriteriaSpecification
 import org.json.simple.JSONArray
 import org.nanocan.layout.LayoutSpot
 
@@ -32,41 +33,37 @@ class SpotExportController {
         return(true)
     }
 
-    def exportAsJSON = {
-        def start = System.currentTimeMillis()
+    def exportMetaDataAsJSON = {
         def slideInstance = Slide.get(params.id)
 
-/*
-        returnArray['FG'] = it.FG
-        returnArray['BG'] = it.BG
-        returnArray['Signal'] = it.signal
-        returnArray['Block'] = it.block
-        returnArray['Row'] = it.row
-        returnArray['Column'] = it.col
-        returnArray['SampleName'] = it.layoutSpot?.sample?.name?:"NA"
-        returnArray['SampleType'] = it.layoutSpot?.sample?.type?:"NA"
-        returnArray['TargetGene'] = it.layoutSpot?.sample?.target?:"NA"
-        returnArray['CellLine'] = it.layoutSpot?.cellLine?.name?:"NA"
-        returnArray['LysisBuffer'] = it.layoutSpot?.lysisBuffer?.name?:"NA"
-        returnArray['DilutionFactor'] = it.layoutSpot?.dilutionFactor?.dilutionFactor?:"NA"
-        returnArray['Inducer'] = it.layoutSpot?.inducer?.name?:"NA"
-        returnArray['Treatment'] = it.layoutSpot?.treatment?.name?:"NA"
-        returnArray['SpotType'] = it.layoutSpot?.spotType?.name?:"NA"
-        returnArray['SpotClass'] = it.layoutSpot?.spotType?.type?:"NA"
-        returnArray['NumberOfCellsSeeded'] = it.layoutSpot?.numberOfCellsSeeded?.name?:"NA"
-        returnArray['Replicate'] = it.layoutSpot?.replicate?:"NA"
-        returnArray['PlateRow'] = it.layoutSpot?.wellLayout?.row?:"NA"
-        returnArray['PlateCol'] = it.layoutSpot?.wellLayout?.col?:"NA"
-        returnArray['PlateLayout'] = it.layoutSpot?.wellLayout?.plateLayout?.id?:"NA"
-        returnArray['Flag'] = it.flag
-        returnArray['Diameter'] = it.diameter*/
+        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+            def meta = ["id", "Signal", "Block", "Row", "Column", "FG", "BG", "Flag", "Diameter",
+                "SampleName", "SampleType", "TargetGene", "CellLine", "LysisBuffer", "DilutionFactor",
+                "Inducer", "Treatment", "SpotType", "SpotClass", "NumberOfCellsSeeded", "Replicate", "PlateRow", "PlateCol", "PlateLayout"]
+            render meta as JSON
+        }
+        else{
+            render status: 403
+        }
+    }
+
+    def exportAsJSON = {
+        def slideInstance = Slide.get(params.id)
 
         if(accessAllowed(params.securityToken, slideInstance.uuid)){
-            //def spots = slideInstance.spots
-
             def criteria = Spot.createCriteria()
             def result = criteria.list {
                 eq("slide.id", params.long("id"))
+                createAlias('layoutSpot', 'lSpot', CriteriaSpecification.LEFT_JOIN)
+                createAlias('lSpot.sample', 'smpl', CriteriaSpecification.LEFT_JOIN)
+                createAlias('lSpot.cellLine', 'cline', CriteriaSpecification.LEFT_JOIN)
+                createAlias('lSpot.lysisBuffer', 'lbuffer', CriteriaSpecification.LEFT_JOIN)
+                createAlias('lSpot.dilutionFactor', 'dilfactor', CriteriaSpecification.LEFT_JOIN)
+                createAlias('lSpot.inducer', 'indcr', CriteriaSpecification.LEFT_JOIN)
+                createAlias('lSpot.treatment', 'trtmnt', CriteriaSpecification.LEFT_JOIN)
+                createAlias('lSpot.spotType', 'sptype', CriteriaSpecification.LEFT_JOIN)
+                createAlias('lSpot.numberOfCellsSeeded', 'numberOfCells', CriteriaSpecification.LEFT_JOIN)
+                createAlias('lSpot.wellLayout', 'well', CriteriaSpecification.LEFT_JOIN)
                 projections {
                     property "id"
                     property "signal"
@@ -77,77 +74,32 @@ class SpotExportController {
                     property "BG"
                     property "flag"
                     property "diameter"
-                    layoutSpot{
-                        sample{
-                            property "name"
-                            property "type"
-                            property "target"
-                        }
-                        cellLine{
-                            property "name"
-                        }
-                        lysisBuffer{
-                            property "name"
-                        }
-                        dilutionFactor{
-                            property "dilutionFactor"
-                        }
-                        inducer{
-                            property "name"
-                        }
-                        treatment{
-                            property "name"
-                        }
-                        spotType{
-                            property "name"
-                            property "type"
-                        }
-                        numberOfCellsSeeded{
-                            property "name"
-                        }
-                        property "replicate"
-                        wellLayout{
-                            property "row"
-                            property "col"
-                            property "plateLayout.id"
-                        }
-                    }
+                    property "smpl.name"
+                    property "smpl.type"
+                    property "smpl.target"
+                    property "cline.name"
+                    property "lbuffer.name"
+                    property "dilfactor.dilutionFactor"
+                    property "indcr.name"
+                    property "trtmnt.name"
+                    property "sptype.name"
+                    property "sptype.type"
+                    property "numberOfCells.name"
+                    property "lSpot.replicate"
+                    property "well.row"
+                    property "well.col"
+                    property "well.plateLayout.id"
                 }
                 order('block', 'asc')
                 order('row', 'desc')
                 order('col', 'asc')
             }
-            /*def spots = criteria.list {
-                eq("slide.id", params.long("id"))
-                createAlias("layoutSpot", "lspot")
-                order('block', 'asc')
-                order('row', 'desc')
-                order('col', 'asc')
-            } */
-
-            def end = System.currentTimeMillis()
-            println "dbtime: " + ((end - start) / 1000)
 
             ObjectMapper mapper = new ObjectMapper()
             def jsonResult = mapper.writeValueAsString(result)
 
-            //def result = spots.collect{ mapper.writeValueAsString(it) }
-
-            //println result
             response.contentType = "text/json"
             render jsonResult
-
-            /*
-            render(contentType: "text/json"){[
-                    meta: ["id", "Signal", "Block", "Row", "Column", "FG", "BG", "Flag", "Diameter",
-                            "SampleName", "SampleType", "TargetGene", "CellLine", "LysisBuffer", "DilutionFactor",
-                            "Inducer", "Treatment", "SpotType", "SpotClass", "NumberOfCellsSeeded", "Replicate", "PlateRow", "PlateCol", "PlateLayout"] as JSONArray,
-                    data: jsonResult,
-                    status : jsonResult ? "OK" : "Nothing present"
-            ]}*/
-
-            end = System.currentTimeMillis()
-            println "json parsing time: " + ((end - start) / 1000)
         }
         else{
             render status: 403
@@ -189,7 +141,11 @@ class SpotExportController {
             "Column": [type: "num"]
         ]]
 
-        render result as JSON
+        ObjectMapper mapper = new ObjectMapper()
+        def jsonResult = mapper.writeValueAsString(result)
+
+        response.contentType = "text/json"
+        render jsonResult
     }
 
     @Secured(['ROLE_USER'])
