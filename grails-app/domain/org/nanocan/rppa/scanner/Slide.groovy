@@ -49,6 +49,7 @@ class Slide{
     }
 
     static mapping = {
+        comments type:"text"
         spots cascade: "all-delete-orphan"
         blockShifts cascade:  "all-delete-orphan"
     }
