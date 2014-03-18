@@ -33,10 +33,9 @@
         "height": "800",
         "layers": [
             {
-                "x": {"var":"bin(Column,1)"},
-                "y": {"var":"bin(Row,1)"},
+                "x": {"var":"Column"},
+                "y": {"var":"Row"},
                 "data": polyjsData,
-                "facet": null,
                 "color": "Signal",
                 "type": "tile",
                 "height":    800,
@@ -56,10 +55,12 @@
                 },
                 "guides": {
                     "x": {
-                        "title": "Column"
+                        "title": "Column",
+                        "bw": 1
                     },
                     "y": {
-                        "title": "Row"
+                        "title": "Row",
+                        "bw": 1
                     },
                     "color": {
                         "scale": {
