@@ -120,7 +120,7 @@ class SpotExportController {
                 property("col", "Column")
             }
             order('block', 'asc')
-            order('row', 'desc')
+            order('row', 'asc')
             order('col', 'asc')
         }
 

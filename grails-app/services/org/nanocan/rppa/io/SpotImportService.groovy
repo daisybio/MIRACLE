@@ -112,44 +112,50 @@ class SpotImportService {
         if (resultFileCfg) {
 
             for (String colName : header) {
-                def trimmedColName = colName
+                def trimmedColName = colName.toString().trim()
 
-                //remote leading and tailing quote
+                //remove leading and tailing quote
                 if (colName.startsWith("\"") && colName.endsWith("\""))
                     trimmedColName = colName.substring(1, colName.length() - 1);
 
-
-                switch (trimmedColName) {
-                    case resultFileCfg.blockCol:
-                        matchingMap.put(colName, "block")
+                switch (trimmedColName.toString()) {
+                    case resultFileCfg.blockCol.toString().trim():
+                        matchingMap.put(trimmedColName, "block")
                         break
-                    case resultFileCfg.rowCol:
-                        matchingMap.put(colName, "row")
+                    case resultFileCfg.mainColCol.toString().trim():
+                        matchingMap.put(trimmedColName, "mainCol")
                         break
-                    case resultFileCfg.columnCol:
-                        matchingMap.put(colName, "column")
+                    case resultFileCfg.mainRowCol.toString().trim():
+                        matchingMap.put(trimmedColName, "mainRow")
                         break
-                    case resultFileCfg.fgCol:
-                        matchingMap.put(colName, "FG")
+                    case resultFileCfg.rowCol.toString().trim():
+                        matchingMap.put(trimmedColName, "row")
                         break
-                    case resultFileCfg.bgCol:
-                        matchingMap.put(colName, "BG")
+                    case resultFileCfg.columnCol.toString().trim():
+                        matchingMap.put(trimmedColName, "column")
                         break
-                    case resultFileCfg.flagCol:
-                        matchingMap.put(colName, "flag")
+                    case resultFileCfg.fgCol.toString().trim():
+                        matchingMap.put(trimmedColName, "FG")
                         break
-                    case resultFileCfg.diameterCol:
-                        matchingMap.put(colName, "diameter")
+                    case resultFileCfg.bgCol.toString().trim():
+                        matchingMap.put(trimmedColName, "BG")
                         break
-                    case resultFileCfg.xCol:
-                        matchingMap.put(colName, "X")
+                    case resultFileCfg.flagCol.toString().trim():
+                        matchingMap.put(trimmedColName, "flag")
                         break
-                    case resultFileCfg.yCol:
-                        matchingMap.put(colName, "Y")
+                    case resultFileCfg.diameterCol.toString().trim():
+                        matchingMap.put(trimmedColName, "diameter")
+                        break
+                    case resultFileCfg.xCol.toString().trim():
+                        matchingMap.put(trimmedColName, "X")
+                        break
+                    case resultFileCfg.yCol.toString().trim():
+                        matchingMap.put(trimmedColName, "Y")
                         break
                 }
             }
         }
+
         matchingMap
     }
 
@@ -233,6 +239,10 @@ class SpotImportService {
         }
 
         def spots = []
+        def blocksPerRow = slideInstance.layout.blocksPerRow
+        def blockFromSubGrid = { subCol, subRow ->
+            ((subRow - 1) * blocksPerRow) + subCol
+        }
 
         while(scanner.hasNextLine())
         {
@@ -243,16 +253,22 @@ class SpotImportService {
             try
             {
                 def newSpot = [:]
-
-                newSpot.BG = Double.valueOf(currentLine[columnMap.BG])
-                newSpot.FG = Double.valueOf(currentLine[columnMap.FG])
-                newSpot.block = Integer.valueOf(currentLine[columnMap.block])
-                newSpot.row = Integer.valueOf(currentLine[columnMap.row])
-                newSpot.col = Integer.valueOf(currentLine[columnMap.column])
-                newSpot.x = (int) Double.valueOf(currentLine[columnMap.X])
-                newSpot.y = (int) Double.valueOf(currentLine[columnMap.Y])
-                newSpot.diameter = Double.valueOf(currentLine[columnMap.diameter] )
-                newSpot.flag = Double.valueOf(currentLine[columnMap.flag] )
+                newSpot.BG = Double.valueOf(currentLine[columnMap.BG].toString().trim())
+                newSpot.FG = Double.valueOf(currentLine[columnMap.FG].toString().trim())
+                if(!columnMap.block)
+                {
+                    newSpot.block = blockFromSubGrid(Integer.valueOf(currentLine[columnMap.mainCol].toString().trim()),
+                            Integer.valueOf(currentLine[columnMap.mainRow].toString().trim()))
+                }
+                else{
+                    newSpot.block = Integer.valueOf(currentLine[columnMap.block].toString().trim())
+                }
+                newSpot.row = Integer.valueOf(currentLine[columnMap.row].toString().trim())
+                newSpot.col = Integer.valueOf(currentLine[columnMap.column].toString().trim())
+                newSpot.x = (int) Double.valueOf(currentLine[columnMap.X].toString().trim())
+                newSpot.y = (int) Double.valueOf(currentLine[columnMap.Y].toString().trim())
+                newSpot.diameter = Double.valueOf(currentLine[columnMap.diameter].toString().trim())
+                newSpot.flag = Double.valueOf(currentLine[columnMap.flag].toString().trim())
 
                 spots << newSpot
 

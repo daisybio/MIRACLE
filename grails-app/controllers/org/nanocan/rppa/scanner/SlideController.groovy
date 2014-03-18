@@ -1,5 +1,6 @@
 package org.nanocan.rppa.scanner
 
+import org.nanocan.file.ResultFileConfig
 import org.springframework.dao.DataIntegrityViolationException
 
 import org.apache.commons.io.FilenameUtils
@@ -230,7 +231,7 @@ class SlideController {
         [slideInstance: slideInstance, configs: ResultFileConfig.list(), fileEnding: fileEnding, sheets: sheets]
     }
 
-    final ArrayList<String> spotProperties = ["block", "column", "row", "FG", "BG", "flag", "X", "Y", "diameter"]
+    final ArrayList<String> spotProperties = ["block", "mainCol", "mainRow", "column", "row", "FG", "BG", "flag", "X", "Y", "diameter"]
 
 
     def readInputFile(){
@@ -348,10 +349,38 @@ class SlideController {
         redirect(action: "show", id: params.id)
     }
 
+    def heatmapInIFrame(){
+        def slideInstance = Slide.get(params.long("id"))
+        def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
+        baseUrl = baseUrl.substring(0, baseUrl.size()-5)
+        def spotExportLink = java.net.URLEncoder.encode(baseUrl, "UTF-8")
+        def securityToken = java.net.URLEncoder.encode(securityTokenService.getSecurityToken(slideInstance), "UTF-8")
+
+        def heatmapUrl = grailsApplication.config.shiny.heatmap + "?baseUrl=" + spotExportLink + "&securityToken=" + securityToken
+
+        render """
+            <iframe style="width: 700px; height: 900px;" frameBorder="0" src="${heatmapUrl}"/>
+        """
+    }
+
     def heatmap() {
-        def layout = Slide.get(params.id).layout
-        def blockRows = layout.numberOfBlocks.intValue().intdiv(layout.blocksPerRow.intValue())
-        [slideId: params.id, blockRows: blockRows]
+        def slideInstance = Slide.get(params.long("id"))
+
+        if(params.shiny)
+        {
+            def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
+            baseUrl = baseUrl.substring(0, baseUrl.size()-5)
+            def spotExportLink = java.net.URLEncoder.encode(baseUrl, "UTF-8")
+            def securityToken = java.net.URLEncoder.encode(securityTokenService.getSecurityToken(slideInstance), "UTF-8")
+
+            def heatmapUrl = grailsApplication.config.shiny.heatmap + "?baseUrl=" + spotExportLink + "&securityToken=" + securityToken
+            redirect(url: heatmapUrl)
+        }
+        else{
+            def layout = slideInstance.layout
+            def blockRows = layout.numberOfBlocks.intValue().intdiv(layout.blocksPerRow.intValue())
+            [slideId: params.id, blockRows: blockRows]
+        }
     }
 
     def analysis(){
