@@ -6,9 +6,7 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 grails.project.war.file = "target/${appName}.war"
 
-
 grails.plugin.location.Rconnect = "../Rconnect/"
-grails.plugin.location.OpenSeaDragon = "../OpenSeadragon/"
 grails.plugin.location.HtsBackend = "../HtsBackend/"
 
 grails.project.dependency.resolution = {
@@ -28,7 +26,7 @@ grails.project.dependency.resolution = {
         mavenCentral()
         // uncomment these to enable remote dependency resolution from public Maven repositories
         //mavenCentral()
-        //mavenLocal()
+        mavenLocal()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
@@ -53,6 +51,8 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
+        compile ":open-seadragon:0.2"
+
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.7.1"
         runtime ":resources:1.2.1"

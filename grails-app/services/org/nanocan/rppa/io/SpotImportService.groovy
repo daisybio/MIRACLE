@@ -112,45 +112,45 @@ class SpotImportService {
         if (resultFileCfg) {
 
             for (String colName : header) {
-                def trimmedColName = colName.toString().trim()
+                String trimmedColName = colName.toString().trim()
 
                 //remove leading and tailing quote
                 if (colName.startsWith("\"") && colName.endsWith("\""))
-                    trimmedColName = colName.substring(1, colName.length() - 1);
+                    trimmedColName = colName.substring(1, colName.length() - 1)
 
-                switch (trimmedColName.toString()) {
+                switch (trimmedColName) {
                     case resultFileCfg.blockCol.toString().trim():
-                        matchingMap.put(trimmedColName, "block")
+                        matchingMap.put(colName, "block")
                         break
                     case resultFileCfg.mainColCol.toString().trim():
-                        matchingMap.put(trimmedColName, "mainCol")
+                        matchingMap.put(colName, "mainCol")
                         break
                     case resultFileCfg.mainRowCol.toString().trim():
-                        matchingMap.put(trimmedColName, "mainRow")
+                        matchingMap.put(colName, "mainRow")
                         break
                     case resultFileCfg.rowCol.toString().trim():
-                        matchingMap.put(trimmedColName, "row")
+                        matchingMap.put(colName, "row")
                         break
                     case resultFileCfg.columnCol.toString().trim():
-                        matchingMap.put(trimmedColName, "column")
+                        matchingMap.put(colName, "column")
                         break
                     case resultFileCfg.fgCol.toString().trim():
-                        matchingMap.put(trimmedColName, "FG")
+                        matchingMap.put(colName, "FG")
                         break
                     case resultFileCfg.bgCol.toString().trim():
-                        matchingMap.put(trimmedColName, "BG")
+                        matchingMap.put(colName, "BG")
                         break
                     case resultFileCfg.flagCol.toString().trim():
-                        matchingMap.put(trimmedColName, "flag")
+                        matchingMap.put(colName, "flag")
                         break
                     case resultFileCfg.diameterCol.toString().trim():
-                        matchingMap.put(trimmedColName, "diameter")
+                        matchingMap.put(colName, "diameter")
                         break
                     case resultFileCfg.xCol.toString().trim():
-                        matchingMap.put(trimmedColName, "X")
+                        matchingMap.put(colName, "X")
                         break
                     case resultFileCfg.yCol.toString().trim():
-                        matchingMap.put(trimmedColName, "Y")
+                        matchingMap.put(colName, "Y")
                         break
                 }
             }
@@ -165,7 +165,7 @@ class SpotImportService {
     def deleteSpots (slideInstanceId) {
 
         //config
-        def groovySql = grailsApplication?.config?.rppa?.jdbc?.groovySql?.toString()?.toBoolean()?:true
+        def groovySql = grailsApplication?.config?.jdbc?.groovySql?.toString()?.toBoolean()?:true
 
         if(groovySql)
         {
@@ -255,7 +255,7 @@ class SpotImportService {
                 def newSpot = [:]
                 newSpot.BG = Double.valueOf(currentLine[columnMap.BG].toString().trim())
                 newSpot.FG = Double.valueOf(currentLine[columnMap.FG].toString().trim())
-                if(!columnMap.block)
+                if(columnMap.block == null)
                 {
                     newSpot.block = blockFromSubGrid(Integer.valueOf(currentLine[columnMap.mainCol].toString().trim()),
                             Integer.valueOf(currentLine[columnMap.mainRow].toString().trim()))
@@ -314,8 +314,8 @@ class SpotImportService {
     //use hibernate batch with prepared statements for max performance
     def performSqlBatchInsert(sql, spots, slideInstance, progressId){
         //config
-        def groovySql = grailsApplication.config.rppa.jdbc.groovySql.toString().toBoolean()
-        def batchSize = grailsApplication.config.rppa.jdbc.batchSize?:150
+        def groovySql = grailsApplication.config.jdbc.groovySql.toString().toBoolean()
+        def batchSize = grailsApplication.config.jdbc.batchSize?:150
 
         //extract deposition pattern from layout
         def depositionList = depositionService.parseDepositions(slideInstance.layout.depositionPattern)

@@ -38,26 +38,26 @@
             <div class="message">You can spot a plate layout multiple times. Just drag it to the selection list several times.</div>
 
         </div>
-        <h3><a href="#">Select plate layouts for new slide layout</a></h3>
+        <h3><a href="#">Select plates for new slide layout</a></h3>
         <div>
 
             <g:form>
-                <g:hiddenField id="plateLayoutOrder" name="plateLayoutOrder" value=""/>
+                <g:hiddenField id="plateOrder" name="plateOrder" value=""/>
 
                 <div class="buttons">
-                    <g:submitButton name="refresh" value="Refresh plate layouts"/>
+                    <g:submitButton name="refresh" value="Refresh plates"/>
                     <g:submitButton
                             value="Continue"
-                            name="plateLayoutsOrdered"
+                            name="platesOrdered"
                             onclick="
-                    var plateLayoutOrder = jQuery('#selectedPlates').sortable('serialize');
-                    jQuery('#plateLayoutOrder').attr('value', plateLayoutOrder);
+                    var plateOrder = jQuery('#selectedPlates').sortable('serialize');
+                    jQuery('#plateOrder').attr('value', plateOrder);
                 "
                     />
                 </div>
             </g:form>
             <div id="plateSelect">
-                <g:render template="plateLayoutSorting"/>
+                <g:render template="plateSorting"/>
             </div>
         </div>
     </div>

@@ -63,15 +63,15 @@
                 <li><g:link class="list" controller="spotExport" action="exportAsCSV" id="${slideInstance?.id}">Export CSV</g:link></li>
                 <li><g:link class="list" controller="spotExport" action="createUrlForR" id="${slideInstance?.id}">Export to R</g:link></li>
                 <g:if test="${slideInstance.spots.size() > 0}">
-                    <li>
+                    <!--<li>
                         <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"slide", action:"heatmap", id:slideInstance.id, params:[shiny:false])}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">JS Heatmap</a>
-                    </li>
+                    </li>-->
                     <li>
-                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"slide", action:"heatmap", id:slideInstance.id, params:[shiny:true])}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">Shiny Heatmap</a>
+                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"slide", action:"heatmap", id:slideInstance.id, params:[shiny:true])}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">Heatmap</a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="#" class="plot" onclick="window.open('${g.createLink(controller:"slide", action:"analysis", id:slideInstance.id)}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">Shiny Analysis</a>
-                    </li>
+                    </li>-->
                 </g:if>
                 </ul>
             </div>

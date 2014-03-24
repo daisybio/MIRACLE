@@ -21,11 +21,11 @@ class SpotExportController {
         [slideInstanceId: params.id, separatorMap: separatorMap, slideProperties: csvHeader]
     }
 
-    private def accessAllowed = { securityToken, uuid ->
+    private def accessAllowed = { securityToken, slideInstance ->
         //check if user is authenticated
         if(!springSecurityService.isLoggedIn()){
             //alternatively check if a security token is provided
-            if(!securityToken || securityToken != uuid){
+            if(!securityToken || securityToken != securityTokenService.getSecurityToken(slideInstance)){
                 return(false)
             }
 
@@ -36,9 +36,9 @@ class SpotExportController {
     def exportMetaDataAsJSON = {
         def slideInstance = Slide.get(params.id)
 
-        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+        if(accessAllowed(params.securityToken, slideInstance)){
             def meta = ["id", "Signal", "Block", "Row", "Column", "FG", "BG", "Flag", "Diameter",
-                "SampleName", "SampleType", "TargetGene", "CellLine", "LysisBuffer", "DilutionFactor",
+                "SampleName", "SampleType", "TargetGene", "SampleGroupA", "SGADesc", "SampleGroupB", "SGBDesc", "SampleGroupC", "SGCDesc", "CellLine", "LysisBuffer", "DilutionFactor",
                 "Inducer", "Treatment", "SpotType", "SpotClass", "NumberOfCellsSeeded", "Replicate", "PlateRow", "PlateCol", "PlateLayout"]
             render meta as JSON
         }
@@ -50,7 +50,7 @@ class SpotExportController {
     def exportAsJSON = {
         def slideInstance = Slide.get(params.id)
 
-        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+        if(accessAllowed(params.securityToken, slideInstance)){
             def criteria = Spot.createCriteria()
             def result = criteria.list {
                 eq("slide.id", params.long("id"))
@@ -77,6 +77,12 @@ class SpotExportController {
                     property "smpl.name"
                     property "smpl.type"
                     property "smpl.target"
+                    property "smpl.sampleGroupA"
+                    property "smpl.sampleGroupADescription"
+                    property "smpl.sampleGroupB"
+                    property "smpl.sampleGroupBDescription"
+                    property "smpl.sampleGroupC"
+                    property "smpl.sampleGroupCDescription"
                     property "cline.name"
                     property "lbuffer.name"
                     property "dilfactor.dilutionFactor"
@@ -179,7 +185,7 @@ SpotType: ${layout.spotType}
     def exportShiftsAsJSON = {
         def slideInstance = Slide.get(params.id)
 
-        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+        if(accessAllowed(params.securityToken, slideInstance)){
             def shifts = BlockShift.findAllBySlide(slideInstance)
 
             render shifts as JSON
@@ -192,7 +198,7 @@ SpotType: ${layout.spotType}
     def getDepositionPattern = {
         def slideInstance = Slide.get(params.id)
 
-        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+        if(accessAllowed(params.securityToken, slideInstance)){
             render slideInstance.layout.depositionPattern
         }
         else{
@@ -203,7 +209,7 @@ SpotType: ${layout.spotType}
     def getBlocksPerRow = {
         def slideInstance = Slide.get(params.id)
 
-        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+        if(accessAllowed(params.securityToken, slideInstance)){
             render slideInstance.layout.blocksPerRow
         }
         else{
@@ -214,8 +220,19 @@ SpotType: ${layout.spotType}
     def getTitle = {
         def slideInstance = Slide.get(params.id)
 
-        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+        if(accessAllowed(params.securityToken, slideInstance)){
             render slideInstance.title
+        }
+        else{
+            render status: 403
+        }
+    }
+
+    def getPMT = {
+        def slideInstance = Slide.get(params.id)
+
+        if(accessAllowed(params.securityToken, slideInstance)){
+            render slideInstance.photoMultiplierTube
         }
         else{
             render status: 403
@@ -229,7 +246,7 @@ SpotType: ${layout.spotType}
     def getAntibody = {
         def slideInstance = Slide.get(params.id)
 
-        if(accessAllowed(params.securityToken, slideInstance.uuid)){
+        if(accessAllowed(params.securityToken, slideInstance)){
             render slideInstance.antibody.toString()
         }
         else{
