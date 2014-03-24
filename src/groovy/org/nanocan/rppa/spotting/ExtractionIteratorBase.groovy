@@ -14,17 +14,17 @@ class ExtractionIteratorBase {
     def currentExtractionColumn
     def extractorRows
     def extractorCols
-    def plateLayout
+    def plate
 
     ExtractionIteratorBase(Map map){
 
         this.extractorCols = map.extractorCols?:12
         this.extractorRows = map.extractorRows?:4
-        this.plateLayout = map.plateLayout
+        this.plate = map.plate
 
         //calculate number of extraction rows and columns
-        extractionColumns = plateLayout.cols / extractorCols
-        extractionRows = plateLayout.rows / extractorRows
+        extractionColumns = plate.cols / extractorCols
+        extractionRows = plate.rows / extractorRows
 
         //set initial values
         currentExtractionColumn = 1
@@ -32,7 +32,7 @@ class ExtractionIteratorBase {
     }
 
     def extract(int currentExtractionColumn, int currentExtractionRow){
-        if(!plateLayout) return null
+        if(!plate) return null
         if(currentExtractionColumn > extractionColumns || currentExtractionRow > extractionRows) return null
 
         def startColumn = ((currentExtractionColumn - 1) * extractorCols) + 1
@@ -44,14 +44,14 @@ class ExtractionIteratorBase {
         def extraction
 
 
-        extraction = org.nanocan.rppa.layout.WellLayout.withCriteria{
+        extraction = org.nanocan.layout.WellLayout.withCriteria{
             plateLayout{
-                eq("id", plateLayout.id)
+                eq("id", plate.plateLayout.id)
             }
             between("row", startRow, endRow)
             between("col", startColumn, endColumn)
         }
 
-        return(extraction)
+        return([extraction, plate.replicate, plate.id])
     }
 }

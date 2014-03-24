@@ -24,7 +24,6 @@ abstract class Spotter {
     def matchingMaps
     def defaultSpotType
     def defaultLysisBuffer
-    def replicateCounter = 0
 
     Spotter(Map map)
     {
@@ -40,11 +39,13 @@ abstract class Spotter {
 
     def spot384(def extraction) {
 
-        def extractionSorted = sortExtraction(extraction)
+        def wells = extraction[0]
+        int replicate = extraction[1]
+        def plate = extraction[2]
+        def extractionSorted = sortExtraction(wells)
 
         extractionSorted.each{
-            createLayoutSpot(it, replicateCounter.toString(), null, it.row, it.col)
-            replicateCounter++
+            createLayoutSpot(it, replicate, null, it.row, it.col, plate)
         }
 
         nextSpot()
@@ -59,19 +60,22 @@ abstract class Spotter {
         def parseRow = {row -> 1 + (row - 1) * 2}
         def parseColumn = {col -> 1 + (col - 1) * 2}
 
-        def extractionSorted = sortExtraction(extraction)
+        def wells = extraction[0]
+        int replicate = extraction[1]
+        int plate = extraction[2]
+
+        def extractionSorted = sortExtraction(wells)
 
         extractionSorted.each {
 
             def row = parseRow(it.row)
             def col = parseColumn(it.col)
-            int replicate = this.replicateCounter++
 
             for(int subCol in 0..1)
             {
                 for(int subRow in 0..1)
                 {
-                    createLayoutSpot(it, replicate.toString(), dilutionPattern[subRow][subCol], (row + subRow), (col + subCol))
+                    createLayoutSpot(it, replicate.toString(), dilutionPattern[subRow][subCol], (row + subRow), (col + subCol), plate)
                 }
             }
         }
@@ -101,7 +105,7 @@ abstract class Spotter {
         (((modRow - 1) * maxExtractorColumns) + modCol)
     }
 
-    def createLayoutSpot(wellLayout, replicate, dilutionFactor, row, column){
+    def createLayoutSpot(wellLayout, replicate, dilutionFactor, row, column, plate){
 
         if (isFull()) throw new Exception("Layout is full. Can not add ${wellLayout}.")
 
@@ -130,7 +134,8 @@ abstract class Spotter {
 
         def newLayoutSpot = new LayoutSpot(wellLayout: wellLayoutMiracle, replicate: replicate, block: calculateBlockFromRowAndCol(row, column),
                 cellLine: props.cellLine, dilutionFactor: dilutionFactor, col: currentSpottingColumn, row: currentSpottingRow, inducer: props.inducer,
-                lysisBuffer: defaultLysisBuffer, treatment: props.treatment, numberOfCellsSeeded: props.numberOfCellsSeeded, spotType: props.spotType?:defaultSpotType, sample: props.sample, layout: slideLayout)
+                lysisBuffer: defaultLysisBuffer, treatment: props.treatment, numberOfCellsSeeded: props.numberOfCellsSeeded,
+                spotType: props.spotType?:defaultSpotType, sample: props.sample, layout: slideLayout, plateId: plate)
 
         slideLayout.addToSampleSpots(newLayoutSpot)
     }

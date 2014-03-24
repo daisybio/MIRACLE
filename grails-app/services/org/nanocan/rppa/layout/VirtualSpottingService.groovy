@@ -1,5 +1,7 @@
 package org.nanocan.rppa.layout
 
+import org.nanocan.layout.ExtractionHead
+import org.nanocan.plates.Plate
 import org.nanocan.rppa.spotting.LeftToRightSpotter
 import org.nanocan.rppa.spotting.TopToBottomSpotter
 import org.nanocan.rppa.spotting.ExtractionRowWiseIterator
@@ -47,6 +49,11 @@ class VirtualSpottingService {
         def totalExtractions = settings.extractionCount
         def currentExtraction = 0
 
+        //extraction head
+        ExtractionHead extractor = ExtractionHead.get(settings.extractionHead)
+        int extractorRows = extractor.extractorRows
+        int extractorCols = extractor.extractorColumns
+
         //iterate over plates
         settings.selectedLayouts.eachWithIndex{ obj, i ->
 
@@ -54,15 +61,14 @@ class VirtualSpottingService {
 
             //iterate over extractions
             def iterator
-            int extractorRows = 4
-            int extractorCols = 12
 
-            def plateLayout = settings.layouts[obj]
-            log.debug "Found plate layout ${plateLayout}"
+            Plate plate = settings.layouts[obj]
+
+            log.debug "Found plate ${plate}"
 
             //if we use a 384 well plate we can use the default options (48 pins), but in case of 96 well plates
             // we need to reduce the size of the virtual extraction head. We regain the lost pins by adding a dilution pattern during spotting with spot96as384.
-            if(plateLayout.format == "96-well")
+            if(plate.format == "96-well" && settings.transformToThreeEightyFour)
             {
                 log.debug "Plate type is 96 well, adjusting extraction head"
                 extractorRows = extractorRows / 2
@@ -70,8 +76,8 @@ class VirtualSpottingService {
             }
 
             //extract row- or column-wise
-            if(settings.extractorOperationMode == "row-wise") iterator = new ExtractionRowWiseIterator(plateLayout: plateLayout, extractorCols: extractorCols, extractorRows: extractorRows)
-            else if(settings.extractorOperationMode =="column-wise") iterator = new ExtractionColumnWiseIterator(plateLayout: plateLayout, extractorCols: extractorCols, extractorRows: extractorRows)
+            if(settings.extractorOperationMode == "row-wise") iterator = new ExtractionRowWiseIterator(plate: plate, extractorCols: extractorCols, extractorRows: extractorRows)
+            else if(settings.extractorOperationMode =="column-wise") iterator = new ExtractionColumnWiseIterator(plate: plate, extractorCols: extractorCols, extractorRows: extractorRows)
 
             log.debug "iterator created for ${settings.extractorOperationMode}: ${iterator}"
             int extractionIndex = -1
@@ -81,24 +87,28 @@ class VirtualSpottingService {
                 //update progress bar
                 progressService.setProgressBarValue(settings.progressId, (((currentExtraction++) / totalExtractions) * 100))
 
-                log.debug "iteration plate layout ${plateLayout}"
+                log.debug "iteration plate ${plate}"
                 extractionIndex++
                 log.debug settings.extractions.get((i+1).toString())
                 log.debug settings.extractions[(i+1).toString()].get(extractionIndex)
 
                 if(settings.extractions[(i+1).toString()].get(extractionIndex) == true){
-                    log.debug "skipping extraction ${extractionIndex} of plate layout ${plateLayout}"
+                    log.debug "skipping extraction ${extractionIndex} of plate ${plate}"
                     iterator.next()
                     continue
                 }
 
                 //spot current extraction on virtual slide
-                if(plateLayout.format == "96-well")  {
-                    log.debug "adding 96-well plate layout to slide layout as 384 diluted."
+                if(plate.format == "96-well" && settings.transformToThreeEightyFour)  {
+                    log.debug "adding 96-well plate to slide layout as 384 diluted."
                     spotter.spot96as384(iterator.next(), dilutionPattern)
                 }
-                else if(plateLayout.format == "384-well"){
-                    log.debug "adding 384-well plate layout."
+                else if(plate.format == "96-well"){
+                    log.debug "adding 96-well plate"
+                    spotter.spot384(iterator.next())
+                }
+                else if(plate.format == "384-well"){
+                    log.debug "adding 384-well plate."
                     spotter.spot384(iterator.next())
                 }
                 else{
@@ -106,14 +116,14 @@ class VirtualSpottingService {
                     break;
                 }
             }
-            log.debug "done with plate layout ${plateLayout}."
+            log.debug "done with plate ${plate}."
         }
 
         def slideLayout = spotter.slideLayout
-        slideLayout.blocksPerRow = 12
+        slideLayout.blocksPerRow = extractorRows
         slideLayout.columnsPerBlock = settings.xPerBlock
         slideLayout.depositionPattern = settings.depositionPattern
-        slideLayout.numberOfBlocks = 48
+        slideLayout.numberOfBlocks = extractorRows * extractorCols
         slideLayout.rowsPerBlock = spotter.currentSpottingRow
         if(spotter instanceof LeftToRightSpotter && !spotter.currentSpottingRowUsed) slideLayout.rowsPerBlock--
         slideLayout.title = settings.title

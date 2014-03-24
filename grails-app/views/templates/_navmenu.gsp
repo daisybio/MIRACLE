@@ -34,6 +34,24 @@
         </li>
     </ul>
 </li>
+<li class="dropdown" id="plate.menu">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#plate.menu">
+        <g:message code="default.plate.label" args="['...']" default="Plate"/>
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li>
+            <g:link class="list" controller="plate" action="list">List Plates</g:link>
+        </li>
+        <li>
+            <g:link class="create" controller="plate" action="create">Create New Plate</g:link>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <g:link class="create" controller="plateType" action="list">Plate Types</g:link>
+        </li>
+    </ul>
+</li>
 <li class="dropdown" id="browse.menu">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#browse.menu">
         <g:message code="default.slideLayout.menu.label" args="['...']" default="Slide Layout"/>
@@ -47,7 +65,13 @@
             <g:link class="create" controller="slideLayout" action="create">Create New Layout</g:link>
         </li>
         <li>
-            <g:link class="create" controller="spotting" action="index">Create Slide Layout from Plate Layouts</g:link>
+            <g:link class="create" controller="spotting" action="index">Create Slide Layout from Plates</g:link>
+        </li>
+        <li>
+            <g:link class="create" controller="slideLayout" action="createFromFile">Create Slide Layout from File</g:link>
+        </li>
+        <li>
+            <g:link class="list" controller="extractionHead" action="list">Extraction Heads</g:link>
         </li>
         <li class="divider"></li>
         <li>
@@ -78,7 +102,7 @@
 </li>
 <li class="dropdown" id="organize.menu">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#organize.menu">
-        <g:message code="default.slide.menu.label" default="Slide Data"/>
+        <g:message code="default.slide.menu.label" default="Slide"/>
         <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
@@ -122,5 +146,19 @@
     </ul>
 </li>
 <li class="divider-vertical"></li>
+<li>
+    <g:if test="${controllerName == 'slideLayout' && actionName == 'show'}">
+        <g:link class="plot" controller="analysis" action="start" params="${['slideLayout': slideLayoutInstance.id]}">Batch Analysis</g:link>
+    </g:if>
+
+    <g:else>
+        <g:if test="${controllerName == 'slide' && actionName == 'show'}">
+            <g:link class="plot" controller="analysis" action="start" params="${['slideLayout': slideInstance.layout.id]}">Batch Analysis</g:link>
+        </g:if>
+        <g:else>
+            <g:link class="plot" controller="analysis" action="start">Data Analysis</g:link>
+        </g:else>
+    </g:else>
+</li>
 </ul>
 <ul class="nav nav-pills">

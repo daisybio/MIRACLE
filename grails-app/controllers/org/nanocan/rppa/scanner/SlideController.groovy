@@ -311,7 +311,6 @@ class SlideController {
             progressService.setProgressBarValue(progressId, 100)
             return
         }
-
         def result = spotImportService.processResultFile(slideInstance, flash.sheetContent, columnMap, flash.totalSkipLines, progressId)
 
         progressService.setProgressBarValue(progressId, 100)
