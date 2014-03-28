@@ -1,3 +1,4 @@
+import grails.util.Environment
 import org.nanocan.file.ResultFile
 import org.nanocan.file.ResultFileConfig
 import org.nanocan.rppa.scanner.Antibody
@@ -28,25 +29,22 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        switch (GrailsUtil.environment) {
-            case "development":
+        switch (Environment.current) {
+            case Environment.DEVELOPMENT:
 
                 initUserbase()
                 //initMIRACLE()
 
                 break
 
-            case "test":
+            case Environment.PRODUCTION:
                 initUserbase()
                 break
 
-            case "migrate":
+            case Environment.TEST:
                 initUserbase()
                 break
 
-            case "standalone":
-                initUserbase()
-                break
         }
 
         /* custom JSON output */
@@ -105,14 +103,21 @@ class BootStrap {
         def userRole = Role.findByAuthority("ROLE_USER")
         if(!userRole) userRole= new Role(authority: 'ROLE_USER').save(flush: true, failOnError: true)
 
-        if(!Person.findByUsername("user")){
-            def testUser = new Person(username: 'user', enabled: true, password: 'password')
+        if(!Person.findByUsername("demo")){
+            def testUser = new Person(username: 'demo', enabled: true, password: 'demo0815')
             testUser.save(flush: true, failOnError: true)
             PersonRole.create testUser, userRole, true
         }
 
         if(!Person.findByUsername("mlist")){
-            def adminUser = new Person(username: 'mlist', enabled: true, password: 'password')
+            def adminUser = new Person(username: 'mlist', enabled: true, password: 'NanoCAN')
+            adminUser.save(flush: true, failOnError: true)
+            PersonRole.create adminUser, adminRole, true
+            PersonRole.create adminUser, userRole, true
+        }
+
+        if(!Person.findByUsername("mlpedersen")){
+            def adminUser = new Person(username: 'mlpedersen', enabled: true, password: 'NanoCAN')
             adminUser.save(flush: true, failOnError: true)
             PersonRole.create adminUser, adminRole, true
             PersonRole.create adminUser, userRole, true
