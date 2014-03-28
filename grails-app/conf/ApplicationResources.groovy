@@ -23,4 +23,14 @@ modules = {
         resource url: 'js/bootstrap.js'
         resource url: 'css/bootstrap.css'
     }
+
+    polychart2 {
+        resource url: 'js/polychart2.standalone.js'
+    }
+
+    select2{
+        dependsOn 'jquery'
+        resource url: 'js/select2-3.4.5/select2.min.js'
+        resource url: 'js/select2-3.4.5/select2.css'
+    }
 }

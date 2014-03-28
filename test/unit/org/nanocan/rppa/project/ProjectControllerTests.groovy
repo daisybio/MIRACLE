@@ -1,9 +1,9 @@
 package org.nanocan.rppa.project
 
-
-
 import org.junit.*
 import grails.test.mixin.*
+import org.nanocan.project.Project
+import org.nanocan.project.ProjectController
 
 @TestFor(ProjectController)
 @Mock(Project)

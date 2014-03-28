@@ -24,19 +24,10 @@
 
     <h1>Block shift correction: </h1>
 
-    <div style="padding: 20px;">
+
+    <div style="float:left; width:200px; padding: 20px;">
     <p>Please enter shift correction values for each block.<br/>A block can be shifted horizontally
     (- : left, + : right) or vertically (- : up, + : down)</p><br/>
-
-
-    <div style="float:right; width: 600px;" id="heatmapArea">
-        Loading heatmap preview...
-        <img src="<g:resource dir="images" file="spinner.gif"/>"/>
-    </div>
-
-    <script type="text/javascript">
-        $(document).ready(function(){<g:remoteFunction update="heatmapArea" controller="r" action="plotHeatmap" id="${slideInstance?.id}"/>});
-    </script>
 
     <g:form action="saveBlockShiftPattern">
 
@@ -70,6 +61,12 @@
 
     <g:submitButton name="Save Block Shifts"/>
 </g:form>
-</div> </div>
+
+    </div>
+    <div style="float:right; height:700px;" id="heatmapArea">
+        <g:include controller='slide' action='heatmapInIFrame' id="${slideInstance?.id}"/>
+    </div>
+  </div>
+
 </body>
 </html>

@@ -249,6 +249,7 @@ input, select, textarea {
 	border: 1px solid #cccccc;
 	font-size: 1em;
 	padding: 0.2em 0.4em;
+    width: 40%;
 }
 
 select {

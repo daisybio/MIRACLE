@@ -2,9 +2,6 @@ package org.nanocan.rppa.io
 
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
-import org.hibernate.ScrollableResults
-import org.hibernate.ScrollMode
-import grails.converters.deep.JSON
 import org.nanocan.rppa.scanner.Slide
 import org.nanocan.rppa.scanner.Spot
 import org.nanocan.rppa.scanner.BlockShift

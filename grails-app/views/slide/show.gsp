@@ -63,12 +63,15 @@
                 <li><g:link class="list" controller="spotExport" action="exportAsCSV" id="${slideInstance?.id}">Export CSV</g:link></li>
                 <li><g:link class="list" controller="spotExport" action="createUrlForR" id="${slideInstance?.id}">Export to R</g:link></li>
                 <g:if test="${slideInstance.spots.size() > 0}">
+                    <!--<li>
+                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"slide", action:"heatmap", id:slideInstance.id, params:[shiny:false])}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">JS Heatmap</a>
+                    </li>-->
                     <li>
-                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"r", action:"heatmap", id:slideInstance.id)}', '_blank', 'height=900,width=900,toolbar=0,location=0,menubar=0');">Plot Heatmap</a>
+                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"slide", action:"heatmap", id:slideInstance.id, params:[shiny:true])}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">Heatmap</a>
                     </li>
-                    <li>
-                        <g:link class="plot" controller="r" action="proteinConcentration" id="${slideInstance?.id}">Protein Conc.</g:link>
-                    </li>
+                    <!--<li>
+                        <a href="#" class="plot" onclick="window.open('${g.createLink(controller:"slide", action:"analysis", id:slideInstance.id)}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">Shiny Analysis</a>
+                    </li>-->
                 </g:if>
                 </ul>
             </div>
@@ -181,6 +184,22 @@
                             </li>
                         </g:if>
 
+                        <g:if test="${slideInstance?.normalizeWith}">
+                            <li class="fieldcontain">
+                                <span id="normalizeWith-label" class="property-label"><g:message code="slideLayout.normalize.with.label" default="Slides used for normalization" /></span>
+
+                                <span class="property-value" aria-labelledby="experiments-label">
+                                    <ul class="property-list">
+                                        <g:each in="${slideInstance?.normalizeWith}">
+                                            <li>
+                                                <g:link controller="slide" action="show" id="${it.id}">${it.title}</g:link>
+                                            </li>
+                                        </g:each>
+                                    </ul>
+                                </span>
+                            </li>
+                        </g:if>
+
                         <g:if test="${slideInstance?.resultFile}">
                         <li class="fieldcontain">
                             <span id="resultFile-label" class="property-label"><g:message code="slide.resultFile.label" default="Result File" /></span>
@@ -229,6 +248,16 @@
                             dateCreated: slideInstance.dateCreated,
                             lastUpdated: slideInstance.lastUpdated,
                             lastUpdatedBy: slideInstance.lastUpdatedBy]"/>
+                </div>
+                <h3><a href="#">Other slides using this layout</a></h3>
+                <div>
+                    <ul>
+                        <g:each in="${Slide.findAllByLayout(slideInstance.layout) - slideInstance}" var="slide">
+                            <li>
+                                <g:link controller="slide" action="show" id="${slide.id}">${slide}</g:link>
+                            </li>
+                        </g:each>
+                    </ul>
                 </div>
             </div>
 

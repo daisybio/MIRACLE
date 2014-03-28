@@ -1,13 +1,13 @@
 package org.nanocan.rppa.scanner
 
+import org.nanocan.file.ResultFileConfig
 import org.springframework.dao.DataIntegrityViolationException
 
 import org.apache.commons.io.FilenameUtils
 import grails.plugins.springsecurity.Secured
-import org.nanocan.rppa.project.Experiment
-import org.hibernate.StaleObjectStateException
-import org.nanocan.rppa.project.Project
-import org.nanocan.rppa.layout.SlideLayout
+import org.nanocan.project.Experiment
+import org.nanocan.project.Project
+import org.nanocan.layout.SlideLayout
 
 @Secured(['ROLE_USER'])
 class SlideController {
@@ -23,6 +23,7 @@ class SlideController {
     def spotImportService
     def fileUploadService
     def progressService
+    def securityTokenService
 
     /**
      * Standard controller actions
@@ -230,7 +231,7 @@ class SlideController {
         [slideInstance: slideInstance, configs: ResultFileConfig.list(), fileEnding: fileEnding, sheets: sheets]
     }
 
-    final ArrayList<String> spotProperties = ["block", "column", "row", "FG", "BG", "flag", "X", "Y", "diameter"]
+    final ArrayList<String> spotProperties = ["block", "mainCol", "mainRow", "column", "row", "FG", "BG", "flag", "X", "Y", "diameter"]
 
 
     def readInputFile(){
@@ -310,7 +311,6 @@ class SlideController {
             progressService.setProgressBarValue(progressId, 100)
             return
         }
-
         def result = spotImportService.processResultFile(slideInstance, flash.sheetContent, columnMap, flash.totalSkipLines, progressId)
 
         progressService.setProgressBarValue(progressId, 100)
@@ -348,5 +348,57 @@ class SlideController {
         redirect(action: "show", id: params.id)
     }
 
+    def heatmapInIFrame(){
+        def slideInstance = Slide.get(params.long("id"))
+        def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
+        baseUrl = baseUrl.substring(0, baseUrl.size()-5)
+        def spotExportLink = java.net.URLEncoder.encode(baseUrl, "UTF-8")
+        def securityToken = java.net.URLEncoder.encode(securityTokenService.getSecurityToken(slideInstance), "UTF-8")
+
+        def heatmapUrl = grailsApplication.config.shiny.heatmap + "?baseUrl=" + spotExportLink + "&securityToken=" + securityToken
+
+        render """
+            <iframe style="width: 700px; height: 900px;" frameBorder="0" src="${heatmapUrl}"/>
+        """
+    }
+
+    def heatmap() {
+        def slideInstance = Slide.get(params.long("id"))
+
+        if(params.shiny)
+        {
+            def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
+            baseUrl = baseUrl.substring(0, baseUrl.size()-5)
+            def spotExportLink = java.net.URLEncoder.encode(baseUrl, "UTF-8")
+            def securityToken = java.net.URLEncoder.encode(securityTokenService.getSecurityToken(slideInstance), "UTF-8")
+
+            def heatmapUrl = grailsApplication.config.shiny.heatmap + "?baseUrl=" + spotExportLink + "&securityToken=" + securityToken
+            redirect(url: heatmapUrl)
+        }
+        else{
+            def layout = slideInstance.layout
+            def blockRows = layout.numberOfBlocks.intValue().intdiv(layout.blocksPerRow.intValue())
+            [slideId: params.id, blockRows: blockRows]
+        }
+    }
+
+    def analysis(){
+        def slideInstance = Slide.get(params.id)
+
+        def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
+        baseUrl = baseUrl.substring(0, baseUrl.size()-5)
+        def spotExportLink = java.net.URLEncoder.encode(baseUrl, "UTF-8")
+        def securityToken = java.net.URLEncoder.encode(securityTokenService.getSecurityToken(slideInstance), "UTF-8")
+
+
+        def normalizationSecurityTokens
+        if(slideInstance?.normalizeWith)
+        {
+            normalizationSecurityTokens = slideInstance.normalizeWith.collect{securityTokenService.getSecurityToken(it)}.join("|")
+        }
+
+        def analysisUrl = grailsApplication.config.shiny.single.analysis + "?baseUrl=" + spotExportLink + "&securityToken=" + securityToken + "&normalizationTokens=" + normalizationSecurityTokens
+        redirect(url: analysisUrl)
+    }
 
 }

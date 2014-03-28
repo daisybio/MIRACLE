@@ -8,7 +8,7 @@ import org.nanocan.rppa.layout.SlideLayout
 import org.nanocan.rppa.security.Person
 import org.nanocan.rppa.layout.LayoutSpot
 import org.nanocan.rppa.layout.PlateLayout
-import org.nanocan.savanah.extraction.ExtractionRowWiseIterator
+import org.nanocan.rppa.spotting.ExtractionRowWiseIterator
 import org.nanocan.rppa.layout.WellLayout
 
 /**
