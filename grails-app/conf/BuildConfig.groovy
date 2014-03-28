@@ -6,9 +6,8 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 grails.project.war.file = "target/${appName}.war"
 
-
 grails.plugin.location.Rconnect = "../Rconnect/"
-grails.plugin.location.OpenSeaDragon = "../OpenSeadragon/"
+grails.plugin.location.HtsBackend = "../HtsBackend/"
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -27,7 +26,7 @@ grails.project.dependency.resolution = {
         mavenCentral()
         // uncomment these to enable remote dependency resolution from public Maven repositories
         //mavenCentral()
-        //mavenLocal()
+        mavenLocal()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
@@ -42,11 +41,18 @@ grails.project.dependency.resolution = {
         //xlxs file support
         compile (group:'org.apache.poi', name:'poi-ooxml', version:'3.9')
 
+        //jackson JSON parser
+        compile 'org.codehaus.jackson:jackson-core-asl:1.9.13'
+        compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
 
+        //database
+        runtime "net.sourceforge.jtds:jtds:1.3.1" //MS-SQL
         // runtime 'mysql:mysql-connector-java:5.1.16'
     }
 
     plugins {
+        compile ":open-seadragon:0.2"
+
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.7.1"
         runtime ":resources:1.2.1"

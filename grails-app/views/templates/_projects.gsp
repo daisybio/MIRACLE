@@ -1,4 +1,4 @@
-<%@ page import="org.nanocan.rppa.project.Project" %>
+<%@ page import="org.nanocan.project.Project" %>
 <style>
 #draggableProjects { width:250px; padding: 0.5em; background-color: #ffffff; position: fixed;
     z-index: 10000; opacity: 0.95; top: 100px; right: 10px;

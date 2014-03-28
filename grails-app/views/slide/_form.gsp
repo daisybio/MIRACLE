@@ -1,4 +1,4 @@
-<%@ page import="org.nanocan.rppa.security.Person; org.nanocan.rppa.scanner.Antibody; org.nanocan.rppa.layout.SlideLayout; org.nanocan.rppa.scanner.Slide" %>
+<%@ page import="org.nanocan.security.Person; org.nanocan.rppa.scanner.Antibody; org.nanocan.layout.SlideLayout; org.nanocan.rppa.scanner.Slide" %>
 
 
 <head>
@@ -114,6 +114,15 @@
     </label>
     <g:select name="experimentsSelected" multiple="${true}" size="10" from="${experiments}" value="${selectedExperiments}" optionKey="id"/>
 </div>
+
+<g:if test="${slideInstance?.layout}">
+    <div class="fieldcontain">
+        <label for="normalizeWith">
+            <g:message code="slideLayout.normalize.with.label" default="Slides used for normalization" />
+        </label>
+        <g:select name="normalizeWith" multiple="${true}" size="10" from="${Slide.findAllByLayout(slideInstance?.layout) - slideInstance}" value="${slideInstance?.normalizeWith}" optionKey="id"/>
+    </div>
+</g:if>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'resultFile', 'error')} required">
 	<label for="resultFile">

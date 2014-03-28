@@ -1,21 +1,23 @@
+import grails.util.Environment
+import org.nanocan.file.ResultFile
+import org.nanocan.file.ResultFileConfig
 import org.nanocan.rppa.scanner.Antibody
-import org.nanocan.rppa.scanner.ResultFileConfig
 
 import org.nanocan.rppa.scanner.Slide
-import org.nanocan.rppa.scanner.ResultFile
-import org.nanocan.rppa.layout.SlideLayout
-import org.nanocan.rppa.layout.CellLine
-import org.nanocan.rppa.layout.LysisBuffer
-import org.nanocan.rppa.layout.Dilution
 
-import org.nanocan.rppa.layout.SpotType
-import org.nanocan.rppa.layout.Inducer
-import org.nanocan.rppa.rnai.Sample
+import org.nanocan.layout.SlideLayout
+import org.nanocan.layout.CellLine
+import org.nanocan.layout.LysisBuffer
+import org.nanocan.layout.Dilution
+
+import org.nanocan.layout.SpotType
+import org.nanocan.layout.Inducer
+import org.nanocan.layout.Sample
 import grails.util.GrailsUtil
-import org.nanocan.rppa.security.Role
-import org.nanocan.rppa.security.Person
-import org.nanocan.rppa.security.PersonRole
-import org.nanocan.rppa.project.Project
+import org.nanocan.security.Role
+import org.nanocan.security.Person
+import org.nanocan.security.PersonRole
+import org.nanocan.project.Project
 import grails.converters.JSON
 import org.nanocan.rppa.scanner.Spot
 import org.nanocan.rppa.scanner.BlockShift
@@ -23,34 +25,27 @@ import org.nanocan.rppa.scanner.BlockShift
 class BootStrap {
 
     def slideLayoutService
-    def depositionService
     def grailsApplication
 
     def init = { servletContext ->
 
-        switch (GrailsUtil.environment) {
-            case "development":
+        switch (Environment.current) {
+            case Environment.DEVELOPMENT:
 
                 initUserbase()
                 //initMIRACLE()
 
                 break
 
-            case "test":
+            case Environment.PRODUCTION:
                 initUserbase()
                 break
 
-            case "migrate":
+            case Environment.TEST:
                 initUserbase()
                 break
 
-            case "standalone":
-                initUserbase()
-                break
         }
-
-        String imagezoomFolder = grailsApplication.config.rppa.imagezoom.directory
-        new File(imagezoomFolder).mkdir()
 
         /* custom JSON output */
         JSON.registerObjectMarshaller(Spot) {
@@ -64,7 +59,7 @@ class BootStrap {
             returnArray['Column'] = it.col
             returnArray['SampleName'] = it.layoutSpot?.sample?.name?:"NA"
             returnArray['SampleType'] = it.layoutSpot?.sample?.type?:"NA"
-            returnArray['TargetGene'] = it.layoutSpot?.sample?.targetGene?:"NA"
+            returnArray['TargetGene'] = it.layoutSpot?.sample?.target?:"NA"
             returnArray['CellLine'] = it.layoutSpot?.cellLine?.name?:"NA"
             returnArray['LysisBuffer'] = it.layoutSpot?.lysisBuffer?.name?:"NA"
             returnArray['DilutionFactor'] = it.layoutSpot?.dilutionFactor?.dilutionFactor?:"NA"
@@ -108,14 +103,21 @@ class BootStrap {
         def userRole = Role.findByAuthority("ROLE_USER")
         if(!userRole) userRole= new Role(authority: 'ROLE_USER').save(flush: true, failOnError: true)
 
-        if(!Person.findByUsername("user")){
-            def testUser = new Person(username: 'user', enabled: true, password: 'password')
+        if(!Person.findByUsername("demo")){
+            def testUser = new Person(username: 'demo', enabled: true, password: 'demo0815')
             testUser.save(flush: true, failOnError: true)
             PersonRole.create testUser, userRole, true
         }
 
         if(!Person.findByUsername("mlist")){
-            def adminUser = new Person(username: 'mlist', enabled: true, password: 'password')
+            def adminUser = new Person(username: 'mlist', enabled: true, password: 'NanoCAN')
+            adminUser.save(flush: true, failOnError: true)
+            PersonRole.create adminUser, adminRole, true
+            PersonRole.create adminUser, userRole, true
+        }
+
+        if(!Person.findByUsername("mlpedersen")){
+            def adminUser = new Person(username: 'mlpedersen', enabled: true, password: 'NanoCAN')
             adminUser.save(flush: true, failOnError: true)
             PersonRole.create adminUser, adminRole, true
             PersonRole.create adminUser, userRole, true

@@ -14,7 +14,7 @@
                     ${col}
                 </td>
                 <td>
-                    <g:select name="column_${colCounter}" noSelection="['':'Do not use']" value="${matchingMap[col]}" from="${spotProperties}"/>
+                    <g:select name="column_${colCounter}" noSelection="['':'Do not use']" value="${matchingMap[col.toString().trim()]}" from="${spotProperties}"/>
                 </td>
             </tr>
             </g:if>

@@ -1,6 +1,7 @@
 package org.nanocan.rppa.scanner
 
 import grails.plugin.spock.UnitSpec
+import org.nanocan.file.ResultFile
 import spock.lang.Shared
 import org.nanocan.rppa.io.SpotImportService
 

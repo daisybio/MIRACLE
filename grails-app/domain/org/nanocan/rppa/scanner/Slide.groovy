@@ -1,7 +1,9 @@
 package org.nanocan.rppa.scanner
 
-import org.nanocan.rppa.layout.SlideLayout
-import org.nanocan.rppa.security.Person
+import org.nanocan.file.ResultFile
+import org.nanocan.file.ResultFileConfig
+import org.nanocan.layout.SlideLayout
+import org.nanocan.security.Person
 
 class Slide{
 
@@ -24,8 +26,9 @@ class Slide{
     String title
     String comments
     ResultFileConfig lastConfig
+    String uuid
 
-    static hasMany = [spots: Spot, blockShifts: BlockShift]
+    static hasMany = [spots: Spot, blockShifts: BlockShift, normalizeWith: Slide]
 
     Antibody antibody
 
@@ -35,6 +38,7 @@ class Slide{
     }
 
     static constraints = {
+         uuid nullable: true
          lastConfig nullable: true
          barcode nullable: true
          laserWavelength min: 1, max: 1000
@@ -45,6 +49,7 @@ class Slide{
     }
 
     static mapping = {
+        comments type:"text"
         spots cascade: "all-delete-orphan"
         blockShifts cascade:  "all-delete-orphan"
     }
