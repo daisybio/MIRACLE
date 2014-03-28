@@ -114,6 +114,8 @@ class SpottingController {
                 flow.topLeftDilution = params.topLeftDilution
                 flow.topRightDilution = params.topRightDilution
                 flow.bottomRightDilution = params.bottomRightDilution
+                flow.transformToThreeEightyFour = params.transformToThreeEightyFour
+
                 if(params.defaultLysisBuffer) flow.defaultLysisBuffer = LysisBuffer.get(params.defaultLysisBuffer)
                 if(params.defaultSpotType) flow.defaultSpotType = SpotType.get(params.defaultSpotType)
 
@@ -147,7 +149,6 @@ class SpottingController {
 
         spotPlates{
             action {
-                     println "here"
                 def slideLayout
                 //try{
                     slideLayout = virtualSpottingService.importPlates(flow)

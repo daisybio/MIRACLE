@@ -148,12 +148,12 @@
 <li class="divider-vertical"></li>
 <li>
     <g:if test="${controllerName == 'slideLayout' && actionName == 'show'}">
-        <g:link class="plot" controller="analysis" action="start" params="${['slideLayout': slideLayoutInstance.id]}">Batch Analysis</g:link>
+        <g:link class="plot" controller="analysis" action="start" params="${['slideLayout': slideLayoutInstance.id]}">Data Analysis</g:link>
     </g:if>
 
     <g:else>
         <g:if test="${controllerName == 'slide' && actionName == 'show'}">
-            <g:link class="plot" controller="analysis" action="start" params="${['slideLayout': slideInstance.layout.id]}">Batch Analysis</g:link>
+            <g:link class="plot" controller="analysis" action="start" params="${['slideLayout': slideInstance.layout.id]}">Data Analysis</g:link>
         </g:if>
         <g:else>
             <g:link class="plot" controller="analysis" action="start">Data Analysis</g:link>

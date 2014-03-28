@@ -51,11 +51,12 @@ class VirtualSpottingService {
 
         //extraction head
         ExtractionHead extractor = ExtractionHead.get(settings.extractionHead)
-        int extractorRows = extractor.extractorRows
-        int extractorCols = extractor.extractorColumns
 
         //iterate over plates
         settings.selectedLayouts.eachWithIndex{ obj, i ->
+
+            int extractorRows = extractor.extractorRows
+            int extractorCols = extractor.extractorColumns
 
             log.debug "iterating plate ${settings.layouts[obj]}"
 
@@ -120,13 +121,14 @@ class VirtualSpottingService {
         }
 
         def slideLayout = spotter.slideLayout
-        slideLayout.blocksPerRow = extractorRows
+        slideLayout.blocksPerRow = extractor.extractorColumns
         slideLayout.columnsPerBlock = settings.xPerBlock
         slideLayout.depositionPattern = settings.depositionPattern
-        slideLayout.numberOfBlocks = extractorRows * extractorCols
+        slideLayout.numberOfBlocks = extractor.extractorRows * extractor.extractorColumns
         slideLayout.rowsPerBlock = spotter.currentSpottingRow
         if(spotter instanceof LeftToRightSpotter && !spotter.currentSpottingRowUsed) slideLayout.rowsPerBlock--
         slideLayout.title = settings.title
+
 
         return(slideLayout)
     }
