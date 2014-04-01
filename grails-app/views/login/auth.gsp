@@ -92,8 +92,10 @@
 		<g:if test='${flash.message}'>
 			<div class='login_message'>${flash.message}</div>
 		</g:if>
+        <div class="message">User: 'demo', password: 'demo0815'</div>
 
-		<form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
+
+        <form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
 			<p>
 				<label for='username'><g:message code="springSecurity.login.username.label"/>:</label>
 				<input type='text' class='text_' name='j_username' id='username'/>

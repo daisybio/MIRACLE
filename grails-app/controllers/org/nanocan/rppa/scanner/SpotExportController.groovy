@@ -14,11 +14,15 @@ class SpotExportController {
     def springSecurityService
     def securityTokenService
 
+    def meta = ["id", "Signal", "Block", "Row", "Column", "FG", "BG", "Flag", "Diameter",
+                "SampleName", "SampleType", "TargetGene", "SampleGroupA", "SGADesc", "SampleGroupB", "SGBDesc", "SampleGroupC", "SGCDesc", "CellLine", "LysisBuffer", "DilutionFactor",
+                "Inducer", "Treatment", "SpotType", "SpotClass", "NumberOfCellsSeeded", "Replicate", "PlateRow", "PlateCol", "PlateLayout"]
+
     @Secured(['ROLE_USER'])
     def exportAsCSV = {
         def separatorMap = ["\t":"tab", ";":"semicolon", ",": "comma"]
 
-        [slideInstanceId: params.id, separatorMap: separatorMap, slideProperties: csvHeader]
+        [slideInstanceId: params.id, separatorMap: separatorMap]
     }
 
     private def accessAllowed = { securityToken, slideInstance ->
@@ -33,13 +37,12 @@ class SpotExportController {
         return(true)
     }
 
+
     def exportMetaDataAsJSON = {
         def slideInstance = Slide.get(params.id)
 
         if(accessAllowed(params.securityToken, slideInstance)){
-            def meta = ["id", "Signal", "Block", "Row", "Column", "FG", "BG", "Flag", "Diameter",
-                "SampleName", "SampleType", "TargetGene", "SampleGroupA", "SGADesc", "SampleGroupB", "SGBDesc", "SampleGroupC", "SGCDesc", "CellLine", "LysisBuffer", "DilutionFactor",
-                "Inducer", "Treatment", "SpotType", "SpotClass", "NumberOfCellsSeeded", "Replicate", "PlateRow", "PlateCol", "PlateLayout"]
+
             render meta as JSON
         }
         else{
@@ -51,58 +54,7 @@ class SpotExportController {
         def slideInstance = Slide.get(params.id)
 
         if(accessAllowed(params.securityToken, slideInstance)){
-            def criteria = Spot.createCriteria()
-            def result = criteria.list {
-                eq("slide.id", params.long("id"))
-                createAlias('layoutSpot', 'lSpot', CriteriaSpecification.LEFT_JOIN)
-                createAlias('lSpot.sample', 'smpl', CriteriaSpecification.LEFT_JOIN)
-                createAlias('lSpot.cellLine', 'cline', CriteriaSpecification.LEFT_JOIN)
-                createAlias('lSpot.lysisBuffer', 'lbuffer', CriteriaSpecification.LEFT_JOIN)
-                createAlias('lSpot.dilutionFactor', 'dilfactor', CriteriaSpecification.LEFT_JOIN)
-                createAlias('lSpot.inducer', 'indcr', CriteriaSpecification.LEFT_JOIN)
-                createAlias('lSpot.treatment', 'trtmnt', CriteriaSpecification.LEFT_JOIN)
-                createAlias('lSpot.spotType', 'sptype', CriteriaSpecification.LEFT_JOIN)
-                createAlias('lSpot.numberOfCellsSeeded', 'numberOfCells', CriteriaSpecification.LEFT_JOIN)
-                createAlias('lSpot.wellLayout', 'well', CriteriaSpecification.LEFT_JOIN)
-                projections {
-                    property "id"
-                    property "signal"
-                    property "block"
-                    property "row"
-                    property "col"
-                    property "FG"
-                    property "BG"
-                    property "flag"
-                    property "diameter"
-                    property "smpl.name"
-                    property "smpl.type"
-                    property "smpl.target"
-                    property "smpl.sampleGroupA"
-                    property "smpl.sampleGroupADescription"
-                    property "smpl.sampleGroupB"
-                    property "smpl.sampleGroupBDescription"
-                    property "smpl.sampleGroupC"
-                    property "smpl.sampleGroupCDescription"
-                    property "cline.name"
-                    property "lbuffer.name"
-                    property "dilfactor.dilutionFactor"
-                    property "indcr.name"
-                    property "trtmnt.name"
-                    property "sptype.name"
-                    property "sptype.type"
-                    property "numberOfCells.name"
-                    property "lSpot.replicate"
-                    property "well.row"
-                    property "well.col"
-                    property "well.plateLayout.id"
-                }
-                order('block', 'asc')
-                order('row', 'desc')
-                order('col', 'asc')
-            }
-
-            ObjectMapper mapper = new ObjectMapper()
-            def jsonResult = mapper.writeValueAsString(result)
+            def jsonResult = spotExportService.exportAsJSON(params.long("id"))
 
             response.contentType = "text/json"
             render jsonResult
@@ -267,10 +219,6 @@ SpotType: ${layout.spotType}
         [baseUrl: baseUrl, slideInstanceId: params.id, securityToken: securityToken]
     }
 
-    def csvHeader = ["Block","Column","Row","FG","BG","Signal", "x","y","Diameter","Flag", "Deposition", "CellLine",
-            "LysisBuffer", "DilutionFactor", "Inducer", "Treatment", "SpotType", "SpotClass", "SampleName", "SampleType",
-            "TargetGene", "NumberOfCellsSeeded", "Replicate", "PlateRow", "PlateCol", "PlateLayout"]
-
     /*
      * action that triggers the actual creation of a csv file
      */
@@ -281,19 +229,40 @@ SpotType: ${layout.spotType}
 
         def results = spotExportService.exportToCSV(slideInstance, params)
 
-        response.setHeader("Content-disposition", "filename=${slideInstance.toString().replace(" ", "_")}.csv")
+        def fileEnding = "csv"
+        if(params.separator == "\t") fileEnding = "txt"
+
+        response.setHeader("Content-disposition", "filename=${slideInstance.toString().replace(" ", "_")}.${fileEnding}")
         response.contentType = "application/vnd.ms-excel"
 
         def outs = response.outputStream
 
-        def header = params.selectedProperties.join(params.separator)
+        def header = meta.join(params.separator)
 
         if(params.includeBlockShifts == "on")
         {
             results = spotExportService.includeBlockShifts(results, slideInstance)
-            header = "hshift;vshift;" + header
+            header = "hshift${params.separator}vshift${params.separator}" + header
         }
 
+        def depositionArray = depositionService.getDepositionArray(slideInstance.layout)
+
+        outs << "MIRACLE reverse phase protein array file format"
+        outs << "\n"
+        outs << "v.1.0"
+        outs << "\n"
+        outs << depositionArray//slideInstance.layout.depositionPattern?:""
+        outs << "\n"
+        outs << slideInstance.id
+        outs << "\n"
+        outs << slideInstance.title
+        outs << "\n"
+        outs << slideInstance.antibody
+        outs << "\n"
+        outs << slideInstance.photoMultiplierTube
+        outs << "\n"
+        outs << slideInstance.layout.blocksPerRow
+        outs << "\n"
         outs << header
         outs << "\n"
 
