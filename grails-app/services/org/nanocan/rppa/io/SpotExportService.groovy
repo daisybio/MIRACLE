@@ -1,5 +1,8 @@
 package org.nanocan.rppa.io
 
+import org.codehaus.jackson.map.ObjectMapper
+import org.hibernate.criterion.CriteriaSpecification
+
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import org.nanocan.rppa.scanner.Slide
@@ -23,65 +26,73 @@ class SpotExportService {
      */
     def exportToCSV(Slide slideInstance, def params) {
 
-        def props = params.selectedProperties
-        def depositionArray = depositionService.getDepositionArray(slideInstance.layout)
-
-        def results = collectExportColumns(slideInstance, props, depositionArray, params)
+        def results = getFormatedSpotsFromDatabase(slideInstance.id)
 
         return fixDecimalSeparator(results, params.decimalSeparator, params.decimalPrecision)
     }
 
-    /*
-     * Query for spots
-     */
-    private def collectExportColumns(Slide slideInstance, props, depositionArray, params) {
-        def spotTotal = slideInstance.spots.size()
-        def spotCounter = 0
-
-        def spots = Spot.findAllBySlide(slideInstance, [readOnly:true])
-
-        def result = spots.collect { spot ->
-
-            progressService.setProgressBarValue("${slideInstance.id}_CSVexport", spotCounter / spotTotal * 100)
-
-            def spotPropList = new ArrayList<String>()
-
-            if ("Block" in props) spotPropList << spot.block
-            if ("Column" in props) spotPropList << spot.col
-            if ("Row" in props) spotPropList << spot.row
-            if ("FG" in props) spotPropList << spot.FG
-            if ("BG" in props) spotPropList << spot.BG
-
-            if ("Signal" in props) {
-                if (params.excludeBadFlags == "on" && spot.flag != 0) spotPropList << "NA"
-                else if (params.excludeBadDiameter == "on" && spot.diameter >= 250) spotPropList << "NA"
-                else if (params.excludeBadSignal == "on" && spot.signal <= 0) spotPropList << "NA"
-                else spotPropList << spot.signal
+    private def getFormatedSpotsFromDatabase(def id)
+    {
+        def criteria = Spot.createCriteria()
+        def result = criteria.list {
+            eq("slide.id", id)
+            createAlias('layoutSpot', 'lSpot', CriteriaSpecification.LEFT_JOIN)
+            createAlias('lSpot.sample', 'smpl', CriteriaSpecification.LEFT_JOIN)
+            createAlias('lSpot.cellLine', 'cline', CriteriaSpecification.LEFT_JOIN)
+            createAlias('lSpot.lysisBuffer', 'lbuffer', CriteriaSpecification.LEFT_JOIN)
+            createAlias('lSpot.dilutionFactor', 'dilfactor', CriteriaSpecification.LEFT_JOIN)
+            createAlias('lSpot.inducer', 'indcr', CriteriaSpecification.LEFT_JOIN)
+            createAlias('lSpot.treatment', 'trtmnt', CriteriaSpecification.LEFT_JOIN)
+            createAlias('lSpot.spotType', 'sptype', CriteriaSpecification.LEFT_JOIN)
+            createAlias('lSpot.numberOfCellsSeeded', 'numberOfCells', CriteriaSpecification.LEFT_JOIN)
+            createAlias('lSpot.wellLayout', 'well', CriteriaSpecification.LEFT_JOIN)
+            projections {
+                property "id"
+                property "signal"
+                property "block"
+                property "row"
+                property "col"
+                property "FG"
+                property "BG"
+                property "flag"
+                property "diameter"
+                property "smpl.name"
+                property "smpl.type"
+                property "smpl.target"
+                property "smpl.sampleGroupA"
+                property "smpl.sampleGroupADescription"
+                property "smpl.sampleGroupB"
+                property "smpl.sampleGroupBDescription"
+                property "smpl.sampleGroupC"
+                property "smpl.sampleGroupCDescription"
+                property "cline.name"
+                property "lbuffer.name"
+                property "dilfactor.dilutionFactor"
+                property "indcr.name"
+                property "trtmnt.name"
+                property "sptype.name"
+                property "sptype.type"
+                property "numberOfCells.name"
+                property "lSpot.replicate"
+                property "well.row"
+                property "well.col"
+                property "well.plateLayout.id"
             }
-
-            if ("x" in props) spotPropList << spot.x
-            if ("y" in props) spotPropList << spot.y
-            if ("Diameter" in props) spotPropList << spot.diameter
-            if ("Flag" in props) spotPropList << spot.flag
-            if ("Deposition" in props) spotPropList << depositionService.getDeposition(spot, depositionArray)
-            if ("CellLine" in props) spotPropList << (spot.layoutSpot.cellLine ?: "NA")
-            if ("LysisBuffer" in props) spotPropList << (spot.layoutSpot.lysisBuffer ?: "NA")
-            if ("DilutionFactor" in props) spotPropList << (spot.layoutSpot.dilutionFactor?.dilutionFactor ?: "NA")
-            if ("Inducer" in props) spotPropList << (spot.layoutSpot.inducer ?: "NA")
-            if ("Treatment" in props) spotPropList << (spot.layoutSpot.treatment ?: "NA")
-            if ("SpotType" in props) spotPropList << (spot.layoutSpot.spotType?.name ?: "NA")
-            if ("SpotClass" in props) spotPropList << (spot.layoutSpot.spotType?.type ?: "NA")
-            if ("SampleName" in props) spotPropList << (spot.layoutSpot.sample?.name ?: "NA")
-            if ("SampleType" in props) spotPropList << (spot.layoutSpot.sample?.type ?: "NA")
-            if ("TargetGene" in props) spotPropList << (spot.layoutSpot.sample?.targetGene ?: "NA")
-            if ("NumberOfCellsSeeded" in props) spotPropList << (spot.layoutSpot.numberOfCellsSeeded ?: "NA")
-            if ("Replicate" in props) spotPropList << (spot.layoutSpot.replicate ?:"NA")
-            if ("PlateRow" in props) spotPropList << (spot.layoutSpot.wellLayout.row ?: "NA")
-            if ("PlateCol" in props) spotPropList << (spot.layoutSpot.wellLayout.col ?: "NA")
-            if ("PlateLayout" in props) spotPropList << (spot.layoutSpot.wellLayout.id ?: "NA")
+            order('block', 'asc')
+            order('row', 'desc')
+            order('col', 'asc')
         }
+        return(result)
+    }
 
-        return result
+    def exportAsJSON(def id)
+    {
+        def result = getFormatedSpotsFromDatabase(id)
+
+        ObjectMapper mapper = new ObjectMapper()
+        def jsonResult = mapper.writeValueAsString(result)
+
+        return(jsonResult)
     }
 
     /*
