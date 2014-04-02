@@ -18,13 +18,23 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/NanoCAN/MIRACLE">View on GitHub</a>
 
-          <h1 id="project_title">MIRACLE</h1>
-          <h2 id="project_tagline">Microarray R-based Analysis of Complex Lysate Experiments</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/NanoCAN/MIRACLE/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/NanoCAN/MIRACLE/tarball/master">Download this project as a tar.gz file</a>
-            </section>
+		  <div><img src="images/miracle_banner.png"></div>
+		  <div id="wrapper">
+			  <div id="first">
+				  <h2 class="project_tagline">Links</h2>
+				  <a href="https://github.com/NanoCAN/MIRACLE/wiki/">Setup</a><br/>
+				  <a href="http://www.nanocan.org/miracle/demo">Demo</a><br/>
+			  </div>
+			  <div id="second">
+				  <h2 class="project_tagline">Downloads</h2>
+					  <a href="">WAR file for web container</a><br/>
+					  <a href="">Standalone Virtual Machine</a></br/>					
+			  </div>
+		  </div>
+		  <section id="downloads">					  
+			  <a class="zip_download_link" href="https://github.com/NanoCAN/MIRACLE/zipball/master">Source code as a .zip file</a>
+			  <a class="tar_download_link" href="https://github.com/NanoCAN/MIRACLE/tarball/master">Source code as a tar.gz file</a>
+		  </section>
         </header>
     </div>
 
@@ -37,13 +47,918 @@
 <h3>
 <a name="user-guide" class="anchor" href="#user-guide"><span class="octicon octicon-link"></span></a>User guide</h3>
       </section>
+<div style="width:600px;margin:0 auto;">	  
+	  <p class=MsoNormal style='text-align:justify'><span lang=EN-GB>A thorough introduction
+to the features of “Microarray R-based Analysis of Complex Lysate Experiments”</span></p>
+
+<p class=MsoNormal style='text-align:justify'><i><span lang=EN-GB
+style='color:black'>Note: All screenshots were created by MLP and IB. The
+MIRACLE logo was created by ML. </span></i></p>
+
+<p class=MsoTocHeading>Table of Contents</p>
+
+<p class=MsoToc2><span lang=DA><a href="#_Toc384196878"><span lang=EN-GB>1.
+Getting Started</span><span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>2</span></a></span></p>
+
+<p class=MsoToc3><span lang=DA><a href="#_Toc384196879"><span lang=EN-GB>1.1.
+Login</span><span style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>2</span></a></span></p>
+
+<p class=MsoToc3><span lang=DA><a href="#_Toc384196880"><span lang=EN-GB>1.2.
+Organizing the Work</span><span style='color:windowtext;display:none;
+text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>3</span></a></span></p>
+
+<p class=MsoToc2><span lang=DA><a href="#_Toc384196881"><span lang=EN-GB>2. Plate
+and Slide Layouts</span><span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>4</span></a></span></p>
+
+<p class=MsoToc3><span lang=DA><a href="#_Toc384196882"><span lang=EN-GB>2.1.
+Creating Experimental Properties</span><span style='color:windowtext;
+display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>4</span></a></span></p>
+
+<p class=MsoToc3><span lang=DA><a href="#_Toc384196883"><span lang=EN-GB>2.2.
+Plate Layouts</span><span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>5</span></a></span></p>
+
+<p class=MsoToc3><span lang=DA><a href="#_Toc384196884"><span lang=EN-US>2.3.
+Plate Readouts</span><span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>7</span></a></span></p>
+
+<p class=MsoToc3><span lang=DA><a href="#_Toc384196885"><span lang=EN-US>2.4.
+Slide Layouts</span><span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>10</span></a></span></p>
+
+<p class=MsoToc3><span lang=DA><a href="#_Toc384196886"><span lang=EN-US>2.5. Slide
+Readouts</span><span style='color:windowtext;display:none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>15</span></a></span></p>
+
+<p class=MsoToc2><span lang=DA><a href="#_Toc384196887"><span lang=EN-GB>3.
+Data Handling and Analysis</span><span style='color:windowtext;display:none;
+text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>19</span></a></span></p>
+
+<p class=MsoToc3><span lang=DA><a href="#_Toc384196888"><span lang=EN-GB>3.1.
+Block Shifts and Export of Data</span><span style='color:windowtext;display:
+none;text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>19</span></a></span></p>
+
+<p class=MsoToc3><span lang=DA><a href="#_Toc384196889"><span lang=EN-GB>3.2.
+Data Analysis</span><span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>21</span></a></span></p>
+
+<p class=MsoToc3><span lang=DA><a href="#_Toc384196890"><span lang=EN-GB>3.3.
+Uploading files to Rmiracle</span><span style='color:windowtext;display:none;
+text-decoration:none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>27</span></a></span></p>
+
+<p class=MsoToc2><span lang=DA><a href="#_Toc384196891"><span lang=EN-GB>4.
+Final Remarks</span><span style='color:windowtext;display:none;text-decoration:
+none'>. </span><span
+style='color:windowtext;display:none;text-decoration:none'>28</span></a></span></p>
+
+<p class=MsoNormal><span lang=DA>&nbsp;</span></p>
+
+<span lang=EN-GB style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><b><span lang=EN-GB style='font-size:13.0pt;line-height:
+115%;font-family:"Cambria","serif";color:#4F81BD'>&nbsp;</span></b></p>
+
+<h2 style='text-align:justify'><a name="_Toc384196878"><span lang=EN-GB>1. Getting
+Started</span></a></h2>
+
+<h3 style='text-align:justify'><a name="_Toc384196879"><span lang=EN-GB>1.1. Login</span></a></h3>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Go to </span><span
+lang=DA><a href="http://www.nanocan.org/miracle/demo"><span lang=EN-US>http://www.nanocan.org/miracle/demo</span></a></span><span
+class=MsoHyperlink> </span><b>(31/03/2014)</b><span lang=EN-GB> and login with
+username <b>“demo”</b> and the password <b>“demo0815”</b></span></p>
+
+<p class=MsoListParagraphCxSpFirst align=center style='text-align:center'><img
+border=0 width=492 height=264 id="Picture 4"
+src="tutorial/image001.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Welcome to MIRACLE!</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='text-align:center'><img
+border=0 width=510 height=299 id="Billede 13"
+src="tutorial/image002.png"></p>
+
+<p class=MsoListParagraphCxSpLast style='text-align:justify'><span lang=EN-GB>&nbsp;</span></p>
+
+<span lang=EN-GB style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><b><span lang=EN-GB style='font-family:"Cambria","serif";
+color:#4F81BD'>&nbsp;</span></b></p>
+
+<h3 style='text-align:justify'><a name="_Toc384196880"><span lang=EN-GB>1.2. Organizing
+the Work</span></a></h3>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>Start by organizing future results and data by creating
+projects with corresponding experiments. Use the drop-down menu, Organize &gt;
+Create New Project, click “Create” (red circle) in the bottom left corner to
+save your changes.</span></p>
+
+<p class=MsoListParagraphCxSpFirst align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=559 height=219 id="Billede 19"
+src="tutorial/image003.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Within each project, several experiments can be listed. Use the drop-down
+menu Organize &gt; Create New Experiment, fill in experimental information and
+select a project subfolder from the “Project” drop-down menu; click “Create” in
+the bottom left corner to save your changes as shown above.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='text-align:center'><img
+border=0 width=520 height=210 id="Picture 5"
+src="tutorial/image004.png"></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Creation of projects and experiments will be important later for sorting
+and comparison of data. The “Filter” (red arrow) allows the user to display
+only those projects or experiments important for a particular analysis. </span></p>
+
+<span lang=EN-GB style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><b><span lang=EN-GB style='font-size:13.0pt;line-height:
+115%;font-family:"Cambria","serif";color:#4F81BD'>&nbsp;</span></b></p>
+
+<h2 style='text-align:justify'><a name="_Toc384196881"><span lang=EN-GB>2.
+Plate and Slide Layouts</span></a></h2>
+
+<h3 style='text-align:justify'><a name="_Toc384196882"><span lang=EN-GB>2.1.
+Creating Experimental Properties</span></a></h3>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Before entering
+actual experimental plates, please enter properties such as cell lines,
+dilution factors, and inducers etc., used in your experiments, which may vary
+from sample to sample. </span></p>
+
+<p class=MsoNoSpacing align=center style='text-align:center'><img border=0
+width=506 height=223 id="Picture 8"
+src="tutorial/image005.png"></p>
+
+<p class=MsoNormal style='margin-left:36.0pt;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>As a first
+example, select Slide Layout &gt; CellLines. All annotated cell lines used in
+prior experiments will be displayed. Select “New cell line” (red circle) in the
+top right corner to annotate further cell lines.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=613 height=117 id="Billede 20"
+src="tutorial/image006.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Give the cell
+line a name and select a colour for displaying the property. Click “Create” in
+the bottom left corner.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=545 height=242 id="Picture 17"
+src="tutorial/image007.png"></p>
+
+<p class=MsoListParagraphCxSpFirst style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>As a second example select Slide Layout &gt; Samples. Select “New
+Sample” (red circle) to annotate samples. </span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=585 height=166 id="Picture 7"
+src="tutorial/image008.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Specify the sample name, the type of sample and if the sample has a
+known target. It is also possible to select if the sample is a control and
+whether it is a positive or negative control. Click “Create” in the bottom left
+corner.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=443 height=197 id="Picture 28"
+src="tutorial/image009.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Prepare all the properties needed for your experiment; Cell lines, dilution
+factors, inducers, lysis buffer, number of cells seeded, spot types, treatments,
+samples.</span></p>
+
+<h3 style='text-align:justify'><a name="_Toc384196883"><span lang=EN-GB>2.2.
+Plate Layouts</span></a></h3>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>Now the layouts of the experimental plates can be
+created. Select Plate Layout &gt; Create New Layout. Enter the name of the
+plate, the format and which experiment the plate belongs to. Click</span><span
+lang=EN-GB> </span><span lang=EN-GB>“Create</span><span lang=DA>” in the</span><span
+lang=EN-GB> bottom left corner</span><span lang=DA>.</span></p>
+
+<p class=MsoListParagraphCxSpFirst align=center style='text-align:center'><img
+border=0 width=445 height=214
+src="tutorial/image010.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Next, please use the drop-down property menu to select and assign
+the different properties of your plate, which were created in section 2.1 (red
+arrow).  First, select the property (e.g. sample) in the legend on the left. Afterwards
+locate a sample that should have this property on the right, where wells of a
+plate are shown schematically. The colour code will reflect the loading of your
+plate. Make sure to save your work (red circle) every time a new property is
+entered to the layout. If needed, it is possible to create copies of plate
+layouts in case only few parameters change from experiment to experiment such as
+number of cells seeded or cell line. Give the copy a proper name and press
+“Create Copy of this layout” (Blue arrow). Now change the property, which is
+different between the original and the copy layout and save your changes (red
+circle) in the layout. <i>NB: It should be emphasized that you will now be
+working on the copy unless switched back to the original plate!</i></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm'><img border=0
+width=660 height=278 src="tutorial/image011.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>You can list all created layouts by experimental plate(s) clicking
+Plate Layout &gt; List Layouts.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='text-align:center'><img
+border=0 width=459 height=239 id="Picture 12"
+src="tutorial/image012.png"></p>
+
+<p class=MsoListParagraphCxSpLast style='text-align:justify'><b><span
+lang=EN-GB>&nbsp;</span></b></p>
+
+<h3 style='text-align:justify'><a name="_Toc384196884">2.3. Plate Readouts</a></h3>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>Next, the plate layouts must be linked to actual plates,
+possibly used in different primary readouts. First, create the type of plate that
+was used. Plate &gt; Plate Types, select New Plate Type in the top right
+corner. Enter the well shape, name of the plate and optionally, the vendor. </span></p>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>Next select Plate &gt; Create New Plate and enter details
+of the plate such as barcode, name, plate type, format etc. Tick the box to
+select whether this is a plate carrying samples or a so-called “Control Plate”.
+The plate must/should further be assigned to an already created experiment in section
+1.2 (drop-down menu, red circle) and a plate layout, as created in section 2.2
+(drop-down menu, blue circle). </span></p>
+
+<p class=MsoListParagraphCxSpFirst align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=514 height=356 id="Picture 6155"
+src="tutorial/image013.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><b><span
+lang=EN-GB style='background:yellow'>&nbsp;</span></b></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Afterwards, different readouts can be selected and assigned to this
+plate. Click the pane “Readouts” and the “Add readout”. Here it is possible to specify
+the data and type of readout along with which plate this readout belongs to.
+Furthermore, it is possible to upload a result file in .xlsx or tab separated
+.txt format along with an image and an experimental protocol.  Click “Create”
+in the lower left corner.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=438 height=365 id="Picture 6158"
+src="tutorial/image014.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Next, the readout data should be linked to the information of the
+plate layout. <b>Select an optional <span style='background:yellow'>mapping of
+the columns name to the plate propertie</span></b><span style='background:yellow'>s
+<b>(MARKUS</b></span><b>)</b>, or specify how many lines (if any) should be
+skipped from the readout document. Furthermore select the type of readout
+document (CSV or custom), the column separator and numerical separator(s).
+Press “Read the selected sheet” (red arrow). Now the columns of the file must
+be matched to that of the database. Match all columns needed to the columns of
+the result file using the drop-down menu. Next, press “Add readout data” (blue
+arrow).</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=502 height=533 id="Picture 29"
+src="tutorial/image015.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Subsequently, the readout data is displayed in a heatmap for visual
+inspection.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=389 height=287 id="Picture 31"
+src="tutorial/image016.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>When finished, the plates can be listed via the Plate&gt; List
+Plates function.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='text-align:center'><img
+border=0 width=559 height=190 id="Billede 10"
+src="tutorial/image017.png"></p>
+
+<p class=MsoListParagraphCxSpLast align=center style='text-align:center'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<h3 style='text-align:justify'><a name="_Toc384196885">2.4. Slide Layouts</a></h3>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>Now, a slide layout can be created. </span>This can be
+achieved in several ways. <span lang=DA>Slide Layout &gt; A, B, C.</span></p>
+
+<p class=Overskrift11 align=center style='margin-left:0cm;text-align:center;
+text-indent:0cm'><img border=0 width=425 height=140 id="Picture 18"
+src="tutorial/image018.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>A – “Create New
+Layout”: No plate layouts are used. The user creates an empty layout meaning
+that all sample information must be assigned manually as illustrated previously
+for plate layouts.</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>B – “Create
+Slide Layout from Plate Layouts”: The user creates a slide layout through a
+“virtual spotting” by combining different source plates to a desired layout according
+to the applied spotting settings in an automated fashion. </span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>C – “Create
+Slide Layout from File”: In this case the user creates the layout by uploading a
+file containing the sample information per spot position on a slide, for
+example, an excel file in MIRACLE compliant format (see Supplemental File 1).</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>In the
+following, the most complex application, namely the creation of a slide layout
+from a plate layout will be described.</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Prior to
+creating a slide layout from a Plate Layout (B) it is important to specify the
+details of the spotter/array/printer extraction head used for the construction
+of the array. Select </span>Slide Layout &gt; Extraction Heads, Click “New
+ExtractionHead” in the top right corner. Give the extractor a name, and specify
+the rows and columns of the pins/pipets/<span lang=EN-GB>nozzles</span> of the
+print head. Press “Create” in the lower left corner. <i>NB: The program
+anticipates that neighboring pins/pipets/</i><i><span lang=EN-GB>nozzles</span></i><i>
+will transfer samples from neighboring wells onto the array!</i> </p>
+
+<p class=MsoListParagraphCxSpFirst align=center style='text-align:center'><img
+border=0 width=473 height=184 id="Picture 9"
+src="tutorial/image019.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Next, please select Slide Layout &gt; Create Slide Layout from Plate
+Layout. Here, plates must be selected for the virtual spotting in order to
+create the slide layout. Please, click the “Hints”-button if in doubt about how
+to proceed. </span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Plates are selected from “Available plate layouts” or from “Control
+plate layouts” and simply dragged to “Plates selected for spotting” in the
+desired order. <i>NB: Since the actual spotting process is mimicked, it is
+critical to use the right order in which the plates are processed in the
+respective spotter/arrayer/printer during array construction! In case a plate
+e.g. control plate is processed twice, insert the plate layout also twice in
+this application. If your plate(s) do not appear in the “Available plate
+layouts”, try to alter the filter setting to fit your project and experiment
+(red arrow) and then press “Refresh plate layouts” (blue arrow).</i></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>After selecting the plates, press continue. </span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=488 height=417 id="Picture 6"
+src="tutorial/image020.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Next, enter the title of your slide, and select properties such as
+default spot type and lysis buffer for the virtual spotting. Also, the setting
+for the virtual extractor must be set to match that of the actual extraction
+head used for spotting. Furthermore, enter information about the block spotting
+orientation, the number of layout columns and the pattern for depositing
+samples. <i>NB: Always consider the plate and slide orientation, which is fixed
+in MIRACLE as shown below. Select the extractor settings and the block
+orientation accordingly!</i></span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Furthermore, in order for the virtual spotting to mimic the actual
+samples on the slide, in some cases a conversion from an original 96-well plate
+layout to the 384-well plate layout used in the array is necessary (red circle).
+In a HTS setting, for example, cells are seeded in 96-well plates and a primary
+readout is conducted. Subsequently, the treated cells are harvested and the
+resulting lysates are automatically diluted and transferred into a 384-well
+plate (the process is schematically depicted in the blue box). This
+reformatting step can be included in the creation of the slide layout. </span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=607 height=514 id="Picture 1"
+src="tutorial/image021.png"></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<span lang=DA style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Last, it is possible to exclude certain extractions from an
+experimental plate, in case not all the wells of a plate contain sample
+material, which should be spotted. </span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Columns and rows corresponding to extraction steps can be marked,
+e.g. extraction 3-8 in the shown example. By pressing “Continue” (red arrow)
+the marked areas are excluded from the virtual spotting process. </span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='text-align:center'><img
+border=0 width=560 height=293 id="Picture 16"
+src="tutorial/image022.png"></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<span lang=DA style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpFirst style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>For visual inspection of the final layout, press “Show Layout”. Press
+“Properties” (A) to show the different properties of the slide layout,
+including the physical appearance of the layout (number of blocks, row, and
+columns). The sub-category “History” will display information on who created
+the layout and when it was created. Below in the next sub-category it is
+possible to see which slides use the particular layout and which source plates
+were used to create this layout.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Under “Spot Properties” the user can switch between the different
+properties, which were already assigned to the experimental plates in section
+2.1 and 2.2 (B). It is also possible to switch between the layouts of the
+different blocks present on the array (C).</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><i><span
+lang=EN-GB>Hint: By pointing the mouse over a certain spot (square) on the
+slide will give you all the information available for this particular sample in
+a separate pop-up box.</span></i></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=594 height=546 id="Picture 21"
+src="tutorial/image023.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Again it is possible to find the layout through Slide Layout &gt;
+List Layouts.</span></p>
+
+<span style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><b><span style='font-family:"Cambria","serif";color:#4F81BD'>&nbsp;</span></b></p>
+
+<h3 style='text-align:justify'><a name="_Toc384196886">2.5. Slide Readouts</a></h3>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>Next, results of differentially stained slides (scanner
+files) must be connected to the corresponding slide layout. </span>First,
+create the antibodies used for the staining. Slide &gt; Antibodies, please click
+the top right corner, “New Antibody”. Assign a specific name, used concentration
+as well as a comment to the antibody, and save your changes by clicking on the
+bottom left “Create” button. Once created, all used antibodies will be listed under
+Slide &gt; Antibodies and will be available for further experiments.</p>
+
+<p class=MsoListParagraph align=center style='margin-left:0cm;text-align:center'><img
+border=0 width=488 height=205 id="Picture 3"
+src="tutorial/image024.jpg"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Furthermore, to
+extract the critical information e.g. the positioning of spots as well as
+measured signal intensities from a scanner output file, a file configuration needs
+to be selected, which enables MIRACLE to match the scanner file information to
+the sample information saved in the slide layout. </span><span lang=DA>For this
+purpose, create a Result File Configuration by clicking Slide &gt; Result File
+Configuration &gt; NewResultFileConfig. Please give the configuration a name
+and select the type of grid applied by the scanner software, e.g. in cases
+signals are order according to their position in blocks of spots enter
+“Blocks”. Further enter the column numbers/names corresponding to the main
+columns and rows according to the names used in the header of your scanner file
+(red box; example txt result file). In case your scanner file contains a header
+with informations about the scanner setting, count the rows of information
+until you reach your actual result table/list and insert the number in the
+“skip line” field (see also example txt result file). Save the configuration by
+clicking the “Create” button at the lower left corner.</span></p>
+
+<p class=MsoListParagraph style='text-align:justify'><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=545 height=472 id="Picture 6159"
+src="tutorial/image025.png"></p>
+
+<span lang=EN-GB style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>Now, the scanner result files can be connected to the
+slide layouts. Select Slide &gt; Create Slide Result. Here you may enter
+information on the slide itself such as a barcode, title, comments to the
+experiment or the slide, date of staining etc.. </span>Also an antibody must be
+specified along with scanner properties and slide layout information. <span
+lang=EN-GB>Last, a result file bearing the configuration specified in the
+previous step is to be uploaded (Result File) along with a jpeg or tiff image
+of the scanned slide (Result Image). </span>It is also possible to link an
+experimental protocol to the specific slide. Press “Create” in the lower left
+corner to save your information.</p>
+
+<p class=MsoListParagraphCxSpFirst align=center style='margin-left:21.3pt;
+text-align:center'><img border=0 width=441 height=731 id="Picture 22"
+src="tutorial/image026.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Next, a message box will ask if you would like to add spots to the
+database, meaning if the signals of each spot should be linked to sample
+information from the slide layout. Press yes and select the configuration (Config1)
+for reading the result file. Press “Read the selected sheet”. </span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=449 height=309 id="Picture 23"
+src="tutorial/image027.png"></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:21.3pt;text-align:justify;
+text-indent:-.3pt'><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Now the columns of the configuration file must be matched to that of
+your scanner file. If selected, MIRACLE will try to match the columns of the
+file with its own database properties. However, since this step is critical,
+the result should briefly be checked here by the user. <i>NB: Should your
+configuration file not fit the data uploaded into MIRACLE, you can still match
+each column manually using the drop down boxes.</i></span></p>
+
+<p class=MsoListParagraphCxSpMiddle align=center style='margin-left:0cm;
+text-align:center'><img border=0 width=460 height=386 id="Picture 24"
+src="tutorial/image028.png"></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>Press the “Create” button in the lower left corner to create the
+slide. Once created, it is again possible to view the slide either by clicking
+“Back to Slide” in the top right corner, or in a list by selecting Slide &gt;
+List Slide Results.</span></p>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>The newly created slide has all property information
+listed in sub-folders, along with the files applied and which experiments the
+slide belongs to. The last sub-folder displays other slides with identical
+layout, which vary with regards to the staining/antibody, e.g. normalizations
+slides stained with FastGreen or for a housekeeping protein. Last, a Slide
+Viewer displays the corresponding image file and allows quick navigation to inspect
+the quality of the staining and spot morphology.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=612 height=323 id="Picture 25"
+src="tutorial/image029.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><b><span lang=DA>&nbsp;</span></b></p>
+
+<h2 style='text-align:justify'><a name="_Toc384196887"><span lang=EN-GB>3. Data
+Handling and Analysis</span></a></h2>
+
+<h3 style='text-align:justify'><a name="_Toc384196888"><span lang=EN-GB>3.1. Block
+Shifts and Export of Data</span></a></h3>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>If artificial shifts in the data file may for instance be
+introduced by the scanner software by inserting a grid shift before signal
+quantification. It is possible to correct for such shifts on single slides and
+blocks separately. Select a slide in the slide list (Slide &gt; List Slide
+Results) and press “Modify Block Shifts” (A). A heatmap will be generated (see
+next image), displaying the selected property (red arrow). Single blocks can be
+shifted in either in a horizontal or vertical manner by using the drop-down
+menu (blue arrow). </span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=643 height=61 id="Picture 27"
+src="tutorial/image030.png"></p>
+
+<p class=Overskrift11 align=center style='margin-left:0cm;text-align:center;
+text-indent:0cm'><img border=0 width=643 height=326 id="Picture 6156"
+src="tutorial/image031.png"></p>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>Furthermore, the sample information matched to the
+signals from the scanner file may be converted to CSV files or exported to R
+for other analysis not supported by this web-based application (B, C). Select
+Export CSV (B) to generate for instance a tab separated file. Press “Export and
+download” (red arrow) for download.</span></p>
+
+<p class=Overskrift11 align=center style='margin-left:0cm;text-align:center;
+text-indent:0cm'><img border=0 width=436 height=270 id="Picture 6161"
+src="tutorial/image032.png"></p>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><i><span lang=EN-GB>NB: A tab-separated file is</span></i><span
+class=MsoCommentReference><span lang=EN-GB style='font-size:8.0pt;line-height:
+115%'> </span></span><i><span lang=EN-GB>the required for Rmiracle in case you
+wish to upload data for your analysis without using a connected MIRACLE. Please
+see section 3.3. for this. </span></i></p>
+
+<span lang=EN-GB style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><b><span lang=EN-GB style='font-family:"Cambria","serif";
+color:#4F81BD'>&nbsp;</span></b></p>
+
+<h3 style='text-align:justify'><a name="_Toc384196889"><span lang=EN-GB>3.2. Data
+Analysis</span></a></h3>
+
+<p class=Overskrift11 style='margin-left:0cm;text-align:justify;text-indent:
+0cm'><span lang=EN-GB>Once all slides of interest are uploaded, it is possible
+to click the upper right button, “Data Analysis” (red arrow) in order to access
+the different tools for analysis (Rmiracle). </span>Here, please again specify,
+which project and experiments you would wish to include in the analysis. Then
+select a slide layout, e.g. “Test slide Layout”. By clicking the <span
+lang=EN-GB>“Slides” or “Plates” columns available slides will become visible
+and can be selected. Selection of multiple slides is feasible. Finally press
+“Include selected slides and plates in analysis” (blue arrow).</span></p>
+
+<p class=Overskrift11 align=center style='margin-left:0cm;text-align:center;
+text-indent:0cm'><img border=0 width=608 height=282 id="Picture 30"
+src="tutorial/image033.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>This will open
+the Rmiracle which enables data analysis based on R using information from
+MIRACLE. The first step is to retrieve the information from MIRACLE, which will
+take some seconds. </span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Once loaded, it
+is possible to choose between different tabs to display heatmaps, protein
+concentration estimates, comparison of different slide data to each other or to
+other data, and calculation of correlation between data (red box). </span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=580 height=170 id="Picture 6144"
+src="tutorial/image034.png"></p>
+
+<span lang=EN-GB style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Start by
+selecting the “Heatmap” pane. Tick the box saying “Plot options” to change the
+physical properties of the heatmap (e.g. colour, scale) or to change the values
+(e.g. signal intensity, deposition) displayed in the map. </span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=496 height=287 id="Picture 6151"
+src="tutorial/image035.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Next, select
+“Protein Concentration Estimation” (top panel) to analyse your array data. The
+data are shown for each antibody staining individually. Use the drop-down menu
+“Choose slide for protein concentration estimate plots” (red arrow) to switch
+between the different stainings. A bar-chart is generated with the estimated
+protein concentrations per samples along with an interactive table with
+estimates including errors. Furthermore, graphics of the signal vs
+concentration estimates and a curve displaying the serial dilution fit are
+generated automatically. <i>NB:</i></span><i><span lang=EN-GB> </span></i><i><span
+lang=EN-GB>The latter is only applicable in case lysates from a single sample
+were spotted in multiple dilutions on the array and the Serial Dilution Curve
+method was selected for quantification. For more information on selection in
+quantification, please read further.</span></i></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=540 height=341 id="Picture 6157"
+src="tutorial/image036.png"></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=507 height=162 id="Picture 2"
+src="tutorial/image037.jpg"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>&nbsp;</span></p>
+
+<span lang=EN-GB style='font-size:11.0pt;line-height:115%;font-family:"Calibri","sans-serif"'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>The selection-pane
+to the left efficiently allows the user to customize the different parameters
+for analysis, such as switching correction for staining bias on/off and selecting
+a quantification method (A). Furthermore, there is the option to normalize your
+protein values according to total protein amounts by selecting different
+methods such as housekeeping protein normalization or Median Loading or
+Variable Slope normalization (B). It is also possible to select only a sub-set
+of the samples included for analysis and data display, such as here the
+A-samples, and to select a reference sample (A-NC1 set to an average of 1 over
+all displayed 5 property subgroups) (C). In addition, for visualization, the
+data can be separated into different categories in a horizontal and vertical
+manner and a category can be selected for the colour fill of the bars (D). In
+the screenshot displayed below, the data are split based on “Treatment” and
+“Inducer” and the property “CellLine” (bar fill).</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=657 height=270 id="Picture 6146"
+src="tutorial/image038.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Moreover, it is
+possible to select if results should be scaled as in the example below, where
+two different sample treatments provide values in different ranges (E). The
+example displays samples of the B-set and the scaling is selected for the
+vertical orientation only.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=589 height=275 id="Picture 6168"
+src="tutorial/image039.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Last, it is
+possible to swap categories, insert error bars, draw a line through 1, and to
+select a specific export data format (F) [CSV, CSV2, TAB, XLSX]. </span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=439 height=186 id="Picture 6148"
+src="tutorial/image040.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Furthermore, the
+protein concentration estimates for all three slides of the example data set can
+be compared. For this purpose select the “Comparison” pane. This feature can be
+applied on normalized or non-normalized protein estimates.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=642 height=247 id="Picture 6149"
+src="tutorial/image041.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>By selecting the
+“Correlation” pane it is possible to retrieve calculated Pearson correlation
+factors between protein concentration estimates from the different antibodies,
+but also between the different raw signals obtained from each staining. Here,
+it is also possible to correlate protein values to other primary readouts
+conducted in the original 96- or 384-well plates, e.g. a cell viability readout
+or total protein content determination. <i>NB: Prior to comparisons with
+primary readout data, result files need to be implemented as described in
+section 2.3.</i></span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=515 height=364 id="Picture 6150"
+src="tutorial/image042.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Another feature
+of Rmiracle is the Dunnett’s test for significance. Select the pane “Significance”.
+Similar to the protein concentration estimation, it is possible to select
+different categories for displaying the data. In the example below, data are
+separated based on “CellLine” and “Inducer”. Most important for this part of
+the analysis is that a ‘fill’ property is selected that determines which of the
+samples should be treated as replicates. To this end, the “Replicate” Property
+can be used if set during layout creation. In our example, however, we choose
+“PlateCol”, e.g. the column of the source plates. This suffices, since all
+replicates are located in a different column.</span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=602 height=272 id="Picture 6166"
+src="tutorial/image043.png"></p>
+
+<h3 style='text-align:justify'><a name="_Toc384196890"><span lang=EN-GB>3.3.
+Uploading files to Rmiracle</span></a></h3>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;text-align:
+justify;line-height:normal'>As explained in section 3.1., it is also possible
+to upload data files into Rmiracle without using the MIRACLE web-platform
+itself. <span lang=EN-GB>For this, please go to </span><span lang=DA><a
+href="http://www.nanocan.org/miracle/analysis"><span lang=EN-US>http://www.nanocan.org/miracle/analysis</span></a></span>
+which will take you directly to Rmiracle.</p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;text-align:
+justify;line-height:normal'>&nbsp;</p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;text-align:
+justify;line-height:normal'>Here files containing layout/sample- and signal
+information can be selected by using the browse function (red circle). In order
+to select several slides, e.g. use shift or control.</p>
+
+<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;text-align:
+justify;line-height:normal'>&nbsp;</p>
+
+<p class=MsoNormal align=center style='margin-bottom:0cm;margin-bottom:.0001pt;
+text-align:center;line-height:normal'><img border=0 width=512 height=166
+id="Picture 6163" src="tutorial/image044.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>The file format
+required is a tab-separated .txt file or .csv file and the layout must contain <u>consecutive</u>
+columns with information on the following: </span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>hshift, vshift, id,
+Signal, Block, Row, Column, FG, BG, Flag, Diameter, SampleName, SampleType, TargetGene,
+SampleGroupA, SGADesc, SampleGroupB, SGBDesc, SampleGroupC, SGCDesc, CellLine, LysisBuffer,
+DilutionFactor, Inducer, Treatment, SpotType, SpotClass, NumberOfCellsSeeded, Replicate,
+PlateRow, PlateCol, PlateLayout.</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>Below is an
+example of such a file with 11 samples-rows and 32 information-columns (see
+also Supplemental File 1). </span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=642 height=333 id="Picture 6165"
+src="tutorial/image045.png"></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>After uploading
+the files, the analysis can proceed as described in section 3.2.</span></p>
+
+<h2 style='text-align:justify'><a name="_Toc384196891"><span lang=EN-GB>4.
+Final Remarks</span></a></h2>
+
+<p class=MsoListParagraphCxSpFirst style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>We intend to continue the development of MIRACLE to make it <i>the </i>state-of-the-art
+tool for RPPA data processing. Thus, in case you have any more questions and
+comments on how MIRACLE can be improved, please have a look at the project wiki
+page <a href="https://github.com/NanoCAN/MIRACLE/wiki%20">https://github.com/NanoCAN/MIRACLE/wiki</a><b>
+(31/03/2014)</b>. Here, there is also the possibility to use a bug tracker
+allowing you to report any malfunctions you might have encountered and to
+request new features (<a href="https://github.com/NanoCAN/MIRACLE/issues">https://github.com/NanoCAN/MIRACLE/issues</a>)<b>
+(31/03/2014)</b>.</span></p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:0cm;text-align:justify'><span
+lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-align:justify'><span lang=EN-GB>&nbsp;</span></p>
+
+</div>
+</div>
+
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">MIRACLE maintained by <a href="https://github.com/NanoCAN">NanoCAN</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+        <p class="copyright">Published with <a href="http://pages.github.com">GitHub Pages</a>
+		; MIRACLE is maintained by <a href="http://nanocan.org"><img width="150" src="images/NanoCAN_logo.png"/></a></p>
+        
       </footer>
     </div>
 
