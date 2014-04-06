@@ -314,7 +314,7 @@ Full-Width Styles
 }
 
 #wrapper {
-    width: 500px;
+    width: 900px;
     overflow: hidden; /* will contain if #first is longer than #second */
 }
 #first {
