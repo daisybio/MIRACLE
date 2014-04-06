@@ -65,7 +65,9 @@
             <g:link class="create" controller="slideLayout" action="create">Create New Layout</g:link>
         </li>
         <li>
-            <g:link class="create" controller="spotting" action="index">Create Slide Layout from Plates</g:link>
+            <g:link class="create" controller="spotting" action="index"
+                    params="${[projectSelected: session.projectSelected,
+                               experimentSelected: session.experimentSelected]}">Create Slide Layout from Plates</g:link>
         </li>
         <li>
             <g:link class="create" controller="slideLayout" action="createFromFile">Create Slide Layout from File</g:link>
@@ -137,11 +139,11 @@
     <ul class="dropdown-menu">
         <li style="padding:20px;">Filter project: <g:form class="navbar-form" name="projectForm" controller="project" action="updateSelectedProject">
             <g:hiddenField name="returnPage" value="${createLink(action:actionName, params:params, absolute: true)}"/>
-            <g:select from="${Project.list()}" value="${session.projectSelected?:""}" optionKey="id" noSelection="['':'All projects']" name="projectSelect" onchange="\$('#projectForm').submit();"/>
+            <g:select style="width:350px;" from="${Project.list()}" value="${session.projectSelected?:""}" optionKey="id" noSelection="['':'All projects']" name="projectSelect" onchange="\$('#projectForm').submit();"/>
         </g:form></li>
         <li style="padding:20px;">Filter experiment: <g:form class="navbar-form" name="experimentForm" controller="experiment" action="updateSelectedExperiment">
             <g:hiddenField name="returnPage" value="${createLink(action:actionName, params:params, absolute: true)}"/>
-            <g:select from="${session.projectSelected?Experiment.findAllByProject(Project.get(session.projectSelected)):Experiment.list()}" value="${session.experimentSelected?:""}" optionKey="id" noSelection="['':'All experiments']" name="experimentSelect" onchange="\$('#experimentForm').submit();"/>
+            <g:select style="width:350px;" from="${session.projectSelected?Experiment.findAllByProject(Project.get(session.projectSelected)):Experiment.list()}" value="${session.experimentSelected?:""}" optionKey="id" noSelection="['':'All experiments']" name="experimentSelect" onchange="\$('#experimentForm').submit();"/>
         </g:form></li>
     </ul>
 </li>

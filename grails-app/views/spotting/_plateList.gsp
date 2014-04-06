@@ -1,8 +1,8 @@
 <g:if test="${prefix.toString().startsWith('miracle')}">
-    <g:set var="attributeController" value="plateLayout"/>
+    <g:set var="attributeController" value="plate"/>
 </g:if>
 <g:else>
-    <g:set var="attributeController" value="plateImport"/>
+    <g:set var="attributeController" value="plate"/>
 </g:else>
 
 <ul id="${ulid}">

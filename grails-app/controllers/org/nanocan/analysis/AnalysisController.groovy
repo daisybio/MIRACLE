@@ -58,7 +58,12 @@ class AnalysisController {
         def slideLayouts
         if(params.plateLayout){
             def plateLayoutInstance = PlateLayout.get(params.plateLayout)
-            slideLayouts = SlideLayout.findAllBySourcePlates(plateLayoutInstance?.plates?:[])
+            slideLayouts = []
+            plateLayoutInstance.plates.each{
+                slideLayouts.addAll(SlideLayout.executeQuery("select l.id from SlideLayout l join l.sourcePlates as plate where plate = ?", it))
+            }
+            slideLayouts.unique()
+            slideLayouts = slideLayouts.collect{SlideLayout.get(it)}
         }
         else if(params.experiment) slideLayouts = Experiment.get(params.experiment).slideLayouts
         else if(params.project) slideLayouts = Project.get(params.project).experiments.collect{it.slideLayouts}

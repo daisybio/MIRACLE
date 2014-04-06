@@ -19,14 +19,14 @@
 </div>
 
 <div style="margin:10px; float:left;">
-    <b>Available plate layouts</b> <br/> <br/>
+    <b>Available plates</b> <br/> <br/>
     <div id="miraclePlatesDiv">
         <g:render template="plateList" model="${[layouts: layouts, prefix: 'layout_miracle', ulid: 'unselectedMiraclePlates']}" />
     </div>
 </div>
 
 <div style="margin:10px; float:left;">
-    <b>Control plate layouts</b> <br/> <br/>
+    <b>Control plates</b> <br/> <br/>
     <div id="controlPlatesDiv">
         <g:render template="plateList" model="${[layouts: controlPlates, prefix: 'layout_miracle', ulid: 'unselectedControlPlates']}" />
     </div>
