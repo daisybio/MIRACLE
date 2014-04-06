@@ -1,0 +1,6 @@
+[submodule "HtsBackend"]
+	path = HtsBackend
+	url = git@github.com:NanoCAN/HtsBackend.git
+[submodule "Rmiracle"]
+	path = Rmiracle
+	url = git@github.com:NanoCAN/Rmiracle.git
