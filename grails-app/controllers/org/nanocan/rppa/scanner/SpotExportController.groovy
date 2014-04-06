@@ -16,7 +16,7 @@ class SpotExportController {
 
     def meta = ["id", "Signal", "Block", "Row", "Column", "FG", "BG", "Flag", "Diameter",
                 "SampleName", "SampleType", "TargetGene", "SampleGroupA", "SGADesc", "SampleGroupB", "SGBDesc", "SampleGroupC", "SGCDesc", "CellLine", "LysisBuffer", "DilutionFactor",
-                "Inducer", "Treatment", "SpotType", "SpotClass", "NumberOfCellsSeeded", "Replicate", "PlateRow", "PlateCol", "PlateLayout"]
+                "Inducer", "Treatment", "SpotType", "SpotClass", "NumberOfCellsSeeded", "Replicate", "PlateRow", "PlateCol", "Plate", "PlateLayout"]
 
     @Secured(['ROLE_USER'])
     def exportAsCSV = {

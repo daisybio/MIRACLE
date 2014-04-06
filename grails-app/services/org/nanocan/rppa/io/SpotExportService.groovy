@@ -76,6 +76,7 @@ class SpotExportService {
                 property "lSpot.replicate"
                 property "well.row"
                 property "well.col"
+                property "lSpot.plate.id"
                 property "well.plateLayout.id"
             }
             order('block', 'asc')
