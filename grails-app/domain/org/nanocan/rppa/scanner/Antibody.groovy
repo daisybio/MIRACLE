@@ -35,13 +35,17 @@ class Antibody {
     Double concentration
     String concentrationUnit
     String comments
+    //Double dilution
+    //String species
 
     static searchable = true
 
     static constraints = {
         name()
+        //dilution nullable: true
+        //species inList: ["mouse", "rat", "goat", "rabbit"], nullable:true
         concentration nullable:true, min: new Double(0)
-        concentrationUnit inList: ["µg/ml", "mM"], nullable:true
+        concentrationUnit inList: ["microg/ml", "mM"], nullable:true
         comments nullable: true
     }
 

@@ -50,19 +50,27 @@ class SpottingController {
         modelForPlates{
             action {
 
-                def layouts
+                def layouts = []
 
                 if(session.experimentSelected)
                 {
-                    layouts = Experiment.get(session.experimentSelected as Long).plates
+                    def plates = []
+                    layouts = Experiment.get(session.experimentSelected as Long).plateLayouts
+                    layouts.each{ plates.addAll(Plate.findAllByPlateLayout(it))}
+
+                    layouts = plates
+                    layouts.unique()
                 }
                 else if(session.projectSelected)
                 {
                     def experiments = Experiment.findAllByProject(Project.get(session.projectSelected as Long))
                     layouts = []
                     experiments.each{
-                        layouts.addAll(it.plates)
+                        def plates = []
+                        playouts = Experiment.get(session.experimentSelected as Long).plateLayouts
+                        playouts.each{ layouts.addAll(Plate.findAllByPlateLayout(it))}
                     }
+                    layouts.unique()
                 }
                 else
                 {

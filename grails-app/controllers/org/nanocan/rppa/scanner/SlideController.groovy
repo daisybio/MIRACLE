@@ -85,15 +85,22 @@ class SlideController {
         }
         else if(session.experimentSelected)
         {
-            slideInstanceList = Experiment.get(session.experimentSelected).slides
+            slideInstanceList = []
+            Experiment.get(session.experimentSelected).slideLayouts.each{
+                slideInstanceList.addAll(Slide.findAllByLayout(it))
+            }
+            slideInstanceList.unique()
         }
         else if(session.projectSelected)
         {
             slideInstanceList = []
             def experiments = Experiment.findAllByProject(Project.get(session.projectSelected as Long))
             experiments.each{
-                slideInstanceList.addAll(it.slides)
+                it.slideLayouts.each{ sl ->
+                    slideInstanceList.addAll(Slide.findAllByLayout(sl))
+                }
             }
+            slideInstanceList.unique()
         }
         else
         {
