@@ -45,6 +45,13 @@ class SpottingController {
         redirect(action: "plateSpotting")
     }
 
+
+    def blockSettings(){
+        boolean rowWise = (params.blockOrder == "left-to-right")
+
+        render template: "blockSettings", model:[rowWise: rowWise, xPerBlock: params.id]
+    }
+
     def plateSpottingFlow = {
 
         modelForPlates{
@@ -117,33 +124,13 @@ class SpottingController {
         }
 
         spottingProperties{
+            on("error").to "spottingProperties"
             on("continue"){
 
                 flash.nobanner = true
-
-                def extractions = [:]
-                def excludedPlateExtractionsMap = [:]
-                def extractionCount = 0
-
-                params.list("layouts").each{
-
-                    def excludedPlateExtractions = []
-                    for(int extraction in 1..params.int("numOfExtractions")){
-                        def extractionExcluded = "Plate_"+it.toString()+"|Extraction_"+extraction+"|Field"
-                        boolean excludeThisExtraction = params.boolean(extractionExcluded)
-                        excludedPlateExtractions << excludeThisExtraction
-                        if(!excludeThisExtraction) extractionCount++
-                        excludedPlateExtractionsMap.put(extractionExcluded, params.boolean(extractionExcluded))
-                    }
-                    extractions.put(it, excludedPlateExtractions)
-                }
-                flow.extractionCount = extractionCount
-                flow.extractions = extractions
-                flow.excludedPlateExtractions = excludedPlateExtractionsMap
-
                 flow.title = params.title
                 flow.xPerBlock = params.int("xPerBlock")
-                flow.extractionHead = params.extractionHead
+                flow.extractionHead = org.nanocan.layout.ExtractionHead.get(params.extractionHead)
                 flow.spottingOrientation = params.spottingOrientation
                 flow.extractorOperationMode = params.extractorOperationMode
                 flow.depositionPattern = params.depositionPattern
@@ -156,44 +143,99 @@ class SpottingController {
                 if(params.defaultLysisBuffer) flow.defaultLysisBuffer = LysisBuffer.get(params.defaultLysisBuffer)
                 if(params.defaultSpotType) flow.defaultSpotType = SpotType.get(params.defaultSpotType)
 
+                def extractionOrder = [:]
+                def allNumOfExtractions = []
+
+                for (sl in flow.selectedLayouts){
+                    Plate layout = flow.layouts[sl]
+                    def currentExtractions = []
+                    def extractorCols = flow.extractionHead.extractorColumns
+                    def extractorRows = flow.extractionHead.extractorRows
+
+                    if(flow.transformToThreeEightyFour){
+                        extractorCols = extractorCols / 2
+                        extractorRows = extractorRows / 2
+                    }
+                    def colExtractions =  layout.cols / extractorCols
+                    def rowExtractions =  layout.rows / extractorRows
+                    def numOfExtractions = colExtractions * rowExtractions
+
+                    if(flow.extractorOperationMode == "row-wise") {
+                        for(int i = 1; i <= numOfExtractions; i++)
+                            currentExtractions << i
+                    }
+                    else if(flow.extractorOperationMode == "column-wise") {
+                        for (int row = 1; row <= rowExtractions; row++) {
+                            for (int col = 1; col <= colExtractions; col++) {
+                                currentExtractions << (row + (col-1) * (rowExtractions))
+                            }
+                        }
+                    }
+                    extractionOrder[sl] = currentExtractions
+                    allNumOfExtractions << numOfExtractions
+                }
+                flow.extractionOrder = extractionOrder
+                flow.numOfExtractions = allNumOfExtractions
+
                 if(!(params.depositionPattern ==~ /\[([1-9],)+[1-9]\]/))
                 {
-                    progressService.setProgressBarValue(params.progressId, 100)
                     flash.message = "The deposition pattern is invalid!"
                     error()
                 }
 
                 if(!params.title || params.title == "")
                 {
-                    progressService.setProgressBarValue(params.progressId, 100)
                     flash.message = "You have to give a title to this layout!"
                     error()
                 }
                 //check if title is taken
                 else if(SlideLayout.findByTitle(params.title))
                 {
-                    progressService.setProgressBarValue(params.progressId, 100)
                     flash.message = "Please select another title (this one already exists)."
                     error()
                 }
-                else
-                {
-                    flow.progressId = params.progressId
-                    success()
+                else success()
+
+            }.to "extractionFilter"
+        }
+
+        extractionFilter{
+            on("back").to "spottingProperties"
+            on("continue"){
+                def extractions = [:]
+                def excludedPlateExtractionsMap = [:]
+                def extractionCount = 0
+
+                params.list("layouts").each{
+                    def excludedPlateExtractions = []
+                    int numOfExtractions = flow.numOfExtractions.get(Integer.valueOf(it)-1)
+                    for(int extraction in 1..numOfExtractions){
+                        def extractionExcluded = "Plate_"+it.toString()+"|Extraction_"+extraction+"|Field"
+                        boolean excludeThisExtraction = params.boolean(extractionExcluded)
+                        excludedPlateExtractions << excludeThisExtraction
+                        if(!excludeThisExtraction) extractionCount++
+                        excludedPlateExtractionsMap.put(extractionExcluded, params.boolean(extractionExcluded))
+                    }
+                    extractions.put(it, excludedPlateExtractions)
                 }
-            }.to "spotPlates"
+                flow.extractionCount = extractionCount
+                flow.extractions = extractions
+                flow.excludedPlateExtractions = excludedPlateExtractionsMap
+                flow.progressId = params.progressId
+                success()
+            }.to("spotPlates")
         }
 
         spotPlates{
             action {
                 def slideLayout
-                //try{
+                try{
                     slideLayout = virtualSpottingService.importPlates(flow)
-                /*} catch(Exception e)
+                } catch(Exception e)
                 {
                     flash.message = "Import failed with exception: " + e.getMessage()
-                    return spottingProperties()
-                } */
+                    return error()
+                }
 
                 slideLayout.lastUpdatedBy = springSecurityService.currentUser
                 slideLayout.createdBy = springSecurityService.currentUser
@@ -209,10 +251,10 @@ class SpottingController {
                 }
                 else{
                     flash.message = "import succeeded, but persisting the slide layout failed: " + slideLayout.errors.toString()
-                    spottingProperties()
+                    error()
                 }
             }
-            on("spottingProperties").to "spottingProperties"
+            on("error").to "finish"
             on("success").to "finish"
         }
 
