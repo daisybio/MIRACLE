@@ -120,6 +120,9 @@ class SlideController {
                 int rangeMax = Math.min(slideInstanceListTotal, (params.int('offset') + params.int('max')))
 
                 slideInstanceList = slideInstanceList.asList().subList(rangeMin, rangeMax)
+                if(params.sort) slideInstanceList = slideInstanceList.sort{it[params.sort]}
+                else slideInstanceList.sort{ a,b -> a.id <=> b.id}
+                if(params.order == "desc") slideInstanceList = slideInstanceList.reverse()
             }
         }
 

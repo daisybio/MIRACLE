@@ -79,7 +79,7 @@ class VirtualSpottingService {
         def currentExtraction = 0
 
         //extraction head
-        ExtractionHead extractor = ExtractionHead.get(settings.extractionHead)
+        ExtractionHead extractor = settings.extractionHead
 
         //iterate over plates
         settings.selectedLayouts.eachWithIndex{ obj, i ->
