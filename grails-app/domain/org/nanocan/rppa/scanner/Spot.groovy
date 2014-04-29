@@ -45,6 +45,7 @@ class Spot {
     int col
 
     static mapping = {
+        signal column: 'spotsignal'
         slide index: 'spot_idx'
         block index: 'spot_idx'
         col index:  'spot_idx'

@@ -184,22 +184,6 @@
                             </li>
                         </g:if>
 
-                        <g:if test="${slideInstance?.normalizeWith}">
-                            <li class="fieldcontain">
-                                <span id="normalizeWith-label" class="property-label"><g:message code="slideLayout.normalize.with.label" default="Slides used for normalization" /></span>
-
-                                <span class="property-value" aria-labelledby="experiments-label">
-                                    <ul class="property-list">
-                                        <g:each in="${slideInstance?.normalizeWith}">
-                                            <li>
-                                                <g:link controller="slide" action="show" id="${it.id}">${it.title}</g:link>
-                                            </li>
-                                        </g:each>
-                                    </ul>
-                                </span>
-                            </li>
-                        </g:if>
-
                         <g:if test="${slideInstance?.resultFile}">
                         <li class="fieldcontain">
                             <span id="resultFile-label" class="property-label"><g:message code="slide.resultFile.label" default="Result File" /></span>

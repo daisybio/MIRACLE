@@ -108,22 +108,6 @@
     <g:select id="layout" name="layout.id" from="${SlideLayout.list()}" optionKey="id" required="" value="${slideInstance?.layout?.id}" class="many-to-one"/>
 </div>
 
-<div class="fieldcontain">
-    <label for="experiments">
-        <g:message code="slideLayout.experiments.label" default="Experiments" />
-    </label>
-    <g:select name="experimentsSelected" multiple="${true}" size="10" from="${experiments}" value="${selectedExperiments}" optionKey="id"/>
-</div>
-
-<g:if test="${slideInstance?.layout}">
-    <div class="fieldcontain">
-        <label for="normalizeWith">
-            <g:message code="slideLayout.normalize.with.label" default="Slides used for normalization" />
-        </label>
-        <g:select name="normalizeWith" multiple="${true}" size="10" from="${Slide.findAllByLayout(slideInstance?.layout) - slideInstance}" value="${slideInstance?.normalizeWith}" optionKey="id"/>
-    </div>
-</g:if>
-
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'resultFile', 'error')} required">
 	<label for="resultFile">
 		<g:message code="slide.resultFile.label" default="Result File" />
