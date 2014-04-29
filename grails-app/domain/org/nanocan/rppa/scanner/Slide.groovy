@@ -57,7 +57,7 @@ class Slide{
     ResultFileConfig lastConfig
     String uuid
 
-    static hasMany = [spots: Spot, blockShifts: BlockShift, normalizeWith: Slide]
+    static hasMany = [spots: Spot, blockShifts: BlockShift]
 
     Antibody antibody
 

@@ -45,14 +45,16 @@ class AnalysisController {
 
     def start() {
 
-        println params
         def projects = Project.list()
 
         def experiments = params.project?Experiment.findAllByProject(Project.get(params.project)):Experiment.list()
 
         def plateLayouts
         if(params.experiment) plateLayouts = Experiment.get(params.experiment).plateLayouts
-        else if(params.project) plateLayouts = Project.get(params.project).experiments.collect({it.plateLayouts})
+        else if(params.project){
+            plateLayouts = []
+            Project.get(params.project).experiments.each{ plateLayouts.addAll(it.plateLayouts) }
+        }
         else plateLayouts = PlateLayout.list()
 
         def slideLayouts
@@ -66,7 +68,10 @@ class AnalysisController {
             slideLayouts = slideLayouts.collect{SlideLayout.get(it)}
         }
         else if(params.experiment) slideLayouts = Experiment.get(params.experiment).slideLayouts
-        else if(params.project) slideLayouts = Project.get(params.project).experiments.collect{it.slideLayouts}
+        else if(params.project){
+            slideLayouts = []
+            Project.get(params.project).experiments.each{ slideLayouts.addAll(it.slideLayouts)}
+        }
         else slideLayouts = SlideLayout.list()
 
         def slides

@@ -152,7 +152,7 @@ class SpottingController {
                     def extractorCols = flow.extractionHead.extractorColumns
                     def extractorRows = flow.extractionHead.extractorRows
 
-                    if(flow.transformToThreeEightyFour){
+                    if(flow.transformToThreeEightyFour && layout.format == "96-well"){
                         extractorCols = extractorCols / 2
                         extractorRows = extractorRows / 2
                     }

@@ -74,7 +74,7 @@ grails.project.dependency.resolution = {
 
         //database
         runtime "net.sourceforge.jtds:jtds:1.3.1" //MS-SQL
-        // runtime 'mysql:mysql-connector-java:5.1.16'
+        runtime 'mysql:mysql-connector-java:5.1.16'
     }
 
     plugins {

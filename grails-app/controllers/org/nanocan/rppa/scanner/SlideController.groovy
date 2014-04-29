@@ -159,7 +159,7 @@ class SlideController {
             return
         }
 
-        [slideInstance: slideInstance, experiments:  experimentService.findExperiment(slideInstance)]
+        [slideInstance: slideInstance, experiments:  experimentService.findExperiment(slideInstance.layout)]
     }
 
     def edit() {
@@ -170,7 +170,7 @@ class SlideController {
             return
         }
 
-        [slideInstance: slideInstance, experiments: Experiment.list(), selectedExperiments: experimentService.findExperiment(slideInstance)]
+        [slideInstance: slideInstance]
     }
 
     def update() {
@@ -218,8 +218,6 @@ class SlideController {
             render(view: "edit", model: [slideInstance: slideInstance])
             return
         }
-
-        experimentService.updateExperiments(slideInstance, params.experimentsSelected)
 
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'slide.label', default: 'Slide'), slideInstance.id])
         redirect(action: "show", id: slideInstance.id)
@@ -420,24 +418,4 @@ class SlideController {
             [slideId: params.id, blockRows: blockRows]
         }
     }
-
-    def analysis(){
-        def slideInstance = Slide.get(params.id)
-
-        def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
-        baseUrl = baseUrl.substring(0, baseUrl.size()-5)
-        def spotExportLink = java.net.URLEncoder.encode(baseUrl, "UTF-8")
-        def securityToken = java.net.URLEncoder.encode(securityTokenService.getSecurityToken(slideInstance), "UTF-8")
-
-
-        def normalizationSecurityTokens
-        if(slideInstance?.normalizeWith)
-        {
-            normalizationSecurityTokens = slideInstance.normalizeWith.collect{securityTokenService.getSecurityToken(it)}.join("|")
-        }
-
-        def analysisUrl = grailsApplication.config.shiny.single.analysis + "?baseUrl=" + spotExportLink + "&securityToken=" + securityToken + "&normalizationTokens=" + normalizationSecurityTokens
-        redirect(url: analysisUrl)
-    }
-
 }
