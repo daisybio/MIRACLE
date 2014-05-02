@@ -70,7 +70,7 @@
                                experimentSelected: session.experimentSelected]}">Create Slide Layout from Plates</g:link>
         </li>
         <li>
-            <g:link class="create" controller="slideLayout" action="createFromFile">Create Slide Layout from File</g:link>
+            <g:link class="create" controller="slideImport" action="createFromFile">Create Slide Layout from File</g:link>
         </li>
         <li>
             <g:link class="list" controller="extractionHead" action="list">Extraction Heads</g:link>
