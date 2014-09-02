@@ -337,9 +337,21 @@ class SlideController {
             if(it.toString().startsWith("column") && it.toString() != "columnSeparator") columnMap.put(params.get(it), Integer.parseInt(it.toString().split('_')[1]))
         }
 
-        def slideInstance = Slide.get(params.id)
-
         def progressId = "pId" + params.id
+
+        //check if minimal number of columns have been assigned
+        if(!columnMap.column || !columnMap.row || (!columnMap.block && (!columnMap.mainRow || !columnMap.mainCol))){
+            render "row / column mapping missing."
+            progressService.setProgressBarValue(progressId, 100)
+            return;
+        }
+        if(!columnMap.BG || !columnMap.FG){
+            render "FG and/or BG column mapping missing."
+            progressService.setProgressBarValue(progressId, 100)
+            return;
+        }
+
+        def slideInstance = Slide.get(params.id)
 
         progressService.setProgressBarValue(progressId, 0)
 
