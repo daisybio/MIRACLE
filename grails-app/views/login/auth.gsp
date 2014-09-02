@@ -86,13 +86,20 @@
 
 <body>
 <div id='login'>
-    <h1><a href="http://nanocan.github.io/MIRACLE/" target="_blank">Click here to get to the user guide</a></h1>
-	<div class='inner'>
+    <h1><a href="http://nanocan.github.io/MIRACLE/" target="_blank">Click here to get to the user guide</a></h1> <br/><br/>
+
+    <h3>Note:</h3>
+    <div style="width: 400px; margin: 0 auto;">Data uploaded to this demo server is accessible to all users. To test features we therefore recommend to use the demo data set or to blind sample information.
+    For long term use, we encourage users to install MIRACLE on their own server (<a href="https://github.com/NanoCAN/MIRACLE/wiki/Setup">installation instructions</a>)
+    or to use the provided virtual machine (<a href="https://mega.co.nz/#!bJ5ClTrY!leEFRhPRFU659zNDDvSriXtvwcg_7Rt27s0gvanxrk4">download</a>)</div>
+
+    <div class='inner'>
 		<div class='fheader'><g:message code="springSecurity.login.header"/></div>
 
 		<g:if test='${flash.message}'>
 			<div class='login_message'>${flash.message}</div>
 		</g:if>
+
         <div class="message">User: 'demo', password: 'demo0815'</div>
 
         <form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>

@@ -278,6 +278,8 @@ class SpotImportService {
             def currentLine = scanner.nextLine()
 
             currentLine = currentLine.split(',')
+            println currentLine
+            println columnMap
 
             try
             {
@@ -286,18 +288,18 @@ class SpotImportService {
                 newSpot.FG = Double.valueOf(currentLine[columnMap.FG].toString().trim())
                 if(columnMap.block == null)
                 {
-                    newSpot.block = blockFromSubGrid(Integer.valueOf(currentLine[columnMap.mainCol].toString().trim()),
-                            Integer.valueOf(currentLine[columnMap.mainRow].toString().trim()))
+                    newSpot.block = blockFromSubGrid(Integer.valueOf(currentLine[columnMap.mainCol]),
+                            Integer.valueOf(currentLine[columnMap.mainRow]))
                 }
                 else{
                     newSpot.block = Integer.valueOf(currentLine[columnMap.block].toString().trim())
                 }
                 newSpot.row = Integer.valueOf(currentLine[columnMap.row].toString().trim())
                 newSpot.col = Integer.valueOf(currentLine[columnMap.column].toString().trim())
-                newSpot.x = (int) Double.valueOf(currentLine[columnMap.X].toString().trim())
-                newSpot.y = (int) Double.valueOf(currentLine[columnMap.Y].toString().trim())
-                newSpot.diameter = Double.valueOf(currentLine[columnMap.diameter].toString().trim())
-                newSpot.flag = Double.valueOf(currentLine[columnMap.flag].toString().trim())
+                if(columnMap.X) newSpot.x = (int) Double.valueOf(currentLine[columnMap.X].toString().trim())
+                if(columnMap.Y) newSpot.y = (int) Double.valueOf(currentLine[columnMap.Y].toString().trim())
+                if(columnMap.diameter) newSpot.diameter = Double.valueOf(currentLine[columnMap.diameter].toString().trim())
+                if(columnMap.flag) newSpot.flag = Double.valueOf(currentLine[columnMap.flag].toString().trim())
 
                 spots << newSpot
 
@@ -350,11 +352,22 @@ class SpotImportService {
         def depositionList = depositionService.parseDepositions(slideInstance.layout.depositionPattern)
         int deposLength = depositionList.size()
 
-        //sort rows in obj like this block -> column -> row
-        spots.sort{ a,b -> (a.block <=> b.block) ?: (a.row <=> b.row) ?:(a.col <=> b.col)  }
+        def layoutSpots
 
-        //get all layout spots in the correct order
-        def layoutSpots = fetchOrderedLayoutSpots(slideInstance.layout.id)
+        if(slideInstance.layout.depositionDirection == "row-wise") {
+            //sort rows in obj like this block -> row -> column
+            spots.sort { a, b -> (a.block <=> b.block) ?: (a.row <=> b.row) ?: (a.col <=> b.col) }
+
+            //get all layout spots in the correct order
+            layoutSpots = fetchRowOrderedLayoutSpots(slideInstance.layout.id)
+        }
+        else{
+            //sort rows in obj like this block -> column -> row
+            spots.sort { a, b -> (a.block <=> b.block) ?: (a.col <=> b.col) ?: (a.row <=> b.row) }
+
+            //get all layout spots in the correct order
+            layoutSpots = fetchColOrderedLayoutSpots(slideInstance.layout.id)
+        }
 
         def layoutSpotIterator = layoutSpots.iterator()
         def currentLayoutSpot
@@ -368,8 +381,19 @@ class SpotImportService {
         if(!groovySql){
             spots.eachWithIndex{ obj, currentSpotIndex ->
 
-                int layoutColumn = mapToLayoutColumn(obj.col, deposLength)
-                currentLayoutSpot = scrollThroughLayoutSpots(currentLayoutSpot, layoutSpotIterator, obj, layoutColumn)
+                int layoutColumn
+                int layoutRow
+
+                if(slideInstance.layout.depositionDirection == "row-wise"){
+                    layoutColumn = mapToLayoutColumn(obj.col, deposLength)
+                    layoutRow = (int) obj.row
+                }
+                else{
+                    layoutRow = mapToLayoutColumn(obj.row, deposLength)
+                    layoutColumn = (int) obj.col
+                }
+
+                currentLayoutSpot = scrollThroughLayoutSpots(currentLayoutSpot, layoutSpotIterator, (int) obj.block, layoutColumn, layoutRow)
 
                 //add new spot
                 def newSpot = new Spot(obj)
@@ -385,10 +409,19 @@ class SpotImportService {
             sql.withBatch(batchSize, 'insert into spot (version, bg, fg, block, col, diameter, flag, layout_spot_id, row, slide_id, x, y, signal) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'){ stmt ->
 
                 spots.eachWithIndex{ obj, currentSpotIndex ->
-                    int layoutColumn = mapToLayoutColumn(obj.col, deposLength)
+                    int layoutColumn
+                    int layoutRow
 
+                    if(slideInstance.layout.depositionDirection == "row-wise"){
+                        layoutColumn = mapToLayoutColumn(obj.col, deposLength)
+                        layoutRow = (int) obj.row
+                    }
+                    else{
+                        layoutRow = mapToLayoutColumn(obj.row, deposLength)
+                        layoutColumn = (int) obj.col
+                    }
                     //match a layout spot to this slide spot in a closure
-                    currentLayoutSpot = scrollThroughLayoutSpots(currentLayoutSpot, layoutSpotIterator, obj, layoutColumn)
+                    currentLayoutSpot = scrollThroughLayoutSpots(currentLayoutSpot, layoutSpotIterator, obj, layoutColumn, layoutRow)
 
                     //add insert statement to batch
                     stmt.addBatch(0, obj.BG, obj.FG, obj.block, obj.col, obj.diameter, obj.flag, currentLayoutSpot.id, obj.row, slideInstance.id, obj.x, obj.y, obj.FG-obj.BG)
@@ -399,7 +432,7 @@ class SpotImportService {
         }
     }
 
-    public fetchOrderedLayoutSpots(layoutId) {
+    public fetchRowOrderedLayoutSpots(layoutId) {
         def layoutSpots = LayoutSpot.withCriteria {
             eq("layout.id", layoutId)
             order('block')
@@ -409,16 +442,26 @@ class SpotImportService {
         return layoutSpots
     }
 
-    public scrollThroughLayoutSpots(def currentLayoutSpot, def layoutSpotIterator, def obj, int layoutColumn) {
+    public fetchColOrderedLayoutSpots(layoutId) {
+        def layoutSpots = LayoutSpot.withCriteria {
+            eq("layout.id", layoutId)
+            order('block')
+            order('col')
+            order('row')
+        }
+        return layoutSpots
+    }
+
+    public scrollThroughLayoutSpots(def currentLayoutSpot, def layoutSpotIterator, int block, int layoutColumn, int layoutRow) {
 
         //scroll forward
-        while ((currentLayoutSpot.row < (obj.row as int) || currentLayoutSpot.block < (obj.block as int)
+        while ((currentLayoutSpot.row < layoutRow || currentLayoutSpot.block < block
                 || currentLayoutSpot.col < layoutColumn) && layoutSpotIterator.hasNext()) {
             currentLayoutSpot = layoutSpotIterator.next()
         }
 
         //check if we missed the right spot
-        if(currentLayoutSpot.row == obj.row && currentLayoutSpot.block == obj.block && currentLayoutSpot.col == layoutColumn)
+        if(currentLayoutSpot.row == layoutRow && currentLayoutSpot.block == block && currentLayoutSpot.col == layoutColumn)
         {
             return currentLayoutSpot
         }
@@ -429,11 +472,11 @@ class SpotImportService {
         }
     }
 
-    def mapToLayoutColumn(col, deposLength) {
+    def mapToLayoutColumn(pos, deposLength) {
         //match layout column to actual column
-        int layoutColumn = (((col as Integer) - 1) / deposLength)
+        int newPos = (((pos as Integer) - 1) / deposLength)
         //we don't want to start with zero
-        layoutColumn++
-        return layoutColumn
+        newPos++
+        return newPos
     }
 }
