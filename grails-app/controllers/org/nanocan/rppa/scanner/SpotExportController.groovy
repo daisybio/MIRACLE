@@ -31,6 +31,7 @@ package org.nanocan.rppa.scanner
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import groovy.json.JsonOutput
 import org.codehaus.jackson.map.ObjectMapper
 import org.hibernate.criterion.CriteriaSpecification
 import org.json.simple.JSONArray
@@ -94,39 +95,80 @@ class SpotExportController {
     }
 
     @Secured(['ROLE_USER'])
+    def exportSpotsForSingleBlock(slideId, block){
+        def criteria = Spot.createCriteria()
+        def result = criteria.list {
+            eq("slide.id", slideId)
+            eq("block", block)
+            projections {
+                property("col", "Column")
+                property("row", "Row")
+                property("signal", "Signal")
+                property("id", "id")
+            }
+            order('col', 'asc')
+            order('row', 'asc')
+        }
+
+        //log2 transform and round signal
+        result.each{
+            if (it[2]==null) return
+            else{
+                it[2] = Math.round(it[2])
+            }
+        }
+
+        result = result.collect{
+            def obj = [:]
+            obj.x = it[0]
+            obj.y = it[1]
+            obj.value = it[2]
+            obj.id = it[3]
+            return(obj)
+        }
+
+        return(result)
+    }
+
+    @Secured(['ROLE_USER'])
+    def exportSpotsForBlocksAsJSON = {
+        def slide = Slide.get(params.id)
+        def blockRows = slide.layout.numberOfBlocks.intValue().intdiv(slide.layout.blocksPerRow.intValue())
+        def blockCols = slide.layout.blocksPerRow
+        def result = []
+
+        for(row in 1..blockRows){
+            for(column in 1..blockCols){
+                def nextBlock = (row - 1) * blockCols + column
+                result.add(exportSpotsForSingleBlock(slide.id, nextBlock))
+            }
+        }
+
+        ObjectMapper mapper = new ObjectMapper()
+        def jsonResult = mapper.writeValueAsString(result)
+
+        response.contentType = "text/json"
+        render jsonResult
+    }
+
+    @Secured(['ROLE_USER'])
     def exportSpotsForHeatmapAsJSON = {
 
         def criteria = Spot.createCriteria()
+
         def result = criteria.list {
             eq("slide.id", params.long("id"))
             projections {
-                property("id", "id")
-                property("signal", "Signal")
-                property("block", "Block")
                 property("row", "Row")
                 property("col", "Column")
+                property("signal", "Signal")
+                property("id", "id")
+                property("block", "Block")
             }
             order('block', 'asc')
             order('row', 'asc')
             order('col', 'asc')
         }
-
-        //log2 transform and round signal
-        result.each{
-            if(it[1]==0) it[1]=null
-            else if (it[1]==null) return
-            else{
-               it[1] = Math.round(Math.log(it[1])/Math.log(2))
-            }
-        }
-
-        result = [ data: result, meta: [
-            "id": [type: "num"],
-            "Signal": [type: "num"],
-            "Block": [type: "cat"],
-            "Row": [type: "num"],
-            "Column": [type: "num"]
-        ]]
 
         ObjectMapper mapper = new ObjectMapper()
         def jsonResult = mapper.writeValueAsString(result)
@@ -140,13 +182,12 @@ class SpotExportController {
         def spot = Spot.get(params.id)
         def layout = spot.layoutSpot
         def depositionArray = depositionService.getDepositionArray(spot.layoutSpot.layout)
-        render """B/C/R: ${spot.block}/${spot.col}/${spot.row}
-Deposition: ${depositionService.getDeposition(spot, depositionArray)}
-SampleName: ${layout.sample}
-CellLine: ${layout.cellLine}
-Inducer: ${layout.inducer}
-LysisBuffer: ${layout.lysisBuffer}
-Treatment: ${layout.treatment}
+        render """Block/Column/Row/Deposition: ${spot.block}/${spot.col}/${spot.row}/${depositionService.getDeposition(spot, depositionArray)}<br/>
+SampleName: ${layout.sample}<br/>
+CellLine: ${layout.cellLine}<br/>
+Inducer: ${layout.inducer}<br/>
+LysisBuffer: ${layout.lysisBuffer}<br/>
+Treatment: ${layout.treatment}<br/>
 SpotType: ${layout.spotType}
 """
     }
@@ -203,6 +244,17 @@ SpotType: ${layout.spotType}
 
         if(accessAllowed(params.securityToken, slideInstance)){
             render slideInstance.title
+        }
+        else{
+            render status: 403
+        }
+    }
+
+    def getBarcode = {
+        def slideInstance = Slide.get(params.id)
+
+        if(accessAllowed(params.securityToken, slideInstance)){
+            render slideInstance.barcode
         }
         else{
             render status: 403
@@ -278,17 +330,22 @@ SpotType: ${layout.spotType}
 
         outs << "MIRACLE reverse phase protein array file format"
         outs << "\n"
-        outs << "v.1.0"
+        outs << "v.1.1"
         outs << "\n"
         outs << depositionArray//slideInstance.layout.depositionPattern?:""
         outs << "\n"
         outs << slideInstance.id
+        outs << "\n"
+        outs << slideInstance.barcode
         outs << "\n"
         outs << slideInstance.title
         outs << "\n"
         outs << slideInstance.antibody
         outs << "\n"
         outs << slideInstance.photoMultiplierTube
+        outs << "("
+        outs << slideInstance.photoMultiplierTubeSetting
+        outs << ")"
         outs << "\n"
         outs << slideInstance.layout.blocksPerRow
         outs << "\n"

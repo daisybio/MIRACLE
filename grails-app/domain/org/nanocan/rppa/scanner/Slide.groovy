@@ -56,6 +56,7 @@ class Slide{
     String comments
     ResultFileConfig lastConfig
     String uuid
+    String photoMultiplierTubeSetting
 
     static hasMany = [spots: Spot, blockShifts: BlockShift]
 
@@ -75,6 +76,7 @@ class Slide{
          resultImage nullable: true
          comments nullable: true
          title nullable: true
+         photoMultiplierTubeSetting inList: ["high", "low"], nullable: true
     }
 
     static mapping = {
@@ -85,7 +87,10 @@ class Slide{
 
     String toString()
     {
-        if(!title) (dateOfStaining.dateString + "_" + experimenter.toString() + "_" + antibody.toString())
-        else title
+        if(!title){
+          if(!barcode) return("id" + id + "_" + antibody.toString() + "_" + photoMultiplierTube + "(" + photoMultiplierTubeSetting+")")
+            else return("id"+ id + "_" + barcode + "_" + antibody.toString() + "_" + photoMultiplierTube + "(" + photoMultiplierTubeSetting+")")
+        }
+        else return("id" + id + "_" + barcode + "_" + title + "_" + antibody.toString() + "_" + photoMultiplierTube + "(" + photoMultiplierTubeSetting+")")
     }
 }

@@ -379,6 +379,21 @@ class SlideController {
         [slideInstance: slideInstance, hblockShifts: hblockShifts, vblockShifts: vblockShifts]
     }
 
+    def deleteBlockShifts () {
+        def slideInstance = Slide.get(params.id)
+
+        slideInstance.blockShifts.removeAll(slideInstance.blockShifts)
+
+        if(slideInstance.save(flush: true)) {
+            flash.message = "Block shifts deleted successfully"
+        }
+        else{
+            flash.message = "Block shifts could not be deleted"
+        }
+
+        redirect(action: "show", id: params.id)
+    }
+
     def saveBlockShiftPattern () {
         def slideInstance = Slide.get(params.id)
 
@@ -414,7 +429,7 @@ class SlideController {
     def heatmap() {
         def slideInstance = Slide.get(params.long("id"))
 
-        if(params.shiny)
+        if(params.shiny == 'true')
         {
             def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
             baseUrl = baseUrl.substring(0, baseUrl.size()-5)
@@ -427,7 +442,8 @@ class SlideController {
         else{
             def layout = slideInstance.layout
             def blockRows = layout.numberOfBlocks.intValue().intdiv(layout.blocksPerRow.intValue())
-            [slideId: params.id, blockRows: blockRows]
+            [slideId: params.id, blockRows: blockRows, blocksPerRow: layout.blocksPerRow, rows: layout.rowsPerBlock,
+             cols: layout.columnsPerBlock, slideInstance: slideInstance]
         }
     }
 }

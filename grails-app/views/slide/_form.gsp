@@ -52,9 +52,8 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'comments', 'error')} required">
-    <label for="title">
+    <label for="comments">
         <g:message code="slide.comments.label" default="Comments" />
-        <span class="required-indicator">*</span>
     </label>
     <g:textArea cols="10" rows="10" name="comments" value="${slideInstance.comments}"></g:textArea>
 </div>
@@ -91,6 +90,15 @@
     <g:field type="number" name="photoMultiplierTube" required="" value="${fieldValue(bean: slideInstance, field: 'photoMultiplierTube')}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'photoMultiplierTubeSetting', 'error')} required">
+    <label for="photoMultiplierTubeSetting">
+        <g:message code="slide.photoMultiplierTubeSetting.label" default="PhotoMultiplierTube setting (PMT)" />
+        <span class="required-indicator">*</span>
+    </label>
+    <g:select id="photoMultiplierTubeSetting" name="photoMultiplierTubeSetting" from="${['high', 'low']}" value="low"/>
+</div>
+
+
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'antibody', 'error')} required">
 	<label for="antibody">
 		<g:message code="slide.antibody.label" default="Antibody" />
@@ -122,7 +130,6 @@
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'resultImage', 'error')} ">
 	<label for="resultImage">
 		<g:message code="slide.resultImage.label" default="Result Image" />
-		<span class="required-indicator">*</span>
 	</label>
     <div style="float:right; padding-right: 120px;"><table><tr><td>Choose existing file: </td>
         <td> <input type="text" id="resultImageAjax"></td></tr>
@@ -133,7 +140,6 @@
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'protocol', 'error')} ">
     <label for="protocol">
         <g:message code="slide.protocol.label" default="Experiment Protocol" />
-        <span class="required-indicator">*</span>
     </label>
     <div style="float:right; padding-right: 120px;"><table><tr><td>Choose existing file: </td>
         <td> <input type="text" id="protocolAjax"></td></tr>

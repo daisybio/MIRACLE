@@ -63,12 +63,12 @@
                 <li><g:link class="list" controller="spotExport" action="exportAsCSV" id="${slideInstance?.id}">Export CSV</g:link></li>
                 <li><g:link class="list" controller="spotExport" action="createUrlForR" id="${slideInstance?.id}">Export to R</g:link></li>
                 <g:if test="${slideInstance.spots.size() > 0}">
-                    <!--<li>
-                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"slide", action:"heatmap", id:slideInstance.id, params:[shiny:false])}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">JS Heatmap</a>
-                    </li>-->
                     <li>
-                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"slide", action:"heatmap", id:slideInstance.id, params:[shiny:true])}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">Heatmap</a>
+                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"slide", action:"heatmap", id:slideInstance.id, params:[shiny:false])}', '_blank', 'height=500,width=1200,toolbar=0,location=0,menubar=0');">Heatmap</a>
                     </li>
+                    <!--<li>
+                        <a href="#" class="heatmap" onclick="window.open('${g.createLink(controller:"slide", action:"heatmap", id:slideInstance.id, params:[shiny:true])}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">Heatmap</a>
+                    </li>-->
                     <!--<li>
                         <a href="#" class="plot" onclick="window.open('${g.createLink(controller:"slide", action:"analysis", id:slideInstance.id)}', '_blank', 'height=800,width=1200,toolbar=0,location=0,menubar=0');">Shiny Analysis</a>
                     </li>-->
@@ -80,8 +80,11 @@
 		<div id="show-slide" class="content scaffold-show" role="main">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
+			    <div class="message" role="status">${flash.message}</div>
 			</g:if>
+            <g:if test="${slideInstance.blockShifts.size() > 0}">
+                <div class="message" role="status">Note: This slide has block shifts</div>
+            </g:if>
 
             <div id="accordion" style="margin: 25px; width: 90%;">
                 <h3><a href="#">Properties</a></h3>
@@ -167,6 +170,12 @@
 
                         </li>
 
+                        <li class="fieldcontain">
+                            <span id="photoMultiplierTubeSetting-label" class="property-label"><g:message code="slide.photoMultiplierTubeSetting.label" default="Photo Multiplier Tube setting (PMT)" /></span>
+
+                            <span class="property-value" aria-labelledby="photoMultiplierTubeSetting-label"><g:fieldValue bean="${slideInstance}" field="photoMultiplierTubeSetting"/></span>
+
+                        </li>
 
                         <g:if test="${experiments}">
                             <li class="fieldcontain">
