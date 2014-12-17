@@ -14,6 +14,7 @@
             <ul class="nav">
                 <g:render template="/templates/navmenu"></g:render>
                 <li><g:link class="list" action="show" id="${slideInstance.id}">Back to slide (without saving changes)</g:link></li>
+                <g:if test="${slideInstance.blockShifts.size() != 0}"><li><g:link controller="slide" class="delete" action="deleteBlockShifts" id="${slideInstance.id}">Delete all block shifts</g:link></li></g:if>
             </ul>
         </div>
     </div>
@@ -23,7 +24,6 @@
     <div class="content">
 
     <h1>Block shift correction: </h1>
-
 
     <div style="float:left; width:200px; padding: 20px;">
     <p>Please enter shift correction values for each block.<br/>A block can be shifted horizontally

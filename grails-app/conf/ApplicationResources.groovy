@@ -38,6 +38,17 @@ modules = {
         resource url: 'css/colorpicker.css'
     }
 
+    highcharts {
+        resource url: 'js/highcharts/highcharts.js'
+        resource url: 'js/highcharts/data.js'
+        resource url: 'js/highcharts/exporting.js'
+    }
+
+    highchartsHeatmap{
+        dependsOn 'highcharts'
+        resource url: 'js/highcharts/heatmap.js'
+    }
+
     jstree {
         dependsOn 'jquery'
         resource url: 'js/jquery.jstree.js'

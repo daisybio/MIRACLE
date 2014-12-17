@@ -51,7 +51,7 @@
 
                         <td><g:link action="show" id="${slideInstance?.id}">${slideInstance?.barcode}</g:link></td>
 
-                        <td><g:link action="show" id="${slideInstance.id}">${slideInstance?.toString()}</g:link></td>
+                        <td><g:link action="show" id="${slideInstance.id}">${slideInstance?.title}</g:link></td>
 
 						<td>${fieldValue(bean: slideInstance, field: "antibody")}</td>
 					
