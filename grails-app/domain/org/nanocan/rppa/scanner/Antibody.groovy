@@ -32,6 +32,8 @@ package org.nanocan.rppa.scanner
 class Antibody {
 
     String name
+    String supplier
+    String catalogNr
     Double concentration
     String concentrationUnit
     String comments
@@ -45,8 +47,10 @@ class Antibody {
         //dilution nullable: true
         //species inList: ["mouse", "rat", "goat", "rabbit"], nullable:true
         concentration nullable:true, min: new Double(0)
-        concentrationUnit inList: ["microg/ml", "mM"], nullable:true
+        concentrationUnit inList: ["microg/ml", "mM", "ratio 1:"], nullable:true
         comments nullable: true
+        supplier nullable: true
+        catalogNr nullable: true
     }
 
     String toString()
