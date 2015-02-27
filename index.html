@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html>
 
@@ -46,6 +48,11 @@
       <section id="main_content" class="inner">
         <h3>
 <a name="welcome-to-miracle" class="anchor" href="#welcome-to-miracle"><span class="octicon octicon-link"></span></a>Microarray R-based Analysis of Complex Lysate Experiments with MIRACLE</h3>
+
+<h5>Release Notes:</h5>
+{% capture my_include %}{% include release_notes.md %}{% endcapture %}
+{{ my_include | markdownify }}
+
 
 <h5>Motivation:</h5> Reverse phase protein arrays (RPPAs) allow sensitive
 quantification of relative protein abundance in thousands of samples
