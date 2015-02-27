@@ -140,7 +140,7 @@
             </tr>
         </table>
     </div>
-</div><br/><br/><br/><br/>
+</div><br/><br/><br/><br/><g:if test="${slideInstance?.resultFile}"><br/><br/><br/></g:if>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'resultImage', 'error')} ">
 	<label for="resultImage">
@@ -165,7 +165,7 @@
             </tr>
         </table>
     </div>
-</div> <br/><br/><br/><br/>
+</div> <br/><br/><br/><br/><g:if test="${slideInstance?.resultImage}"><br/><br/><br/></g:if>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'protocol', 'error')} ">
     <label for="protocol">

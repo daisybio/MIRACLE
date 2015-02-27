@@ -140,8 +140,9 @@ class SlideController {
         slideInstanceCopy.createdBy = springSecurityService.currentUser
         slideInstanceCopy = fileUploadService.dealWithFileUploads(request, slideInstanceCopy)
 
-        if (!slideInstanceCopy.save(flush: true, failOnError: true)) {
+        if (!slideInstanceCopy.save(flush: true)) {
             render(view: "create", model: [slideInstance: slideInstanceCopy])
+            return
         }
 
         flash.message = message(code: 'default.copied.message', default: "Slide copied successfully", args: [message(code: 'slide.label', default: 'Slide'), slideInstanceCopy.id])
