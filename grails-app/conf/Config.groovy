@@ -198,7 +198,7 @@ grails.plugins.springsecurity.authority.className = 'org.nanocan.security.Role'
 
 //database migration
 grails.plugin.databasemigration.updateOnStart = true
-grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
+grails.plugin.databasemigration.updateOnStartFileNames = ["changelog-0.9.groovy"]
 
 //grails.plugin.databasemigration.changelogFileName = 'changelog.groovy'
 
