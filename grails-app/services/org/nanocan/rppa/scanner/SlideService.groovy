@@ -47,4 +47,19 @@ class SlideService {
 
         return slideInstance
     }
+
+    def slideCopy(def params){
+
+        def slideInstance = Slide.get(params.id)
+        params.id = null
+        def slideInstanceCopy = new Slide(params)
+        slideInstanceCopy.comments = slideInstance.comments
+        slideInstanceCopy.laserWavelength = slideInstance.laserWavelength
+        slideInstanceCopy.layout = slideInstance.layout
+        slideInstanceCopy.protocol = slideInstance.protocol
+        slideInstanceCopy.photoMultiplierTubeSetting = slideInstance.photoMultiplierTubeSetting
+        slideInstanceCopy.experimenter = slideInstance.experimenter
+
+        return(slideInstanceCopy)
+    }
 }

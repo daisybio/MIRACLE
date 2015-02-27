@@ -1,5 +1,5 @@
 
-<%@ page import="liquibase.util.file.FilenameUtils; org.nanocan.rppa.scanner.Slide" %>
+<%@ page import="org.nanocan.rppa.scanner.Antibody; liquibase.util.file.FilenameUtils; org.nanocan.rppa.scanner.Slide" %>
 <!doctype html>
 <html>
 	<head>
@@ -251,6 +251,74 @@
                             </li>
                         </g:each>
                     </ul>
+                </div>
+                <h3><a href="#">Copy this slide</a></h3>
+                <div>
+                    <g:form action="copySlide" name="copySlideForm" enctype="multipart/form-data">
+                        <g:hiddenField name="id" value="${slideInstance.id}"/>
+                        <fieldset class="form">
+                            <div class="fieldcontain">
+                                <label for="copyName">
+                                    <g:message code="slide.copy.label" default="Title for the copy" />
+                                    <span class="required-indicator">*</span>
+                                </label>
+                                <g:textField name="title" value="${slideInstance.title} (copy)"/>
+                            </div>
+                            <div class="fieldcontain">
+                                <label for="barcode">
+                                    <g:message code="slide.barcode.label" default="Barcode" />
+                                    <span class="required-indicator">*</span>
+                                </label>
+                                <g:textField name="barcode" value="${slideInstance.barcode}"></g:textField>
+                            </div>
+                            <div class="fieldcontain">
+                                <label for="copyComments">
+                                    <g:message code="slide.copy.comments" default="Comments" />
+                                </label>
+                                <g:textArea name="comments" value="${slideInstance.comments}"/>
+                            </div>
+                            <div class="fieldcontain">
+                                <label for="dateOfStaining">
+                                    <g:message code="slide.dateOfStaining.label" default="Date Of Staining" />
+                                    <span class="required-indicator">*</span>
+                                </label>
+                                <g:jqDatePicker name="dateOfStaining" value="${slideInstance?.dateOfStaining}"/>
+                            </div>
+                            <div class="fieldcontain">
+                                <label for="copyPMT">
+                                    <g:message code="slide.copy.pmt" default="PMT for the copy" />
+                                    <span class="required-indicator">*</span>
+                                </label>
+                                <g:field type="number" name="photoMultiplierTube" required="" value="${fieldValue(bean: slideInstance, field: 'photoMultiplierTube')}"/>
+                            </div>
+                            <div class="fieldcontain">
+                                <label for="copyAntibody">
+                                    <g:message code="slide.copy.antibody" default="Antibody for the copy" />
+                                    <span class="required-indicator">*</span>
+                                </label>
+                                <g:select id="antibody" name="antibody.id" from="${org.nanocan.rppa.scanner.Antibody.list()}" optionKey="id" required="" value="${slideInstance?.antibody?.id}" class="many-to-one"/>
+                            </div>
+                            <div class="fieldcontain">
+                                <label for="copyResultFile">
+                                    <g:message code="slide.copy.resultFile" default="Resultfile for the copy" />
+                                    <span class="required-indicator">*</span>
+                                </label>
+                                <input type="file" id="resultFile.input" name="resultFileInput"/>
+                            </div>
+                            <div class="fieldcontain">
+                                <label for="copyResultImage">
+                                    <g:message code="slide.copy.resultImage" default="Image for the copy" />
+                                </label>
+                                <input type="file" id="resultImage.input" name="resultImageInput"/>
+                            </div>
+                            
+                        </fieldset>
+                        <fieldset class="buttons">
+                            <g:actionSubmit class="save" action="copySlide" value="create quick copy"/>
+                            <g:actionSubmit class="edit" action="createFromTemplate" value="create using this slide as template"/>
+                        </fieldset>
+
+                    </g:form>
                 </div>
             </div>
 

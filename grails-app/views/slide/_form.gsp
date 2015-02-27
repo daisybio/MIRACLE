@@ -121,29 +121,73 @@
 		<g:message code="slide.resultFile.label" default="Result File" />
 		<span class="required-indicator">*</span>
 	</label>
-    <div style="float:right; padding-right: 120px;"><table><tr><td>Choose existing file: </td>
-        <td> <input type="text" id="resultFileAjax"></td></tr>
-        <input type="hidden" id="resultFile.id" name="resultFile.id" value="${slideInstance?.resultFile?.id}">
-	<tr><td>...or upload new file: </td><td><input type="file" id="resultFile.input" name="resultFileInput"/></td></tr></table></div>
+    <div style="float:right; padding-right: 120px;">
+        <table>
+            <g:if test="${slideInstance?.resultFile}">
+                <tr>
+                    <td>Current file:</td>
+                    <td>${slideInstance?.resultFile}</td>
+                </tr>
+            </g:if>
+            <tr>
+                <td>Choose existing file: </td>
+                <td> <input type="text" id="resultFileAjax"></td>
+            </tr>
+            <input type="hidden" id="resultFile.id" name="resultFile.id" value="${slideInstance?.resultFile?.id}">
+	        <tr>
+                <td>...or upload new file: </td>
+                <td><input type="file" id="resultFile.input" name="resultFileInput"/></td>
+            </tr>
+        </table>
+    </div>
 </div><br/><br/><br/><br/>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'resultImage', 'error')} ">
 	<label for="resultImage">
 		<g:message code="slide.resultImage.label" default="Result Image" />
 	</label>
-    <div style="float:right; padding-right: 120px;"><table><tr><td>Choose existing file: </td>
-        <td> <input type="text" id="resultImageAjax"></td></tr>
-        <input type="hidden" id="resultImage.id" name="resultImage.id" value="${slideInstance?.resultImage?.id}">
-     <tr><td>...or upload new file: </td><td><input type="file" id="resultImage.input" name="resultImageInput"/></td></tr></table></div>
+    <div style="float:right; padding-right: 120px;">
+        <table>
+            <g:if test="${slideInstance?.resultImage}">
+                <tr>
+                    <td>Current file:</td>
+                    <td>${slideInstance?.resultImage}</td>
+                </tr>
+            </g:if>
+            <tr>
+                <td>Choose existing file: </td>
+                <td> <input type="text" id="resultImageAjax"></td>
+            </tr>
+            <input type="hidden" id="resultImage.id" name="resultImage.id" value="${slideInstance?.resultImage?.id}">
+            <tr>
+                <td>...or upload new file: </td>
+                <td><input type="file" id="resultImage.input" name="resultImageInput"/></td>
+            </tr>
+        </table>
+    </div>
 </div> <br/><br/><br/><br/>
 
 <div class="fieldcontain ${hasErrors(bean: slideInstance, field: 'protocol', 'error')} ">
     <label for="protocol">
         <g:message code="slide.protocol.label" default="Experiment Protocol" />
     </label>
-    <div style="float:right; padding-right: 120px;"><table><tr><td>Choose existing file: </td>
-        <td> <input type="text" id="protocolAjax"></td></tr>
+    <div style="float:right; padding-right: 120px;"><table>
+        <g:if test="${slideInstance?.protocol}">
+            <tr>
+                <td>Current file:</td>
+                <td>${slideInstance?.protocol}</td>
+            </tr>
+        </g:if>
+        <tr>
+            <td>Choose existing file: </td>
+            <td> <input type="text" id="protocolAjax"></td>
+        </tr>
         <input type="hidden" id="protocol.id" name="protocol.id" value="${slideInstance?.protocol?.id}">
-        <tr><td>...or upload new file: </td><td><input type="file" id="protocol.input" name="protocolInput"/></td></tr></table></div>
+        <tr>
+            <td>...or upload new file: </td>
+            <td><input type="file" id="protocol.input" name="protocolInput"/></td>
+        </tr>
+    </table>
+    </div>
 </div>
 

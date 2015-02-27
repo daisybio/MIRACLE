@@ -49,8 +49,6 @@ grails.logging.jul.usebridge = true
 
 rppa.upload.directory = "upload/"
 grails.serverURL = 'http://localhost:8080/MIRACLE'
-rconnect.host = "localhost"
-rconnect.port = "6311"
 
 def miracleLogLevel = "ERROR"
 def miracleLogPattern = "%d{yyyy-MM-dd/HH:mm:ss.SSS} [%t] %x %-5p %c{2} - %m%n"
@@ -98,31 +96,6 @@ grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
 
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
-
-// override jquery ui theme
-grails.resources.modules = {
-    overrides {
-        'jquery-theme' {
-            resource id:'theme',
-                    url:[dir: '/css',
-                            file:'jquery-ui-1.8.20.custom.css'],
-                    attrs:[media:'screen, projection']
-        }
-
-        'jquery-ui' {
-            resource id:'js', url:[dir:'/js', file:"jquery-ui-1.8.20.custom.min.js"],
-                    nominify: true, disposition: 'head'
-        }
-    }
-    syntaxhighlighter{
-        resource url: '/js/shCore.js'
-        resource url: '/js/shBrushXml.js'
-        resource url: '/js/shBrushR.js'
-        resource url: '/css/shCore.css'
-        resource url: '/css/shCoreDefault.css'
-        resource url: '/css/shThemeDefault.css'
-    }
-}
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
@@ -223,6 +196,9 @@ grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.nanocan.secu
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.nanocan.security.PersonRole'
 grails.plugins.springsecurity.authority.className = 'org.nanocan.security.Role'
 
-//select migration file
-grails.plugin.databasemigration.changelogFileName = 'changelog.groovy'
+//database migration
+grails.plugin.databasemigration.updateOnStart = true
+grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
+
+//grails.plugin.databasemigration.changelogFileName = 'changelog.groovy'
 

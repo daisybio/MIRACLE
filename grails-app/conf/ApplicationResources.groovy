@@ -31,6 +31,14 @@ modules = {
     application {
         resource url:'js/application.js'
     }
+    overrides {
+        'jquery-theme' {
+            resource id:'theme',
+                    url:[dir: '/css',
+                         file:'jquery-ui-1.8.20.custom.css'],
+                    attrs:[media:'screen, projection']
+        }
+    }
 
     colorPicker {
         dependsOn 'jquery'
@@ -72,5 +80,14 @@ modules = {
         dependsOn 'jquery'
         resource url: 'js/select2-3.4.5/select2.min.js'
         resource url: 'js/select2-3.4.5/select2.css'
+    }
+
+    syntaxhighlighter{
+        resource url: '/js/shCore.js'
+        resource url: '/js/shBrushXml.js'
+        resource url: '/js/shBrushR.js'
+        resource url: '/css/shCore.css'
+        resource url: '/css/shCoreDefault.css'
+        resource url: '/css/shThemeDefault.css'
     }
 }

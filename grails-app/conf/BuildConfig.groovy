@@ -58,6 +58,10 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        mavenRepo "http://repo.grails.org/grails/repo/"
+        mavenRepo "http://maven.geo-solutions.it"
+        mavenRepo "http://download.osgeo.org/webdav/geotools/"
+
     }
     dependencies {
         compile "org.grails:grails-webflow:$grailsVersion"
@@ -84,10 +88,12 @@ grails.project.dependency.resolution = {
         compile ":open-seadragon:0.2"
 
         runtime ":hibernate:$grailsVersion"
-        runtime ":jquery:1.7.1"
+        compile ":jquery:1.7.1"
+        compile ":jquery-ui:1.8.24"
         runtime ":resources:1.2.1"
         runtime ":database-migration:1.1"
         runtime ":webxml:1.4.1"
+
 
         //security
         compile ":spring-security-core:1.2.7.3"

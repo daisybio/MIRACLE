@@ -134,6 +134,26 @@ class SlideController {
         [slideInstance: new Slide(params), experiments: Experiment.list()]
     }
 
+    def copySlide(){
+        def slideInstanceCopy = slideService.slideCopy(params)
+        slideInstanceCopy.lastUpdatedBy = springSecurityService.currentUser
+        slideInstanceCopy.createdBy = springSecurityService.currentUser
+        slideInstanceCopy = fileUploadService.dealWithFileUploads(request, slideInstanceCopy)
+
+        if (!slideInstanceCopy.save(flush: true, failOnError: true)) {
+            render(view: "create", model: [slideInstance: slideInstanceCopy])
+        }
+
+        flash.message = message(code: 'default.copied.message', default: "Slide copied successfully", args: [message(code: 'slide.label', default: 'Slide'), slideInstanceCopy.id])
+        redirect(action: "show", id: slideInstanceCopy.id)
+
+    }
+
+    def createFromTemplate(){
+        def slideInstanceCopy = slideService.slideCopy(params)
+        render(view: "create", model: [slideInstance: slideInstanceCopy] )
+    }
+
     def save() {
         params.createdBy = springSecurityService.currentUser
         params.lastUpdatedBy = springSecurityService.currentUser
@@ -145,7 +165,6 @@ class SlideController {
         if (!slideInstance.save(flush: true, failOnError: true)) {
             render(view: "create", model: [slideInstance: slideInstance])
         }
-        experimentService.addToExperiment(slideInstance, params.experimentsSelected)
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'slide.label', default: 'Slide'), slideInstance.id])
         redirect(action: "show", id: slideInstance.id)
@@ -159,7 +178,7 @@ class SlideController {
             return
         }
 
-        [slideInstance: slideInstance, experiments:  experimentService.findExperiment(slideInstance.layout)]
+        [slideInstance: slideInstance]
     }
 
     def edit() {
