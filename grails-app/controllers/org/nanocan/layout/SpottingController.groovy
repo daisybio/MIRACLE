@@ -72,9 +72,8 @@ class SpottingController {
                 {
                     def experiments = Experiment.findAllByProject(Project.get(session.projectSelected as Long))
                     layouts = []
-                    experiments.each{
-                        def plates = []
-                        playouts = Experiment.get(session.experimentSelected as Long).plateLayouts
+                    experiments.each{ exp ->
+                        def playouts = exp.plateLayouts
                         playouts.each{ layouts.addAll(Plate.findAllByPlateLayout(it))}
                     }
                     layouts.unique()

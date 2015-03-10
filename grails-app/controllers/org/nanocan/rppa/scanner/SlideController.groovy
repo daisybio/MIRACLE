@@ -108,21 +108,22 @@ class SlideController {
             slideInstanceListTotal = Slide.count()
         }
 
-        if (params.int('offset') > slideInstanceListTotal) params.offset = 0
-
         if (session.experimentSelected || session.projectSelected)
         {
             slideInstanceListTotal = slideInstanceList?.size()?:0
+            if (params.int('offset') > slideInstanceListTotal) params.offset = 0
 
             if(slideInstanceListTotal > 0)
             {
                 int rangeMin = Math.min(slideInstanceListTotal, params.int('offset'))
                 int rangeMax = Math.min(slideInstanceListTotal, (params.int('offset') + params.int('max')))
 
-                slideInstanceList = slideInstanceList.asList().subList(rangeMin, rangeMax)
+                slideInstanceList = slideInstanceList.asList()
                 if(params.sort) slideInstanceList = slideInstanceList.sort{it[params.sort]}
                 else slideInstanceList.sort{ a,b -> a.id <=> b.id}
                 if(params.order == "desc") slideInstanceList = slideInstanceList.reverse()
+
+                slideInstanceList = slideInstanceList.asList().subList(rangeMin, rangeMax)
             }
         }
 

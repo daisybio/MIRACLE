@@ -89,7 +89,7 @@
             <g:link class="slide_layout" controller="lysisBuffer" action="list">Lysis Buffers</g:link>
         </li>
         <li>
-            <g:link class="slide_layout" controller="numberOfCellsSeeded" action="list">Number of Cells Seeded</g:link>
+            <g:link class="slide_layout" controller="numberOfCellsSeeded" action="list"><g:message code="numberOfCellsSeeded.label"/></g:link>
         </li>
         <li>
             <g:link class="slide_layout" controller="spotType" action="list">Spot Types</g:link>
