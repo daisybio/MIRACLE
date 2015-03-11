@@ -105,8 +105,11 @@ class AnalysisController {
             return
         }
 
-        def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
-        baseUrl = baseUrl.substring(0, baseUrl.size()-5)
+        def baseUrl = grailsApplication?.config?.shiny.baseUrl
+        if(!baseUrl){
+            baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
+            baseUrl = baseUrl.substring(0, baseUrl.size()-5)
+        }
         def spotExportLink = java.net.URLEncoder.encode(baseUrl, "UTF-8")
 
         def slides

@@ -62,8 +62,10 @@ class SpottingController {
                 if(session.experimentSelected)
                 {
                     def plates = []
-                    layouts = Experiment.get(session.experimentSelected as Long).plateLayouts
-                    layouts.each{ plates.addAll(Plate.findAllByPlateLayout(it))}
+                    def experiment = Experiment.get(session.experimentSelected as Long)
+                    experiment.plateLayouts.each{ plates.addAll(Plate.findAllByPlateLayout(it))}
+                    def platesDirectlyLinkedToExperiments = Plate.findAllByExperiment(experiment)
+                    plates.addAll(platesDirectlyLinkedToExperiments)
 
                     layouts = plates
                     layouts.unique()

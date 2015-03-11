@@ -119,7 +119,11 @@ class SlideController {
                 int rangeMax = Math.min(slideInstanceListTotal, (params.int('offset') + params.int('max')))
 
                 slideInstanceList = slideInstanceList.asList()
-                if(params.sort) slideInstanceList = slideInstanceList.sort{it[params.sort]}
+
+                if(params.sort == "antibody.name") slideInstanceList.sort{it.antibody}
+                else if(params.sort == "experimenter.username") slideInstanceList.sort{it.experimenter.username}
+                else if(params.sort == "resultFile.fileName") slideInstanceList.sort{it?.resultFile?.fileName?:""}
+                else if(params.sort) slideInstanceList = slideInstanceList.sort{it[params.sort]}
                 else slideInstanceList.sort{ a,b -> a.id <=> b.id}
                 if(params.order == "desc") slideInstanceList = slideInstanceList.reverse()
 
@@ -435,8 +439,11 @@ class SlideController {
 
     def heatmapInIFrame(){
         def slideInstance = Slide.get(params.long("id"))
-        def baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
-        baseUrl = baseUrl.substring(0, baseUrl.size()-5)
+        def baseUrl = grailsApplication?.config?.shiny.baseUrl
+        if(!baseUrl){
+            baseUrl = g.createLink(controller: "spotExport", absolute: true).toString()
+            baseUrl = baseUrl.substring(0, baseUrl.size()-5)
+        }
         def spotExportLink = java.net.URLEncoder.encode(baseUrl, "UTF-8")
         def securityToken = java.net.URLEncoder.encode(securityTokenService.getSecurityToken(slideInstance), "UTF-8")
 
