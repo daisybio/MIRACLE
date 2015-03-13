@@ -53,7 +53,7 @@
                     </span>
                 </li>
 
-                <g:if test="${fileEnding == "xlsx" || fileType == "xls"}">
+                <g:if test="${fileEnding == "xlsx" || fileEnding == "xls"}">
                     <li class="fieldcontain">
                         <span class="property-label">Select the sheet with the scanner results of the slide: </span>
                         <span class="property-value"><g:select name="sheet" from="${sheets}" optionKey="index" optionValue="name"></g:select>

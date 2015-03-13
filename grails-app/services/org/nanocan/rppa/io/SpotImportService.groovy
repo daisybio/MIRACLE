@@ -278,8 +278,6 @@ class SpotImportService {
             def currentLine = scanner.nextLine()
 
             currentLine = currentLine.split(',')
-            println currentLine
-            println columnMap
 
             try
             {
@@ -296,10 +294,10 @@ class SpotImportService {
                 }
                 newSpot.row = Integer.valueOf(currentLine[columnMap.row].toString().trim())
                 newSpot.col = Integer.valueOf(currentLine[columnMap.column].toString().trim())
-                if(columnMap.X) newSpot.x = (int) Double.valueOf(currentLine[columnMap.X].toString().trim())
-                if(columnMap.Y) newSpot.y = (int) Double.valueOf(currentLine[columnMap.Y].toString().trim())
-                if(columnMap.diameter) newSpot.diameter = Double.valueOf(currentLine[columnMap.diameter].toString().trim())
-                if(columnMap.flag) newSpot.flag = Double.valueOf(currentLine[columnMap.flag].toString().trim())
+                if(columnMap.X != null) newSpot.x = (int) Double.valueOf(currentLine[columnMap.X].toString().trim())
+                if(columnMap.Y != null) newSpot.y = (int) Double.valueOf(currentLine[columnMap.Y].toString().trim())
+                if(columnMap.diameter != null) newSpot.diameter = Double.valueOf(currentLine[columnMap.diameter].toString().trim())
+                if(columnMap.flag != null) newSpot.flag = Double.valueOf(currentLine[columnMap.flag].toString().trim())
 
                 spots << newSpot
 
@@ -406,7 +404,7 @@ class SpotImportService {
         }
 
         else{
-            sql.withBatch(batchSize, 'insert into spot (version, bg, fg, block, col, diameter, flag, layout_spot_id, row, slide_id, x, y, signal) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'){ stmt ->
+            sql.withBatch(batchSize, 'insert into spot (version, bg, fg, block, col, diameter, flag, layout_spot_id, row, slide_id, x, y, spotsignal) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'){ stmt ->
 
                 spots.eachWithIndex{ obj, currentSpotIndex ->
                     int layoutColumn
@@ -421,7 +419,7 @@ class SpotImportService {
                         layoutColumn = (int) obj.col
                     }
                     //match a layout spot to this slide spot in a closure
-                    currentLayoutSpot = scrollThroughLayoutSpots(currentLayoutSpot, layoutSpotIterator, obj, layoutColumn, layoutRow)
+                    currentLayoutSpot = scrollThroughLayoutSpots(currentLayoutSpot, layoutSpotIterator, (int) obj.block, layoutColumn, layoutRow)
 
                     //add insert statement to batch
                     stmt.addBatch(0, obj.BG, obj.FG, obj.block, obj.col, obj.diameter, obj.flag, currentLayoutSpot.id, obj.row, slideInstance.id, obj.x, obj.y, obj.FG-obj.BG)

@@ -365,12 +365,12 @@ class SlideController {
         def progressId = "pId" + params.id
 
         //check if minimal number of columns have been assigned
-        if(!columnMap.column || !columnMap.row || (!columnMap.block && (!columnMap.mainRow || !columnMap.mainCol))){
+        if(columnMap.column == null || columnMap.row == null || (columnMap.block == null && (columnMap.mainRow == null || columnMap.mainCol == null))){
             render "row / column mapping missing."
             progressService.setProgressBarValue(progressId, 100)
             return;
         }
-        if(!columnMap.BG || !columnMap.FG){
+        if(columnMap.BG == null || columnMap.FG == null){
             render "FG and/or BG column mapping missing."
             progressService.setProgressBarValue(progressId, 100)
             return;
