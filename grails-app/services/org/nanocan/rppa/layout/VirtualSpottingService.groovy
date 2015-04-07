@@ -153,6 +153,7 @@ class VirtualSpottingService {
         slideLayout.blocksPerRow = extractor.extractorColumns
         slideLayout.columnsPerBlock = settings.xPerBlock
         slideLayout.depositionPattern = settings.depositionPattern
+        slideLayout.depositionDirection = settings.depositionDirection
         slideLayout.numberOfBlocks = extractor.extractorRows * extractor.extractorColumns
         slideLayout.rowsPerBlock = spotter.currentSpottingRow
         if(spotter instanceof LeftToRightSpotter && !spotter.currentSpottingRowUsed) slideLayout.rowsPerBlock--

@@ -68,6 +68,11 @@
                                                                value="${extractorOperationMode?:'row-wise'}" name="extractorOperationMode"/></span>
                     </li>
                     <li class="fieldcontain">
+                        <span class="property-label">Spotting direction for depositions:</span>
+                        <span class="property-value"><g:select from="${['row-wise', 'column-wise']}"
+                                                               value="${depositionDirection?:'row-wise'}" name="depositionDirection"/></span>
+                    </li>
+                    <li class="fieldcontain">
                         <span class="property-label">Block spotting orientation: </span>
                         <span class="property-value">
                             <g:select from="${['top-to-bottom', 'left-to-right']}"

@@ -133,6 +133,7 @@ class SpottingController {
                 flow.xPerBlock = params.int("xPerBlock")
                 flow.extractionHead = org.nanocan.layout.ExtractionHead.get(params.extractionHead)
                 flow.spottingOrientation = params.spottingOrientation
+                flow.depositionDirection = params.depositionDirection
                 flow.extractorOperationMode = params.extractorOperationMode
                 flow.depositionPattern = params.depositionPattern
                 flow.bottomLeftDilution = params.bottomLeftDilution
