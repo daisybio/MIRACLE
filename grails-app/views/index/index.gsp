@@ -116,6 +116,11 @@
                     In order to organize your results, you can assign layout information for each spot and perform further analysis by using inbuilt R functionality for plotting, normalization and
                     quantification of the results. If you wish to perform further analysis you can export the combined layout / signal information as CSV file or directly to R, where a number of
                     R functions help the user in performing a manual analysis of the data.</p>
+
+					<br/><br/>
+					<p>If you find MIRACLE useful please consider citing us:</br></br>
+					<b>List, M., Block, I., Pedersen, M. L., Christiansen, H., Schmidt, S., Thomassen, M., Qihua, T., Baumbach, J., Mollenhauer, J. (2014). Microarray R-based analysis of complex lysate experiments with MIRACLE. Bioinformatics, 30(17), i631–i638. <u><a href="http://doi.org/10.1093/bioinformatics/btu473">http://doi.org/10.1093/bioinformatics/btu473</a></u></b>
+					</p>
                 </div>
 
                 <img width="400" src="<g:resource dir="images" file="chip.png"/>"/>
