@@ -197,8 +197,8 @@ grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.nanocan.s
 grails.plugins.springsecurity.authority.className = 'org.nanocan.security.Role'
 
 //database migration
-grails.plugin.databasemigration.updateOnStart = true
-grails.plugin.databasemigration.updateOnStartFileNames = ["changelog-0.9.groovy"]
+//grails.plugin.databasemigration.updateOnStart = true
+//grails.plugin.databasemigration.updateOnStartFileNames = ["changelog_0_9.groovy"]
 
 //grails.plugin.databasemigration.changelogFileName = 'changelog.groovy'
 

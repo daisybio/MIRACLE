@@ -35,6 +35,7 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 grails.project.war.file = "target/${appName}.war"
 grails.plugin.location.HtsBackend = "HtsBackend/"
+grails.project.dependency.resolver = "maven"
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -61,7 +62,6 @@ grails.project.dependency.resolution = {
         mavenRepo "http://repo.grails.org/grails/repo/"
     }
     dependencies {
-        compile "org.grails:grails-webflow:$grailsVersion"
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         //xls file support
@@ -83,32 +83,25 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":open-seadragon:0.2.5"
-
-        runtime ":hibernate:$grailsVersion"
-        compile ":jquery:1.7.1"
-        compile ":jquery-ui:1.8.24"
-        runtime ":resources:1.2.1"
-        runtime ":database-migration:1.1"
+        build   ":tomcat:7.0.52"
+        runtime ':hibernate:3.6.10.14'
+        compile ":jquery:1.11.1"
+        compile ":jquery-ui:1.10.4"
+        runtime ":resources:1.2.14"
+        runtime ":database-migration:1.4.1"
         runtime ":webxml:1.4.1"
 
-
         //security
-        compile ":spring-security-core:1.2.7.3"
+        compile ":spring-security-core:1.2.7.4"
         compile ":spring-security-cas:1.0.5"
-        compile ":spring-security-eventlog:0.2"
+        //compile ":spring-security-eventlog:0.2"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
-
-        build ":tomcat:$grailsVersion"
-        test(":spock:0.7") {
-            exclude "spock-grails-support"
-        }
-        compile ":searchable:0.6.4"
-        compile(":webflow:2.0.0") {
-            exclude 'grails-webflow'
-        }
+        compile ":searchable:0.6.9"
+        compile ":webflow:2.1.0"
+        compile "org.grails.plugins:scaffolding:2.1.2"
     }
 }

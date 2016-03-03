@@ -31,11 +31,7 @@ package org.nanocan.rppa.scanner
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
-import groovy.json.JsonOutput
 import org.codehaus.jackson.map.ObjectMapper
-import org.hibernate.criterion.CriteriaSpecification
-import org.json.simple.JSONArray
-import org.nanocan.layout.LayoutSpot
 
 class SpotExportController {
 

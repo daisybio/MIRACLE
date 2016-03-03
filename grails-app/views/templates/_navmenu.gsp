@@ -6,13 +6,13 @@
     </a>
     <ul class="dropdown-menu">
         <li>
-            <g:link class="list" controller="project" action="list">List Projects</g:link>
+            <g:link class="list" controller="project" action="index">List Projects</g:link>
         </li>
         <li>
             <g:link class="create" controller="project" action="create">Create New Project</g:link>
         </li>
         <li>
-            <g:link class="list" controller="experiment" action="list">List Experiments</g:link>
+            <g:link class="list" controller="experiment" action="index">List Experiments</g:link>
         </li>
         <li>
             <g:link class="create" controller="experiment" action="create">Create New Experiment</g:link>
@@ -27,7 +27,7 @@
     </a>
     <ul class="dropdown-menu">
         <li>
-            <g:link class="list" controller="plateLayout" action="list">List Layouts</g:link>
+            <g:link class="list" controller="plateLayout" action="index">List Layouts</g:link>
         </li>
         <li>
             <g:link class="create" controller="plateLayout" action="create">Create New Layout</g:link>
@@ -41,14 +41,14 @@
     </a>
     <ul class="dropdown-menu">
         <li>
-            <g:link class="list" controller="plate" action="list">List Plates</g:link>
+            <g:link class="list" controller="plate" action="index">List Plates</g:link>
         </li>
         <li>
             <g:link class="create" controller="plate" action="create">Create New Plate</g:link>
         </li>
         <li class="divider"></li>
         <li>
-            <g:link class="create" controller="plateType" action="list">Plate Types</g:link>
+            <g:link class="create" controller="plateType" action="index">Plate Types</g:link>
         </li>
     </ul>
 </li>
@@ -59,7 +59,7 @@
     </a>
     <ul class="dropdown-menu">
         <li>
-            <g:link class="list" controller="slideLayout" action="list">List Layouts</g:link>
+            <g:link class="list" controller="slideLayout" action="index">List Layouts</g:link>
         </li>
         <li>
             <g:link class="create" controller="slideLayout" action="create">Create New Layout</g:link>
@@ -73,32 +73,32 @@
             <g:link class="create" controller="slideImport" action="createFromFile">Create Slide Layout from File</g:link>
         </li>
         <li>
-            <g:link class="list" controller="extractionHead" action="list">Extraction Heads</g:link>
+            <g:link class="list" controller="extractionHead" action="index">Extraction Heads</g:link>
         </li>
         <li class="divider"></li>
         <li>
-            <g:link class="slide_layout" controller="cellLine" action="list">CellLines</g:link>
+            <g:link class="slide_layout" controller="cellLine" action="index">CellLines</g:link>
         </li>
         <li>
-            <g:link class="slide_layout" controller="dilution" action="list">Dilution Factors</g:link>
+            <g:link class="slide_layout" controller="dilution" action="index">Dilution Factors</g:link>
         </li>
         <li>
-            <g:link class="slide_layout" controller="inducer" action="list">Inducers</g:link>
+            <g:link class="slide_layout" controller="inducer" action="index">Inducers</g:link>
         </li>
         <li>
-            <g:link class="slide_layout" controller="lysisBuffer" action="list">Lysis Buffers</g:link>
+            <g:link class="slide_layout" controller="lysisBuffer" action="index">Lysis Buffers</g:link>
         </li>
         <li>
-            <g:link class="slide_layout" controller="numberOfCellsSeeded" action="list"><g:message code="numberOfCellsSeeded.label"/></g:link>
+            <g:link class="slide_layout" controller="numberOfCellsSeeded" action="index"><g:message code="numberOfCellsSeeded.label"/></g:link>
         </li>
         <li>
-            <g:link class="slide_layout" controller="spotType" action="list">Spot Types</g:link>
+            <g:link class="slide_layout" controller="spotType" action="index">Spot Types</g:link>
         </li>
         <li>
-            <g:link class="slide_layout" controller="treatment" action="list">Treatments</g:link>
+            <g:link class="slide_layout" controller="treatment" action="index">Treatments</g:link>
         </li>
         <li>
-            <g:link class="slide_layout" controller="sample" action="list">Samples</g:link>
+            <g:link class="slide_layout" controller="sample" action="index">Samples</g:link>
         </li>
     </ul>
 </li>
@@ -109,17 +109,17 @@
     </a>
     <ul class="dropdown-menu">
         <li>
-            <g:link class="list" controller="slide" action="list">List Slide Results</g:link>
+            <g:link class="list" controller="slide" action="index">List Slide Results</g:link>
         </li>
         <li>
             <g:link class="create" controller="slide" action="create">Create Slide Result</g:link>
         </li>
         <li class="divider"></li>
         <li>
-            <g:link class="slide" controller="antibody" action="list">Antibodies</g:link>
+            <g:link class="slide" controller="antibody" action="index">Antibodies</g:link>
         </li>
         <li>
-            <g:link class="slide" controller="resultFileConfig" action="list">Result File Config</g:link>
+            <g:link class="slide" controller="resultFileConfig" action="index">Result File Config</g:link>
         </li>
     </ul>
 </li>

@@ -138,15 +138,8 @@ class BootStrap {
             PersonRole.create testUser, userRole, true
         }
 
-        if(!Person.findByUsername("mlist")){
-            def adminUser = new Person(username: 'mlist', enabled: true, password: 'NanoCAN')
-            adminUser.save(flush: true, failOnError: true)
-            PersonRole.create adminUser, adminRole, true
-            PersonRole.create adminUser, userRole, true
-        }
-
-        if(!Person.findByUsername("mlpedersen")){
-            def adminUser = new Person(username: 'mlpedersen', enabled: true, password: 'NanoCAN')
+        if(!Person.findByUsername("admin")){
+            def adminUser = new Person(username: 'admin', enabled: true, password: 'NanoCAN')
             adminUser.save(flush: true, failOnError: true)
             PersonRole.create adminUser, adminRole, true
             PersonRole.create adminUser, userRole, true

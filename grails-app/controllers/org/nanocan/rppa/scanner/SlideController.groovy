@@ -57,16 +57,13 @@ class SlideController {
     /**
      * Standard controller actions
      */
-    def index() {
-        redirect(action: "list", params: params)
-    }
 
     def customCSV(){
         if(params.selectedType == "custom") render template: "customCSV"
         else render ""
     }
 
-    def list() {
+    def index() {
         //deal with max
         if(!params.max && session.maxSlideResult) params.max = session.maxSlideResult
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
@@ -180,7 +177,7 @@ class SlideController {
         def slideInstance = Slide.get(params.id)
         if (!slideInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'slide.label', default: 'Slide'), params.id])
-            redirect(action: "list")
+            redirect(action: "index")
             return
         }
 
@@ -191,7 +188,7 @@ class SlideController {
         def slideInstance = Slide.get(params.id)
         if (!slideInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'slide.label', default: 'Slide'), params.id])
-            redirect(action: "list")
+            redirect(action: "index")
             return
         }
 
@@ -203,7 +200,7 @@ class SlideController {
         def slideInstance = Slide.get(params.id)
         if (!slideInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'slide.label', default: 'Slide'), params.id])
-            redirect(action: "list")
+            redirect(action: "index")
             return
         }
 
@@ -252,7 +249,7 @@ class SlideController {
         def slideInstance = Slide.get(params.id)
         if (!slideInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'slide.label', default: 'Slide'), params.id])
-            redirect(action: "list")
+            redirect(action: "index")
             return
         }
 
@@ -266,7 +263,7 @@ class SlideController {
             Slide.get(params.id).delete(flush: true)
 
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'slide.label', default: 'Slide'), params.id])
-            redirect(action: "list")
+            redirect(action: "index")
         }
         catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'slide.label', default: 'Slide'), params.id])
