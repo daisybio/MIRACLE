@@ -1,4 +1,4 @@
-v.1.0.0 Maintenance release with changes under the hood: Upgrade to grails 2.5.3, which includes Java 8 compatibility. Added support for docker deployment. The HtsBackend version used here is now on par with the public release version 0.9 of [SAVANAH](https://github.com/NanoCAN/SAVANAH). 
+v.1.0.0 Maintenance release with changes under the hood: Upgrade to grails 2.5.3, which includes Java 8 compatibility. Added support for [docker deployment](). The HtsBackend version used here is now on par with the public release version 0.9 of [SAVANAH](https://github.com/NanoCAN/SAVANAH). 
 
 v.0.9.2 Maintenance release with smaller bugfixes
 
