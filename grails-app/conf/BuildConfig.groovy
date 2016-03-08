@@ -82,7 +82,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        compile ":open-seadragon:0.2.5"
+        compile ":open-seadragon:0.3"
         build   ":tomcat:7.0.52"
         runtime ':hibernate:3.6.10.14'
         compile ":jquery:1.11.1"
