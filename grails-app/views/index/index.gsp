@@ -110,12 +110,12 @@
                 <div id="page-body" role="main">
                     <h1>Welcome to MIRACLE</h1>
 
-                    <p>MIRACLE is a web-tool for <b>MI</b>croarray <b>R</b>-based <b>A</b>nalysis of <b>C</b>omplex <b>L</b>ysate <b>E</b>xperiments.
+                    <blockquote><p>MIRACLE is a web-tool for <b>MI</b>croarray <b>R</b>-based <b>A</b>nalysis of <b>C</b>omplex <b>L</b>ysate <b>E</b>xperiments.
 
                     It allows you to upload microarray files produced by a scanner (in either XLS, CSV or TXT format) and to add the experimental information, e.g. the spot signal, to a SQL database.
                     In order to organize your results, you can assign layout information for each spot and perform further analysis by using inbuilt R functionality for plotting, normalization and
                     quantification of the results. If you wish to perform further analysis you can export the combined layout / signal information as CSV file or directly to R, where a number of
-                    R functions help the user in performing a manual analysis of the data.</p>
+                    R functions help the user in performing a manual analysis of the data.</p></blockquote>
 
 					<br/><br/>
 					<p>If you find MIRACLE useful please consider citing us:</br></br>

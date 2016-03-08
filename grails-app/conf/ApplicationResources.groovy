@@ -34,8 +34,8 @@ modules = {
     overrides {
         'jquery-theme' {
             resource id:'theme',
-                    url:[dir: '/css',
-                         file:'jquery-ui-1.8.20.custom.css'],
+                    url:[dir: 'css',
+                         file:'jquery-ui-1.10.4.custom.min.css'],
                     attrs:[media:'screen, projection']
         }
     }
