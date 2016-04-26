@@ -108,3 +108,10 @@ grails.project.dependency.resolution = {
         compile "org.grails.plugins:scaffolding:2.1.2"
     }
 }
+
+//fixes a bug in grails 2.5.4
+grails.war.resources = { stagingDir, args ->
+    copy(todir: "${stagingDir}/WEB-INF/lib", flatten: "true") {
+        fileset(dir: "${grailsHome}/lib", includes: "**/jline-*.jar, **/jansi-*.jar")
+    }
+}
