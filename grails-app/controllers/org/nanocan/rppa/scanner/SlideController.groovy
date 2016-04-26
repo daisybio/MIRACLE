@@ -333,11 +333,13 @@ class SlideController {
         }
 
         //keeping content for later
-        flash.totalSkipLines = ++skipLines
-        flash.sheetContent = sheetContent
+        def otID = "Slide${slideInstance.id}Content"
+        oneTimeData(otID) {
+            totalSkipLines = ++skipLines
+            content = sheetContent
+        }
 
         //matching properties
-
         def matchingMap = spotImportService.createMatchingMap(resultFileCfg, header)
 
         render view: "assignFields", model: [progressId: "pId${params.id}", header: header, spotProperties: spotProperties, matchingMap: matchingMap]
@@ -382,7 +384,8 @@ class SlideController {
             progressService.setProgressBarValue(progressId, 100)
             return
         }
-        def result = spotImportService.processResultFile(slideInstance, flash.sheetContent, columnMap, flash.totalSkipLines, progressId)
+        def slideOneTimeData = getOneTimeData("Slide${slideInstance.id}Content")
+        def result = spotImportService.processResultFile(slideInstance, slideOneTimeData.content, columnMap, slideOneTimeData.totalSkipLines, progressId)
 
         progressService.setProgressBarValue(progressId, 100)
 
@@ -435,6 +438,10 @@ class SlideController {
     }
 
     def heatmapInIFrame(){
+        if(!grailsApplication?.config?.shiny?.heatmap){
+            return
+        }
+
         def slideInstance = Slide.get(params.long("id"))
         def baseUrl = grailsApplication?.config?.shiny.baseUrl
         if(!baseUrl){
@@ -444,7 +451,7 @@ class SlideController {
         def spotExportLink = java.net.URLEncoder.encode(baseUrl, "UTF-8")
         def securityToken = java.net.URLEncoder.encode(securityTokenService.getSecurityToken(slideInstance), "UTF-8")
 
-        def heatmapUrl = grailsApplication.config.shiny.heatmap + "?baseUrl=" + spotExportLink + "&securityToken=" + securityToken
+        def heatmapUrl = grailsApplication?.config?.shiny?.heatmap + "?baseUrl=" + spotExportLink + "&securityToken=" + securityToken
 
         render """
             <iframe style="width: 700px; height: 900px;" frameBorder="0" src="${heatmapUrl}"/>

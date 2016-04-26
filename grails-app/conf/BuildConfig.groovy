@@ -91,6 +91,9 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.4.1"
         runtime ":webxml:1.4.1"
 
+        //alternative to the flash scope, which is unreliable
+        compile "org.grails.plugins:one-time-data:1.0"
+
         //security
         compile ":spring-security-core:1.2.7.4"
         compile ":spring-security-cas:1.0.5"

@@ -24,6 +24,9 @@
     <div class="content">
 
     <h1>Block shift correction: </h1>
+    <div id="heatmapArea">
+        <g:include controller='slide' action='heatmap' id="${slideInstance?.id}"/>
+    </div>
 
     <div style="float:left; width:200px; padding: 20px;">
     <p>Please enter shift correction values for each block.<br/>A block can be shifted horizontally
@@ -62,9 +65,6 @@
     <g:submitButton name="Save Block Shifts"/>
 </g:form>
 
-    </div>
-    <div style="float:right; height:700px;" id="heatmapArea">
-        <g:include controller='slide' action='heatmapInIFrame' id="${slideInstance?.id}"/>
     </div>
   </div>
 
