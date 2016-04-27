@@ -103,7 +103,7 @@ grails.project.dependency.resolution = {
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
-        compile ":searchable:0.6.9"
+        runtime ':elasticsearch:0.1.0'
         compile ":webflow:2.1.0"
         compile "org.grails.plugins:scaffolding:2.1.2"
     }

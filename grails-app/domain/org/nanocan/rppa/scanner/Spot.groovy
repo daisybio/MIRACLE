@@ -52,6 +52,10 @@ class Spot {
         row index: 'spot_idx'
     }
 
+    static searchable = {
+        root false
+    }
+
     static belongsTo = [slide: Slide, layoutSpot: LayoutSpot]
 
     static constraints = {

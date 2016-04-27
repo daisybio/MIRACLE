@@ -35,6 +35,10 @@ class BlockShift {
     int verticalShift
     int blockNumber
 
+    static searchable = {
+        root false
+    }
+
     static constraints = {
     }
 

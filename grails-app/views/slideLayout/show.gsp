@@ -13,7 +13,7 @@
             $("#accordion").accordion({
                 collapsible:true,
                 autoHeight: false,
-                active: 3
+                active: 4
             });
 
         });</r:script>

@@ -63,8 +63,8 @@ class Slide{
     Antibody antibody
 
     static searchable = {
+        except = ["spots", "blockShifts", "lastConfig", "resultFile", "resultImage", "protocol", "layout"]
         antibody component: true
-        experimenter component: true
     }
 
     static constraints = {

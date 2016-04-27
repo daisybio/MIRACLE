@@ -125,8 +125,8 @@
 </li>
 <li class="divider-vertical"></li>
 <li>
-    <g:form class="navbar-search" url='[controller: "searchable", action: "index"]' id="searchableForm" name="searchableForm" method="get">
-        <g:textField class="search-query" placeholder="Search" name="q" value="${params.q}"/>
+    <g:form class="navbar-search" url='[controller: "search", action: "index"]' id="searchableForm" name="searchableForm" method="get">
+        <g:textField class="search-query" placeholder="Search" name="query" value="${params.q}"/>
     </g:form>
 
 </li>

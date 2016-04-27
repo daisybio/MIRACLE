@@ -203,3 +203,10 @@ grails.plugins.springsecurity.authority.className = 'org.nanocan.security.Role'
 
 //grails.plugin.databasemigration.changelogFileName = 'changelog.groovy'
 
+//elasticsearch
+elasticSearch.client.mode = 'local'
+elasticSearch.datastoreImpl = 'hibernateDatastore'
+elasticSearch.maxBulkRequest = 50
+elasticSearch.index.store.type = 'niofs'
+elasticSearch.migration.strategy = 'delete'
+elasticSearch.unmarshallComponents = true
