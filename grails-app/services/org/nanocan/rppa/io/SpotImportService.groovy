@@ -466,7 +466,7 @@ class SpotImportService {
 
         else
         {
-            throw new NoMatchingLayoutException(obj)
+            throw new NoMatchingLayoutException("Missing layout information for block ${block} column ${layoutColumn} and row ${layoutRow}.")
         }
     }
 

@@ -2,16 +2,16 @@
 <head>
     <style>
     #draggableLegend { width:290px; height: 400px; overflow-y:auto; padding: 0.5em; background-color: #ffffff; position: fixed;
-        z-index: 100; opacity: 0.95; top: 150px; right: 50px;
+        z-index: 100; opacity: 0.95; top: 150px; left: 50px;
         border-color: #e6e6e6; border-bottom-width: 1px; border-style: solid;}
     </style>
-    <r:script type="text/javascript">
+    <script type="text/javascript">
         $(function(){
             $( "#draggableLegend").draggable();
         });
-    </r:script>
+    </script>
 
-    <r:script type="text/javascript">
+    <script type="text/javascript">
             $(document).ready(function(){
 
                $('#sampleSelection').autocomplete({
@@ -27,7 +27,7 @@
                     }
                 });
             });
-    </r:script>
+    </script>
 
 </head>
 <body>

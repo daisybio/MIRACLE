@@ -40,9 +40,14 @@ class NoMatchingLayoutException extends Exception{
 
     def obj
 
-    NoMatchingLayoutException(obj)
+    NoMatchingLayoutException(Object obj)
     {
         super()
         this.obj = obj
+    }
+
+    NoMatchingLayoutException(String message)
+    {
+        super(message)
     }
 }
