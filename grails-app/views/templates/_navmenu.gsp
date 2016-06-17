@@ -50,6 +50,10 @@
         <li>
             <g:link class="create" controller="plateType" action="index">Plate Types</g:link>
         </li>
+        <li class="divider"></li>
+        <li>
+            <g:link class="list" controller="assayType" action="index">Assay Types</g:link>
+        </li>
     </ul>
 </li>
 <li class="dropdown" id="browse.menu">
