@@ -1,4 +1,4 @@
-FROM mlist/grails:2.5.3
+FROM mlist/grails:2.5.4
 MAINTAINER Markus List <mlist@mpi-inf.mpg.de>
 
 # Create App Directory
