@@ -1,8 +1,4 @@
 [submodule "HtsBackend"]
 	path = HtsBackend
-	url = git@github.com:NanoCAN/HtsBackend.git
-	branch = master
-[submodule "Rmiracle"]
-	path = Rmiracle
-	url = git@github.com:NanoCAN/Rmiracle.git
+	url = https://github.com/NanoCAN/HtsBackend.git
 	branch = master
